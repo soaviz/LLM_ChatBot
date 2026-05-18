@@ -315,6 +315,12 @@
     .post-comment-input-wrap { display:flex;align-items:center;gap:8px;padding:10px 16px;border-top:1px solid #f0f0f0;background:white;position:sticky;bottom:0; }
     .post-comment-input { flex:1;border:none;outline:none;font-size:14px;font-family:'Noto Sans KR',sans-serif;color:#333;background:transparent; }
     .post-comment-send { background:none;border:none;cursor:pointer;font-size:13px;font-weight:700;color:#6B5BD6;padding:4px 0;flex-shrink:0; }
+    .post-emoji-btn { background:none;border:none;cursor:pointer;font-size:18px;padding:0 4px;flex-shrink:0;line-height:1; }
+    .post-emoji-picker { position:absolute;bottom:56px;left:0;right:0;background:white;border-top:1px solid #f0f0f0;padding:10px 12px;display:flex;flex-wrap:wrap;gap:6px;z-index:10; }
+    .post-emoji-picker.hidden { display:none; }
+    .post-emoji-opt { background:none;border:none;cursor:pointer;font-size:20px;padding:3px;border-radius:6px;transition:background 0.12s; }
+    .post-emoji-opt:active { background:#f0eeff; }
+    .post-comment-area { position:relative; }
     /* 편지 탭 */
     .letter-wrap { padding:16px 20px 0; }
     .letter-textarea { width:100%; min-height:160px; padding:14px; border:1.5px solid rgba(107,91,214,0.15); border-radius:14px; font-size:14px; font-family:'Noto Sans KR',sans-serif; resize:none; line-height:1.6; outline:none; color:#222; background:white; transition:border-color 0.2s; }
@@ -4127,7 +4133,7 @@ openProfileModal = function(key) {
       <div class="profile-inner-tab active" onclick="switchProfileTab('info','${key}')">👤 프로필</div>
       <div class="profile-inner-tab" onclick="switchProfileTab('letter','${key}')">✉️ 편지</div>
       <div class="profile-inner-tab tab-chat" onclick="switchProfileTab('chat','${key}')">💬 대화</div>
-      <div class="profile-inner-tab tab-chat" onclick="switchProfileTab('photo','${key}')">📸 셀카</div>
+      <div class="profile-inner-tab tab-chat" onclick="switchProfileTab('photo','${key}')">🖼 피드</div>
     </div>
 
     <!-- 탭: 프로필 -->
@@ -4344,20 +4350,34 @@ function renderPhotoTab(key) {
   `;
 }
 
+const POST_EMOJIS = ['❤️','💜','🔥','✨','😍','🥹','😭','😂','👏','💪','🫶','💌','🎵','🌙','💫','🌿','💧','🌬️','😊','🙏'];
+
+function buildCommentListHtml(postComments) {
+  if (postComments.length === 0)
+    return `<div style="font-size:12px;color:#ccc;text-align:center;padding:10px 0">첫 번째 댓글을 남겨보세요 💜</div>`;
+  return postComments.map(c =>
+    `<div class="post-comment-item">
+      <strong>${c.name||'나'}</strong><span>${c.text}</span><span class="post-comment-time">${c.date}</span>
+    </div>`
+  ).join('');
+}
+
 function openPostDetail(postId, key) {
   const m = memberData[key];
   const posts = MEMBER_POSTS[key] || [];
   const post = posts.find(p => p.id === postId);
   if (!post || !m) return;
+  const db = getOrCreateDB();
+  const myName = db.user.nickname || '나';
   const likes = getPostLikes();
   const comments = getPostComments();
   const liked = !!likes[postId];
   const likeCount = post.likes + (liked ? 1 : 0);
   const postComments = comments[postId] || [];
 
-  const commentListHtml = postComments.length === 0
-    ? `<div style="font-size:12px;color:#ccc;text-align:center;padding:10px 0">첫 번째 댓글을 남겨보세요 💜</div>`
-    : postComments.map(c => `<div class="post-comment-item"><strong>나</strong><span>${c.text}</span><span class="post-comment-time">${c.date}</span></div>`).join('');
+  const emojiOpts = POST_EMOJIS.map(e =>
+    `<button class="post-emoji-opt" onclick="insertPostEmoji('${postId}','${e}')">${e}</button>`
+  ).join('');
 
   const overlay = document.getElementById('postDetailOverlay');
   overlay.innerHTML = `
@@ -4376,16 +4396,37 @@ function openPostDetail(postId, key) {
       <div class="post-caption"><strong>${m.name}</strong>${post.caption}</div>
       <div class="post-date">${post.date}</div>
       <div class="post-comments-divider"></div>
-      <div class="post-comments-list" id="postCommentsList-${postId}">${commentListHtml}</div>
-      <div class="post-comment-input-wrap">
-        <input class="post-comment-input" id="postCommentInput-${postId}"
-          placeholder="${m.name}의 게시물에 댓글 달기..." maxlength="100"
-          onkeydown="if(event.key==='Enter')submitPostComment('${postId}','${key}')">
-        <button class="post-comment-send" onclick="submitPostComment('${postId}','${key}')">게시</button>
+      <div class="post-comments-list" id="postCommentsList-${postId}">${buildCommentListHtml(postComments)}</div>
+      <div class="post-comment-area">
+        <div class="post-emoji-picker hidden" id="postEmojiPicker-${postId}">${emojiOpts}</div>
+        <div class="post-comment-input-wrap">
+          <button class="post-emoji-btn" onclick="togglePostEmojiPicker('${postId}')">🙂</button>
+          <span style="font-size:12px;font-weight:700;color:#b0b0b0;flex-shrink:0">${myName}</span>
+          <input class="post-comment-input" id="postCommentInput-${postId}"
+            placeholder="댓글 달기..." maxlength="120"
+            onkeydown="if(event.key==='Enter')submitPostComment('${postId}','${key}')">
+          <button class="post-comment-send" onclick="submitPostComment('${postId}','${key}')">게시</button>
+        </div>
       </div>
     </div>
   `;
   overlay.classList.add('show');
+}
+
+function togglePostEmojiPicker(postId) {
+  const picker = document.getElementById('postEmojiPicker-'+postId);
+  if (picker) picker.classList.toggle('hidden');
+}
+
+function insertPostEmoji(postId, emoji) {
+  const input = document.getElementById('postCommentInput-'+postId);
+  if (input) {
+    const pos = input.selectionStart || input.value.length;
+    input.value = input.value.slice(0,pos) + emoji + input.value.slice(pos);
+    input.focus();
+  }
+  const picker = document.getElementById('postEmojiPicker-'+postId);
+  if (picker) picker.classList.add('hidden');
 }
 
 function closePostDetail() {
@@ -4410,16 +4451,16 @@ function submitPostComment(postId, key) {
   const input = document.getElementById('postCommentInput-'+postId);
   const text = (input?.value||'').trim();
   if (!text) return;
+  const db = getOrCreateDB();
+  const myName = db.user.nickname || '나';
   const comments = getPostComments();
   if (!comments[postId]) comments[postId] = [];
   const now = new Date();
-  comments[postId].push({ text, date:`${now.getMonth()+1}.${now.getDate()}` });
+  comments[postId].push({ name:myName, text, date:`${now.getMonth()+1}.${now.getDate()}` });
   savePostComments(comments);
   input.value = '';
   const list = document.getElementById('postCommentsList-'+postId);
-  if (list) list.innerHTML = comments[postId].map(c =>
-    `<div class="post-comment-item"><strong>나</strong><span>${c.text}</span><span class="post-comment-time">${c.date}</span></div>`
-  ).join('');
+  if (list) list.innerHTML = buildCommentListHtml(comments[postId]);
 }
 
 // ============================================================
