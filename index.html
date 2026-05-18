@@ -1272,11 +1272,10 @@
         <input type="file" id="audioFileInput" accept=".mp3,.wav,.flac,.ogg,.aac,.m4a,.aiff,.aif,.opus,.wma,.mov,audio/*" style="display:none" onchange="handleAudioSelect(event)">
         <div id="audioPreview" style="display:none"></div>
         <div id="uploadProgress" class="upload-progress" style="display:none"><div id="uploadProgressFill" class="upload-progress-fill" style="width:0"></div></div>
-        <!-- URL fallback -->
+        <!-- URL fallback (audio only) -->
         <div style="margin-top:8px;padding-top:8px;border-top:1px solid #f0f0f0">
-          <div style="font-size:11px;color:#aaa;margin-bottom:6px">또는 URL로 추가:</div>
-          <input id="addTrackAudio" placeholder="오디오 URL" class="admin-input" style="margin-bottom:6px;font-size:12px;padding:10px 12px">
-          <input id="addTrackCover" placeholder="커버 이미지 URL (선택)" class="admin-input" style="margin-bottom:8px;font-size:12px;padding:10px 12px">
+          <div style="font-size:11px;color:#aaa;margin-bottom:6px">또는 오디오 URL로 추가:</div>
+          <input id="addTrackAudio" placeholder="오디오 URL (.mp3, .wav 등)" class="admin-input" style="margin-bottom:8px;font-size:12px;padding:10px 12px">
         </div>
         <button class="admin-btn admin-btn-primary" onclick="settingsAddTrack()" style="margin-top:4px">🎵 트랙 등록</button>
       </div>
@@ -4103,23 +4102,55 @@ function handleCoverDrop(e) { processCoverFile(e.dataTransfer.files[0]); }
 function handleAudioSelect(e) { processAudioFile(e.target.files[0]); }
 function handleAudioDrop(e) { processAudioFile(e.dataTransfer.files[0]); }
 
+const COVER_RESIZE_PX = 300; // 앨범 커버 자동 리사이즈 크기
+
 function processCoverFile(file) {
   if (!file) return;
   if (!IMAGE_MIMES.includes(file.type)) { showToast('이미지 파일만 업로드 가능 (JPG, PNG, WEBP, GIF)'); return; }
   if (file.size > MAX_IMAGE_SIZE) { showToast('이미지 크기는 10MB 이하여야 합니다'); return; }
-  pendingCoverFile = file;
+
   const preview = document.getElementById('coverPreview');
-  const url = URL.createObjectURL(file);
-  preview.style.display = 'block';
-  preview.innerHTML = `<div class="upload-preview">
-    <img src="${url}" class="upload-cover-preview" alt="">
-    <div class="upload-preview-info">
-      <div class="upload-preview-name">${file.name}</div>
-      <div class="upload-preview-size">${formatFileSize(file.size)}</div>
-    </div>
-    <button class="upload-preview-remove" onclick="removeCoverFile()">삭제</button>
-  </div>`;
-  document.getElementById('coverUploadZone').style.display = 'none';
+  const blobUrl = URL.createObjectURL(file);
+
+  // 이미지를 Canvas로 리사이즈 후 저장
+  const img = new Image();
+  img.onload = () => {
+    const size = COVER_RESIZE_PX;
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+
+    // 중앙 크롭 (정사각형)
+    const srcSize = Math.min(img.width, img.height);
+    const sx = (img.width - srcSize) / 2;
+    const sy = (img.height - srcSize) / 2;
+    ctx.drawImage(img, sx, sy, srcSize, srcSize, 0, 0, size, size);
+
+    canvas.toBlob((blob) => {
+      pendingCoverFile = new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), { type: 'image/jpeg' });
+      const resizedUrl = URL.createObjectURL(pendingCoverFile);
+      const origKB = formatFileSize(file.size);
+      const newKB = formatFileSize(blob.size);
+
+      preview.style.display = 'block';
+      preview.innerHTML = `<div class="upload-preview">
+        <img src="${resizedUrl}" class="upload-cover-preview" alt="">
+        <div class="upload-preview-info">
+          <div class="upload-preview-name">${file.name}</div>
+          <div class="upload-preview-size">${img.width}×${img.height} → ${size}×${size} · ${origKB} → ${newKB}</div>
+        </div>
+        <button class="upload-preview-remove" onclick="removeCoverFile()">삭제</button>
+      </div>`;
+      document.getElementById('coverUploadZone').style.display = 'none';
+      URL.revokeObjectURL(blobUrl);
+    }, 'image/jpeg', 0.85);
+  };
+  img.onerror = () => {
+    showToast('이미지를 읽을 수 없습니다');
+    URL.revokeObjectURL(blobUrl);
+  };
+  img.src = blobUrl;
 }
 
 function removeCoverFile() {
@@ -4165,7 +4196,6 @@ function settingsAddTrack() {
 
   const title = document.getElementById('addTrackTitle').value.trim();
   const audioUrl = document.getElementById('addTrackAudio').value.trim();
-  const coverUrl = document.getElementById('addTrackCover').value.trim();
   const member = document.getElementById('addTrackMember').value;
 
   if (!title) { showToast('트랙 제목을 입력하세요'); return; }
@@ -4195,7 +4225,7 @@ function settingsAddTrack() {
         };
         coverReader.readAsDataURL(pendingCoverFile);
       } else {
-        finishTrackAdd(title, member, audioData, coverUrl, progressEl, fillEl);
+        finishTrackAdd(title, member, audioData, '', progressEl, fillEl);
       }
     };
     audioReader.readAsDataURL(pendingAudioFile);
@@ -4210,7 +4240,7 @@ function settingsAddTrack() {
       };
       coverReader.readAsDataURL(pendingCoverFile);
     } else {
-      finishTrackAdd(title, member, audioUrl, coverUrl, progressEl, fillEl);
+      finishTrackAdd(title, member, audioUrl, '', progressEl, fillEl);
     }
   }
 }
@@ -4224,7 +4254,6 @@ function finishTrackAdd(title, member, audio, cover, progressEl, fillEl) {
     // Reset form
     document.getElementById('addTrackTitle').value = '';
     document.getElementById('addTrackAudio').value = '';
-    document.getElementById('addTrackCover').value = '';
     removeCoverFile();
     removeAudioFile();
     renderGameSettings();
