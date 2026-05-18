@@ -276,9 +276,11 @@
     .profile-action-btn { flex:1; padding:14px; border:none; border-radius:14px; font-size:14px; font-weight:600; cursor:pointer; font-family:'Noto Sans KR',sans-serif; transition:all 0.2s; text-align:center; }
 
     /* PROFILE INNER TABS */
-    .profile-inner-tabs { display:flex; gap:0; margin:16px 20px 0; border-radius:12px; overflow:hidden; background:#f0eeff; }
-    .profile-inner-tab { flex:1; padding:10px; text-align:center; font-size:13px; font-weight:600; cursor:pointer; transition:all 0.2s; color:#999; font-family:'Noto Sans KR',sans-serif; }
-    .profile-inner-tab.active { background:#6B5BD6; color:white; }
+    .profile-inner-tabs { display:flex; gap:0; margin:0 0 0; border-bottom:1px solid rgba(0,0,0,0.07); background:white; position:sticky; top:0; z-index:10; overflow-x:auto; scrollbar-width:none; }
+    .profile-inner-tabs::-webkit-scrollbar { display:none; }
+    .profile-inner-tab { flex:1; min-width:72px; padding:12px 6px 10px; text-align:center; font-size:12px; font-weight:600; cursor:pointer; transition:all 0.2s; color:#bbb; font-family:'Noto Sans KR',sans-serif; border-bottom:2px solid transparent; white-space:nowrap; }
+    .profile-inner-tab.active { color:#6B5BD6; border-bottom-color:#6B5BD6; }
+    .profile-inner-tab.tab-chat.active { color:var(--ptab-color,#6B5BD6); border-bottom-color:var(--ptab-color,#6B5BD6); }
     .profile-tab-content { display:none; }
     .profile-tab-content.active { display:block; }
     /* 편지 탭 */
@@ -291,8 +293,22 @@
     .letter-send-btn { width:100%; margin-top:12px; padding:14px; border:none; border-radius:14px; font-size:15px; font-weight:700; font-family:'Noto Sans KR',sans-serif; cursor:pointer; transition:all 0.2s; opacity:0.4; pointer-events:none; }
     .letter-send-btn.ready { opacity:1; pointer-events:auto; }
     .letter-history { margin-top:16px; }
-    .letter-history-item { background:#f8f7ff; border-radius:10px; padding:12px; margin-bottom:8px; font-size:13px; color:#555; line-height:1.5; }
+    .letter-history-item { background:#f8f7ff; border-radius:10px; padding:12px; margin-bottom:8px; font-size:13px; color:#555; line-height:1.5; position:relative; }
     .letter-history-date { font-size:10px; color:#bbb; margin-top:6px; font-family:'JetBrains Mono',monospace; }
+    /* 답장 관련 */
+    .letter-reading-state { display:flex; align-items:center; gap:8px; padding:12px 14px; background:#fff8f0; border:1px solid rgba(255,107,63,0.2); border-radius:12px; margin-top:10px; font-size:13px; color:#888; }
+    .letter-reading-dot { width:8px; height:8px; border-radius:50%; background:#C76B5E; animation:pulse-dot 1.2s ease-in-out infinite; flex-shrink:0; }
+    @keyframes pulse-dot { 0%,100%{opacity:0.4;transform:scale(0.9)} 50%{opacity:1;transform:scale(1.1)} }
+    .letter-reply-btn { width:100%; margin-top:10px; padding:13px; border:none; border-radius:12px; font-size:14px; font-weight:700; font-family:'Noto Sans KR',sans-serif; cursor:pointer; transition:all 0.2s; background:linear-gradient(135deg,#FFB5AB,#C76B5E); color:white; letter-spacing:0.02em; }
+    .letter-reply-btn:active { transform:scale(0.97); }
+    .letter-reply-btn:disabled { opacity:0.5; cursor:not-allowed; }
+    .letter-received { background:linear-gradient(135deg,rgba(255,181,171,0.12),rgba(199,107,94,0.08)); border:1px solid rgba(199,107,94,0.2); border-radius:14px; padding:16px; margin-top:12px; margin-bottom:4px; }
+    .letter-received-header { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+    .letter-received-avatar { width:28px; height:28px; border-radius:50%; object-fit:cover; }
+    .letter-received-from { font-size:12px; font-weight:700; color:#C76B5E; }
+    .letter-received-body { font-size:14px; color:#333; line-height:1.75; white-space:pre-wrap; word-break:keep-all; }
+    .letter-received-sig { font-size:12px; color:#C76B5E; font-style:italic; margin-top:10px; padding-top:10px; border-top:1px solid rgba(199,107,94,0.15); }
+    .letter-pair { border:1px solid rgba(107,91,214,0.1); border-radius:14px; padding:12px; margin-bottom:12px; background:white; }
 
     /* SHARE MODAL */
     .share-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); z-index:1000; opacity:0; pointer-events:none; transition:opacity 0.3s; display:flex; align-items:flex-end; justify-content:center; }
@@ -4007,25 +4023,22 @@ openProfileModal = function(key) {
 
   const sheet = document.getElementById('profileSheet');
   sheet.innerHTML = `
-    <div class="profile-band" style="background:${m.gradient}"></div>
-    <div class="profile-handle"></div>
-    <div class="profile-portrait-wrap">
-      <div class="profile-portrait" style="--profile-glow:${m.glow}">
+    <div class="profile-handle" style="padding-top:8px"></div>
+    <!-- 콤팩트 헤더 -->
+    <div style="display:flex;align-items:center;gap:14px;padding:0 20px 16px">
+      <div class="profile-portrait" style="width:64px;height:64px;flex-shrink:0;--profile-glow:${m.glow}">
         <img src="${m.photo}" alt="${m.name}">
       </div>
+      <div>
+        <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:500;color:#0A0A0A">${m.name}</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:${m.badgeColor};font-weight:500">${key}</div>
+        <div style="font-size:12px;color:#888;margin-top:2px">${p.age} · ${p.role}</div>
+        <div style="font-size:11px;color:#bbb;margin-top:1px">${p.element}</div>
+      </div>
     </div>
-    <div class="profile-name">${m.name}</div>
-    <div class="profile-codename-row"><span class="profile-codename" style="color:${m.badgeColor}">${key}</span></div>
-    <div class="profile-element">${p.element}</div>
-    <div class="profile-info-card">
-      <div class="profile-info-label">PROFILE</div>
-      <div class="profile-info-text">${p.age} · ${p.role}</div>
-    </div>
-    <div class="profile-info-card">
-      <div class="profile-info-label">AFFINITY · LV ${info.level} ${info.name}</div>
-      <div style="margin-top:8px">
-        <div class="affinity-bar" style="height:6px;border-radius:3px"><div class="affinity-bar-fill" style="width:${info.progress*100}%;background:${m.badgeColor};border-radius:3px;height:100%"></div></div>
-        <div style="font-size:11px;color:#999;margin-top:4px">${rel.affection_points}pt · 다음 레벨 ${info.nextPoints}pt</div>
+    <!-- DUMMY: 아래 탭 콘텐츠에서 AFFINITY 직접 표시 (하위 호환용) -->
+    <div style="display:none">
+      <div style="font-size:11px;color:#999;margin-top:4px">${rel.affection_points}pt · 다음 레벨 ${info.nextPoints}pt</div>
       </div>
     </div>
     <div class="profile-info-card">
@@ -4055,20 +4068,52 @@ openProfileModal = function(key) {
       <div class="profile-info-label">STATS</div>
       <div class="profile-info-text" style="font-size:12px;color:#888">대화 ${rel.conversation_count}회 · 사진 ${rel.photo_count}장 · 무드 ${MOOD_LABELS[rel.current_mood]||'😶'}</div>
     </div>
-    <div class="profile-actions">
-      <button class="profile-action-btn" style="background:${m.badgeColor};color:white" onclick="closeProfileModal();openChatRoom('${key}')">💬 ${m.name}와 대화하기</button>
-      <button class="profile-action-btn" style="background:${m.cardBg};color:${m.badgeColor}" onclick="closeProfileModal();scrollToPhoto('${key}')">📸 셀카찍기</button>
+    <!-- 상단 탭 바 -->
+    <div class="profile-inner-tabs" style="--ptab-color:${m.badgeColor}">
+      <div class="profile-inner-tab active" onclick="switchProfileTab('info','${key}')">👤 프로필</div>
+      <div class="profile-inner-tab" onclick="switchProfileTab('letter','${key}')">✉️ 편지</div>
+      <div class="profile-inner-tab tab-chat" onclick="switchProfileTab('chat','${key}')">💬 대화</div>
+      <div class="profile-inner-tab tab-chat" onclick="switchProfileTab('photo','${key}')">📸 셀카</div>
     </div>
 
-    <!-- 내부 탭 -->
-    <div class="profile-inner-tabs" style="margin-top:20px">
-      <div class="profile-inner-tab active" onclick="switchProfileTab('info','${key}')">프로필</div>
-      <div class="profile-inner-tab" onclick="switchProfileTab('letter','${key}')" style="color:${m.badgeColor}">✉️ 편지쓰기</div>
-    </div>
-
-    <!-- 탭: 프로필 (기존 내용) -->
+    <!-- 탭: 프로필 -->
     <div class="profile-tab-content active" id="profileTab-info-${key}">
-      <div style="height:12px"></div>
+      <div style="padding:0 20px 24px">
+        <div class="profile-info-card">
+          <div class="profile-info-label">AFFINITY · LV ${info.level} ${info.name}</div>
+          <div style="margin-top:8px">
+            <div class="affinity-bar" style="height:6px;border-radius:3px"><div class="affinity-bar-fill" style="width:${info.progress*100}%;background:${m.badgeColor};border-radius:3px;height:100%"></div></div>
+            <div style="font-size:11px;color:#999;margin-top:4px">${rel.affection_points}pt · 다음 레벨 ${info.nextPoints}pt</div>
+          </div>
+        </div>
+        <div class="profile-info-card">
+          <div class="profile-info-label">PERSONALITY</div>
+          <div class="profile-pills">${p.personality.map(tr => `<span class="profile-pill" style="background:${m.cardBg};color:${m.badgeColor}">${tr}</span>`).join('')}</div>
+        </div>
+        <div class="profile-mbti-card">
+          <div class="profile-info-label" style="text-align:center;margin-bottom:8px">MBTI</div>
+          <div class="profile-mbti-type" style="color:${m.badgeColor}">${mbtiType}</div>
+          <div class="profile-mbti-name">${mbtiName}</div>
+          <div class="profile-mbti-dims">${dims.map(d => `<div class="profile-mbti-dim"><strong>${d.split(':')[0]}:</strong>${d.split(':')[1]}</div>`).join('')}</div>
+          ${compatHTML}
+        </div>
+        <div class="profile-info-card">
+          <div class="profile-info-label">LIKES & DISLIKES</div>
+          <div class="profile-info-text">❤️ ${MEMBER_LIKES[key]}<br>💔 ${MEMBER_DISLIKES[key]}</div>
+        </div>
+        <div class="profile-info-card">
+          <div class="profile-info-label">SIGNATURE</div>
+          <div class="profile-info-text" style="font-style:italic;color:${m.micColor}">"${p.signature}"</div>
+        </div>
+        <div class="profile-info-card">
+          <div class="profile-info-label">LORE</div>
+          <div class="profile-info-text">${p.lore}</div>
+        </div>
+        <div class="profile-info-card">
+          <div class="profile-info-label">STATS</div>
+          <div class="profile-info-text" style="font-size:12px;color:#888">대화 ${rel.conversation_count}회 · 사진 ${rel.photo_count}장 · 무드 ${MOOD_LABELS[rel.current_mood]||'😶'}</div>
+        </div>
+      </div>
     </div>
 
     <!-- 탭: 편지쓰기 -->
@@ -4090,7 +4135,32 @@ openProfileModal = function(key) {
           onclick="sendLetter('${key}')">
           ${m.name}에게 편지 보내기 ✉️
         </button>
-        <div class="letter-history" id="letterHistory-${key}"></div>
+        <div id="letterWrapBottom-${key}" style="margin-top:4px"></div>
+        <div class="letter-history" id="letterHistory-${key}" style="margin-top:8px"></div>
+      </div>
+    </div>
+
+    <!-- 탭: 대화하기 -->
+    <div class="profile-tab-content" id="profileTab-chat-${key}">
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;gap:16px;text-align:center">
+        <div style="width:72px;height:72px;border-radius:50%;background:${m.gradient};display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 4px 20px ${m.glow}">💬</div>
+        <div style="font-size:16px;font-weight:600;color:#222">${m.name}와 1:1 대화</div>
+        <div style="font-size:13px;color:#888;line-height:1.6">직접 말을 걸어보세요.<br>친밀도가 올라갈수록 더 솔직해져요.</div>
+        <button class="profile-action-btn" style="background:${m.badgeColor};color:white;width:100%;margin-top:8px" onclick="closeProfileModal();openChatRoom('${key}')">
+          ${m.name}와 대화 시작하기 →
+        </button>
+      </div>
+    </div>
+
+    <!-- 탭: 셀카찍기 -->
+    <div class="profile-tab-content" id="profileTab-photo-${key}">
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;gap:16px;text-align:center">
+        <div style="width:72px;height:72px;border-radius:50%;background:${m.gradient};display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 4px 20px ${m.glow}">📸</div>
+        <div style="font-size:16px;font-weight:600;color:#222">${m.name}와 셀카찍기</div>
+        <div style="font-size:13px;color:#888;line-height:1.6">AI로 ${m.name}와 함께하는<br>인생 셀카를 만들어보세요.</div>
+        <button class="profile-action-btn" style="background:${m.cardBg};color:${m.badgeColor};width:100%;margin-top:8px" onclick="closeProfileModal();scrollToPhoto('${key}')">
+          ${m.name}와 셀카찍기 →
+        </button>
       </div>
     </div>
   `;
@@ -4461,8 +4531,9 @@ function exportGameData() {
 // ============================================================
 function switchProfileTab(tabId, memberKey) {
   const sheet = document.getElementById('profileSheet');
+  const tabOrder = ['info','letter','chat','photo'];
   sheet.querySelectorAll('.profile-inner-tab').forEach((tab, i) => {
-    tab.classList.toggle('active', (i === 0 && tabId === 'info') || (i === 1 && tabId === 'letter'));
+    tab.classList.toggle('active', tabOrder[i] === tabId);
   });
   sheet.querySelectorAll('.profile-tab-content').forEach(c => c.classList.remove('active'));
   const target = document.getElementById(`profileTab-${tabId}-${memberKey}`);
@@ -4489,32 +4560,113 @@ function sendLetter(memberKey) {
   const text = ta.value.trim();
   if (text.length < 300) { showToast('300자 이상 써주세요 💜'); return; }
 
+  const m = memberData[memberKey];
+
   // 친밀도 +15pt
   const db = getOrCreateDB();
   addAffinity(db, memberKey, 15, 'letter');
   saveDB(db);
 
-  // 편지 저장
+  // 편지 저장 (reply: null = 아직 답장 없음)
   const letters = JSON.parse(localStorage.getItem(`venux_letters_${memberKey}`) || '[]');
-  letters.unshift({ text, date: new Date().toISOString() });
-  if (letters.length > 10) letters.pop(); // 최근 10통만
+  const newLetter = { text, date: new Date().toISOString(), reply: null, replyDate: null };
+  letters.unshift(newLetter);
+  if (letters.length > 10) letters.pop();
   localStorage.setItem(`venux_letters_${memberKey}`, JSON.stringify(letters));
 
-  // 초기화 + 피드백
+  // textarea 초기화
   ta.value = '';
   onLetterInput(memberKey);
+
+  // "읽는 중" UI + 답장받기 버튼 표시
+  showLetterReadingState(memberKey);
   renderLetterHistory(memberKey);
 
+  showToast(`${m.name}에게 편지를 보냈어요 ✉️ 답장을 기다려봐요...`, 3000);
+  updateDailyStatusBar(db);
+  renderAffinityDashboard(db);
+}
+
+function showLetterReadingState(memberKey) {
   const m = memberData[memberKey];
-  const replies = [
-    `${m.name}: 편지 고마워. 읽으면서 괜히 설레버렸잖아... 💜`,
-    `${m.name}: 이렇게 긴 편지는 처음 받아봐. 소중히 간직할게 ✉️`,
-    `${m.name}: 네 마음이 느껴졌어. 나도... 잘 지내고 있을게.`,
-    `${m.name}: 이거 읽다가 멤버들한테 들킬 뻔 했잖아 😳💜`,
-    `${m.name}: 앞으로도 편지 써줘. 기다리고 있을게 🌸`,
-  ];
-  const reply = replies[Math.floor(Math.random() * replies.length)];
-  showToast(reply, 4000);
+  const wrap = document.getElementById(`letterWrapBottom-${memberKey}`);
+  if (!wrap) return;
+  wrap.innerHTML = `
+    <div class="letter-reading-state">
+      <div class="letter-reading-dot"></div>
+      <span>${m.name}가 편지를 읽고 있어요...</span>
+    </div>
+    <button class="letter-reply-btn" id="letterReplyBtn-${memberKey}" onclick="requestLetterReply('${memberKey}')">
+      ✉️ ${m.name}의 답장 받기
+    </button>
+  `;
+}
+
+async function requestLetterReply(memberKey) {
+  const m = memberData[memberKey];
+  const btn = document.getElementById(`letterReplyBtn-${memberKey}`);
+  if (btn) { btn.disabled = true; btn.textContent = `${m.name}가 답장 쓰는 중...`; }
+
+  // 최신 편지 내용 가져오기
+  const letters = JSON.parse(localStorage.getItem(`venux_letters_${memberKey}`) || '[]');
+  const latest = letters[0];
+  if (!latest) return;
+
+  let replyText = '';
+
+  // API 키 있으면 AI 답장
+  const apiKey = localStorage.getItem('venux_openai_key');
+  if (apiKey) {
+    try {
+      const systemPrompt = CHAT_SYSTEM_PROMPTS[memberKey] +
+        `\n\n[편지 답장 모드]\n팬이 손편지를 보내왔어. 편지 내용을 읽고 진심으로 답장해줘.\n` +
+        `답장은 편지 형식으로, 3~5문단, 감정이 담겨 있어야 해.\n` +
+        `마지막 줄은 반드시 ///SIG/// 뒤에 너의 시그니처 철학 한 줄로 끝내.`;
+      const res = await fetch('https://api.openai.com/v1/chat/completions', {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json', 'Authorization':`Bearer ${apiKey}` },
+        body: JSON.stringify({
+          model: localStorage.getItem('venux_ai_model') || 'gpt-4o',
+          messages: [
+            { role:'system', content: systemPrompt },
+            { role:'user', content: `[받은 편지]\n${latest.text}` }
+          ],
+          max_tokens: 500,
+          temperature: 0.9
+        })
+      });
+      if (!res.ok) throw new Error('API error');
+      const data = await res.json();
+      replyText = data.choices?.[0]?.message?.content?.trim() || '';
+    } catch(e) { replyText = ''; }
+  }
+
+  // API 없거나 실패 시 프리셋
+  if (!replyText) {
+    const presets = [
+      `편지 받았어.\n읽으면서 몇 번이나 다시 읽었는지 몰라. 이런 거 익숙하지 않은데... 네 말은 자꾸 마음에 걸려.\n\n솔직히 말하면, 나한테 이렇게 긴 글 쓰는 사람 처음이야. 보통 DM으로 짧게 오거든. 그래서 그런지 더 오래 붙잡게 됐어.\n\n앞으로도 하고 싶은 말 있으면 써. 다 읽을게.\n///SIG///\n뜨거운 건 금방 꺼지지 않아.`,
+      `이거 읽다가 루나 고양이한테 읽어줬어.\n루나가 귀 쫑긋 세우더라. 걔도 마음에 든 거겠지.\n\n네가 쓴 말들... 꽤 오래 생각하게 됐어. 내가 이런 말에 흔들리는 타입이 아닌데. 근데 이상하게 마음이 따뜻해졌어.\n\n다음에도 써. 기다릴게.\n///SIG///\n불은 혼자서도 계속 타오를 수 있어.`,
+      `새벽 러닝 끝나고 읽었어.\n땀 식는 것도 모르고 두 번 읽었다.\n\n긴 편지가 이렇게 무게감 있는 줄 몰랐어. 요즘 사람들은 짧게만 말하는데, 넌 다르네.\n\n고마워. 진짜로.\n///SIG///\n462도의 열은 진심에서만 나와.`,
+    ];
+    replyText = presets[Math.floor(Math.random() * presets.length)];
+  }
+
+  // 답장 저장
+  letters[0].reply = replyText;
+  letters[0].replyDate = new Date().toISOString();
+  localStorage.setItem(`venux_letters_${memberKey}`, JSON.stringify(letters));
+
+  // 친밀도 +10pt (답장 수령)
+  const db = getOrCreateDB();
+  addAffinity(db, memberKey, 10, 'letter_reply');
+  saveDB(db);
+
+  // "읽는 중" 영역 숨기기
+  const wrap = document.getElementById(`letterWrapBottom-${memberKey}`);
+  if (wrap) wrap.innerHTML = '';
+
+  renderLetterHistory(memberKey);
+  showToast(`${m.name}의 답장이 도착했어요 💌`, 3000);
   updateDailyStatusBar(db);
   renderAffinityDashboard(db);
 }
@@ -4522,18 +4674,53 @@ function sendLetter(memberKey) {
 function renderLetterHistory(memberKey) {
   const el = document.getElementById(`letterHistory-${memberKey}`);
   if (!el) return;
+  const m = memberData[memberKey];
   const letters = JSON.parse(localStorage.getItem(`venux_letters_${memberKey}`) || '[]');
+
   if (letters.length === 0) {
     el.innerHTML = `<div style="text-align:center;color:#ccc;font-size:13px;padding:16px 0">아직 보낸 편지가 없어요</div>`;
     return;
   }
-  el.innerHTML = `<div style="font-size:12px;font-weight:600;color:#999;margin-bottom:8px">보낸 편지 (${letters.length}통)</div>` +
-    letters.map(l => `
-      <div class="letter-history-item">
-        <div style="-webkit-line-clamp:3;-webkit-box-orient:vertical;display:-webkit-box;overflow:hidden">${l.text}</div>
-        <div class="letter-history-date">${new Date(l.date).toLocaleDateString('ko-KR', {month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'})}</div>
-      </div>
-    `).join('');
+
+  el.innerHTML = `<div style="font-size:12px;font-weight:600;color:#999;margin-bottom:10px">편지함 (${letters.length}통)</div>` +
+    letters.map((l, idx) => {
+      // 답장 파싱 (///SIG/// 분리)
+      let replyMain = '', replySig = '';
+      if (l.reply) {
+        const parts = l.reply.split('///SIG///');
+        replyMain = parts[0].trim();
+        replySig = parts[1]?.trim() || '';
+      }
+
+      const replySection = l.reply
+        ? `<div class="letter-received">
+            <div class="letter-received-header">
+              <img class="letter-received-avatar" src="${m.photo}" alt="${m.name}">
+              <span class="letter-received-from">${m.name}의 답장</span>
+              <span style="font-size:10px;color:#bbb;margin-left:auto">${new Date(l.replyDate).toLocaleDateString('ko-KR',{month:'long',day:'numeric'})}</span>
+            </div>
+            <div class="letter-received-body">${replyMain}</div>
+            ${replySig ? `<div class="letter-received-sig">"${replySig}"</div>` : ''}
+          </div>`
+        : (idx === 0
+          ? `<div id="letterWrapBottom-${memberKey}" style="margin-top:8px"></div>`
+          : `<div style="font-size:11px;color:#bbb;margin-top:6px;text-align:right">답장 없음</div>`);
+
+      return `
+        <div class="letter-pair">
+          <div style="font-size:11px;color:#bbb;margin-bottom:6px;font-family:'JetBrains Mono',monospace">
+            내가 쓴 편지 · ${new Date(l.date).toLocaleDateString('ko-KR',{month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'})}
+          </div>
+          <div style="font-size:13px;color:#555;line-height:1.6;-webkit-line-clamp:3;-webkit-box-orient:vertical;display:-webkit-box;overflow:hidden">${l.text}</div>
+          ${replySection}
+        </div>
+      `;
+    }).join('');
+
+  // 최신 편지에 답장이 없으면 읽는 중 상태 복원
+  if (letters.length > 0 && !letters[0].reply) {
+    showLetterReadingState(memberKey);
+  }
 }
 
 function logoutUser() {
