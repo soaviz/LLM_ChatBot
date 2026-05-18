@@ -1,0 +1,57 @@
+{
+  "name": "soaviz studio",
+  "short_name": "soaviz",
+  "description": "AI 영화 제작 OS — 한 줄 아이디어를 시리즈까지",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#08080C",
+  "theme_color": "#A78BFA",
+  "lang": "ko",
+  "dir": "ltr",
+  "categories": ["productivity", "multimedia", "creative"],
+  "icons": [
+    {
+      "src": "assets/brand/icon-192-v2.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/brand/icon-192-v2.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/brand/icon-512-v2.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/brand/icon-512-v2.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Today",
+      "url": "./#today",
+      "description": "오늘 작업 대시보드"
+    },
+    {
+      "name": "Pipeline",
+      "url": "./#pipeline",
+      "description": "스토리보드 트리"
+    },
+    {
+      "name": "Characters",
+      "url": "./#characters",
+      "description": "캐릭터 바이블"
+    }
+  ]
+}
