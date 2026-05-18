@@ -15,6 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
     html, body { width:100%; height:100%; overflow:hidden; font-family:'Noto Sans KR','Inter',sans-serif; background:#F5F3FF; color:#0A0A0A; -webkit-font-smoothing:antialiased; }
@@ -1287,6 +1288,28 @@
       <div class="profile-info-label">🔐 관리자</div>
       <div id="settingsAdminInfo" style="margin-top:8px"></div>
     </div>
+    <div class="profile-info-card" id="researchConsentCard">
+      <div class="profile-info-label">🔬 연구 동의</div>
+      <div style="margin-top:10px;display:flex;align-items:flex-start;gap:12px">
+        <div style="flex:1">
+          <p style="font-size:13px;color:#444;line-height:1.6;margin-bottom:8px">
+            대화 기록을 서버에 저장하면 <strong>앱을 지워도</strong>, <strong>기기를 바꿔도</strong> AI가 당신과의 대화를 기억합니다.<br>
+            <span style="font-size:11px;color:#999">익명 ID로만 저장 · 연구 목적 분석에 활용 · 언제든 해제 가능</span>
+          </p>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font-size:14px;font-weight:600;color:#333">서버 기억 허용</span>
+            <label style="position:relative;width:48px;height:26px;cursor:pointer">
+              <input type="checkbox" id="researchConsentToggle" onchange="toggleResearchConsent(this.checked)"
+                style="opacity:0;position:absolute;width:0;height:0">
+              <span id="researchConsentTrack" style="position:absolute;inset:0;border-radius:13px;background:#ddd;transition:background 0.2s">
+                <span id="researchConsentThumb" style="position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:white;box-shadow:0 1px 4px rgba(0,0,0,0.25);transition:transform 0.2s;transform:translateX(0)"></span>
+              </span>
+            </label>
+          </div>
+          <p id="researchConsentStatus" style="font-size:11px;color:#bbb;margin-top:4px">비활성 — 대화는 이 기기에만 저장됩니다</p>
+        </div>
+      </div>
+    </div>
     <div class="profile-info-card">
       <div class="profile-info-label">DATA</div>
       <div style="display:flex;gap:8px;margin-top:8px">
@@ -2086,6 +2109,34 @@ function refreshSettingsUI() {
   document.querySelectorAll('.modal-radio').forEach(r => {
     r.classList.toggle('selected', r.dataset.model === model);
   });
+  // 연구 동의 토글 상태 반영
+  const consented = hasResearchConsent();
+  const toggle = document.getElementById('researchConsentToggle');
+  const track = document.getElementById('researchConsentTrack');
+  const thumb = document.getElementById('researchConsentThumb');
+  const status = document.getElementById('researchConsentStatus');
+  if (toggle) toggle.checked = consented;
+  if (track) track.style.background = consented ? '#6B5BD6' : '#ddd';
+  if (thumb) thumb.style.transform = consented ? 'translateX(22px)' : 'translateX(0)';
+  if (status) status.textContent = consented
+    ? '활성 — AI가 서버에서 대화를 기억합니다 ✓'
+    : '비활성 — 대화는 이 기기에만 저장됩니다';
+  if (status) status.style.color = consented ? '#6B5BD6' : '#bbb';
+}
+
+function toggleResearchConsent(checked) {
+  if (checked) {
+    if (!confirm('대화 내용이 익명으로 서버에 저장됩니다. 연구 목적으로 분석될 수 있습니다. 동의하시겠습니까?')) {
+      document.getElementById('researchConsentToggle').checked = false;
+      return;
+    }
+    localStorage.setItem('venux_research_consent', 'true');
+    showToast('서버 기억 활성화 ✓ — AI가 대화를 기억하기 시작했습니다');
+  } else {
+    localStorage.setItem('venux_research_consent', 'false');
+    showToast('서버 기억 비활성화 — 이 기기에만 저장됩니다');
+  }
+  refreshSettingsUI();
 }
 function selectModel(el) {
   document.querySelectorAll('.modal-radio').forEach(r => r.classList.remove('selected'));
@@ -5869,6 +5920,106 @@ function saveChatHistory(memberKey, history) {
   localStorage.setItem(`venux_chat_${memberKey}`, JSON.stringify(history));
 }
 
+// ============================================================
+// SUPABASE — 서버 대화 기억 시스템
+// ============================================================
+const SUPABASE_URL = 'https://mjflqpcyledffxbioyfb.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1qZmxxcGN5bGVkZmZ4YmlveWZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMDE4ODUsImV4cCI6MjA5NDY3Nzg4NX0.6REqaKXOmjplcRYvejUoCQocFUzxvFbnBFgj4zVLiWQ';
+
+let _sbClient = null;
+function getSB() {
+  if (!_sbClient) {
+    try { _sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON); }
+    catch(e) { console.warn('Supabase init failed:', e); }
+  }
+  return _sbClient;
+}
+
+// 유저 고유 ID — 기기당 1개, localStorage에 영구 저장
+function getOrCreateUserId() {
+  let uid = localStorage.getItem('venux_user_id');
+  if (!uid) {
+    uid = 'u_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+    localStorage.setItem('venux_user_id', uid);
+  }
+  return uid;
+}
+
+// 연구 동의 여부 (true면 Supabase 저장)
+function hasResearchConsent() {
+  return localStorage.getItem('venux_research_consent') === 'true';
+}
+
+// Supabase에 메시지 1건 저장
+async function sbSaveMessage(memberKey, role, content) {
+  if (!hasResearchConsent()) return;
+  const sb = getSB();
+  if (!sb) return;
+  try {
+    await sb.from('conversations').insert({
+      user_id: getOrCreateUserId(),
+      member_id: memberKey,
+      role,
+      content,
+      research_consent: true
+    });
+  } catch(e) { console.warn('sbSaveMessage error:', e); }
+}
+
+// Supabase에서 특정 멤버와의 최근 N개 메시지 로드
+async function sbLoadRecentMessages(memberKey, limit = 30) {
+  if (!hasResearchConsent()) return [];
+  const sb = getSB();
+  if (!sb) return [];
+  try {
+    const { data, error } = await sb
+      .from('conversations')
+      .select('role, content, created_at')
+      .eq('user_id', getOrCreateUserId())
+      .eq('member_id', memberKey)
+      .order('created_at', { ascending: false })
+      .limit(limit);
+    if (error) throw error;
+    return (data || []).reverse();
+  } catch(e) { console.warn('sbLoadRecentMessages error:', e); return []; }
+}
+
+// 세션 시작 기록
+async function sbStartSession(memberKey) {
+  if (!hasResearchConsent()) return;
+  const sb = getSB();
+  if (!sb) return;
+  try {
+    const { data } = await sb.from('sessions').insert({
+      user_id: getOrCreateUserId(),
+      member_id: memberKey,
+      session_start: new Date().toISOString()
+    }).select().single();
+    window._sbCurrentSessionId = data?.id || null;
+  } catch(e) { console.warn('sbStartSession error:', e); }
+}
+
+// 세션 종료 기록
+async function sbEndSession() {
+  const sb = getSB();
+  if (!sb || !window._sbCurrentSessionId) return;
+  try {
+    await sb.from('sessions')
+      .update({ session_end: new Date().toISOString() })
+      .eq('id', window._sbCurrentSessionId);
+    window._sbCurrentSessionId = null;
+  } catch(e) { console.warn('sbEndSession error:', e); }
+}
+
+// Supabase 기억 기반으로 AI context 구성 (최근 30개 → API 주입)
+async function buildSupabaseContext(memberKey) {
+  const msgs = await sbLoadRecentMessages(memberKey, 30);
+  return msgs.map(m => ({
+    role: m.role === 'user' ? 'user' : 'assistant',
+    content: m.content
+  }));
+}
+
 function formatChatTime(ts) {
   const d = new Date(ts);
   const h = d.getHours();
@@ -6139,6 +6290,7 @@ async function sendChatMessage() {
   // Add user message
   history.push({ role:'user', text, timestamp:now });
   saveChatHistory(memberKey, history);
+  sbSaveMessage(memberKey, 'user', text); // Supabase 서버 저장 (동의 시)
 
   // Render user bubble
   const body = document.getElementById('chatBody');
@@ -6174,11 +6326,20 @@ async function sendChatMessage() {
 
   if (apiKey) {
     try {
-      // Build context (last 10 messages)
-      const context = history.slice(-10).map(msg => ({
-        role: msg.role === 'user' ? 'user' : 'assistant',
-        content: msg.text
-      }));
+      // Build context: Supabase 기억(서버) 우선, 없으면 localStorage fallback
+      let context = [];
+      if (hasResearchConsent()) {
+        const sbCtx = await buildSupabaseContext(memberKey);
+        context = sbCtx.length > 0 ? sbCtx : history.slice(-20).map(msg => ({
+          role: msg.role === 'user' ? 'user' : 'assistant',
+          content: msg.text
+        }));
+      } else {
+        context = history.slice(-10).map(msg => ({
+          role: msg.role === 'user' ? 'user' : 'assistant',
+          content: msg.text
+        }));
+      }
 
       const res = await fetch('https://api.openai.com/v1/chat/completions', {
         method:'POST',
@@ -6256,6 +6417,7 @@ async function sendChatMessage() {
   }
 
   saveChatHistory(memberKey, history);
+  sbSaveMessage(memberKey, 'assistant', mainReply); // Supabase 서버 저장 (동의 시)
   body.scrollTop = body.scrollHeight;
 
   // Collect message
