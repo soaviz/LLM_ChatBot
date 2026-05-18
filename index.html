@@ -1506,6 +1506,35 @@
         <div style="font-size:12px;color:#aaa;text-align:center;padding:12px">🔒 관리자 로그인 시 음원 업로드 가능</div>
       </div>
     </div>
+    <!-- 관리자 사진 업로드 카드 -->
+    <div class="profile-info-card">
+      <div class="profile-info-label">🖼️ 멤버 프로필 사진</div>
+      <div id="adminPhotoUploadSection" style="display:none;margin-top:12px">
+        <div style="font-size:13px;font-weight:600;color:#6B5BD6;margin-bottom:12px">🔐 관리자 사진 업로드</div>
+        <select id="adminPhotoMemberSelect" class="admin-input" style="margin-bottom:10px;background:white">
+          <option value="ARA-462">ARA-462 이루나</option>
+          <option value="LUX-299">LUX-299 박리라</option>
+          <option value="EUR-0K">EUR-0K 신지우</option>
+          <option value="KIN-360">KIN-360 최노아</option>
+          <option value="ATP-X1">ATP-X1 정아온</option>
+        </select>
+        <div class="upload-zone" id="memberPhotoUploadZone" onclick="document.getElementById('memberPhotoFileInput').click()" style="margin-bottom:10px">
+          <div class="upload-zone-icon">🖼️</div>
+          <div class="upload-zone-text">클릭하여 사진 업로드</div>
+          <div class="upload-zone-hint">JPG, PNG, WEBP (자동 400×400 리사이징)</div>
+        </div>
+        <input type="file" id="memberPhotoFileInput" accept="image/jpeg,image/png,image/webp" style="display:none" onchange="handleAdminPhotoSelect(event)">
+        <div id="adminPhotoPreview" style="display:none;margin-bottom:10px;text-align:center">
+          <img id="adminPhotoPreviewImg" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid #6B5BD6">
+          <div style="font-size:11px;color:#999;margin-top:6px">400×400 리사이징 미리보기</div>
+        </div>
+        <button class="admin-btn admin-btn-primary" id="adminPhotoSaveBtn" onclick="saveAdminPhoto()" style="display:none;width:100%">✅ 사진 저장</button>
+        <button class="admin-btn" onclick="resetAdminPhoto()" style="margin-top:6px;width:100%;background:#fff;color:#C76B5E;border:1px solid #C76B5E">🗑️ 기본 사진으로 초기화</button>
+      </div>
+      <div id="adminPhotoUploadLocked" style="margin-top:4px">
+        <div style="font-size:12px;color:#aaa;text-align:center;padding:8px">🔒 관리자 로그인 시 사진 업로드 가능</div>
+      </div>
+    </div>
     <div class="profile-info-card">
       <div class="profile-info-label">🔐 관리자</div>
       <div id="settingsAdminInfo" style="margin-top:8px"></div>
@@ -1712,6 +1741,15 @@ const memberData = {
   'ATP-X1':  { name:'정아온', letter:'ATP', element:'🌿', elementName:'Nature', gradient:'linear-gradient(135deg,#C5D4A8,#9BAE82)', glow:'#9BAE8266', cardBg:'#F6FAF0', badgeColor:'#9BAE82', micBg:'#EEF5E6', micColor:'#6E8A58', shadowColor:'#9BAE8222', photo:'ATP-X1.png', verdictReason:'본질을 돌아봐야 할 순간', verdictDesc:'정아온의 ATP — 보이지 않지만 모든 것을 움직이는 에너지.' }
 };
 const memberOrder = ['ARA-462','LUX-299','EUR-0K','KIN-360','ATP-X1'];
+
+// 관리자가 업로드한 커스텀 프로필 사진을 memberData에 반영
+function loadAdminPhotos() {
+  memberOrder.forEach(k => {
+    const custom = localStorage.getItem('venux_admin_photo_' + k);
+    if (custom && memberData[k]) memberData[k].photo = custom;
+  });
+}
+loadAdminPhotos();
 
 // ============================================================
 // MEMBER INSTAGRAM POSTS (6개 × 5멤버)
@@ -5034,15 +5072,15 @@ openProfileModal = function(key) {
       </div>
       <div class="ig-actions">
         <button class="ig-action-btn primary" onclick="closeProfileModal();openChatRoom('${key}')">대화하기</button>
-        <button class="ig-action-btn secondary" onclick="switchProfileTab('letter','${key}')">메일보내기</button>
+        <button class="ig-action-btn secondary" onclick="switchProfileTab('letter','${key}')">다이어리</button>
       </div>
     </div>
     <!-- 탭 바 — compact header 바로 아래 -->
     <div class="profile-inner-tabs" style="--ptab-color:${m.badgeColor}">
       <div class="profile-inner-tab active" onclick="switchProfileTab('info','${key}')">프로필</div>
-      <div class="profile-inner-tab tab-chat" onclick="switchProfileTab('photo','${key}')">인쓰피드보기</div>
-      <div class="profile-inner-tab tab-chat" onclick="closeProfileModal();showScreen('screen-results');document.getElementById('photoSection').style.display='block';switchPhotoMode('selfie');selectPhotoMember('${key}');setTimeout(()=>document.getElementById('photoSection').scrollIntoView({behavior:'smooth'}),80)">셀카찍기</div>
-      <div class="profile-inner-tab" onclick="switchProfileTab('letter','${key}')">메일보내기</div>
+      <div class="profile-inner-tab tab-chat" onclick="switchProfileTab('photo','${key}')">인별그램</div>
+      <div class="profile-inner-tab tab-chat" onclick="closeProfileModal();showScreen('screen-results');document.getElementById('photoSection').style.display='block';switchPhotoMode('selfie');selectPhotoMember('${key}');setTimeout(()=>document.getElementById('photoSection').scrollIntoView({behavior:'smooth'}),80)">></div>
+      <div class="profile-inner-tab" onclick="switchProfileTab('letter','${key}')">다이어리</div>
     </div>
 
     <!-- 탭: 프로필 -->
@@ -5797,6 +5835,77 @@ function updateAdminUploadVisibility() {
   const lockedSection = document.getElementById('adminUploadLocked');
   if (uploadSection) uploadSection.style.display = session ? 'block' : 'none';
   if (lockedSection) lockedSection.style.display = session ? 'none' : 'block';
+  // 사진 업로드 섹션도 동일 처리
+  const photoSection = document.getElementById('adminPhotoUploadSection');
+  const photoLocked = document.getElementById('adminPhotoUploadLocked');
+  if (photoSection) photoSection.style.display = session ? 'block' : 'none';
+  if (photoLocked) photoLocked.style.display = session ? 'none' : 'block';
+}
+
+// ── 관리자 멤버 프로필 사진 업로드 ─────────────────────────
+let _adminPendingPhotoDataURL = null;
+
+function handleAdminPhotoSelect(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.onload = function() {
+      // Canvas로 400×400 리사이즈
+      const canvas = document.createElement('canvas');
+      canvas.width = 400;
+      canvas.height = 400;
+      const ctx = canvas.getContext('2d');
+      // 가운데 크롭 (contain → cover)
+      const size = Math.min(img.width, img.height);
+      const sx = (img.width - size) / 2;
+      const sy = (img.height - size) / 2;
+      ctx.drawImage(img, sx, sy, size, size, 0, 0, 400, 400);
+      _adminPendingPhotoDataURL = canvas.toDataURL('image/jpeg', 0.92);
+      // 미리보기
+      const preview = document.getElementById('adminPhotoPreview');
+      const previewImg = document.getElementById('adminPhotoPreviewImg');
+      const saveBtn = document.getElementById('adminPhotoSaveBtn');
+      previewImg.src = _adminPendingPhotoDataURL;
+      preview.style.display = 'block';
+      saveBtn.style.display = 'block';
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function saveAdminPhoto() {
+  if (!_adminPendingPhotoDataURL) return;
+  const memberKey = document.getElementById('adminPhotoMemberSelect').value;
+  localStorage.setItem('venux_admin_photo_' + memberKey, _adminPendingPhotoDataURL);
+  // memberData 즉시 반영
+  if (memberData[memberKey]) memberData[memberKey].photo = _adminPendingPhotoDataURL;
+  // 열려있는 프로필 이미지 즉시 갱신
+  document.querySelectorAll('img[alt="' + memberData[memberKey].name + '"]').forEach(el => {
+    el.src = _adminPendingPhotoDataURL;
+  });
+  _adminPendingPhotoDataURL = null;
+  document.getElementById('adminPhotoPreview').style.display = 'none';
+  document.getElementById('adminPhotoSaveBtn').style.display = 'none';
+  document.getElementById('memberPhotoFileInput').value = '';
+  showToast('✅ 프로필 사진이 저장됐어요');
+}
+
+function resetAdminPhoto() {
+  const memberKey = document.getElementById('adminPhotoMemberSelect').value;
+  localStorage.removeItem('venux_admin_photo_' + memberKey);
+  // 기본 파일명으로 복원
+  const defaultPhoto = memberKey + '.png';
+  if (memberData[memberKey]) memberData[memberKey].photo = defaultPhoto;
+  document.querySelectorAll('img[alt="' + memberData[memberKey].name + '"]').forEach(el => {
+    el.src = defaultPhoto;
+  });
+  _adminPendingPhotoDataURL = null;
+  document.getElementById('adminPhotoPreview').style.display = 'none';
+  document.getElementById('adminPhotoSaveBtn').style.display = 'none';
+  showToast('🗑️ 기본 사진으로 초기화했어요');
 }
 
 function exportGameData() {
