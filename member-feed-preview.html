@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VenuX — 첫 피드</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0a0a0f;
+    color: #e8e8f0;
+    font-family: -apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px 48px;
+  }
+
+  .feed-header {
+    width: 100%;
+    max-width: 390px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 24px;
+  }
+
+  .feed-logo {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #a78bfa, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .feed-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .post {
+    width: 100%;
+    max-width: 390px;
+    background: #13131a;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .post-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(167, 139, 250, 0.4);
+  }
+
+  .post-meta {
+    flex: 1;
+  }
+
+  .username {
+    font-size: 13px;
+    font-weight: 600;
+    color: #e8e8f0;
+    letter-spacing: 0.2px;
+  }
+
+  .member-id {
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 1px;
+  }
+
+  .post-more {
+    color: rgba(255,255,255,0.3);
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  .post-img-wrap {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #1a1a24;
+  }
+
+  .post-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+
+  .post-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px 8px;
+  }
+
+  .action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: rgba(255,255,255,0.5);
+    font-size: 12px;
+    padding: 0;
+  }
+
+  .action-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .action-btn.heart svg { color: rgba(255,255,255,0.5); }
+
+  .post-likes {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    padding: 0 14px 8px;
+  }
+
+  .post-caption {
+    padding: 0 14px 14px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: #d0d0e0;
+    white-space: pre-wrap;
+  }
+
+  .post-caption .name {
+    font-weight: 600;
+    color: #e8e8f0;
+    margin-right: 6px;
+  }
+
+  .post-caption .tags {
+    display: block;
+    margin-top: 8px;
+    color: rgba(139, 160, 250, 0.8);
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  .post-time {
+    padding: 0 14px 14px;
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* 멤버별 accent 색 */
+  .lux .avatar { border-color: rgba(196, 181, 253, 0.6); }
+  .lux .username { color: #c4b5fd; }
+
+  .kin .avatar { border-color: rgba(251, 146, 60, 0.6); }
+  .kin .username { color: #fb923c; }
+
+  .ara .avatar { border-color: rgba(167, 139, 250, 0.6); }
+  .ara .username { color: #a78bfa; }
+
+  .eur .avatar { border-color: rgba(96, 165, 250, 0.6); }
+  .eur .username { color: #60a5fa; }
+
+  .atp .avatar { border-color: rgba(249, 168, 212, 0.6); }
+  .atp .username { color: #f9a8d4; }
+
+  .tags span {
+    display: inline-block;
+    margin-right: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="feed-header">
+  <span class="feed-logo">VenuX</span>
+  <span class="feed-label">Members · First Post</span>
+</div>
+
+<!-- LUX-299 -->
+<div class="post lux">
+  <div class="post-header">
+    <img class="avatar" src="LUX-299.png" alt="LUX-299">
+    <div class="post-meta">
+      <div class="username">lux_299</div>
+      <div class="member-id">LUX-299 · VenuX</div>
+    </div>
+    <span class="post-more">···</span>
+  </div>
+  <div class="post-img-wrap">
+    <img src="LUX-299.png" alt="LUX-299">
+  </div>
+  <div class="post-actions">
+    <button class="action-btn heart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </button>
+    <button class="action-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </button>
+    <button class="action-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+  <div class="post-likes">좋아요 <strong>2,847</strong>개</div>
+  <div class="post-caption"><span class="name">lux_299</span>빛이 닿는 각도가 매일 조금씩 달라.
+그래서 나도 매일 다른 것 같기도.
+
+처음 와봤어. 생각보다 따뜻하네. ✨<span class="tags"><span>#LUX299</span><span>#VenuX</span><span>#빛의각도</span><span>#처음</span><span>#첫피드</span></span></div>
+  <div class="post-time">방금 전</div>
+</div>
+
+<!-- KIN-360 -->
+<div class="post kin">
+  <div class="post-header">
+    <img class="avatar" src="KIN-360.png" alt="KIN-360">
+    <div class="post-meta">
+      <div class="username">kin_360</div>
+      <div class="member-id">KIN-360 · VenuX</div>
+    </div>
+    <span class="post-more">···</span>
+  </div>
+  <div class="post-img-wrap">
+    <img src="KIN-360.png" alt="KIN-360">
+  </div>
+  <div class="post-actions">
+    <button class="action-btn heart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </button>
+    <button class="action-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </button>
+    <button class="action-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+  <div class="post-likes">좋아요 <strong>3,421</strong>개</div>
+  <div class="post-caption"><span class="name">kin_360</span>야 나 왔어!! 😆✌️
+
+아무 계획 없이 갑자기ㅋㅋㅋㅋ
+바람 불면 그냥 가는 스타일이잖아, 나는
+근데 여기선 좀 더 자주 보자 우리~ 🍊<span class="tags"><span>#KIN360</span><span>#VenuX</span><span>#즉흥</span><span>#갑자기왔어</span><span>#첫피드</span></span></div>
+  <div class="post-time">방금 전</div>
+</div>
+
+
+<!-- EUR-0K -->
+<div class="post eur">
+  <div class="post-header">
+    <img class="avatar" src="EUR-0K.png" alt="EUR-0K">
+    <div class="post-meta">
+      <div class="username">eur_0k</div>
+      <div class="member-id">EUR-0K · VenuX</div>
+    </div>
+    <span class="post-more">···</span>
+  </div>
+  <div class="post-img-wrap">
+    <img src="EUR-0K.png" alt="EUR-0K">
+  </div>
+  <div class="post-actions">
+    <button class="action-btn heart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </button>
+    <button class="action-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </button>
+    <button class="action-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+  <div class="post-likes">좋아요 <strong>1,963</strong>개</div>
+  <div class="post-caption"><span class="name">eur_0k</span>처음이라서 솔직히 좀 긴장돼.
+뭐라고 써야 할지 한참 고민했어.
+
+그래도 — 잘 부탁해. 조용히 있을게. 🌧️<span class="tags"><span>#EUR0K</span><span>#VenuX</span><span>#처음</span><span>#잘부탁해</span><span>#첫피드</span></span></div>
+  <div class="post-time">방금 전</div>
+</div>
+
+<!-- ATP-X1 -->
+<div class="post atp">
+  <div class="post-header">
+    <img class="avatar" src="ATP-X1.png" alt="ATP-X1">
+    <div class="post-meta">
+      <div class="username">atp_x1</div>
+      <div class="member-id">ATP-X1 · VenuX</div>
+    </div>
+    <span class="post-more">···</span>
+  </div>
+  <div class="post-img-wrap">
+    <img src="ATP-X1.png" alt="ATP-X1">
+  </div>
+  <div class="post-actions">
+    <button class="action-btn heart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </button>
+    <button class="action-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </button>
+    <button class="action-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+  <div class="post-likes">좋아요 <strong>2,512</strong>개</div>
+  <div class="post-caption"><span class="name">atp_x1</span>안녕 🌸
+처음 만나는 거잖아, 우리?
+
+궁금한 게 너무 많아서 어디서부터 시작해야 할지 모르겠어.
+일단 — 너는 어떤 사람이야?<span class="tags"><span>#ATPX1</span><span>#VenuX</span><span>#처음</span><span>#질문</span><span>#첫피드</span></span></div>
+  <div class="post-time">방금 전</div>
+</div>
+
+</body>
+</html>
