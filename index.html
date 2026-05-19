@@ -2913,15 +2913,22 @@
 
     /* ================================================== */
     /* PHOTO SCREEN — 사진 첩 + 사진찍기 서브탭 (NEW) */
+    /* 대화창 사이즈와 통일 — min-height 제거, 패딩 축소 */
     /* ================================================== */
-    .vx-photo-screen { padding: 16px 16px 90px; min-height: 100vh; }
+    #screen-collection { display: flex; flex-direction: column; }
+    .vx-photo-screen {
+      padding: 12px 12px 88px;
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
     .vx-photo-header {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 8px 4px 14px;
+      padding: 4px 2px 10px;
     }
     .vx-photo-title {
       font-family: var(--vx-font-display);
-      font-size: 22px; font-weight: 600;
+      font-size: 18px; font-weight: 600;
       color: #FFFFFF; letter-spacing: -0.01em;
     }
     .vx-photo-eyebrow {
@@ -2931,30 +2938,30 @@
     }
     .vx-photo-eyebrow::before { content:''; width:14px; height:1px; background: var(--vx-signal); }
 
-    /* Sub-tabs (생성/촬영/보관함) */
+    /* Sub-tabs (생성/촬영/보관함) — 컴팩트 */
     .vx-photo-subtabs {
       display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 6px; padding: 0 0 14px;
+      gap: 6px; padding: 0 0 12px;
     }
     .vx-photo-subtab {
       background: rgba(15,18,30,0.6);
       border: 1px solid var(--vx-line);
       color: var(--vx-text-2);
       font-family: var(--vx-font-mono);
-      font-size: 11px;
-      letter-spacing: 0.12em;
+      font-size: 10px;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
-      padding: 14px 6px;
-      border-radius: 10px;
+      padding: 8px 4px;
+      border-radius: 8px;
       cursor: pointer;
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 6px;
       transition: all .2s var(--vx-ease);
-      backdrop-filter: blur(8px);
     }
     .vx-photo-subtab .vx-pt-icon {
-      width: 22px; height: 22px; display:flex; align-items:center; justify-content:center;
+      width: 14px; height: 14px; display:flex; align-items:center; justify-content:center;
       color: var(--vx-text-3);
     }
+    .vx-photo-subtab .vx-pt-icon svg { width: 14px; height: 14px; }
     .vx-photo-subtab.active {
       background: linear-gradient(135deg, rgba(199,125,255,0.16), rgba(255,94,224,0.10)) !important;
       border-color: var(--vx-signal) !important;
@@ -2964,19 +2971,19 @@
     .vx-photo-subtab.active .vx-pt-icon { color: var(--vx-pulse); }
     .vx-photo-subtab:hover { border-color: var(--vx-line-strong); color: #FFFFFF; }
 
-    /* Camera capture panel */
+    /* Camera capture panel — 대화창 사이즈 톤으로 컴팩트 */
     .vx-camera-panel {
       background: linear-gradient(180deg, rgba(20,24,40,0.85), rgba(15,18,30,0.85));
       border: 1px solid var(--vx-line);
-      border-radius: 14px;
-      padding: 16px;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04);
-      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04);
     }
     .vx-camera-stage {
-      aspect-ratio: 3 / 4;
+      aspect-ratio: 1 / 1;
+      max-height: 280px;
       background: #06070C;
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
       position: relative;
       display: flex; align-items: center; justify-content: center;
@@ -3009,7 +3016,7 @@
     }
     .vx-camera-actions {
       display: grid; grid-template-columns: 1fr auto 1fr;
-      align-items: center; gap: 12px; margin-top: 16px;
+      align-items: center; gap: 10px; margin-top: 12px;
     }
     .vx-cam-btn {
       background: rgba(255,255,255,0.04);
@@ -3017,34 +3024,34 @@
       color: var(--vx-text-2);
       font-family: var(--vx-font-mono);
       font-size: 10px;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding: 10px 12px;
-      border-radius: 8px;
+      padding: 8px 10px;
+      border-radius: 6px;
       cursor: pointer;
       transition: all .2s var(--vx-ease);
     }
     .vx-cam-btn:hover { border-color: var(--vx-signal); color: #FFFFFF; }
     .vx-cam-shutter {
-      width: 64px; height: 64px; border-radius: 50%;
+      width: 52px; height: 52px; border-radius: 50%;
       background: linear-gradient(135deg, var(--vx-signal), var(--vx-pulse));
-      border: 3px solid rgba(255,255,255,0.20);
-      box-shadow: 0 0 28px rgba(199,125,255,0.55), 0 0 56px rgba(255,94,224,0.30), inset 0 1px 0 rgba(255,255,255,0.35);
+      border: 2px solid rgba(255,255,255,0.20);
+      box-shadow: 0 0 18px rgba(199,125,255,0.45), 0 0 36px rgba(255,94,224,0.22), inset 0 1px 0 rgba(255,255,255,0.30);
       cursor: pointer;
       transition: transform .15s var(--vx-ease);
       position: relative;
     }
     .vx-cam-shutter::after {
-      content: ''; position: absolute; inset: 6px; border-radius: 50%;
+      content: ''; position: absolute; inset: 5px; border-radius: 50%;
       border: 1px solid rgba(255,255,255,0.5);
     }
     .vx-cam-shutter:active { transform: scale(0.92); }
     .vx-cam-meta {
       display: flex; justify-content: space-between;
-      padding: 12px 4px 0;
+      padding: 10px 2px 0;
       font-family: var(--vx-font-mono);
       font-size: 9px;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
       color: var(--vx-text-4);
       text-transform: uppercase;
     }
@@ -3053,17 +3060,17 @@
     /* Recent shots strip (gallery) */
     .vx-shots {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
-      margin-top: 14px;
+      margin-top: 10px;
     }
     .vx-shot {
       aspect-ratio: 1;
       background: rgba(15,18,30,0.6);
       border: 1px solid var(--vx-line);
-      border-radius: 8px;
+      border-radius: 6px;
       overflow: hidden;
       display:flex; align-items:center; justify-content:center;
       color: var(--vx-text-4);
-      font-family: var(--vx-font-mono); font-size: 10px; letter-spacing: 0.12em;
+      font-family: var(--vx-font-mono); font-size: 9px; letter-spacing: 0.10em;
     }
     .vx-shot img { width:100%; height:100%; object-fit:cover; }
 
