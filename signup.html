@@ -617,8 +617,172 @@
     }
     .provider-cog:hover { background: var(--bg-elev); color: var(--text); }
   </style>
+
+  <!-- ============================================== -->
+  <!-- COSMIC ALEKA OVERRIDE — pink/purple space tone -->
+  <!-- ============================================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <style id="cosmic-aleka-signup">
+    :root {
+      --vx-void:#06070C; --vx-deep:#0A0C14; --vx-panel:#0F121C; --vx-surface:#141826;
+      --vx-line: rgba(199,125,255,0.10); --vx-line-strong: rgba(199,125,255,0.22);
+      --vx-text:#F4F6FF; --vx-text-2:#C5CADC; --vx-text-3:#8A91A8; --vx-text-4:#5B6379;
+      --vx-signal:#C77DFF; --vx-signal-2:#FFAEEA; --vx-aurora:#8B5FFF;
+      --vx-pulse:#FF5EE0; --vx-pulse-2:#FF8FC9;
+      --vx-mono:'JetBrains Mono', ui-monospace, monospace;
+      --vx-display:'Space Grotesk','Pretendard Variable','Pretendard',sans-serif;
+      --vx-body:'Pretendard Variable','Pretendard','Space Grotesk',system-ui,sans-serif;
+    }
+    html, body {
+      background: var(--vx-void) !important;
+      color: var(--vx-text) !important;
+      font-family: var(--vx-body) !important;
+      -webkit-font-smoothing: antialiased;
+      letter-spacing: -0.005em;
+    }
+    body::before, body::after { content:''; position:fixed; inset:0; pointer-events:none; z-index:0; }
+    body::before {
+      background:
+        radial-gradient(900px 600px at 12% 8%, rgba(199,125,255,0.22), transparent 60%),
+        radial-gradient(700px 500px at 90% 18%, rgba(255,94,224,0.18), transparent 65%),
+        radial-gradient(800px 600px at 60% 90%, rgba(139,95,255,0.16), transparent 70%);
+      animation: vx-drift 60s linear infinite;
+    }
+    body::after {
+      background:
+        linear-gradient(rgba(199,125,255,0.04) 1px, transparent 1px) 0 0 / 40px 40px,
+        linear-gradient(90deg, rgba(199,125,255,0.04) 1px, transparent 1px) 0 0 / 40px 40px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 90%);
+    }
+    @keyframes vx-drift { 0%,100%{transform:translate3d(0,0,0)} 50%{transform:translate3d(-2%,1%,0) scale(1.04)} }
+    .vx-stars { position:fixed; inset:0; z-index:1; pointer-events:none; }
+    .vx-stars span { position:absolute; width:1px; height:1px; background:#fff; border-radius:50%;
+      box-shadow:
+        8vw 7vh 0 #fff, 24vw 18vh 0 #fff, 41vw 12vh 0 #fff, 58vw 27vh 0 #fff, 72vw 9vh 0 #fff,
+        88vw 22vh 0 #fff, 14vw 38vh 0 #fff, 33vw 44vh 0 #fff, 51vw 51vh 0 #fff, 68vw 47vh 0 #fff,
+        82vw 56vh 0 #fff, 6vw 64vh 0 #fff, 19vw 71vh 0 #fff, 37vw 79vh 0 #fff, 54vw 85vh 0 #fff;
+      animation: vx-twinkle 4s ease-in-out infinite alternate;
+    }
+    @keyframes vx-twinkle { 0%{opacity:.4} 100%{opacity:1} }
+
+    main, .auth-wrap, .auth-wrap > *, section, .card, .panel, .hero, .form, .surface, .pane,
+    [class*="panel"], [class*="card"], [class*="surface"], [class*="container"] {
+      background-color: transparent !important;
+    }
+    .auth-wrap { position: relative; z-index: 5; }
+
+    /* All headings in display font */
+    h1, h2, h3, h4 { font-family: var(--vx-display) !important; color: #FFFFFF !important; letter-spacing: -0.01em; }
+    h1 em, h2 em { font-style: normal; background: linear-gradient(135deg, var(--vx-signal), var(--vx-pulse));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    p, label, span, div, li { color: var(--vx-text-2); }
+
+    /* Force readable text on previously dark colors */
+    [style*="color:#0A0A0A"], [style*="color:#111"], [style*="color:#222"], [style*="color:#333"],
+    [style*="color:#444"], [style*="color:#555"], [style*="color:#000"] { color: #FFFFFF !important; }
+    [style*="color:#666"], [style*="color:#888"], [style*="color:#999"],
+    [style*="color:#aaa"], [style*="color:#bbb"] { color: var(--vx-text-3) !important; }
+    [style*="background:white"], [style*="background:#fff"], [style*="background:#FFF"],
+    [style*="background: white"], [style*="background: #fff"] {
+      background: rgba(15,18,30,0.7) !important; color: var(--vx-text) !important;
+    }
+
+    /* Inputs */
+    input[type="text"], input[type="email"], input[type="password"], input[type="number"],
+    input[type="tel"], input[type="url"], textarea, select {
+      background: rgba(10,12,22,0.7) !important;
+      color: var(--vx-text) !important;
+      border: 1px solid var(--vx-line) !important;
+      border-radius: 8px !important;
+      font-family: var(--vx-body) !important;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    input::placeholder, textarea::placeholder { color: var(--vx-text-4) !important; }
+    input:focus, textarea:focus, select:focus {
+      outline: none !important;
+      border-color: var(--vx-signal) !important;
+      box-shadow: 0 0 0 3px rgba(199,125,255,0.12), 0 0 24px rgba(199,125,255,0.15) !important;
+    }
+
+    /* Buttons */
+    button, .btn {
+      font-family: var(--vx-display) !important;
+      letter-spacing: 0.02em;
+      transition: transform .15s, box-shadow .15s, background .2s;
+    }
+    button.primary, .btn.primary, .submit-btn, button[type="submit"], .auth-submit, .btn-primary, .cta {
+      background: linear-gradient(135deg, var(--vx-aurora), var(--vx-signal), var(--vx-pulse)) !important;
+      color: #FFFFFF !important;
+      border: 1px solid rgba(255,255,255,0.10) !important;
+      box-shadow: 0 0 0 1px rgba(199,125,255,0.4), 0 8px 32px rgba(199,125,255,0.35),
+                  inset 0 1px 0 rgba(255,255,255,0.3) !important;
+    }
+    button.primary:active, button[type="submit"]:active { transform: scale(0.98); }
+    button.secondary, .btn.secondary, .btn-ghost {
+      background: rgba(255,255,255,0.04) !important;
+      color: #FFFFFF !important;
+      border: 1px solid var(--vx-line-strong) !important;
+    }
+    button.secondary:hover, .btn-ghost:hover { background: rgba(199,125,255,0.10) !important; }
+
+    /* Provider buttons (Google etc) */
+    .provider, .provider-btn, [class*="provider"], [class*="oauth"], [class*="social"] {
+      background: rgba(15,18,30,0.7) !important;
+      color: #FFFFFF !important;
+      border: 1px solid var(--vx-line-strong) !important;
+      font-family: var(--vx-display) !important;
+    }
+    .provider:hover, .provider-btn:hover { background: rgba(199,125,255,0.10) !important; border-color: var(--vx-signal) !important; }
+    .provider-cog { background: rgba(15,18,30,0.7) !important; color: var(--vx-text-2) !important; border: 1px solid var(--vx-line) !important; }
+    .provider-cog:hover { background: rgba(199,125,255,0.10) !important; color: #FFFFFF !important; }
+
+    /* Links */
+    a { color: var(--vx-signal) !important; }
+    a:hover { color: var(--vx-pulse) !important; }
+
+    /* Borders & dividers */
+    hr, .divider { border-color: var(--vx-line) !important; background: var(--vx-line) !important; }
+
+    /* Logo container — keep image visible */
+    .logo, .brand, .brand-logo, .logo img, .brand img { background: transparent !important; }
+
+    /* Hero & form panel as cosmic glass card */
+    .auth-hero, .auth-form, .hero-content, .form-content, .signup-card, .login-card {
+      background: linear-gradient(180deg, rgba(20,24,40,0.7), rgba(15,18,30,0.7)) !important;
+      border: 1px solid var(--vx-line) !important;
+      border-radius: 14px !important;
+      backdrop-filter: blur(12px);
+      color: var(--vx-text) !important;
+    }
+
+    /* Status pills / badges */
+    .badge, .pill, .tag, .chip {
+      background: rgba(199,125,255,0.10) !important;
+      color: #FFFFFF !important;
+      border: 1px solid rgba(199,125,255,0.30) !important;
+      font-family: var(--vx-mono) !important;
+      font-size: 10px !important;
+      letter-spacing: 0.12em !important;
+      text-transform: uppercase !important;
+    }
+
+    /* Footer */
+    footer, .footer {
+      color: var(--vx-text-4) !important;
+      font-family: var(--vx-mono) !important;
+      font-size: 10px !important;
+      letter-spacing: 0.18em !important;
+      text-transform: uppercase;
+      border-top: 1px solid var(--vx-line) !important;
+    }
+    footer a, .footer a { color: var(--vx-signal) !important; }
+  </style>
 </head>
 <body>
+<div class="vx-stars" aria-hidden="true"><span></span></div>
   <main class="auth-wrap">
 
     <!-- ═══ HERO (Left) ═══ -->

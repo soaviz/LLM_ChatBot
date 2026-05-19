@@ -3,145 +3,169 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SOAVIZ — 개인정보처리방침</title>
-<meta name="description" content="SOAVIZ 베타 서비스의 개인정보 처리 기준입니다.">
+<title>VENUX × ALEKA — 개인정보 처리방침</title>
+<meta name="description" content="VENUX / ALEKA 개인정보 처리방침">
+<meta name="theme-color" content="#06070C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
   :root {
-    --bg: #0a0a0b;
-    --surface: #15151a;
-    --border: #2a2a32;
-    --text: #e8e8ea;
-    --text-2: #a0a0aa;
-    --text-3: #70707a;
-    --accent: #6366f1;
+    --vx-void:#06070C; --vx-deep:#0A0C14; --vx-panel:#0F121C; --vx-surface:#141826;
+    --vx-line: rgba(199,125,255,0.10); --vx-line-strong: rgba(199,125,255,0.22);
+    --vx-text:#F4F6FF; --vx-text-2:#C5CADC; --vx-text-3:#8A91A8; --vx-text-4:#5B6379;
+    --vx-signal:#C77DFF; --vx-signal-2:#FFAEEA; --vx-aurora:#8B5FFF;
+    --vx-pulse:#FF5EE0; --vx-pulse-2:#FF8FC9;
+    --vx-mono:'JetBrains Mono', ui-monospace, monospace;
+    --vx-display:'Space Grotesk','Pretendard Variable','Pretendard',sans-serif;
+    --vx-body:'Pretendard Variable','Pretendard','Space Grotesk',system-ui,sans-serif;
   }
-  body {
-    min-height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Inter", "Segoe UI", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.7;
-    -webkit-font-smoothing: antialiased;
+  html, body {
+    background: var(--vx-void); color: var(--vx-text); font-family: var(--vx-body);
+    min-height: 100vh; -webkit-font-smoothing: antialiased; letter-spacing: -0.005em; line-height: 1.7;
   }
-  a { color: inherit; text-decoration: none; }
-  .nav {
-    position: sticky;
-    top: 0;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid var(--border);
-    background: rgba(10, 10, 11, 0.86);
-    backdrop-filter: blur(16px);
-    padding: 0 32px;
+  a { color: var(--vx-signal); text-decoration: none; transition: color .2s; }
+  a:hover { color: var(--vx-pulse); }
+  body::before, body::after { content:''; position:fixed; inset:0; pointer-events:none; z-index:0; }
+  body::before {
+    background:
+      radial-gradient(900px 600px at 12% 8%, rgba(199,125,255,0.22), transparent 60%),
+      radial-gradient(700px 500px at 90% 18%, rgba(255,94,224,0.18), transparent 65%),
+      radial-gradient(800px 600px at 60% 90%, rgba(139,95,255,0.16), transparent 70%);
+    animation: vx-drift 60s linear infinite;
   }
-  .nav-inner {
-    width: min(100%, 1040px);
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+  body::after {
+    background:
+      linear-gradient(rgba(199,125,255,0.04) 1px, transparent 1px) 0 0 / 40px 40px,
+      linear-gradient(90deg, rgba(199,125,255,0.04) 1px, transparent 1px) 0 0 / 40px 40px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 90%);
   }
-  .logo { display: inline-flex; align-items: center; min-height: 38px; }
-  .logo-img { display: block; width: 132px; height: auto; }
-  .nav-links { display: flex; align-items: center; gap: 18px; color: var(--text-2); font-size: 13px; }
-  .nav-links a:hover { color: var(--text); }
-  main {
-    width: min(100% - 40px, 880px);
-    margin: 0 auto;
-    padding: 72px 0 96px;
+  @keyframes vx-drift { 0%,100%{transform:translate3d(0,0,0)} 50%{transform:translate3d(-2%,1%,0) scale(1.04)} }
+  .stars { position:fixed; inset:0; z-index:1; pointer-events:none; }
+  .stars span { position:absolute; width:1px; height:1px; background:#fff; border-radius:50%;
+    box-shadow:
+      8vw 7vh 0 #fff, 24vw 18vh 0 #fff, 41vw 12vh 0 #fff, 58vw 27vh 0 #fff, 72vw 9vh 0 #fff,
+      88vw 22vh 0 #fff, 14vw 38vh 0 #fff, 33vw 44vh 0 #fff, 51vw 51vh 0 #fff, 68vw 47vh 0 #fff,
+      82vw 56vh 0 #fff, 6vw 64vh 0 #fff, 19vw 71vh 0 #fff, 37vw 79vh 0 #fff, 54vw 85vh 0 #fff;
+    animation: twinkle 4s ease-in-out infinite alternate;
   }
-  .eyebrow {
-    color: var(--accent);
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-  }
-  h1 {
-    font-size: clamp(34px, 6vw, 58px);
-    line-height: 1.08;
-    letter-spacing: 0;
-    margin-bottom: 18px;
-  }
-  .lead { color: var(--text-2); font-size: 17px; max-width: 680px; }
-  .doc {
-    margin-top: 42px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--surface);
-    padding: clamp(24px, 4vw, 36px);
-  }
-  h2 { font-size: 20px; margin: 28px 0 10px; }
+  @keyframes twinkle { 0%{opacity:.4} 100%{opacity:1} }
+  .nav { position: sticky; top: 0; z-index: 50; height: 56px; display: flex; align-items: center;
+    border-bottom: 1px solid var(--vx-line); background: rgba(6,7,12,0.78);
+    backdrop-filter: blur(18px); padding: 0 24px; }
+  .nav-inner { width: 100%; max-width: 1040px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+  .brand { font-family: var(--vx-mono); font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--vx-text); display:flex; align-items:center; gap:8px; }
+  .brand::before { content:''; width:6px; height:6px; border-radius:50%; background: var(--vx-signal); box-shadow:0 0 12px var(--vx-signal); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.85)} }
+  .nav-actions { display: flex; gap: 6px; }
+  .nav-btn { background: rgba(199,125,255,0.06); border: 1px solid var(--vx-line); color: var(--vx-text-2);
+    font-family: var(--vx-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 8px 12px; border-radius: 4px; cursor: pointer; transition: all .2s; }
+  .nav-btn:hover { background: rgba(199,125,255,0.12); color: var(--vx-text); border-color: var(--vx-line-strong); }
+  .wrap { position: relative; z-index: 5; max-width: 760px; margin: 0 auto; padding: 64px 24px 100px; }
+  .eyebrow { font-family: var(--vx-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--vx-signal); display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+  .eyebrow::before { content:''; width:18px; height:1px; background: var(--vx-signal); }
+  h1 { font-family: var(--vx-display); font-size: clamp(36px, 6vw, 56px); font-weight: 500;
+    line-height: 0.98; letter-spacing: -0.03em; margin-bottom: 12px; }
+  h1 em { font-style: normal; background: linear-gradient(135deg, var(--vx-signal), var(--vx-pulse));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .lead { font-size: 16px; color: var(--vx-text-2); margin-bottom: 12px; }
+  .meta { font-family: var(--vx-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--vx-text-4); margin-bottom: 40px; }
+  .panel { background: linear-gradient(180deg, rgba(20,24,40,0.7), rgba(15,18,30,0.7));
+    border: 1px solid var(--vx-line); border-radius: 14px; padding: 28px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04);
+    backdrop-filter: blur(12px); margin-bottom: 20px; }
+  h2 { font-family: var(--vx-display); font-size: 18px; font-weight: 600; color: #FFFFFF;
+    margin: 28px 0 10px; display: flex; align-items: baseline; gap: 10px; }
   h2:first-child { margin-top: 0; }
-  p, li { color: var(--text-2); font-size: 15px; }
-  ul { padding-left: 20px; }
-  .note {
-    margin-top: 30px;
-    padding-top: 22px;
-    border-top: 1px solid var(--border);
-    color: var(--text-3);
-    font-size: 13px;
-  }
-  @media (max-width: 720px) {
-    .nav { height: auto; padding: 16px 20px; }
-    .nav-inner { align-items: flex-start; flex-direction: column; }
-    .nav-links { flex-wrap: wrap; }
+  h2 .num { font-family: var(--vx-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--vx-signal); font-weight: 500; }
+  p { margin-bottom: 12px; color: var(--vx-text-2); }
+  ul { padding-left: 18px; margin-bottom: 12px; color: var(--vx-text-2); }
+  ul li { margin-bottom: 6px; }
+  strong { color: #FFFFFF; font-weight: 600; }
+  .table { width: 100%; border-collapse: collapse; margin: 12px 0 18px; font-family: var(--vx-mono); font-size: 12px; }
+  .table th, .table td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--vx-line); }
+  .table th { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--vx-text-3); font-weight: 500; background: rgba(199,125,255,0.04); }
+  .table td { color: var(--vx-text-2); }
+  .table td:first-child { color: var(--vx-signal-2); }
+  .footer { text-align: center; padding: 40px 20px; color: var(--vx-text-4);
+    font-family: var(--vx-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    border-top: 1px solid var(--vx-line); margin-top: 40px; position: relative; z-index: 5; }
+  .footer a { color: var(--vx-signal); }
+  @media (max-width: 640px) {
+    .nav { padding: 0 16px; }
+    .wrap { padding: 40px 16px 80px; }
+    .panel { padding: 20px 18px; }
+    .table th, .table td { padding: 8px 8px; font-size: 11px; }
   }
 </style>
 </head>
 <body>
-  <nav class="nav">
-    <div class="nav-inner">
-      <a class="logo" href="/" data-file-href="index.html" aria-label="SOAVIZ home">
-        <img class="logo-img" src="assets/brand/soaviz-logo-horizontal.png" alt="SOAVIZ">
-      </a>
-      <div class="nav-links">
-        <a href="/personal" data-file-href="personal-onepager.html">Personal</a>
-        <a href="/team" data-file-href="sales-onepager.html">Team</a>
-        <a href="/app" data-file-href="soaviz-studio.html">Studio</a>
-      </div>
+<div class="stars" aria-hidden="true"><span></span></div>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="brand">VENUX <span style="opacity:.5">//</span> ALEKA</a>
+    <div class="nav-actions">
+      <a href="/" class="nav-btn">HOME</a>
+      <a href="terms.html" class="nav-btn">TERMS</a>
+      <a href="contact.html" class="nav-btn">CONTACT</a>
     </div>
-  </nav>
-
-  <main>
-    <div class="eyebrow">Privacy</div>
-    <h1>개인정보처리방침</h1>
-    <p class="lead">SOAVIZ 베타 서비스는 AI 영상 제작에 필요한 계정 정보와 프로젝트 메타데이터를 최소한으로 다룹니다.</p>
-
-    <section class="doc">
-      <h2>수집하는 정보</h2>
-      <ul>
-        <li>회원가입 및 로그인에 필요한 이메일, 이름, 프로필 이미지</li>
-        <li>프로젝트, 샷, 프롬프트, 생성 이력 등 서비스 사용 메타데이터</li>
-        <li>오류 분석과 보안 점검에 필요한 기기·브라우저·접속 로그</li>
-      </ul>
-
-      <h2>API 키와 생성 데이터</h2>
-      <p>BYOK API 키는 사용자의 브라우저에서 암호화해 저장하는 것을 원칙으로 합니다. SOAVIZ는 API 키 평문을 표시하거나 공개 저장소에 기록하지 않습니다.</p>
-
-      <h2>외부 제공</h2>
-      <p>사용자가 연결한 AI 제공자 API를 호출할 때, 프롬프트와 미디어 입력이 해당 제공자에게 전달될 수 있습니다. 각 제공자의 이용약관과 개인정보 처리 기준도 함께 적용됩니다.</p>
-
-      <h2>보관과 삭제</h2>
-      <p>사용자는 계정과 프로젝트 삭제를 요청할 수 있습니다. 베타 기간에는 운영 확인 후 합리적인 기간 안에 삭제를 처리합니다.</p>
-
-      <h2>문의</h2>
-      <p>개인정보 관련 문의는 <a href="/contact?topic=privacy" data-file-href="contact.html?topic=privacy">문의 페이지</a>에서 보내주세요.</p>
-
-      <p class="note">최종 업데이트: 2026년 5월 7일. 이 문서는 베타 운영 기준이며, 정식 출시 전 법무 검토를 거쳐 보완될 수 있습니다.</p>
-    </section>
-  </main>
-
-  <script>
-    if (window.location.protocol === 'file:') {
-      document.querySelectorAll('[data-file-href]').forEach(function(link) {
-        link.setAttribute('href', link.getAttribute('data-file-href'));
-      });
-    }
-  </script>
+  </div>
+</nav>
+<main class="wrap">
+  <div class="eyebrow">// LEGAL · PRIVACY POLICY</div>
+  <h1>개인정보 <em>처리방침</em></h1>
+  <p class="lead">우리는 최소한의 데이터만 수집하고, 가능한 모든 처리는 로컬에서 우선합니다.</p>
+  <div class="meta">VERSION 1.0 · EFFECTIVE 2026.05.07 · LAST REVIEW 2026.05.19</div>
+  <div class="panel">
+    <h2><span class="num">§01</span>수집 항목 · 목적 · 보관</h2>
+    <table class="table">
+      <thead><tr><th>항목</th><th>목적</th><th>보관 기간</th></tr></thead>
+      <tbody>
+        <tr><td>이메일</td><td>로그인 · 알림 · 베타 안내</td><td>탈퇴 시 즉시 파기</td></tr>
+        <tr><td>닉네임 · MBTI</td><td>맞춤 응답 · 친밀도</td><td>탈퇴 시 즉시 파기</td></tr>
+        <tr><td>채팅 · 질문 기록</td><td>대화 컨텍스트 · 멤버 친밀도</td><td>로컬 우선 · 요청 시 서버 동기화</td></tr>
+        <tr><td>생성 이미지</td><td>사진첩 보관</td><td>사용자 단말 · 요청 시 클라우드</td></tr>
+        <tr><td>접속 IP · 디바이스</td><td>보안 · 어뷰징 방지</td><td>최대 90일</td></tr>
+      </tbody>
+    </table>
+    <h2><span class="num">§02</span>제3자 제공</h2>
+    <p>회사는 원칙적으로 이용자 개인정보를 외부에 제공하지 않습니다. 다음의 경우만 예외입니다:</p>
+    <ul>
+      <li>이용자가 사전 동의한 경우</li>
+      <li>법령에 따라 적법한 절차를 거친 요청</li>
+      <li>서비스 운영을 위한 위탁(클라우드 호스팅, AI 추론) — 필요 최소한의 범위</li>
+    </ul>
+    <h2><span class="num">§03</span>이용자 권리</h2>
+    <p>이용자는 언제든 다음 권리를 행사할 수 있습니다:</p>
+    <ul>
+      <li>개인정보 <strong>열람 · 정정 · 삭제</strong></li>
+      <li>처리 정지 요청</li>
+      <li>탈퇴 — 탈퇴 즉시 모든 식별 정보 파기</li>
+    </ul>
+    <h2><span class="num">§04</span>보안 조치</h2>
+    <ul>
+      <li>전송 구간 <strong>TLS 1.3 + HSTS</strong></li>
+      <li>로컬 저장 <strong>AES-GCM 256 + PBKDF2 250k</strong> · 서버 평문 저장 없음</li>
+      <li>접근 통제 · 감사 로그 · 정기 보안 점검</li>
+    </ul>
+    <h2><span class="num">§05</span>쿠키 · 추적</h2>
+    <p>서비스는 세션 유지에 필요한 최소한의 쿠키만 사용합니다. 제3자 광고·추적 쿠키는 사용하지 않습니다.</p>
+    <h2><span class="num">§06</span>문의 · 책임자</h2>
+    <p>개인정보 보호 책임자 — <strong>이은교 (Eunkyo Lee)</strong><br>
+    이메일 — <a href="mailto:leeeunkyo@gmail.com">leeeunkyo@gmail.com</a></p>
+  </div>
+  <p style="color:var(--vx-text-3);font-family:var(--vx-mono);font-size:11px;letter-spacing:0.1em;text-align:center;margin-top:32px">
+    본 방침의 변경 시 서비스 내 공지를 통해 알립니다.
+  </p>
+</main>
+<footer class="footer">
+  VENUX × ALEKA · BROADCAST 2026 — <a href="/">SOAVIZ AI STUDIO</a>
+</footer>
 </body>
 </html>
