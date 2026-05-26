@@ -475,9 +475,9 @@
     .pc-title { font-size:11px; font-weight:800; color:#fff; letter-spacing:0.04em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .pc-subtitle { font-size:9px; color:rgba(255,255,255,0.6); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .pc-rarity-badge { position:absolute; top:6px; right:6px; font-size:9px; font-weight:800; padding:2px 5px; border-radius:4px; letter-spacing:0.06em; }
-    .pc-locked-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.55); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; border-radius:0; }
-    .pc-lock-icon { font-size:20px; opacity:0.9; }
-    .pc-lock-hint { font-size:9px; color:rgba(255,255,255,0.7); text-align:center; line-height:1.4; padding:0 6px; }
+    .pc-locked-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.28); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; border-radius:0; backdrop-filter:blur(0); }
+    .pc-lock-icon { font-size:18px; filter:drop-shadow(0 1px 4px rgba(0,0,0,0.6)); }
+    .pc-lock-hint { font-size:9px; color:rgba(255,255,255,0.75); text-align:center; line-height:1.4; padding:0 6px; text-shadow:0 1px 3px rgba(0,0,0,0.8); }
     .pc-back-quote { font-size:11px; color:#fff; line-height:1.7; font-style:italic; margin-bottom:8px; }
     .pc-back-rarity { font-size:10px; font-weight:800; letter-spacing:0.08em; }
     .pc-back-tap { font-size:9px; color:rgba(255,255,255,0.45); margin-top:10px; }
@@ -9400,7 +9400,7 @@ function renderCardTab(key) {
         <!-- 앞면 -->
         <div class="pc-front" style="background:${r.bg}">
           <div class="pc-img-wrap">
-            <img src="${m.photo}" alt="${m.name}" style="filter:${card.filter}">
+            <img src="${m.photo}" alt="${m.name}" style="filter:${unlocked ? card.filter : `blur(8px) saturate(0) brightness(0.45) ${card.filter}`}">
             <div class="pc-img-overlay"></div>
             <!-- 희귀도 배지 -->
             <div class="pc-rarity-badge" style="background:${r.bg};color:${r.color};border:1px solid ${r.color}">${r.label}</div>
