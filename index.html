@@ -270,20 +270,28 @@
     .bottom-btn.secondary { background:rgba(107,91,214,0.08); color:#6B5BD6; }
 
     /* SETTINGS MODAL */
-    .modal-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); z-index:1000; opacity:0; pointer-events:none; transition:opacity 0.3s; display:flex; align-items:flex-end; justify-content:center; }
+    .modal-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(10,8,24,0.55); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); z-index:1000; opacity:0; pointer-events:none; transition:opacity 0.3s; display:flex; align-items:center; justify-content:center; }
     .modal-overlay.show { opacity:1; pointer-events:auto; }
-    .modal-sheet { background:white; border-radius:24px 24px 0 0; padding:24px 24px 40px; width:100%; max-width:480px; max-height:80vh; overflow-y:auto; transform:translateY(100%); transition:transform 0.35s cubic-bezier(0.32,0.72,0,1); }
-    .modal-overlay.show .modal-sheet { transform:translateY(0); }
-    .modal-handle { width:40px; height:4px; background:#ddd; border-radius:2px; margin:0 auto 16px; }
-    .modal-title { font-size:18px; font-weight:600; margin-bottom:16px; }
-    .modal-label { font-size:13px; font-weight:600; color:#666; margin-bottom:6px; }
-    .modal-input { width:100%; padding:12px 14px; border:2px solid #e8e8e8; border-radius:12px; font-size:14px; font-family:'Noto Sans KR',sans-serif; outline:none; transition:border-color 0.2s; margin-bottom:16px; }
-    .modal-input:focus { border-color:#6B5BD6; }
-    .modal-radio-group { display:flex; gap:10px; margin-bottom:16px; }
-    .modal-radio { flex:1; padding:12px; border:2px solid #e8e8e8; border-radius:12px; text-align:center; cursor:pointer; font-size:13px; font-weight:500; transition:all 0.2s; }
-    .modal-radio.selected { border-color:#6B5BD6; background:rgba(107,91,214,0.05); color:#6B5BD6; }
-    .modal-privacy { font-size:12px; color:#999; line-height:1.5; padding:12px; background:#f8f8f8; border-radius:12px; margin-top:8px; }
-    .modal-save-btn { width:100%; padding:14px; border:none; border-radius:14px; background:linear-gradient(135deg,#6B5BD6,#8B6BD6); color:white; font-size:15px; font-weight:600; cursor:pointer; margin-top:16px; font-family:'Noto Sans KR',sans-serif; }
+    .modal-sheet { position:relative; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); backdrop-filter:blur(32px); -webkit-backdrop-filter:blur(32px); border-radius:24px; padding:36px 28px 28px; max-width:340px; width:90%; max-height:88vh; overflow-y:auto; transform:scale(0.92) translateY(12px); transition:transform 0.35s cubic-bezier(0.32,0.72,0,1); box-shadow:0 24px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.15); }
+    .modal-overlay.show .modal-sheet { transform:scale(1) translateY(0); }
+    .modal-sheet-x { position:absolute; top:14px; right:14px; width:30px; height:30px; border:1px solid rgba(255,255,255,0.15); border-radius:50%; background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.6); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.15s; flex-shrink:0; }
+    .modal-sheet-x:active { background:rgba(255,255,255,0.18); }
+    .modal-title { font-family:'JetBrains Mono',monospace; font-size:17px; font-weight:700; letter-spacing:0.06em; color:#fff; margin-bottom:4px; }
+    .modal-title-sub { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.18em; color:rgba(167,139,250,0.7); text-transform:uppercase; margin-bottom:22px; }
+    .modal-divider { height:1px; background:rgba(255,255,255,0.08); margin:18px 0; }
+    .modal-label { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.45); margin-bottom:8px; }
+    .modal-input { width:100%; padding:11px 14px; border:1px solid rgba(255,255,255,0.12); border-radius:12px; font-size:14px; font-family:'Noto Sans KR',sans-serif; outline:none; transition:border-color 0.2s; margin-bottom:16px; background:rgba(255,255,255,0.06); color:#fff; }
+    .modal-input:focus { border-color:rgba(167,139,250,0.6); background:rgba(255,255,255,0.09); }
+    .modal-input::placeholder { color:rgba(255,255,255,0.25); }
+    .modal-radio-group { display:flex; gap:8px; margin-bottom:16px; }
+    .modal-radio { flex:1; padding:11px 8px; border:1px solid rgba(255,255,255,0.10); border-radius:12px; text-align:center; cursor:pointer; font-size:12px; font-weight:500; transition:all 0.2s; background:rgba(255,255,255,0.04); color:rgba(255,255,255,0.5); font-family:'Noto Sans KR',sans-serif; }
+    .modal-radio small { color:rgba(255,255,255,0.3); }
+    .modal-radio.selected { border-color:rgba(167,139,250,0.55); background:rgba(167,139,250,0.12); color:#fff; }
+    .modal-radio.selected small { color:rgba(167,139,250,0.7); }
+    .modal-radio:active { transform:scale(0.97); }
+    .modal-privacy { font-size:11.5px; color:rgba(255,255,255,0.35); line-height:1.6; padding:11px 14px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:12px; margin-top:4px; }
+    .modal-save-btn { width:100%; padding:14px; border:none; border-radius:14px; background:linear-gradient(135deg,#6B5BD6,#8B6BD6); color:white; font-size:14px; font-weight:700; cursor:pointer; margin-top:18px; font-family:'Noto Sans KR',sans-serif; letter-spacing:0.02em; transition:opacity 0.15s, transform 0.15s; }
+    .modal-save-btn:active { opacity:0.85; transform:scale(0.98); }
 
     /* PROFILE MODAL */
     .profile-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); z-index:1000; opacity:0; pointer-events:none; transition:opacity 0.3s; display:flex; align-items:flex-end; justify-content:center; }
@@ -1148,22 +1156,26 @@
         transform:translateX(-50%) translateY(0);
       }
 
-      /* ── 일반 모달 (온보딩 등): 동일 컬럼 안에서 ── */
+      /* ── 설정 모달: 데스크탑에서도 센터 glassmorphism 카드 ── */
       .modal-overlay {
-        background: rgba(0,0,0,0.4);
-        backdrop-filter: none;
+        background: rgba(10,8,24,0.55);
+        backdrop-filter: blur(20px);
+        align-items: center;
+        justify-content: center;
       }
       .modal-sheet {
-        position:fixed !important;
-        left:50%; bottom:0;
-        transform:translateX(-50%) translateY(100%) !important;
-        width:480px; max-width:480px;
-        border-radius:24px 24px 0 0;
-        border-left:1px solid #e5e5e5;
-        border-right:1px solid #e5e5e5;
+        position: relative !important;
+        left: auto !important;
+        bottom: auto !important;
+        transform: scale(0.92) translateY(12px) !important;
+        width: 90% !important;
+        max-width: 340px !important;
+        border-radius: 24px !important;
+        border-left: none !important;
+        border-right: none !important;
       }
       .modal-overlay.show .modal-sheet {
-        transform:translateX(-50%) translateY(0) !important;
+        transform: scale(1) translateY(0) !important;
       }
     }
 
@@ -3142,24 +3154,46 @@
     /* ================================================== */
     /* MODAL SHEETS — 일반 모달/시트 다크 통일 */
     /* ================================================== */
-    .modal-overlay { background: rgba(6,7,12,0.85) !important; backdrop-filter: blur(20px); }
+    .modal-overlay { background: rgba(10,8,24,0.65) !important; backdrop-filter: blur(24px) !important; }
     .modal-sheet {
-      background: linear-gradient(180deg, #0E1120 0%, #0A0C16 100%) !important;
-      border-top: 1px solid var(--vx-line-strong) !important;
+      background: rgba(255,255,255,0.08) !important;
+      border: 1px solid rgba(255,255,255,0.14) !important;
+      border-radius: 24px !important;
+      backdrop-filter: blur(32px) !important;
+      -webkit-backdrop-filter: blur(32px) !important;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.40), inset 0 1px 0 rgba(255,255,255,0.15) !important;
       color: #FFFFFF !important;
-      box-shadow: 0 -32px 80px rgba(199,125,255,0.10), inset 0 1px 0 rgba(255,255,255,0.04) !important;
     }
     .modal-label {
-      color: var(--vx-text-3) !important;
+      color: rgba(255,255,255,0.45) !important;
       font-family: var(--vx-font-mono) !important;
       letter-spacing: 0.12em !important;
       text-transform: uppercase;
       font-size: 10px !important;
     }
     .modal-privacy {
-      background: rgba(15,18,30,0.6) !important;
-      border: 1px solid var(--vx-line) !important;
-      color: var(--vx-text-3) !important;
+      background: rgba(255,255,255,0.04) !important;
+      border: 1px solid rgba(255,255,255,0.08) !important;
+      color: rgba(255,255,255,0.35) !important;
+    }
+    .modal-input {
+      background: rgba(255,255,255,0.06) !important;
+      border: 1px solid rgba(255,255,255,0.12) !important;
+      color: #FFFFFF !important;
+    }
+    .modal-input:focus {
+      border-color: rgba(167,139,250,0.6) !important;
+      background: rgba(255,255,255,0.09) !important;
+    }
+    .modal-radio {
+      background: rgba(255,255,255,0.04) !important;
+      border: 1px solid rgba(255,255,255,0.10) !important;
+      color: rgba(255,255,255,0.5) !important;
+    }
+    .modal-radio.selected {
+      border-color: rgba(167,139,250,0.55) !important;
+      background: rgba(167,139,250,0.12) !important;
+      color: #FFFFFF !important;
     }
 
     /* ================================================== */
@@ -3602,19 +3636,23 @@
 <!-- SETTINGS MODAL -->
 <div class="modal-overlay" id="settingsModal" onclick="if(event.target===this)closeSettings()">
   <div class="modal-sheet">
-    <div class="modal-handle"></div>
-    <div class="modal-title">⚙️ 설정</div>
-    <div class="modal-label" data-i18n="settings_lang_label">🌐 언어 / Language</div>
+    <button class="modal-sheet-x" onclick="closeSettings()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="modal-title" data-i18n="screen_settings">SETTINGS</div>
+    <div class="modal-title-sub">VenuX · configure</div>
+    <div class="modal-label" data-i18n="settings_lang_label">Language</div>
     <div class="modal-radio-group" id="langRadioGroup">
-      <div class="modal-radio lang-radio selected" data-lang="ko" onclick="selectLang(this)">한국어<br><small style="color:#999">Korean</small></div>
-      <div class="modal-radio lang-radio" data-lang="en" onclick="selectLang(this)">English<br><small style="color:#999">영어</small></div>
+      <div class="modal-radio lang-radio selected" data-lang="ko" onclick="selectLang(this)">한국어<br><small>Korean</small></div>
+      <div class="modal-radio lang-radio" data-lang="en" onclick="selectLang(this)">English<br><small>영어</small></div>
     </div>
+    <div class="modal-divider"></div>
     <div class="modal-label">OpenAI API Key</div>
     <input type="password" class="modal-input" id="apiKeyInput" placeholder="sk-..." autocomplete="off">
-    <div class="modal-label" data-i18n="settings_model_label">AI 모델</div>
+    <div class="modal-label" data-i18n="settings_model_label">AI Model</div>
     <div class="modal-radio-group">
-      <div class="modal-radio selected" data-model="gpt-4o" onclick="selectModel(this)">gpt-4o<br><small style="color:#999">정확 · 고급</small></div>
-      <div class="modal-radio" data-model="gpt-4o-mini" onclick="selectModel(this)">gpt-4o-mini<br><small style="color:#999">빠름 · 경제적</small></div>
+      <div class="modal-radio selected" data-model="gpt-4o" onclick="selectModel(this)">gpt-4o<br><small>정확 · 고급</small></div>
+      <div class="modal-radio" data-model="gpt-4o-mini" onclick="selectModel(this)">gpt-4o-mini<br><small>빠름 · 경제적</small></div>
     </div>
     <div class="modal-privacy" data-i18n="settings_privacy">🔒 API 키는 브라우저 localStorage에만 저장됩니다. 서버로 전송되지 않습니다.</div>
     <button class="modal-save-btn" onclick="saveSettings()" data-i18n="settings_save">저장</button>
