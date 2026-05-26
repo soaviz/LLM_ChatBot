@@ -3490,13 +3490,14 @@
     /* Sparkle wrap */
     .pc-lightbox-img-outer { position:relative; display:inline-block; }
     .pc-lightbox-img-wrap { position:relative; display:inline-block; border-radius:14px; overflow:hidden; }
-    .pc-lightbox-img { max-height:58vh; max-width:min(88vw, 340px); width:auto; border-radius:14px; box-shadow:0 8px 48px rgba(0,0,0,0.7); object-fit:contain; display:block; animation:pcLbGlow 2.6s ease-in-out infinite; }
+    .pc-lightbox-img { --glow-color: rgba(255,255,255,0.14); max-height:58vh; max-width:min(88vw, 340px); width:auto; border-radius:14px; box-shadow:0 8px 48px rgba(0,0,0,0.7); object-fit:contain; display:block; animation:pcLbGlow 2.6s ease-in-out infinite; }
     /* Shimmer sweep — clipped inside wrap */
-    .pc-lightbox-img-wrap::after { content:''; position:absolute; inset:0; border-radius:14px; background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,0.48) 50%,rgba(255,255,255,0.1) 55%,transparent 75%); transform:translateX(-130%); animation:pcShimmer 3s ease-in-out infinite; pointer-events:none; }
+    .pc-lightbox-img-wrap { --shimmer-color: rgba(255,255,255,0.9); }
+    .pc-lightbox-img-wrap::after { content:''; position:absolute; inset:0; border-radius:14px; background:linear-gradient(115deg,transparent 22%,var(--shimmer-color) 48%,rgba(255,255,255,0.08) 54%,transparent 76%); opacity:0.55; transform:translateX(-130%); animation:pcShimmer 3s ease-in-out infinite; pointer-events:none; }
     /* Sparks positioned relative to outer */
     .pc-spark,.pc-spark-cross { position:absolute; }
     @keyframes pcShimmer { 0%{transform:translateX(-130%)} 40%{transform:translateX(130%)} 100%{transform:translateX(130%)} }
-    @keyframes pcLbGlow { 0%,100%{box-shadow:0 8px 48px rgba(0,0,0,0.7),0 0 0 0 rgba(255,255,255,0)} 50%{box-shadow:0 8px 48px rgba(0,0,0,0.7),0 0 28px 6px rgba(255,255,255,0.14)} }
+    @keyframes pcLbGlow { 0%,100%{box-shadow:0 8px 48px rgba(0,0,0,0.7),0 0 0 0 rgba(255,255,255,0)} 50%{box-shadow:0 8px 48px rgba(0,0,0,0.7),0 0 28px 6px var(--glow-color,rgba(255,255,255,0.14))} }
     /* Sparkle particles */
     .pc-spark { position:absolute; width:5px; height:5px; border-radius:50%; background:#fff; pointer-events:none; opacity:0; animation:pcSparkle 2s ease-in-out infinite; }
     .pc-spark::before { content:''; position:absolute; inset:-1px; border-radius:50%; background:inherit; filter:blur(2px); }
@@ -3510,7 +3511,8 @@
     .pc-spark:nth-of-type(7){top:-5px;right:30%;animation-delay:2.1s;background:rgba(255,230,180,0.9);width:4px;height:4px}
     /* Cross-star sparkles */
     .pc-spark-cross { position:absolute; pointer-events:none; opacity:0; animation:pcSparkCross 2.4s ease-in-out infinite; }
-    .pc-spark-cross::before,.pc-spark-cross::after { content:''; position:absolute; background:#fff; border-radius:2px; }
+    .pc-spark-cross { --cross-color: #fff; }
+    .pc-spark-cross::before,.pc-spark-cross::after { content:''; position:absolute; background:var(--cross-color); border-radius:2px; }
     .pc-spark-cross::before { width:2px; height:10px; left:50%; top:50%; transform:translate(-50%,-50%); }
     .pc-spark-cross::after { width:10px; height:2px; left:50%; top:50%; transform:translate(-50%,-50%); }
     @keyframes pcSparkCross { 0%,100%{opacity:0;transform:scale(0) rotate(0deg)} 50%{opacity:0.85;transform:scale(1) rotate(15deg)} }
@@ -6896,6 +6898,36 @@ function openPhotoLightbox(src, alt) {
 function closePhotoLightbox() {
   document.getElementById('photoLightbox').classList.remove('open');
 }
+const RARITY_SPARKS = {
+  N:  { c1:'rgba(230,230,230,0.95)', c2:'rgba(200,200,200,0.85)', c3:'rgba(245,245,245,0.8)',  cross:'rgba(220,220,220,0.8)',  glow:'rgba(200,200,200,0.15)', crossScale:'0.8', crossCount:1 },
+  R:  { c1:'rgba(74,158,255,0.95)',  c2:'rgba(140,200,255,0.9)',  c3:'rgba(200,230,255,0.85)', cross:'rgba(100,180,255,1.0)',  glow:'rgba(74,158,255,0.28)',  crossScale:'1.2', crossCount:2 },
+  SR: { c1:'rgba(199,125,255,0.95)', c2:'rgba(230,160,255,0.9)',  c3:'rgba(255,200,255,0.85)', cross:'rgba(210,140,255,1.0)',  glow:'rgba(199,125,255,0.32)', crossScale:'1.4', crossCount:2 },
+  UR: { c1:'rgba(255,215,0,0.95)',   c2:'rgba(255,175,40,0.92)',  c3:'rgba(255,245,140,0.88)', cross:'rgba(255,210,60,1.0)',   glow:'rgba(255,215,0,0.38)',   crossScale:'1.6', crossCount:2 },
+};
+function applySparkColors(rarity) {
+  var p = RARITY_SPARKS[rarity] || RARITY_SPARKS['N'];
+  var outer = document.querySelector('.pc-lightbox-img-outer');
+  if (!outer) return;
+  var sparks = outer.querySelectorAll('.pc-spark');
+  var crosses = outer.querySelectorAll('.pc-spark-cross');
+  var colorMap = [p.c1, p.c2, p.c3, p.c1, p.c2, p.c3, p.c1];
+  sparks.forEach(function(s, i) {
+    s.style.background = colorMap[i] || p.c1;
+    s.style.boxShadow = '0 0 6px 2px ' + p.glow;
+  });
+  crosses.forEach(function(s, i) {
+    var show = i < p.crossCount;
+    s.style.opacity = show ? '' : '0';
+    s.style.animationPlayState = show ? 'running' : 'paused';
+    s.style.filter = 'drop-shadow(0 0 5px ' + p.cross + ')';
+    s.style.setProperty('--cross-color', p.cross);
+    s.style.transform = show ? 'scale(' + p.crossScale + ')' : 'scale(0)';
+  });
+  var wrap = outer.querySelector('.pc-lightbox-img-wrap');
+  if (wrap) wrap.style.setProperty('--shimmer-color', p.c1);
+  var img = outer.querySelector('.pc-lightbox-img');
+  if (img) img.style.setProperty('--glow-color', p.glow);
+}
 function openCardLightbox(cardId, memberKey) {
   const m = memberData[memberKey];
   const cards = PHOTOCARDS[memberKey] || [];
@@ -6914,6 +6946,7 @@ function openCardLightbox(cardId, memberKey) {
     '<div class="pc-lightbox-sub">' + (card.subtitle || '') + '</div>' +
     '<div class="pc-lightbox-quote">&ldquo;' + card.quote.replace(/\\n/g, '\n') + '&rdquo;</div>' +
     '<div class="pc-lightbox-rarity" style="color:' + r.color + ';border-color:' + r.color + '">' + r.label + ' · ' + cardId.toUpperCase() + '</div>';
+  applySparkColors(card.rarity);
   lb.classList.add('open');
 }
 function closeCardLightbox() {
