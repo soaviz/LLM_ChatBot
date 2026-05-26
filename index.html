@@ -880,6 +880,20 @@
     .fp-close { width:40px; height:40px; border:none; background:rgba(255,255,255,0.1); border-radius:50%; color:white; font-size:20px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
     .fp-subtitle { font-size:13px; color:rgba(255,255,255,0.6); font-weight:500; }
     .fp-share { width:40px; height:40px; border:none; background:rgba(255,255,255,0.1); border-radius:50%; color:white; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+    /* share sheet */
+    .share-sheet-overlay { position:fixed; inset:0; z-index:6000; background:rgba(0,0,0,0.45); opacity:0; pointer-events:none; transition:opacity 0.25s; }
+    .share-sheet-overlay.open { opacity:1; pointer-events:auto; }
+    .share-sheet { position:fixed; bottom:0; left:0; right:0; z-index:6001; background:#1e1e2e; border-radius:20px 20px 0 0; padding:12px 16px calc(env(safe-area-inset-bottom,16px) + 8px); transform:translateY(100%); transition:transform 0.32s cubic-bezier(0.32,0.72,0,1); }
+    .share-sheet.open { transform:translateY(0); }
+    .share-sheet-handle { width:36px; height:4px; background:rgba(255,255,255,0.15); border-radius:2px; margin:0 auto 16px; }
+    .share-sheet-title { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; color:rgba(255,255,255,.35); text-align:center; margin-bottom:16px; text-transform:uppercase; }
+    .share-sheet-items { display:flex; gap:8px; margin-bottom:12px; }
+    .share-sheet-item { flex:1; display:flex; flex-direction:column; align-items:center; gap:10px; padding:18px 12px; border:1px solid rgba(255,255,255,.1); border-radius:16px; background:rgba(255,255,255,.06); color:white; cursor:pointer; transition:background .15s; }
+    .share-sheet-item:active { background:rgba(255,255,255,.12); }
+    .share-sheet-icon { display:flex; align-items:center; justify-content:center; }
+    .share-sheet-label { font-size:12px; font-weight:600; font-family:'Noto Sans KR',sans-serif; color:rgba(255,255,255,.85); }
+    .share-sheet-cancel { width:100%; padding:14px; border:none; border-radius:14px; background:rgba(255,255,255,.07); color:rgba(255,255,255,.5); font-size:14px; font-weight:600; font-family:'Noto Sans KR',sans-serif; cursor:pointer; transition:background .15s; }
+    .share-sheet-cancel:active { background:rgba(255,255,255,.12); }
 
     .fp-cover-wrap { flex:0 0 auto; margin:16px 0 24px; }
     .fp-cover { width:280px; height:280px; border-radius:24px; overflow:hidden; box-shadow:0 16px 48px rgba(0,0,0,0.4); transition:transform 0.3s; }
@@ -4681,6 +4695,28 @@ function vxCamShoot(){
     <div class="chat-action-item" onclick="chatActionFourcut()"><div class="chat-action-icon">🎞️</div><div class="chat-action-label">인생네컷</div></div>
     <div class="chat-action-item chat-action-locked" id="chatActionGift"><div class="chat-action-icon">✨</div><div class="chat-action-label">선물 보내기<br><span style="font-size:10px;color:#aaa">LV 3+</span></div></div>
   </div>
+</div>
+
+<!-- SHARE SHEET -->
+<div class="share-sheet-overlay" id="shareSheetOverlay" onclick="closeShareSheet()"></div>
+<div class="share-sheet" id="shareSheet">
+  <div class="share-sheet-handle"></div>
+  <div class="share-sheet-title" id="shareSheetTitle">공유</div>
+  <div class="share-sheet-items">
+    <button class="share-sheet-item" onclick="shareSheetCopy()">
+      <span class="share-sheet-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </span>
+      <span class="share-sheet-label">링크 복사</span>
+    </button>
+    <button class="share-sheet-item" onclick="shareSheetNative()">
+      <span class="share-sheet-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><line x1="8.4" y1="10.9" x2="15.6" y2="6.1"/><line x1="8.4" y1="13.1" x2="15.6" y2="17.9"/></svg>
+      </span>
+      <span class="share-sheet-label">공유하기</span>
+    </button>
+  </div>
+  <button class="share-sheet-cancel" onclick="closeShareSheet()">취소</button>
 </div>
 
 <!-- TAB BAR -->
@@ -10848,25 +10884,40 @@ function renderTracklist() {
 function shareTrack() {
   const track = venuxTracks[currentTrackIdx];
   if (!track) return;
+  const title = document.getElementById('shareSheetTitle');
+  if (title) title.textContent = track.title;
+  document.getElementById('shareSheetOverlay').classList.add('open');
+  document.getElementById('shareSheet').classList.add('open');
+}
+function closeShareSheet() {
+  document.getElementById('shareSheetOverlay').classList.remove('open');
+  document.getElementById('shareSheet').classList.remove('open');
+}
+function shareSheetCopy() {
+  const track = venuxTracks[currentTrackIdx];
+  if (!track) return;
   const text = `🎵 ${track.title} — ${track.artist}\nhttps://soaviz.github.io/venux/`;
-  const btn = document.querySelector('.fp-share');
+  navigator.clipboard?.writeText(text).then(() => {
+    closeShareSheet();
+    const btn = document.querySelector('.fp-share');
+    if (btn) {
+      const orig = btn.innerHTML;
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polyline points="20 6 9 17 4 12"/></svg>';
+      btn.style.background = 'rgba(34,197,94,0.35)';
+      setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; }, 2000);
+    }
+    showToast('링크 복사됨');
+  }).catch(() => showToast('복사 실패 — 브라우저가 지원하지 않아요'));
+}
+function shareSheetNative() {
+  const track = venuxTracks[currentTrackIdx];
+  if (!track) return;
+  const text = `🎵 ${track.title} — ${track.artist}\nhttps://soaviz.github.io/venux/`;
+  closeShareSheet();
   if (navigator.share) {
-    navigator.share({ title:track.title, text }).catch(()=>{});
+    navigator.share({ title: track.title, text }).catch(() => {});
   } else {
-    navigator.clipboard?.writeText(text).then(() => {
-      showToast('링크 복사됨 📋');
-      if (btn) {
-        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polyline points="20 6 9 17 4 12"/></svg>';
-        btn.style.background = 'rgba(34,197,94,0.35)';
-        btn.style.borderColor = 'rgba(34,197,94,0.6)';
-        btn.style.border = '1.5px solid rgba(34,197,94,0.6)';
-        setTimeout(() => {
-          btn.innerHTML = '📤';
-          btn.style.background = '';
-          btn.style.border = '';
-        }, 2000);
-      }
-    }).catch(() => showToast('복사 실패 — 브라우저가 지원하지 않아요'));
+    showToast('이 브라우저는 공유를 지원하지 않아요');
   }
 }
 
