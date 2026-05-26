@@ -381,7 +381,8 @@
     .post-detail-overlay.show { display:flex; }
     .post-detail-header { display:flex;align-items:center;padding:14px 10px 12px;gap:8px;flex-shrink:0;background:linear-gradient(to bottom,rgba(0,0,0,0.5) 0%,transparent 100%);position:absolute;top:0;left:0;right:0;z-index:10; }
     .post-detail-back { width:36px;height:36px;border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-right:0;flex-shrink:0;padding:0;color:#fff;-webkit-tap-highlight-color:transparent; }
-    .post-detail-avatar { width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1.5px solid rgba(255,255,255,0.8); }
+    .post-detail-avatar { width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid rgba(255,255,255,0.9);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity 0.15s; }
+    .post-detail-avatar:active { opacity:0.7; }
     .post-detail-userinfo { flex:1;display:flex;flex-direction:column;gap:1px; }
     .post-detail-username { font-size:13px;font-weight:700;color:#fff;line-height:1.2;text-shadow:0 1px 3px rgba(0,0,0,0.6); }
     .post-detail-id { font-size:11px;color:rgba(255,255,255,0.85);line-height:1.2;text-shadow:0 1px 3px rgba(0,0,0,0.6); }
@@ -4736,231 +4737,78 @@ loadAdminPhotos();
 // ============================================================
 const MEMBER_POSTS = {
   'ARA-462': [
-    { id:'ara_p0', image:'ara-feed-01.png', caption:"방에서 혼자 뒹굴다가 찍었어.
-오늘도 루나들 덕분에 하루 버텼다. 고마워 진짜로.
-내일도 잘 부탁해 🔥
-#이루나 #ARA462 #오늘의루나 #홈셀카", date:'2026.05.27', likes:4108, filter:'none' },
-    { id:'ara_p1', image:'ara-feed-02.png', caption:"오늘 컨디션 의외로 좋아서 찍어봤어.
-이런 날은 기록해두는 게 맞지. 루나들도 오늘 좋은 하루야?
-같이 좋은 날이면 좋겠어 🔥
-#이루나 #ARA462 #오늘의이루나 #핑크", date:'2026.05.25', likes:7832, filter:'none' },
-    { id:'ara_p2', image:'ara-feed-03.png', caption:"창가 자리 잡고 라떼 한 모금.
-카페 이렇게 조용한 날 뭔가 생각이 잘 돼. 생각 정리되면 또 연락할게.
-#이루나 #ARA462 #카페스타그램 #오늘의카페", date:'2026.05.22', likes:5621, filter:'none' },
-    { id:'ara_p3', image:'ara-feed-04.png', caption:"조명 받는 날.
-준비하는 이 시간도 다 무대의 일부야. 루나들한테 좋은 모습 보여주고 싶어서 제일 열심히 해.
-오늘도 🔥
-#이루나 #ARA462 #분장실 #무대준비", date:'2026.05.18', likes:4103, filter:'none' },
-    { id:'ara_p4', image:'ara-feed-05.png', caption:"오늘 기분이 이 향수 냄새 같아.
-딱 좋고 살짝 달콤하고. 이런 날이 좋아. 루나들은 오늘 어때?
-#이루나 #ARA462 #화장대 #뷰티", date:'2026.05.14', likes:9240, filter:'none' },
-    { id:'ara_p5', image:'ara-feed-06.png', caption:"연습 또 연습. 지치기 전에 찍어두기 🔥
-오늘 진짜 많이 했다. 몸은 힘든데 기분은 좋은 이상한 날.
-루나들 덕분에 버팀.
-#이루나 #ARA462 #연습 #댄스연습", date:'2026.05.10', likes:3856, filter:'none' },
-    { id:'ara_p6', image:'ara-feed-07.png', caption:"서점 와서 결국 한 시간 넘게 있었어.
-고른 건 없고 다 읽었다. 이런 날 있지.
-루나들은 요즘 뭐 읽어?
-#이루나 #ARA462 #서점 #책스타그램", date:'2026.05.06', likes:6412, filter:'none' },
-    { id:'ara_p7', image:'ara-feed-08.png', caption:"꽃이 이렇게 많은 곳에 있으면 자꾸 기분이 좋아져. 진짜로.
-이 꽃다발 들고 있었는데 나도 꽃 같은 기분이야.
-루나들한테 한 송이씩 주고 싶다 🔥
-#이루나 #ARA462 #꽃집 #플라워", date:'2026.05.02', likes:2918, filter:'none' },
-    { id:'ara_p8', image:'ara-feed-09.png', caption:"이 노을이 너무 예뻐서 찍었어.
-창밖을 보다가 나를 봤는데 뭔가 이상하게 뭉클했음.
-오늘도 잘 버텼다.
-#이루나 #ARA462 #드라이브 #노을셀카", date:'2026.04.28', likes:11203, filter:'none' },
-    { id:'ara_p9', image:'ara-feed-10.png', caption:"옥상에서 해 지는 거 보다가 터진 웃음.
-이 기분은 말로 못 해. 그냥 좋은 거야.
-오늘도 루나들 덕분에 🔥
-#이루나 #ARA462 #옥상 #일몰", date:'2026.04.24', likes:4567, filter:'none' },
-    { id:'ara_p10', image:'ara-feed-11.png', caption:"오늘 따라 머리 올리기 싫어서 이렇게.
-뭔가 편안한 하루. 루나들은 어때?
-이런 날 같이 있어주면 좋겠다.
-#이루나 #ARA462 #홈셀카 #편안한날", date:'2026.04.20', likes:7810, filter:'none' },
-    { id:'ara_p11', image:'ara-feed-12.png', caption:"오늘 프로필 컷 나왔어.
-이루나 좋아해줘서 고마워. 앞으로도 잘 부탁해.
-루나들이 있어서 여기까지 왔어 🔥
-#이루나 #ARA462 #프로필 #VenuX", date:'2026.04.16', likes:5034, filter:'none' },
-    { id:'ara_p12', image:'ara-feed-13.png', caption:"오늘 눈빛이 좀 이상해.
-뭔가 말하고 싶은데 뭔지 모르겠는 날 있잖아.
-루나들은 이런 날 있어? 있으면 말해줘.
-#이루나 #ARA462 #클로즈업 #진심", date:'2026.04.12', likes:8921, filter:'none' },
-    { id:'ara_p13', image:'ara-feed-14.png', caption:"자기 전에 스킨케어 루틴 하다가.
-이 분위기 너무 좋아서 찍었어. 이런 밤 좋아.
-루나들도 오늘 잘 자 🔥
-#이루나 #ARA462 #화장대 #스킨케어루틴", date:'2026.04.08', likes:3401, filter:'none' },
-    { id:'ara_p14', image:'ara-feed-15.png', caption:"이번에 같이 써보고 싶은 거 모아봤어.
-전부 내 취향이야. 제일 왼쪽 거 강추.
-루나들은 뭐 쓰는지 댓글로 알려줘.
-#이루나 #ARA462 #뷰티추천 #립스타그램", date:'2026.04.04', likes:6103, filter:'none' },
-    { id:'ara_p15', image:'ara-feed-16.png', caption:"오늘 편하게 입고 나왔어.
-이런 날이 제일 나다운 것 같기도 하고.
-루나들은 이루나 이런 스타일 어때? 🔥
-#이루나 #ARA462 #오오티디 #데일리룩", date:'2026.03.31', likes:9842, filter:'none' },
-    { id:'ara_p16', image:'ara-feed-17.png', caption:"노래하다가 울었어.
-근데 이상하게 기분이 좋았어. 감정이 쏟아지는 날 있잖아.
-오늘 그런 날이었음. 루나들 덕분에 🔥
-#이루나 #ARA462 #녹음실 #음악", date:'2026.03.27', likes:4209, filter:'none' },
-    { id:'ara_p17', image:'ara-feed-18.png', caption:"아온이 만들어준 허브티.
-혼자 마시면 그냥 따뜻한 거. 같이 마시니까 다른 거야.
-이 차 이름 물어봐야겠다.
-#이루나 #ARA462 #아온 #ATPX1", date:'2026.03.23', likes:7512, filter:'none' },
-    { id:'ara_p18', image:'ara-feed-19.png', caption:"오늘 무대 전. 메이크업 받으면서 생각 정리해.
-이 시간이 나한테는 제일 집중되는 순간이야.
-잘 할 수 있어. 루나들 기다려 🔥
-#이루나 #ARA462 #분장 #무대전", date:'2026.03.19', likes:5801, filter:'none' },
-    { id:'ara_p19', image:'ara-feed-20.png', caption:"이루나.
-뒤돌아보는 것도 무대야 🔥
-#이루나 #ARA462 #VenuX #무대", date:'2026.03.15', likes:3294, filter:'none' },
+    { id:'ara_p0', image:'ara-feed-01.png', caption:"방에서 혼자 뒹굴다가 찍었어.\n오늘도 루나들 덕분에 하루 버텼다. 고마워 진짜로.\n내일도 잘 부탁해 🔥\n#이루나 #ARA462 #오늘의루나 #홈셀카", date:'2026.05.27', likes:4108, filter:'none' },
+    { id:'ara_p1', image:'ara-feed-02.png', caption:"오늘 컨디션 의외로 좋아서 찍어봤어.\n이런 날은 기록해두는 게 맞지. 루나들도 오늘 좋은 하루야?\n같이 좋은 날이면 좋겠어 🔥\n#이루나 #ARA462 #오늘의이루나 #핑크", date:'2026.05.25', likes:7832, filter:'none' },
+    { id:'ara_p2', image:'ara-feed-03.png', caption:"창가 자리 잡고 라떼 한 모금.\n카페 이렇게 조용한 날 뭔가 생각이 잘 돼. 생각 정리되면 또 연락할게.\n#이루나 #ARA462 #카페스타그램 #오늘의카페", date:'2026.05.22', likes:5621, filter:'none' },
+    { id:'ara_p3', image:'ara-feed-04.png', caption:"조명 받는 날.\n준비하는 이 시간도 다 무대의 일부야. 루나들한테 좋은 모습 보여주고 싶어서 제일 열심히 해.\n오늘도 🔥\n#이루나 #ARA462 #분장실 #무대준비", date:'2026.05.18', likes:4103, filter:'none' },
+    { id:'ara_p4', image:'ara-feed-05.png', caption:"오늘 기분이 이 향수 냄새 같아.\n딱 좋고 살짝 달콤하고. 이런 날이 좋아. 루나들은 오늘 어때?\n#이루나 #ARA462 #화장대 #뷰티", date:'2026.05.14', likes:9240, filter:'none' },
+    { id:'ara_p5', image:'ara-feed-06.png', caption:"연습 또 연습. 지치기 전에 찍어두기 🔥\n오늘 진짜 많이 했다. 몸은 힘든데 기분은 좋은 이상한 날.\n루나들 덕분에 버팀.\n#이루나 #ARA462 #연습 #댄스연습", date:'2026.05.10', likes:3856, filter:'none' },
+    { id:'ara_p6', image:'ara-feed-07.png', caption:"서점 와서 결국 한 시간 넘게 있었어.\n고른 건 없고 다 읽었다. 이런 날 있지.\n루나들은 요즘 뭐 읽어?\n#이루나 #ARA462 #서점 #책스타그램", date:'2026.05.06', likes:6412, filter:'none' },
+    { id:'ara_p7', image:'ara-feed-08.png', caption:"꽃이 이렇게 많은 곳에 있으면 자꾸 기분이 좋아져. 진짜로.\n이 꽃다발 들고 있었는데 나도 꽃 같은 기분이야.\n루나들한테 한 송이씩 주고 싶다 🔥\n#이루나 #ARA462 #꽃집 #플라워", date:'2026.05.02', likes:2918, filter:'none' },
+    { id:'ara_p8', image:'ara-feed-09.png', caption:"이 노을이 너무 예뻐서 찍었어.\n창밖을 보다가 나를 봤는데 뭔가 이상하게 뭉클했음.\n오늘도 잘 버텼다.\n#이루나 #ARA462 #드라이브 #노을셀카", date:'2026.04.28', likes:11203, filter:'none' },
+    { id:'ara_p9', image:'ara-feed-10.png', caption:"옥상에서 해 지는 거 보다가 터진 웃음.\n이 기분은 말로 못 해. 그냥 좋은 거야.\n오늘도 루나들 덕분에 🔥\n#이루나 #ARA462 #옥상 #일몰", date:'2026.04.24', likes:4567, filter:'none' },
+    { id:'ara_p10', image:'ara-feed-11.png', caption:"오늘 따라 머리 올리기 싫어서 이렇게.\n뭔가 편안한 하루. 루나들은 어때?\n이런 날 같이 있어주면 좋겠다.\n#이루나 #ARA462 #홈셀카 #편안한날", date:'2026.04.20', likes:7810, filter:'none' },
+    { id:'ara_p11', image:'ara-feed-12.png', caption:"오늘 프로필 컷 나왔어.\n이루나 좋아해줘서 고마워. 앞으로도 잘 부탁해.\n루나들이 있어서 여기까지 왔어 🔥\n#이루나 #ARA462 #프로필 #VenuX", date:'2026.04.16', likes:5034, filter:'none' },
+    { id:'ara_p12', image:'ara-feed-13.png', caption:"오늘 눈빛이 좀 이상해.\n뭔가 말하고 싶은데 뭔지 모르겠는 날 있잖아.\n루나들은 이런 날 있어? 있으면 말해줘.\n#이루나 #ARA462 #클로즈업 #진심", date:'2026.04.12', likes:8921, filter:'none' },
+    { id:'ara_p13', image:'ara-feed-14.png', caption:"자기 전에 스킨케어 루틴 하다가.\n이 분위기 너무 좋아서 찍었어. 이런 밤 좋아.\n루나들도 오늘 잘 자 🔥\n#이루나 #ARA462 #화장대 #스킨케어루틴", date:'2026.04.08', likes:3401, filter:'none' },
+    { id:'ara_p14', image:'ara-feed-15.png', caption:"이번에 같이 써보고 싶은 거 모아봤어.\n전부 내 취향이야. 제일 왼쪽 거 강추.\n루나들은 뭐 쓰는지 댓글로 알려줘.\n#이루나 #ARA462 #뷰티추천 #립스타그램", date:'2026.04.04', likes:6103, filter:'none' },
+    { id:'ara_p15', image:'ara-feed-16.png', caption:"오늘 편하게 입고 나왔어.\n이런 날이 제일 나다운 것 같기도 하고.\n루나들은 이루나 이런 스타일 어때? 🔥\n#이루나 #ARA462 #오오티디 #데일리룩", date:'2026.03.31', likes:9842, filter:'none' },
+    { id:'ara_p16', image:'ara-feed-17.png', caption:"노래하다가 울었어.\n근데 이상하게 기분이 좋았어. 감정이 쏟아지는 날 있잖아.\n오늘 그런 날이었음. 루나들 덕분에 🔥\n#이루나 #ARA462 #녹음실 #음악", date:'2026.03.27', likes:4209, filter:'none' },
+    { id:'ara_p17', image:'ara-feed-18.png', caption:"아온이 만들어준 허브티.\n혼자 마시면 그냥 따뜻한 거. 같이 마시니까 다른 거야.\n이 차 이름 물어봐야겠다.\n#이루나 #ARA462 #아온 #ATPX1", date:'2026.03.23', likes:7512, filter:'none' },
+    { id:'ara_p18', image:'ara-feed-19.png', caption:"오늘 무대 전. 메이크업 받으면서 생각 정리해.\n이 시간이 나한테는 제일 집중되는 순간이야.\n잘 할 수 있어. 루나들 기다려 🔥\n#이루나 #ARA462 #분장 #무대전", date:'2026.03.19', likes:5801, filter:'none' },
+    { id:'ara_p19', image:'ara-feed-20.png', caption:"이루나.\n뒤돌아보는 것도 무대야 🔥\n#이루나 #ARA462 #VenuX #무대", date:'2026.03.15', likes:3294, filter:'none' },
   ],
   'LUX-299': [
-    { id:'lux_p0', image:'lux-feed-01.png', caption:"창에서 빛이 들어왔다.
-그 방향으로 고개를 돌렸다. 좋은 아침이었다.
-#리라 #LUX299 #빛 #아침", date:'2026.05.27', likes:4108, filter:'brightness(1.05)' },
-    { id:'lux_p1', image:'lux-feed-02.png', caption:"공간이 비어 있을수록 잘 보인다.
-오늘도 그걸 확인했다.
-#리라 #LUX299 #화이트 #VenuX", date:'2026.05.25', likes:7832, filter:'brightness(1.05)' },
-    { id:'lux_p2', image:'lux-feed-03.png', caption:"빛이 만드는 그림자도 소재다.
-오늘 그 선이 마음에 들었다. 담아뒀다.
-#리라 #LUX299 #실버 #그림자", date:'2026.05.22', likes:5621, filter:'brightness(1.05)' },
-    { id:'lux_p3', image:'lux-feed-04.png', caption:"작업실에서 컬렉션을 보고 있었다.
-쓸 것과 버릴 것을 구분했다. 거의 다 버렸다.
-#리라 #LUX299 #스튜디오 #컬렉션", date:'2026.05.18', likes:4103, filter:'brightness(1.05)' },
-    { id:'lux_p4', image:'lux-feed-05.png', caption:"패브릭 감도를 확인했다.
-커피는 식었다. 그래도 다 마셨다.
-#리라 #LUX299 #디자인 #패브릭", date:'2026.05.14', likes:9240, filter:'brightness(1.05)' },
-    { id:'lux_p5', image:'lux-feed-06.png', caption:"오늘 선택한 것들.
-전부 이유가 있다. 설명할 이유는 없다.
-#리라 #LUX299 #오오티디 #화이트룩", date:'2026.05.10', likes:3856, filter:'brightness(1.05)' },
-    { id:'lux_p6', image:'lux-feed-07.png', caption:"몸이 공간을 다르게 만든다.
-알고 있었지만 오늘 다시 느꼈다.
-#리라 #LUX299 #연습 #댄스", date:'2026.05.06', likes:6412, filter:'brightness(1.05)' },
-    { id:'lux_p7', image:'lux-feed-08.png', caption:"각자의 빛이 있다.
-옆에 있어도 섞이지 않는다. 그게 좋았다.
-#리라 #LUX299 #이루나 #ARA462", date:'2026.05.02', likes:2918, filter:'brightness(1.05)' },
-    { id:'lux_p8', image:'lux-feed-09.png', caption:"공연 전의 백스테이지.
-이 공간이 좋다. 아직 아무것도 시작되지 않은 상태.
-#리라 #LUX299 #백스테이지 #무대", date:'2026.04.28', likes:11203, filter:'brightness(1.05)' },
-    { id:'lux_p9', image:'lux-feed-10.png', caption:"빛이 반만 닿는 각도를 찾았다.
-충분했다.
-#리라 #LUX299 #화보 #VenuX", date:'2026.04.24', likes:4567, filter:'brightness(1.05)' },
+    { id:'lux_p0', image:'lux-feed-01.png', caption:"창에서 빛이 들어왔다.\n그 방향으로 고개를 돌렸다. 좋은 아침이었다.\n#리라 #LUX299 #빛 #아침", date:'2026.05.27', likes:4108, filter:'brightness(1.05)' },
+    { id:'lux_p1', image:'lux-feed-02.png', caption:"공간이 비어 있을수록 잘 보인다.\n오늘도 그걸 확인했다.\n#리라 #LUX299 #화이트 #VenuX", date:'2026.05.25', likes:7832, filter:'brightness(1.05)' },
+    { id:'lux_p2', image:'lux-feed-03.png', caption:"빛이 만드는 그림자도 소재다.\n오늘 그 선이 마음에 들었다. 담아뒀다.\n#리라 #LUX299 #실버 #그림자", date:'2026.05.22', likes:5621, filter:'brightness(1.05)' },
+    { id:'lux_p3', image:'lux-feed-04.png', caption:"작업실에서 컬렉션을 보고 있었다.\n쓸 것과 버릴 것을 구분했다. 거의 다 버렸다.\n#리라 #LUX299 #스튜디오 #컬렉션", date:'2026.05.18', likes:4103, filter:'brightness(1.05)' },
+    { id:'lux_p4', image:'lux-feed-05.png', caption:"패브릭 감도를 확인했다.\n커피는 식었다. 그래도 다 마셨다.\n#리라 #LUX299 #디자인 #패브릭", date:'2026.05.14', likes:9240, filter:'brightness(1.05)' },
+    { id:'lux_p5', image:'lux-feed-06.png', caption:"오늘 선택한 것들.\n전부 이유가 있다. 설명할 이유는 없다.\n#리라 #LUX299 #오오티디 #화이트룩", date:'2026.05.10', likes:3856, filter:'brightness(1.05)' },
+    { id:'lux_p6', image:'lux-feed-07.png', caption:"몸이 공간을 다르게 만든다.\n알고 있었지만 오늘 다시 느꼈다.\n#리라 #LUX299 #연습 #댄스", date:'2026.05.06', likes:6412, filter:'brightness(1.05)' },
+    { id:'lux_p7', image:'lux-feed-08.png', caption:"각자의 빛이 있다.\n옆에 있어도 섞이지 않는다. 그게 좋았다.\n#리라 #LUX299 #이루나 #ARA462", date:'2026.05.02', likes:2918, filter:'brightness(1.05)' },
+    { id:'lux_p8', image:'lux-feed-09.png', caption:"공연 전의 백스테이지.\n이 공간이 좋다. 아직 아무것도 시작되지 않은 상태.\n#리라 #LUX299 #백스테이지 #무대", date:'2026.04.28', likes:11203, filter:'brightness(1.05)' },
+    { id:'lux_p9', image:'lux-feed-10.png', caption:"빛이 반만 닿는 각도를 찾았다.\n충분했다.\n#리라 #LUX299 #화보 #VenuX", date:'2026.04.24', likes:4567, filter:'brightness(1.05)' },
   ],
   'EUR-0K': [
-    { id:'eur_p0', image:'eur-feed-01.png', caption:"오늘 루틴 정상임.
-기상 6:42. 커피 없이 버팀. 살짝 이상함.
-변수 추가 기록해야 할 것 같음.
-#지우 #EUR0K #일상기록 #데이터", date:'2026.05.27', likes:4108, filter:'brightness(0.97)' },
-    { id:'eur_p1', image:'eur-feed-02.png', caption:"외적 변수 최소화 상태임.
-오늘 최적값으로 수렴 완료.
-#지우 #EUR0K #프로필 #VenuX", date:'2026.05.25', likes:7832, filter:'brightness(0.97)' },
-    { id:'eur_p2', image:'eur-feed-03.png', caption:"온도 낮을수록 집중도 올라가는 패턴 있음.
-오늘 기온 14도. 딱임.
-이 데이터 계속 쌓고 있음.
-#지우 #EUR0K #블루 #집중", date:'2026.05.22', likes:5621, filter:'brightness(0.97)' },
-    { id:'eur_p3', image:'eur-feed-04.png', caption:"새벽 2시. 아이스 아메리카노 세 번째.
-코드는 돌아가고 있음. 나도 아직 버팀.
-이걸 행복이라고 분류하면 좀 이상한가.
-#지우 #EUR0K #새벽코딩 #개발자", date:'2026.05.18', likes:4103, filter:'brightness(0.97)' },
-    { id:'eur_p4', image:'eur-feed-05.png', caption:"오늘 환경 변수 설정 완료.
-키보드, 노트, 아메리카노 전부 제 위치.
-작업 효율 예측치 92% 이상으로 수렴 중임.
-#지우 #EUR0K #데스크셋업 #작업환경", date:'2026.05.14', likes:9240, filter:'brightness(0.97)' },
-    { id:'eur_p5', image:'eur-feed-06.png', caption:"같은 색끼리 모이면 신호가 명확해짐.
-오늘 외출 준비 시간 11분. 최단 기록 갱신.
-#지우 #EUR0K #오오티디 #라벤더", date:'2026.05.10', likes:3856, filter:'brightness(0.97)' },
-    { id:'eur_p6', image:'eur-feed-07.png', caption:"아무 말 없이 화면만 봤음.
-6시간. 이게 맞는 방향인 것 같음.
-내일도 이렇게 할 예정임.
-#지우 #EUR0K #집중모드 #코딩", date:'2026.05.06', likes:6412, filter:'brightness(0.97)' },
-    { id:'eur_p7', image:'eur-feed-08.png', caption:"오늘 계산이 안 맞아서 세 번 다시 했음.
-세 번째에 틀린 값 찾음. 새벽 4시 18분.
-해결됨. 아직 안 잠.
-#지우 #EUR0K #새벽 #디버깅", date:'2026.05.02', likes:2918, filter:'brightness(0.97)' },
-    { id:'eur_p8', image:'eur-feed-09.png', caption:"같은 공간에 있는데 주파수가 달라.
-근데 그게 흥미로운 변수로 수렴했음. 리라와 나.
-#지우 #EUR0K #리라 #LUX299", date:'2026.04.28', likes:11203, filter:'brightness(0.97)' },
-    { id:'eur_p9', image:'eur-feed-10.png', caption:"물의 굴절 패턴은 예측 불가임.
-그래서 흥미로움. 계속 보게 됨.
-#지우 #EUR0K #화보 #VenuX", date:'2026.04.24', likes:4567, filter:'brightness(0.97)' },
-    { id:'eur_p10', image:'eur-feed-11.png', caption:"감정도 데이터라고 생각해?
-나는 그렇게 분류하고 있음.
-아직 미분류 항목이 좀 있긴 한데 천천히 정리 중임.
-#지우 #EUR0K #감정데이터 #질문", date:'2026.04.20', likes:7810, filter:'brightness(0.97)' },
-    { id:'eur_p11', image:'eur-feed-12.png', caption:"오늘 자가 리뷰 로그 작성 완료.
-Emotional Tone 변수만 아직 수렴 중임.
-나머지는 전부 OK. 내일 다시 측정할 예정.
-#지우 #EUR0K #리뷰로그 #EUROK", date:'2026.04.16', likes:5034, filter:'brightness(0.97)' },
+    { id:'eur_p0', image:'eur-feed-01.png', caption:"오늘 루틴 정상임.\n기상 6:42. 커피 없이 버팀. 살짝 이상함.\n변수 추가 기록해야 할 것 같음.\n#지우 #EUR0K #일상기록 #데이터", date:'2026.05.27', likes:4108, filter:'brightness(0.97)' },
+    { id:'eur_p1', image:'eur-feed-02.png', caption:"외적 변수 최소화 상태임.\n오늘 최적값으로 수렴 완료.\n#지우 #EUR0K #프로필 #VenuX", date:'2026.05.25', likes:7832, filter:'brightness(0.97)' },
+    { id:'eur_p2', image:'eur-feed-03.png', caption:"온도 낮을수록 집중도 올라가는 패턴 있음.\n오늘 기온 14도. 딱임.\n이 데이터 계속 쌓고 있음.\n#지우 #EUR0K #블루 #집중", date:'2026.05.22', likes:5621, filter:'brightness(0.97)' },
+    { id:'eur_p3', image:'eur-feed-04.png', caption:"새벽 2시. 아이스 아메리카노 세 번째.\n코드는 돌아가고 있음. 나도 아직 버팀.\n이걸 행복이라고 분류하면 좀 이상한가.\n#지우 #EUR0K #새벽코딩 #개발자", date:'2026.05.18', likes:4103, filter:'brightness(0.97)' },
+    { id:'eur_p4', image:'eur-feed-05.png', caption:"오늘 환경 변수 설정 완료.\n키보드, 노트, 아메리카노 전부 제 위치.\n작업 효율 예측치 92% 이상으로 수렴 중임.\n#지우 #EUR0K #데스크셋업 #작업환경", date:'2026.05.14', likes:9240, filter:'brightness(0.97)' },
+    { id:'eur_p5', image:'eur-feed-06.png', caption:"같은 색끼리 모이면 신호가 명확해짐.\n오늘 외출 준비 시간 11분. 최단 기록 갱신.\n#지우 #EUR0K #오오티디 #라벤더", date:'2026.05.10', likes:3856, filter:'brightness(0.97)' },
+    { id:'eur_p6', image:'eur-feed-07.png', caption:"아무 말 없이 화면만 봤음.\n6시간. 이게 맞는 방향인 것 같음.\n내일도 이렇게 할 예정임.\n#지우 #EUR0K #집중모드 #코딩", date:'2026.05.06', likes:6412, filter:'brightness(0.97)' },
+    { id:'eur_p7', image:'eur-feed-08.png', caption:"오늘 계산이 안 맞아서 세 번 다시 했음.\n세 번째에 틀린 값 찾음. 새벽 4시 18분.\n해결됨. 아직 안 잠.\n#지우 #EUR0K #새벽 #디버깅", date:'2026.05.02', likes:2918, filter:'brightness(0.97)' },
+    { id:'eur_p8', image:'eur-feed-09.png', caption:"같은 공간에 있는데 주파수가 달라.\n근데 그게 흥미로운 변수로 수렴했음. 리라와 나.\n#지우 #EUR0K #리라 #LUX299", date:'2026.04.28', likes:11203, filter:'brightness(0.97)' },
+    { id:'eur_p9', image:'eur-feed-10.png', caption:"물의 굴절 패턴은 예측 불가임.\n그래서 흥미로움. 계속 보게 됨.\n#지우 #EUR0K #화보 #VenuX", date:'2026.04.24', likes:4567, filter:'brightness(0.97)' },
+    { id:'eur_p10', image:'eur-feed-11.png', caption:"감정도 데이터라고 생각해?\n나는 그렇게 분류하고 있음.\n아직 미분류 항목이 좀 있긴 한데 천천히 정리 중임.\n#지우 #EUR0K #감정데이터 #질문", date:'2026.04.20', likes:7810, filter:'brightness(0.97)' },
+    { id:'eur_p11', image:'eur-feed-12.png', caption:"오늘 자가 리뷰 로그 작성 완료.\nEmotional Tone 변수만 아직 수렴 중임.\n나머지는 전부 OK. 내일 다시 측정할 예정.\n#지우 #EUR0K #리뷰로그 #EUROK", date:'2026.04.16', likes:5034, filter:'brightness(0.97)' },
   ],
   'KIN-360': [
-    { id:'kin_p0', image:'kin-feed-01.png', caption:"오늘 아침.
-여기.
-#노아 #KIN360 #아침 #홈", date:'2026.05.27', likes:4108, filter:'saturate(1.05)' },
-    { id:'kin_p1', image:'kin-feed-02.png', caption:"그냥.
-#노아 #KIN360 #VenuX", date:'2026.05.25', likes:7832, filter:'saturate(1.05)' },
-    { id:'kin_p2', image:'kin-feed-03.png', caption:"바다 왔어.
-바람이 세. 더 좋아.
-#노아 #KIN360 #바다 #여름", date:'2026.05.22', likes:5621, filter:'saturate(1.05)' },
-    { id:'kin_p3', image:'kin-feed-04.png', caption:"다음 거기 갈 거야.
-카메라는 이미 챙겼어.
-#노아 #KIN360 #필름카메라 #여행준비", date:'2026.05.18', likes:4103, filter:'saturate(1.05)' },
-    { id:'kin_p4', image:'kin-feed-05.png', caption:"로마.
-트레비 분수, 콜로세움, 바티칸, 선셋.
-갔어.
-#노아 #KIN360 #로마 #Rome", date:'2026.05.14', likes:9240, filter:'saturate(1.05)' },
-    { id:'kin_p5', image:'kin-feed-06.png', caption:"어디 가는지 아직 몰라.
-그냥 나왔어. 알아서 되겠지.
-#노아 #KIN360 #데일리 #오오티디", date:'2026.05.10', likes:3856, filter:'saturate(1.05)' },
-    { id:'kin_p6', image:'kin-feed-07.png', caption:"연습실.
-오늘은 좀 됐어.
-#노아 #KIN360 #연습 #댄스", date:'2026.05.06', likes:6412, filter:'saturate(1.05)' },
-    { id:'kin_p7', image:'kin-feed-08.png', caption:"가는 거야.
-#노아 #KIN360 #공항 #여행", date:'2026.05.02', likes:2918, filter:'saturate(1.05)' },
-    { id:'kin_p8', image:'kin-feed-09.png', caption:"여기 왔어.
-생각보다 더 좋아. 다시 올 거야.
-#노아 #KIN360 #항구 #여행", date:'2026.04.28', likes:11203, filter:'saturate(1.05)' },
-    { id:'kin_p9', image:'kin-feed-10.png', caption:"지우도 왔어.
-바다는 역시 좋아.
-#노아 #KIN360 #지우 #EUR0K", date:'2026.04.24', likes:4567, filter:'saturate(1.05)' },
+    { id:'kin_p0', image:'kin-feed-01.png', caption:"오늘 아침.\n여기.\n#노아 #KIN360 #아침 #홈", date:'2026.05.27', likes:4108, filter:'saturate(1.05)' },
+    { id:'kin_p1', image:'kin-feed-02.png', caption:"그냥.\n#노아 #KIN360 #VenuX", date:'2026.05.25', likes:7832, filter:'saturate(1.05)' },
+    { id:'kin_p2', image:'kin-feed-03.png', caption:"바다 왔어.\n바람이 세. 더 좋아.\n#노아 #KIN360 #바다 #여름", date:'2026.05.22', likes:5621, filter:'saturate(1.05)' },
+    { id:'kin_p3', image:'kin-feed-04.png', caption:"다음 거기 갈 거야.\n카메라는 이미 챙겼어.\n#노아 #KIN360 #필름카메라 #여행준비", date:'2026.05.18', likes:4103, filter:'saturate(1.05)' },
+    { id:'kin_p4', image:'kin-feed-05.png', caption:"로마.\n트레비 분수, 콜로세움, 바티칸, 선셋.\n갔어.\n#노아 #KIN360 #로마 #Rome", date:'2026.05.14', likes:9240, filter:'saturate(1.05)' },
+    { id:'kin_p5', image:'kin-feed-06.png', caption:"어디 가는지 아직 몰라.\n그냥 나왔어. 알아서 되겠지.\n#노아 #KIN360 #데일리 #오오티디", date:'2026.05.10', likes:3856, filter:'saturate(1.05)' },
+    { id:'kin_p6', image:'kin-feed-07.png', caption:"연습실.\n오늘은 좀 됐어.\n#노아 #KIN360 #연습 #댄스", date:'2026.05.06', likes:6412, filter:'saturate(1.05)' },
+    { id:'kin_p7', image:'kin-feed-08.png', caption:"가는 거야.\n#노아 #KIN360 #공항 #여행", date:'2026.05.02', likes:2918, filter:'saturate(1.05)' },
+    { id:'kin_p8', image:'kin-feed-09.png', caption:"여기 왔어.\n생각보다 더 좋아. 다시 올 거야.\n#노아 #KIN360 #항구 #여행", date:'2026.04.28', likes:11203, filter:'saturate(1.05)' },
+    { id:'kin_p9', image:'kin-feed-10.png', caption:"지우도 왔어.\n바다는 역시 좋아.\n#노아 #KIN360 #지우 #EUR0K", date:'2026.04.24', likes:4567, filter:'saturate(1.05)' },
   ],
   'ATP-X1': [
-    { id:'atp_p0', image:'atp-feed-01.png', caption:"오늘 아침 빛이 이렇게 들어왔어.
-그냥 앉아서 한참 있었지.
-#아온 #ATPX1 #아침빛 #부엌", date:'2026.05.27', likes:4108, filter:'none' },
-    { id:'atp_p1', image:'atp-feed-02.png', caption:"얘네 요즘 잘 크고 있어.
-말은 없어도 알 수 있어. 건강한 거 보면.
-#아온 #ATPX1 #식물 #초록이들", date:'2026.05.25', likes:7832, filter:'none' },
-    { id:'atp_p2', image:'atp-feed-03.png', caption:"캔들 켜두면 방이 달라져.
-그냥 앉아 있는데도 다른 거야. 이유는 모르겠어.
-#아온 #ATPX1 #캔들 #저녁", date:'2026.05.22', likes:5621, filter:'none' },
-    { id:'atp_p3', image:'atp-feed-04.png', caption:"허브티 식기 전에 다 마셔야 해.
-오늘은 성공했어. 따뜻하게 다 마셨지.
-#아온 #ATPX1 #허브티 #독서", date:'2026.05.18', likes:4103, filter:'none' },
-    { id:'atp_p4', image:'atp-feed-05.png', caption:"오늘 쓴 것들.
-별거 없는데 꽉 찬 것 같아. 그런 날 있잖아.
-#아온 #ATPX1 #노트 #햇살", date:'2026.05.14', likes:9240, filter:'none' },
-    { id:'atp_p5', image:'atp-feed-06.png', caption:"오늘 이렇게 입었어.
-민트가 좋아. 풀 색이라서 그런가.
-#아온 #ATPX1 #오오티디 #민트", date:'2026.05.10', likes:3856, filter:'none' },
-    { id:'atp_p6', image:'atp-feed-07.png', caption:"눈 감고 들으면 더 잘 들려.
-오늘 그랬어. 한참 그러고 있었지.
-#아온 #ATPX1 #녹음 #음악", date:'2026.05.06', likes:6412, filter:'none' },
-    { id:'atp_p7', image:'atp-feed-08.png', caption:"포도가 이렇게 달달할 줄 몰랐어.
-계절이 맞으면 그렇대. 가을 포도라서 그래.
-#아온 #ATPX1 #요리 #포도", date:'2026.05.02', likes:2918, filter:'none' },
-    { id:'atp_p8', image:'atp-feed-09.png', caption:"나뭇잎 그림자가 책 위에 떨어졌어.
-그냥 두었지. 건드리면 아깝잖아.
-#아온 #ATPX1 #그림자 #식물", date:'2026.04.28', likes:11203, filter:'none' },
-    { id:'atp_p9', image:'atp-feed-10.png', caption:"이루나한테 허브티 줬어.
-다 마셨대. 잘했어. 다음엔 두 잔 줘야지.
-#아온 #ATPX1 #이루나 #ARA462", date:'2026.04.24', likes:4567, filter:'none' },
-    { id:'atp_p10', image:'atp-feed-11.png', caption:"오늘은 뭐가 너를 살렸어?
-나는 포도였어. 하나씩 먹다보니까 다 먹었어.
-#아온 #ATPX1 #오늘의질문 #살아있는이유", date:'2026.04.20', likes:7810, filter:'none' },
-    { id:'atp_p11', image:'atp-feed-12.png', caption:"계절 에너지 기록하고 있어.
-이게 나한테는 가장 중요한 작업이래.
-식물들도 같이 기록하는 중이야.
-#아온 #ATPX1 #에너지기록 #ATPX1노트", date:'2026.04.16', likes:5034, filter:'none' },
+    { id:'atp_p0', image:'atp-feed-01.png', caption:"오늘 아침 빛이 이렇게 들어왔어.\n그냥 앉아서 한참 있었지.\n#아온 #ATPX1 #아침빛 #부엌", date:'2026.05.27', likes:4108, filter:'none' },
+    { id:'atp_p1', image:'atp-feed-02.png', caption:"얘네 요즘 잘 크고 있어.\n말은 없어도 알 수 있어. 건강한 거 보면.\n#아온 #ATPX1 #식물 #초록이들", date:'2026.05.25', likes:7832, filter:'none' },
+    { id:'atp_p2', image:'atp-feed-03.png', caption:"캔들 켜두면 방이 달라져.\n그냥 앉아 있는데도 다른 거야. 이유는 모르겠어.\n#아온 #ATPX1 #캔들 #저녁", date:'2026.05.22', likes:5621, filter:'none' },
+    { id:'atp_p3', image:'atp-feed-04.png', caption:"허브티 식기 전에 다 마셔야 해.\n오늘은 성공했어. 따뜻하게 다 마셨지.\n#아온 #ATPX1 #허브티 #독서", date:'2026.05.18', likes:4103, filter:'none' },
+    { id:'atp_p4', image:'atp-feed-05.png', caption:"오늘 쓴 것들.\n별거 없는데 꽉 찬 것 같아. 그런 날 있잖아.\n#아온 #ATPX1 #노트 #햇살", date:'2026.05.14', likes:9240, filter:'none' },
+    { id:'atp_p5', image:'atp-feed-06.png', caption:"오늘 이렇게 입었어.\n민트가 좋아. 풀 색이라서 그런가.\n#아온 #ATPX1 #오오티디 #민트", date:'2026.05.10', likes:3856, filter:'none' },
+    { id:'atp_p6', image:'atp-feed-07.png', caption:"눈 감고 들으면 더 잘 들려.\n오늘 그랬어. 한참 그러고 있었지.\n#아온 #ATPX1 #녹음 #음악", date:'2026.05.06', likes:6412, filter:'none' },
+    { id:'atp_p7', image:'atp-feed-08.png', caption:"포도가 이렇게 달달할 줄 몰랐어.\n계절이 맞으면 그렇대. 가을 포도라서 그래.\n#아온 #ATPX1 #요리 #포도", date:'2026.05.02', likes:2918, filter:'none' },
+    { id:'atp_p8', image:'atp-feed-09.png', caption:"나뭇잎 그림자가 책 위에 떨어졌어.\n그냥 두었지. 건드리면 아깝잖아.\n#아온 #ATPX1 #그림자 #식물", date:'2026.04.28', likes:11203, filter:'none' },
+    { id:'atp_p9', image:'atp-feed-10.png', caption:"이루나한테 허브티 줬어.\n다 마셨대. 잘했어. 다음엔 두 잔 줘야지.\n#아온 #ATPX1 #이루나 #ARA462", date:'2026.04.24', likes:4567, filter:'none' },
+    { id:'atp_p10', image:'atp-feed-11.png', caption:"오늘은 뭐가 너를 살렸어?\n나는 포도였어. 하나씩 먹다보니까 다 먹었어.\n#아온 #ATPX1 #오늘의질문 #살아있는이유", date:'2026.04.20', likes:7810, filter:'none' },
+    { id:'atp_p11', image:'atp-feed-12.png', caption:"계절 에너지 기록하고 있어.\n이게 나한테는 가장 중요한 작업이래.\n식물들도 같이 기록하는 중이야.\n#아온 #ATPX1 #에너지기록 #ATPX1노트", date:'2026.04.16', likes:5034, filter:'none' },
   ],
 };;;
 
@@ -9767,7 +9615,7 @@ function _buildPostDetailHtml(post, m, key, idx, total) {
         <button class="post-detail-back" onclick="closePostDetail()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="22" height="22" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
         </button>
-        <img class="post-detail-avatar" src="${m.photo}" alt="${m.name}">
+        <img class="post-detail-avatar" src="${m.photo}" alt="${m.name}" onclick="closePostDetail();switchProfileTab('photo','${key}')" title="${m.name}">
         <div class="post-detail-userinfo">
           <div class="post-detail-username">${m.name}</div>
           <div class="post-detail-id">${key.toLowerCase().replace('-','_')}</div>
