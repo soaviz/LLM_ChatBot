@@ -3707,322 +3707,116 @@
     </div>
   </div>
 
-  <!-- ══ HERO SECTION ══════════════════════════════════════════ -->
-  <div class="vx-hero-wrap" id="vxHeroWrap">
-    <canvas class="vx-hero-canvas" id="vxHeroCanvas"></canvas>
-    <div class="vx-hero-bg"></div>
-    <div class="vx-hero-overlay"></div>
+  <!-- BOOT STREAM (cosmic drift mystery log) -->
+  <div class="vx-boot-wrap">
+    <div class="vx-boot-meta">
+      <span class="rec"></span>
+      <span class="lbl">// SIGNAL LOG · COSMIC DRIFT · LIVE FEED</span>
+      <span class="ofs" id="vxBootOfs">0x0000</span>
+    </div>
+    <div class="vx-boot-stream" id="vxBootStream" aria-hidden="true"></div>
+  </div>
 
-    <div class="vx-hero-content">
-      <div class="vx-hero-eyebrow">// SIGNAL BROADCAST · 2026</div>
-      <h1 class="vx-hero-title" id="vxHeroTitle">VENUX<br><em>ALEKA</em></h1>
-      <div class="vx-hero-members">
-        <span style="color:#FF6B5E">ARA·462</span>
-        <span style="color:#FFC95E">LUX·299</span>
-        <span style="color:#5EC5FF">EUR·0K</span>
-        <span style="color:#C49CFF">KIN·360</span>
-        <span style="color:#6BE7A8">ATP·X1</span>
+  <!-- DAILY STATUS BAR (shown when user exists) -->
+  <div class="daily-status-bar" id="dailyStatusBar" style="display:none">
+    <div class="daily-user-info">
+      <span class="daily-nickname" id="dailyNickname"></span>
+      <span class="daily-mbti" id="dailyMBTI" style="display:none"></span>
+    </div>
+    <div class="daily-stats">
+      <span class="daily-dday" id="dailyDday" style="display:none"></span>
+      <div class="daily-stat">🔥 <span class="daily-stat-value" id="dailyStreak">0</span>일</div>
+      <div class="daily-stat">⚡ <span class="daily-stat-value" id="dailyActions">3</span>남음</div>
+      <div class="daily-stat coin-stat" id="coinStatBadge" onclick="openCoinPaywall('chat')" style="display:none;cursor:pointer">🪙 <span class="daily-stat-value" id="coinStatVal">10</span></div>
+    </div>
+  </div>
+
+  <!-- TODAY'S MEMBER CARD (shown when user exists) -->
+  <div class="today-member-card" id="todayMemberCard" style="display:none" onclick="onTodayMemberClick()">
+    <div class="today-portrait" id="todayPortrait"></div>
+    <div class="today-info">
+      <div class="today-member-name" id="todayMemberName"></div>
+      <div class="today-greeting" id="todayGreeting"></div>
+      <div class="today-mood" id="todayMood"></div>
+    </div>
+    <div class="today-arrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </div>
+  </div>
+
+  <div class="vx-divider">// 00 · MEMBER INDEX</div>
+  <div class="member-row">
+    <div class="member-item" onclick="openProfileModal('ARA-462')" style="--member-accent:var(--vx-ara)">
+      <div class="member-circle" data-name="이루나"><div class="circle-inner">ARA</div></div>
+      <div class="member-label"><span class="member-kr-name">이루나</span><span class="member-codename">ARA·462Hz</span></div>
+    </div>
+    <div class="member-item" onclick="openProfileModal('LUX-299')" style="--member-accent:var(--vx-lux)">
+      <div class="member-circle" data-name="박리라"><div class="circle-inner">LUX</div></div>
+      <div class="member-label"><span class="member-kr-name">박리라</span><span class="member-codename">LUX·299Hz</span></div>
+    </div>
+    <div class="member-item" onclick="openProfileModal('EUR-0K')" style="--member-accent:var(--vx-eur)">
+      <div class="member-circle" data-name="신지우"><div class="circle-inner">EUR</div></div>
+      <div class="member-label"><span class="member-kr-name">신지우</span><span class="member-codename">EUR·174Hz</span></div>
+    </div>
+    <div class="member-item" onclick="openProfileModal('KIN-360')" style="--member-accent:var(--vx-kin)">
+      <div class="member-circle" data-name="최노아"><div class="circle-inner">KIN</div></div>
+      <div class="member-label"><span class="member-kr-name">최노아</span><span class="member-codename">KIN·360Hz</span></div>
+    </div>
+    <div class="member-item" onclick="openProfileModal('ATP-X1')" style="--member-accent:var(--vx-atp)">
+      <div class="member-circle" data-name="정아온"><div class="circle-inner">ATP</div></div>
+      <div class="member-label"><span class="member-kr-name">정아온</span><span class="member-codename">ATP·528Hz</span></div>
+    </div>
+  </div>
+
+  <!-- HUD METRICS -->
+  <div class="vx-hud">
+    <div class="cell"><div class="k">Active Signals</div><div class="v">5<span class="unit">/5</span></div></div>
+    <div class="cell"><div class="k">Broadcast</div><div class="v">2026<span class="unit">CE</span></div></div>
+    <div class="cell"><div class="k">Range</div><div class="v">174–528<span class="unit">Hz</span></div></div>
+  </div>
+
+  <div class="headline-section">
+    <div class="vx-eyebrow">// 01 · TRANSMISSION</div>
+    <div class="headline-main">Ask the<br><em>signal.</em></div>
+    <div class="headline-sub">다섯 개의 주파수가 당신의 질문에 응답합니다.</div>
+    <div class="headline-desc">5 signals · 5 frequencies · 1 truth</div>
+  </div>
+
+  <div class="input-section">
+    <div class="textarea-wrap">
+      <textarea id="questionInput" placeholder="연애, 진로, 감정... 뭐든 물어보세요 ✨" data-i18n-placeholder="question_placeholder" maxlength="500" oninput="updateCharCount()" onfocus="pauseExamples()" onblur="resumeExamples()"></textarea>
+      <div class="char-counter" id="charCounter">0/500</div>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <button class="cta-btn" id="ctaBtn" onclick="handleAsk()" data-i18n="cta_group">▸ ASK ALL FIVE</button>
+  </div>
+
+  <div class="vx-divider">// 02 · SIGNAL PROMPTS</div>
+  <div class="examples-section" id="examples-section">
+    <div class="examples-tabs-wrap">
+      <div class="examples-tabs">
+        <button class="example-tab active" data-cat="all" onclick="selectExampleTab(this)">ALL</button>
+        <button class="example-tab" data-cat="love" onclick="selectExampleTab(this)">LOVE</button>
+        <button class="example-tab" data-cat="friend" onclick="selectExampleTab(this)">FRIEND</button>
+        <button class="example-tab" data-cat="life" onclick="selectExampleTab(this)">LIFE</button>
+        <button class="example-tab" data-cat="story" onclick="selectExampleTab(this)">STORY</button>
+        <button class="example-tab" data-cat="bias" onclick="selectExampleTab(this)">BIAS</button>
+        <button class="example-tab" data-cat="live" onclick="selectExampleTab(this)">LIVE</button>
+        <button class="example-tab" data-cat="mbti" onclick="selectExampleTab(this)">MBTI</button>
       </div>
-      <div class="vx-hero-sub">5 signals · 5 frequencies · 1 truth</div>
-      <button class="vx-hero-enter" onclick="switchTab(document.querySelector('[data-tab=screen-results]'))">
-        <span>▸ ENTER SIGNAL</span>
+    </div>
+    <div class="examples-header" style="margin-top:10px;">
+      <div class="examples-title">SUGGESTED FREQUENCIES</div>
+      <button class="refresh-btn" id="refreshBtn" onclick="refreshExamples()" title="refresh">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>
       </button>
     </div>
-
-    <!-- scan-line glitch overlay -->
-    <div class="vx-hero-scanlines" aria-hidden="true"></div>
+    <div class="examples-cards" id="examplesCards"></div>
   </div>
 
-  <!-- hidden legacy elements — JS 호환 유지 -->
-  <div style="display:none" aria-hidden="true">
-
-    <div id="dailyStatusBar">
-      <span id="dailyNickname"></span>
-      <span id="dailyMBTI"></span>
-      <span id="dailyDday"></span>
-      <span id="dailyStreak">0</span>
-      <span id="dailyActions">3</span>
-      <div id="coinStatBadge"><span id="coinStatVal">10</span></div>
-    </div>
-    <div id="todayMemberCard">
-      <div id="todayPortrait"></div>
-      <div id="todayMemberName"></div>
-      <div id="todayGreeting"></div>
-      <div id="todayMood"></div>
-    </div>
-    <div id="examples-section">
-      <div id="examplesCards"></div>
-    </div>
-    <div id="vxBootStream"></div>
-    <span id="vxBootOfs">0x0000</span>
-    <textarea id="questionInput" maxlength="500"></textarea>
-    <div id="charCounter">0/500</div>
-    <button id="ctaBtn"></button>
-    <button id="refreshBtn"></button>
-  </div>
-
-  <style>
-  /* ── VX HERO ──────────────────────────────────────────── */
-  .vx-hero-wrap {
-    position: relative;
-    width: 100%;
-    height: calc(100vh - 56px - 72px); /* screen minus header + tabbar */
-    min-height: 420px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .vx-hero-canvas {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 3;
-    pointer-events: none;
-  }
-  .vx-hero-bg {
-    position: absolute;
-    inset: 0;
-    background: url('venux-group-portrait.png') center center / cover no-repeat;
-    z-index: 1;
-    transform: scale(1.04);
-    animation: vxHeroBgDrift 18s ease-in-out infinite alternate;
-  }
-  @keyframes vxHeroBgDrift {
-    from { transform: scale(1.04) translateX(0); }
-    to   { transform: scale(1.07) translateX(-12px); }
-  }
-  .vx-hero-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    background:
-      linear-gradient(180deg,
-        rgba(6,4,15,.72) 0%,
-        rgba(6,4,15,.28) 40%,
-        rgba(6,4,15,.38) 65%,
-        rgba(6,4,15,.88) 100%
-      );
-  }
-  .vx-hero-content {
-    position: relative;
-    z-index: 4;
-    text-align: center;
-    padding: 0 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-  .vx-hero-eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: .2em;
-    color: rgba(167,139,250,.7);
-    text-transform: uppercase;
-    animation: vxFadeUp .8s .1s both;
-  }
-  .vx-hero-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(44px, 14vw, 82px);
-    font-weight: 700;
-    line-height: 1.0;
-    letter-spacing: -.02em;
-    color: #fff;
-    margin: 0;
-    animation: vxFadeUp .8s .2s both;
-  }
-  .vx-hero-title em {
-    font-style: normal;
-    background: linear-gradient(135deg, #a78bfa, #67e8f9);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 0 24px rgba(167,139,250,.5));
-  }
-  .vx-hero-members {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .1em;
-    animation: vxFadeUp .8s .35s both;
-  }
-  .vx-hero-members span {
-    padding: 3px 10px;
-    border-radius: 20px;
-    border: 1px solid currentColor;
-    background: rgba(0,0,0,.35);
-    text-shadow: 0 0 8px currentColor;
-  }
-  .vx-hero-sub {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: rgba(255,255,255,.45);
-    letter-spacing: .1em;
-    animation: vxFadeUp .8s .45s both;
-  }
-  .vx-hero-enter {
-    margin-top: 8px;
-    padding: 14px 36px;
-    border: 1.5px solid rgba(167,139,250,.6);
-    border-radius: 30px;
-    background: rgba(107,91,214,.18);
-    color: #fff;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: .12em;
-    cursor: pointer;
-    backdrop-filter: blur(8px);
-    transition: all .2s;
-    animation: vxFadeUp .8s .55s both;
-    position: relative;
-    overflow: hidden;
-  }
-  .vx-hero-enter::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(167,139,250,.25), rgba(103,232,249,.15));
-    opacity: 0;
-    transition: opacity .2s;
-  }
-  .vx-hero-enter:hover::before { opacity: 1; }
-  .vx-hero-enter:hover {
-    border-color: rgba(167,139,250,.9);
-    box-shadow: 0 0 24px rgba(167,139,250,.35);
-    transform: translateY(-2px);
-  }
-  .vx-hero-scanlines {
-    position: absolute;
-    inset: 0;
-    z-index: 5;
-    pointer-events: none;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0,0,0,.08) 2px,
-      rgba(0,0,0,.08) 4px
-    );
-    animation: vxScanMove 6s linear infinite;
-    opacity: .6;
-  }
-  @keyframes vxScanMove {
-    from { background-position: 0 0; }
-    to   { background-position: 0 100px; }
-  }
-  @keyframes vxFadeUp {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  /* glitch keyframe */
-  @keyframes vxGlitchShift {
-    0%,90%,100% { clip-path: none; transform: none; }
-    91% { clip-path: inset(20% 0 60% 0); transform: translateX(-4px); }
-    93% { clip-path: inset(60% 0 10% 0); transform: translateX(4px); }
-    95% { clip-path: none; transform: none; }
-  }
-  </style>
-
-  <script>
-  /* ── HERO PARTICLE + GLITCH ──────────────────────────── */
-  (function(){
-    var canvas = document.getElementById('vxHeroCanvas');
-    if (!canvas) return;
-    var ctx = canvas.getContext('2d');
-    var COLORS = ['#FF6B5E','#FFC95E','#5EC5FF','#C49CFF','#6BE7A8'];
-    var W, H, particles = [];
-    var running = true;
-
-    function resize() {
-      W = canvas.width = canvas.offsetWidth || window.innerWidth;
-      H = canvas.height = canvas.offsetHeight || window.innerHeight;
-    }
-
-    function mkP() {
-      return {
-        x: Math.random() * W,
-        y: H + 10,
-        r: Math.random() * 1.8 + 0.4,
-        vy: Math.random() * 0.55 + 0.18,
-        vx: (Math.random() - 0.5) * 0.25,
-        color: COLORS[Math.floor(Math.random() * 5)],
-        alpha: Math.random() * 0.55 + 0.2,
-        pulse: Math.random() * Math.PI * 2
-      };
-    }
-
-    resize();
-    for (var i = 0; i < 90; i++) {
-      var p = mkP();
-      p.y = Math.random() * H;
-      particles.push(p);
-    }
-    window.addEventListener('resize', resize);
-
-    function loop() {
-      if (!running) return;
-      ctx.clearRect(0, 0, W, H);
-      var t = Date.now() * 0.001;
-      for (var i = 0; i < particles.length; i++) {
-        var p = particles[i];
-        p.y -= p.vy;
-        p.x += p.vx;
-        p.pulse += 0.02;
-        var a = p.alpha * (0.75 + 0.25 * Math.sin(p.pulse));
-        ctx.globalAlpha = a;
-        ctx.fillStyle = p.color;
-        ctx.shadowColor = p.color;
-        ctx.shadowBlur = 6;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, 6.283);
-        ctx.fill();
-        if (p.y < -10) particles[i] = mkP();
-      }
-      ctx.globalAlpha = 1;
-      ctx.shadowBlur = 0;
-      requestAnimationFrame(loop);
-    }
-    loop();
-
-    /* glitch on title */
-    var title = document.getElementById('vxHeroTitle');
-    if (title) {
-      setInterval(function() {
-        if (Math.random() > 0.82) {
-          var dx = (Math.random() - 0.5) * 7;
-          var dy = (Math.random() - 0.5) * 3;
-          title.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
-          title.style.textShadow = (Math.random()-0.5)*10 + 'px 0 #FF6B5E, ' + (Math.random()-0.5)*10 + 'px 0 #5EC5FF';
-          setTimeout(function() {
-            title.style.transform = '';
-            title.style.textShadow = '';
-          }, 70 + Math.random() * 80);
-        }
-      }, 380);
-
-      /* double glitch burst occasionally */
-      setInterval(function() {
-        if (Math.random() > 0.7) {
-          title.style.transform = 'translateX(' + ((Math.random()-0.5)*14) + 'px)';
-          setTimeout(function() { title.style.transform = ''; }, 40);
-        }
-      }, 2200);
-    }
-
-    /* pause particles when screen not visible */
-    document.addEventListener('visibilitychange', function() {
-      running = !document.hidden;
-      if (running) loop();
-    });
-  })();
-  </script>
+  <div class="footer">VENUX × ALEKA · BROADCAST 2026 — <a href="#">SOAVIZ AI STUDIO</a></div>
 </div>
 
 <!-- Cosmic clock ticker -->
