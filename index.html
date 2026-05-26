@@ -5457,314 +5457,164 @@ const RARITY = {
 
 const PHOTOCARDS = {
   'ARA-462': [
-    { id:'ara_c1',  rarity:'N',  title:'462°C',      subtitle:'처음 만났을 때',     quote:'왔어.
-여기서 뭔가 시작될 것 같아.',                          filter:'none',                                         unlock:{type:'always'} },
-    { id:'ara_c2',  rarity:'N',  title:'연습실',     subtitle:'새벽 혼자',           quote:'이 시간이 제일 좋아.
-새벽, 나만의 온도.',           filter:'brightness(0.9) contrast(1.1)',                unlock:{type:'always'} },
-    { id:'ara_c3',  rarity:'N',  title:'쉬는 날',    subtitle:'평범한 하루',         quote:'아무것도 안 해도 돼.
-이런 날도 나야.',           filter:'saturate(0.85)',                               unlock:{type:'always'} },
-    { id:'ara_c4',  rarity:'N',  title:'첫 인사',    subtitle:'팬 미팅',             quote:'반가워, 잘 부탁해.
-처음이어도 편하게.',             filter:'brightness(1.05)',                             unlock:{type:'always'} },
-    { id:'ara_c5',  rarity:'N',  title:'무대',       subtitle:'공연 중',             quote:'지금 이 순간.
-불꽃처럼 타오르는 중.',                  filter:'contrast(1.05)',                               unlock:{type:'always'} },
-    { id:'ara_c6',  rarity:'N',  title:'오후',       subtitle:'연습 후',             quote:'됐어, 오늘은 여기까지.
-충분히 했어.',         filter:'brightness(0.95)',                             unlock:{type:'always'} },
-    { id:'ara_c7',  rarity:'N',  title:'거울',       subtitle:'혼자만의 시간',       quote:'나는 나야.
-거울이 뭐라 해도.',                     filter:'saturate(0.9) brightness(0.95)',               unlock:{type:'always'} },
-    { id:'ara_c8',  rarity:'N',  title:'새벽',       subtitle:'잠 못 드는 밤',       quote:'이 시간엔 솔직해져.
-새벽 3시의 이루나.',            filter:'brightness(0.8) saturate(0.8)',                unlock:{type:'level',value:1} },
-    { id:'ara_c9',  rarity:'R',  title:'무대 직전',  subtitle:'콘서트 전날',         quote:'긴장은 하는 거야.
-그래도 나가면 달라져.',              filter:'saturate(1.15)',                               unlock:{type:'level',value:2} },
-    { id:'ara_c10', rarity:'R',  title:'불꽃 Ⅰ',    subtitle:'462°C 버전',          quote:'타오르지 않고 따뜻하게.
-이게 462°C야.',        filter:'sepia(0.15) saturate(1.2)',                    unlock:{type:'level',value:2} },
-    { id:'ara_c11', rarity:'R',  title:'여름',       subtitle:'바다 앞에서',         quote:'파도처럼 밀려와.
-이 에너지가 좋아.',               filter:'saturate(1.2) hue-rotate(5deg)',               unlock:{type:'chat',value:5} },
-    { id:'ara_c12', rarity:'R',  title:'겨울',       subtitle:'눈 오는 날',          quote:'조용한 게 좋아.
-눈처럼 쌓이는 감정들.',                filter:'brightness(1.1) saturate(0.7)',                unlock:{type:'chat',value:5} },
-    { id:'ara_c13', rarity:'R',  title:'카페',       subtitle:'혼자 앉아서',         quote:'커피는 아메리카노.
-혼자 있는 시간도 필요해.',             filter:'sepia(0.1) brightness(0.95)',                  unlock:{type:'chat',value:10} },
-    { id:'ara_c14', rarity:'R',  title:'백스테이지', subtitle:'공연 후',             quote:'수고했어, 다들.
-이 순간도 무대야.',                filter:'contrast(1.1) brightness(0.9)',                unlock:{type:'chat',value:10} },
-    { id:'ara_c15', rarity:'R',  title:'새 곡',      subtitle:'작업실에서',          quote:'멜로디가 먼저 와.
-가사는 나중에 따라와.',              filter:'saturate(1.1)',                                unlock:{type:'chat',value:15} },
-    { id:'ara_c16', rarity:'R',  title:'트레이닝',   subtitle:'운동 중',             quote:'쉬고 싶어도 안 쉬는 게 루나.
-그게 나야.',  filter:'brightness(0.9) contrast(1.08)',               unlock:{type:'chat',value:15} },
-    { id:'ara_c17', rarity:'R',  title:'봄',         subtitle:'꽃 피는 날',          quote:'이것도 잠깐이야.
-그래서 더 예뻐.',               filter:'saturate(1.15) brightness(1.05)',               unlock:{type:'chat',value:20} },
-    { id:'ara_c18', rarity:'R',  title:'야경',       subtitle:'늦은 밤 창가',        quote:'불빛이 예쁜 건 어둠이 있어서야.
-새벽 3시의 서울.',filter:'brightness(0.85) saturate(0.9)',               unlock:{type:'chat',value:20} },
-    { id:'ara_c19', rarity:'SR', title:'불꽃 Ⅱ',    subtitle:'462°C 한정',          quote:'꺼지지 않을 테니까.
-아직 안 꺼졌어.',            filter:'sepia(0.2) saturate(1.3) hue-rotate(350deg)', unlock:{type:'level',value:3} },
-    { id:'ara_c20', rarity:'SR', title:'비 오는 날', subtitle:'쉬는 날 루나',        quote:'나도 그냥 있고 싶을 때 있어.
-아무것도 안 해도 되는 날.',  filter:'brightness(0.85) saturate(0.7)',               unlock:{type:'letter',value:1} },
-    { id:'ara_c21', rarity:'SR', title:'눈빛',       subtitle:'진심으로',            quote:'내가 보는 건 너야.
-이 눈빛이 전부야.',             filter:'contrast(1.12) saturate(1.1)',                 unlock:{type:'level',value:3} },
-    { id:'ara_c22', rarity:'SR', title:'적막',       subtitle:'모든 소리가 꺼진 후', quote:'이 고요함이 내 것.
-소리 없는 무대.',             filter:'brightness(0.82) saturate(0.75)',              unlock:{type:'letter',value:2} },
-    { id:'ara_c23', rarity:'SR', title:'불꽃 Ⅲ',    subtitle:'라이브 독점',         quote:'오늘 밤은 절대 안 꺼.
-마지막까지 태워.',          filter:'saturate(1.4) hue-rotate(345deg) contrast(1.1)',unlock:{type:'chat',value:25} },
-    { id:'ara_c24', rarity:'SR', title:'각오',       subtitle:'시즌 시작',           quote:'후회할 짓은 안 해.
-이게 루나의 기준이야.',             filter:'contrast(1.15) brightness(0.88)',              unlock:{type:'chat',value:25} },
-    { id:'ara_c25', rarity:'SR', title:'경계',       subtitle:'프로의 얼굴',         quote:'무대 위와 아래는 달라.
-이 경계가 나를 지켜.',         filter:'brightness(0.9) contrast(1.1) saturate(0.9)', unlock:{type:'level',value:4} },
-    { id:'ara_c26', rarity:'SR', title:'불씨',       subtitle:'한 줄기',             quote:'이 정도면 됐어.
-작은 불씨도 불이야.',                filter:'sepia(0.25) saturate(1.25)',                   unlock:{type:'letter',value:3} },
-    { id:'ara_c27', rarity:'UR', title:'LUNA',       subtitle:'소울메이트 버전',     quote:'네가 있으니 됐어.
-루나들이 내 온도야.',              filter:'brightness(1.05) contrast(1.08) saturate(1.2)',unlock:{type:'level',value:5} },
-    { id:'ara_c28', rarity:'UR', title:'462',        subtitle:'단 하나뿐인 버전',    quote:'처음부터 끝까지 나야.
-462°C의 이루나.',          filter:'saturate(1.3) contrast(1.12) brightness(1.02)',unlock:{type:'chat',value:30} },
-    { id:'ara_c29', rarity:'UR', title:'불의 끝',    subtitle:'시즌 피날레',         quote:'여기서 멈추면 나 아냐.
-끝까지 타오를 거야.',         filter:'sepia(0.3) saturate(1.4) hue-rotate(340deg)',  unlock:{type:'letter',value:3} },
-    { id:'ara_c30', rarity:'UR', title:'이루나',     subtitle:'이름 그 자체',        quote:'이루나. 이것만으로 충분해.
-이름 그 자체가 불꽃이야.',     filter:'brightness(1.08) contrast(1.1) saturate(1.15)',unlock:{type:'level',value:5} },
+    { id:'ara_c1',  rarity:'N',  title:'462°C',      subtitle:'처음 만났을 때',     quote:'왔어.\n여기서 뭔가 시작될 것 같아.',                          filter:'none',                                         unlock:{type:'always'} },
+    { id:'ara_c2',  rarity:'N',  title:'연습실',     subtitle:'새벽 혼자',           quote:'이 시간이 제일 좋아.\n새벽, 나만의 온도.',           filter:'brightness(0.9) contrast(1.1)',                unlock:{type:'always'} },
+    { id:'ara_c3',  rarity:'N',  title:'쉬는 날',    subtitle:'평범한 하루',         quote:'아무것도 안 해도 돼.\n이런 날도 나야.',           filter:'saturate(0.85)',                               unlock:{type:'always'} },
+    { id:'ara_c4',  rarity:'N',  title:'첫 인사',    subtitle:'팬 미팅',             quote:'반가워, 잘 부탁해.\n처음이어도 편하게.',             filter:'brightness(1.05)',                             unlock:{type:'always'} },
+    { id:'ara_c5',  rarity:'N',  title:'무대',       subtitle:'공연 중',             quote:'지금 이 순간.\n불꽃처럼 타오르는 중.',                  filter:'contrast(1.05)',                               unlock:{type:'always'} },
+    { id:'ara_c6',  rarity:'N',  title:'오후',       subtitle:'연습 후',             quote:'됐어, 오늘은 여기까지.\n충분히 했어.',         filter:'brightness(0.95)',                             unlock:{type:'always'} },
+    { id:'ara_c7',  rarity:'N',  title:'거울',       subtitle:'혼자만의 시간',       quote:'나는 나야.\n거울이 뭐라 해도.',                     filter:'saturate(0.9) brightness(0.95)',               unlock:{type:'always'} },
+    { id:'ara_c8',  rarity:'N',  title:'새벽',       subtitle:'잠 못 드는 밤',       quote:'이 시간엔 솔직해져.\n새벽 3시의 이루나.',            filter:'brightness(0.8) saturate(0.8)',                unlock:{type:'level',value:1} },
+    { id:'ara_c9',  rarity:'R',  title:'무대 직전',  subtitle:'콘서트 전날',         quote:'긴장은 하는 거야.\n그래도 나가면 달라져.',              filter:'saturate(1.15)',                               unlock:{type:'level',value:2} },
+    { id:'ara_c10', rarity:'R',  title:'불꽃 Ⅰ',    subtitle:'462°C 버전',          quote:'타오르지 않고 따뜻하게.\n이게 462°C야.',        filter:'sepia(0.15) saturate(1.2)',                    unlock:{type:'level',value:2} },
+    { id:'ara_c11', rarity:'R',  title:'여름',       subtitle:'바다 앞에서',         quote:'파도처럼 밀려와.\n이 에너지가 좋아.',               filter:'saturate(1.2) hue-rotate(5deg)',               unlock:{type:'chat',value:5} },
+    { id:'ara_c12', rarity:'R',  title:'겨울',       subtitle:'눈 오는 날',          quote:'조용한 게 좋아.\n눈처럼 쌓이는 감정들.',                filter:'brightness(1.1) saturate(0.7)',                unlock:{type:'chat',value:5} },
+    { id:'ara_c13', rarity:'R',  title:'카페',       subtitle:'혼자 앉아서',         quote:'커피는 아메리카노.\n혼자 있는 시간도 필요해.',             filter:'sepia(0.1) brightness(0.95)',                  unlock:{type:'chat',value:10} },
+    { id:'ara_c14', rarity:'R',  title:'백스테이지', subtitle:'공연 후',             quote:'수고했어, 다들.\n이 순간도 무대야.',                filter:'contrast(1.1) brightness(0.9)',                unlock:{type:'chat',value:10} },
+    { id:'ara_c15', rarity:'R',  title:'새 곡',      subtitle:'작업실에서',          quote:'멜로디가 먼저 와.\n가사는 나중에 따라와.',              filter:'saturate(1.1)',                                unlock:{type:'chat',value:15} },
+    { id:'ara_c16', rarity:'R',  title:'트레이닝',   subtitle:'운동 중',             quote:'쉬고 싶어도 안 쉬는 게 루나.\n그게 나야.',  filter:'brightness(0.9) contrast(1.08)',               unlock:{type:'chat',value:15} },
+    { id:'ara_c17', rarity:'R',  title:'봄',         subtitle:'꽃 피는 날',          quote:'이것도 잠깐이야.\n그래서 더 예뻐.',               filter:'saturate(1.15) brightness(1.05)',               unlock:{type:'chat',value:20} },
+    { id:'ara_c18', rarity:'R',  title:'야경',       subtitle:'늦은 밤 창가',        quote:'불빛이 예쁜 건 어둠이 있어서야.\n새벽 3시의 서울.',filter:'brightness(0.85) saturate(0.9)',               unlock:{type:'chat',value:20} },
+    { id:'ara_c19', rarity:'SR', title:'불꽃 Ⅱ',    subtitle:'462°C 한정',          quote:'꺼지지 않을 테니까.\n아직 안 꺼졌어.',            filter:'sepia(0.2) saturate(1.3) hue-rotate(350deg)', unlock:{type:'level',value:3} },
+    { id:'ara_c20', rarity:'SR', title:'비 오는 날', subtitle:'쉬는 날 루나',        quote:'나도 그냥 있고 싶을 때 있어.\n아무것도 안 해도 되는 날.',  filter:'brightness(0.85) saturate(0.7)',               unlock:{type:'letter',value:1} },
+    { id:'ara_c21', rarity:'SR', title:'눈빛',       subtitle:'진심으로',            quote:'내가 보는 건 너야.\n이 눈빛이 전부야.',             filter:'contrast(1.12) saturate(1.1)',                 unlock:{type:'level',value:3} },
+    { id:'ara_c22', rarity:'SR', title:'적막',       subtitle:'모든 소리가 꺼진 후', quote:'이 고요함이 내 것.\n소리 없는 무대.',             filter:'brightness(0.82) saturate(0.75)',              unlock:{type:'letter',value:2} },
+    { id:'ara_c23', rarity:'SR', title:'불꽃 Ⅲ',    subtitle:'라이브 독점',         quote:'오늘 밤은 절대 안 꺼.\n마지막까지 태워.',          filter:'saturate(1.4) hue-rotate(345deg) contrast(1.1)',unlock:{type:'chat',value:25} },
+    { id:'ara_c24', rarity:'SR', title:'각오',       subtitle:'시즌 시작',           quote:'후회할 짓은 안 해.\n이게 루나의 기준이야.',             filter:'contrast(1.15) brightness(0.88)',              unlock:{type:'chat',value:25} },
+    { id:'ara_c25', rarity:'SR', title:'경계',       subtitle:'프로의 얼굴',         quote:'무대 위와 아래는 달라.\n이 경계가 나를 지켜.',         filter:'brightness(0.9) contrast(1.1) saturate(0.9)', unlock:{type:'level',value:4} },
+    { id:'ara_c26', rarity:'SR', title:'불씨',       subtitle:'한 줄기',             quote:'이 정도면 됐어.\n작은 불씨도 불이야.',                filter:'sepia(0.25) saturate(1.25)',                   unlock:{type:'letter',value:3} },
+    { id:'ara_c27', rarity:'UR', title:'LUNA',       subtitle:'소울메이트 버전',     quote:'네가 있으니 됐어.\n루나들이 내 온도야.',              filter:'brightness(1.05) contrast(1.08) saturate(1.2)',unlock:{type:'level',value:5} },
+    { id:'ara_c28', rarity:'UR', title:'462',        subtitle:'단 하나뿐인 버전',    quote:'처음부터 끝까지 나야.\n462°C의 이루나.',          filter:'saturate(1.3) contrast(1.12) brightness(1.02)',unlock:{type:'chat',value:30} },
+    { id:'ara_c29', rarity:'UR', title:'불의 끝',    subtitle:'시즌 피날레',         quote:'여기서 멈추면 나 아냐.\n끝까지 타오를 거야.',         filter:'sepia(0.3) saturate(1.4) hue-rotate(340deg)',  unlock:{type:'letter',value:3} },
+    { id:'ara_c30', rarity:'UR', title:'이루나',     subtitle:'이름 그 자체',        quote:'이루나. 이것만으로 충분해.\n이름 그 자체가 불꽃이야.',     filter:'brightness(1.08) contrast(1.1) saturate(1.15)',unlock:{type:'level',value:5} },
   ],
   'LUX-299': [
-    { id:'lux_c1',  rarity:'N',  title:'빛',         subtitle:'처음 만났을 때',      quote:'어떤 각도로 볼 거야?
-내가 어떻게 보이는지 궁금해.',          filter:'none',                                         unlock:{type:'always'} },
-    { id:'lux_c2',  rarity:'N',  title:'창가',       subtitle:'오후의 햇살',         quote:'빛이 이렇게 들어오네.
-자연광이 제일 좋아.',          filter:'brightness(1.08) saturate(0.9)',               unlock:{type:'always'} },
-    { id:'lux_c3',  rarity:'N',  title:'산책',       subtitle:'혼자 걸어서',         quote:'오늘 하늘 색이 마음에 들어.
-이 빛이면 충분해.',   filter:'saturate(0.95) brightness(1.03)',              unlock:{type:'always'} },
-    { id:'lux_c4',  rarity:'N',  title:'책',         subtitle:'조용한 오후',         quote:'이 문장이 나를 건드렸어.
-필요한 말만 해.',       filter:'sepia(0.08)',                                  unlock:{type:'always'} },
-    { id:'lux_c5',  rarity:'N',  title:'눈',         subtitle:'첫눈 오는 날',        quote:'하얀 건 다 예뻐.
-깔끔하고 차갑고.',              filter:'brightness(1.12) saturate(0.6)',               unlock:{type:'always'} },
-    { id:'lux_c6',  rarity:'N',  title:'노을',       subtitle:'저녁 무렵',           quote:'오늘도 저물어.
-이 색은 내일 없어.',                 filter:'sepia(0.15) saturate(1.2)',                    unlock:{type:'always'} },
-    { id:'lux_c7',  rarity:'N',  title:'새벽 빛',    subtitle:'아직 어두울 때',      quote:'이 빛이 나만의 것 같아.
-아무도 모르는 시간.',        filter:'brightness(0.88) saturate(0.85)',              unlock:{type:'always'} },
-    { id:'lux_c8',  rarity:'N',  title:'반사',       subtitle:'거울 앞에서',         quote:'나는 지금 어떤 빛이지?
-표정은 항상 체크해야 해.',        filter:'brightness(1.05) contrast(0.98)',              unlock:{type:'level',value:1} },
-    { id:'lux_c9',  rarity:'R',  title:'빛의 각도',  subtitle:'스튜디오에서',        quote:'같은 빛도 각도가 달라.
-3초 안에 판단 끝.',         filter:'brightness(1.1) contrast(1.05)',               unlock:{type:'level',value:2} },
-    { id:'lux_c10', rarity:'R',  title:'유리창',     subtitle:'비 오는 날',          quote:'빗방울이 빛을 쪼개.
-이 굴절이 좋아.',            filter:'brightness(0.92) saturate(0.8)',               unlock:{type:'level',value:2} },
-    { id:'lux_c11', rarity:'R',  title:'황금빛',     subtitle:'매직아워',            quote:'이 순간은 곧 사라져.
-빠르게 담아야 해.',           filter:'sepia(0.2) saturate(1.3) brightness(1.05)',   unlock:{type:'chat',value:5} },
-    { id:'lux_c12', rarity:'R',  title:'투명',       subtitle:'맑은 날',             quote:'보이는 게 전부가 아니야.
-나도 마찬가지야.',       filter:'brightness(1.15) saturate(0.8)',               unlock:{type:'chat',value:5} },
-    { id:'lux_c13', rarity:'R',  title:'흑백',       subtitle:'필름 사진처럼',       quote:'색을 빼면 형태가 남아.
-본질만 남기는 거야.',         filter:'grayscale(0.7) contrast(1.1)',                 unlock:{type:'chat',value:10} },
-    { id:'lux_c14', rarity:'R',  title:'별빛',       subtitle:'밤하늘 아래',         quote:'별은 어두워야 빛나.
-나도 비슷해.',            filter:'brightness(0.78) saturate(1.2)',               unlock:{type:'chat',value:10} },
-    { id:'lux_c15', rarity:'R',  title:'그림자',     subtitle:'역광 속에서',         quote:'그림자가 있어야 빛이 보여.
-대비가 아름다움이야.',     filter:'contrast(1.2) brightness(0.85)',               unlock:{type:'chat',value:15} },
-    { id:'lux_c16', rarity:'R',  title:'물빛',       subtitle:'호수 옆에서',         quote:'잔잔할수록 더 깊이 담겨.
-표면만 보지 마.',       filter:'saturate(1.1) hue-rotate(190deg) brightness(0.95)',unlock:{type:'chat',value:15} },
-    { id:'lux_c17', rarity:'R',  title:'달빛',       subtitle:'보름달 밤',           quote:'달은 스스로 빛나지 않아.
-그래도 예쁜 건 사실이야.',filter:'brightness(0.82) saturate(0.7) contrast(1.05)',unlock:{type:'chat',value:20} },
-    { id:'lux_c18', rarity:'R',  title:'연기빛',     subtitle:'공연 조명 아래',      quote:'이 안개 속에서도 찾을 수 있어.
-빛은 사라지지 않아.',filter:'brightness(0.9) saturate(0.85) contrast(1.08)',unlock:{type:'chat',value:20} },
-    { id:'lux_c19', rarity:'SR', title:'오로라',     subtitle:'리라의 계절',         quote:'이런 빛은 평생 한 번이야.
-기록해둬야 해.',      filter:'hue-rotate(150deg) saturate(1.3) brightness(0.9)',unlock:{type:'level',value:3} },
-    { id:'lux_c20', rarity:'SR', title:'LUX',        subtitle:'빛 그 자체',          quote:'나는 빛이고, 빛은 나야.
-299,792km/s.',        filter:'brightness(1.12) contrast(1.1) saturate(1.15)', unlock:{type:'letter',value:1} },
-    { id:'lux_c21', rarity:'SR', title:'프리즘',     subtitle:'여러 색으로',         quote:'하나의 빛 안에 다 있어.
-프리즘처럼 쪼개보면 알아.',        filter:'saturate(1.35) contrast(1.08)',                unlock:{type:'level',value:3} },
-    { id:'lux_c22', rarity:'SR', title:'어둠 속',    subtitle:'무대 암전 순간',      quote:'빛이 가장 빛나는 건 암흑 때야.
-무대가 꺼지면 내가 보여.',filter:'brightness(0.7) contrast(1.2)',                unlock:{type:'letter',value:2} },
-    { id:'lux_c23', rarity:'SR', title:'레이',       subtitle:'한 줄기 빛',          quote:'이 한 줄기면 충분해.
-불필요한 건 없어.',           filter:'brightness(1.1) saturate(0.9) contrast(1.12)',  unlock:{type:'chat',value:25} },
-    { id:'lux_c24', rarity:'SR', title:'새벽 별',    subtitle:'마지막 별',           quote:'마지막까지 남는 게 진짜야.
-새벽 별처럼.',     filter:'brightness(0.8) saturate(1.1)',                unlock:{type:'chat',value:25} },
-    { id:'lux_c25', rarity:'SR', title:'포커스',     subtitle:'렌즈 속에서',         quote:'선명하게 보이는 게 전부야.
-흐릿함은 허용 안 해.',     filter:'contrast(1.15) saturate(1.05)',                unlock:{type:'level',value:4} },
-    { id:'lux_c26', rarity:'SR', title:'빛나는 밤',  subtitle:'야간 공연',           quote:'밤이 배경이 돼줘서 고마워.
-빛나려면 어둠이 필요해.',     filter:'brightness(0.82) saturate(1.2) contrast(1.1)', unlock:{type:'letter',value:3} },
-    { id:'lux_c27', rarity:'UR', title:'RIRA',       subtitle:'소울메이트 버전',     quote:'네 빛이 내 길을 만들어.
-같이 빛날 수 있어.',        filter:'brightness(1.06) saturate(1.18) contrast(1.08)',unlock:{type:'level',value:5} },
-    { id:'lux_c28', rarity:'UR', title:'299',        subtitle:'단 하나뿐인 버전',    quote:'이 숫자만큼 이유가 있어.
-빛의 속도 — 299,792.',       filter:'brightness(1.1) contrast(1.12) saturate(1.2)', unlock:{type:'chat',value:30} },
-    { id:'lux_c29', rarity:'UR', title:'빛의 끝',    subtitle:'시즌 피날레',         quote:'여기서 더 밝아질 수 있어.
-끝도 빛이야.',      filter:'brightness(1.15) saturate(1.25) contrast(1.1)',unlock:{type:'letter',value:3} },
-    { id:'lux_c30', rarity:'UR', title:'박리라',     subtitle:'이름 그 자체',        quote:'리라. 이 이름이 빛이야.
-빛은 빠르다. 나는 더 빠르게.',        filter:'brightness(1.08) saturate(1.22) contrast(1.1)',unlock:{type:'level',value:5} },
+    { id:'lux_c1',  rarity:'N',  title:'빛',         subtitle:'처음 만났을 때',      quote:'어떤 각도로 볼 거야?\n내가 어떻게 보이는지 궁금해.',          filter:'none',                                         unlock:{type:'always'} },
+    { id:'lux_c2',  rarity:'N',  title:'창가',       subtitle:'오후의 햇살',         quote:'빛이 이렇게 들어오네.\n자연광이 제일 좋아.',          filter:'brightness(1.08) saturate(0.9)',               unlock:{type:'always'} },
+    { id:'lux_c3',  rarity:'N',  title:'산책',       subtitle:'혼자 걸어서',         quote:'오늘 하늘 색이 마음에 들어.\n이 빛이면 충분해.',   filter:'saturate(0.95) brightness(1.03)',              unlock:{type:'always'} },
+    { id:'lux_c4',  rarity:'N',  title:'책',         subtitle:'조용한 오후',         quote:'이 문장이 나를 건드렸어.\n필요한 말만 해.',       filter:'sepia(0.08)',                                  unlock:{type:'always'} },
+    { id:'lux_c5',  rarity:'N',  title:'눈',         subtitle:'첫눈 오는 날',        quote:'하얀 건 다 예뻐.\n깔끔하고 차갑고.',              filter:'brightness(1.12) saturate(0.6)',               unlock:{type:'always'} },
+    { id:'lux_c6',  rarity:'N',  title:'노을',       subtitle:'저녁 무렵',           quote:'오늘도 저물어.\n이 색은 내일 없어.',                 filter:'sepia(0.15) saturate(1.2)',                    unlock:{type:'always'} },
+    { id:'lux_c7',  rarity:'N',  title:'새벽 빛',    subtitle:'아직 어두울 때',      quote:'이 빛이 나만의 것 같아.\n아무도 모르는 시간.',        filter:'brightness(0.88) saturate(0.85)',              unlock:{type:'always'} },
+    { id:'lux_c8',  rarity:'N',  title:'반사',       subtitle:'거울 앞에서',         quote:'나는 지금 어떤 빛이지?\n표정은 항상 체크해야 해.',        filter:'brightness(1.05) contrast(0.98)',              unlock:{type:'level',value:1} },
+    { id:'lux_c9',  rarity:'R',  title:'빛의 각도',  subtitle:'스튜디오에서',        quote:'같은 빛도 각도가 달라.\n3초 안에 판단 끝.',         filter:'brightness(1.1) contrast(1.05)',               unlock:{type:'level',value:2} },
+    { id:'lux_c10', rarity:'R',  title:'유리창',     subtitle:'비 오는 날',          quote:'빗방울이 빛을 쪼개.\n이 굴절이 좋아.',            filter:'brightness(0.92) saturate(0.8)',               unlock:{type:'level',value:2} },
+    { id:'lux_c11', rarity:'R',  title:'황금빛',     subtitle:'매직아워',            quote:'이 순간은 곧 사라져.\n빠르게 담아야 해.',           filter:'sepia(0.2) saturate(1.3) brightness(1.05)',   unlock:{type:'chat',value:5} },
+    { id:'lux_c12', rarity:'R',  title:'투명',       subtitle:'맑은 날',             quote:'보이는 게 전부가 아니야.\n나도 마찬가지야.',       filter:'brightness(1.15) saturate(0.8)',               unlock:{type:'chat',value:5} },
+    { id:'lux_c13', rarity:'R',  title:'흑백',       subtitle:'필름 사진처럼',       quote:'색을 빼면 형태가 남아.\n본질만 남기는 거야.',         filter:'grayscale(0.7) contrast(1.1)',                 unlock:{type:'chat',value:10} },
+    { id:'lux_c14', rarity:'R',  title:'별빛',       subtitle:'밤하늘 아래',         quote:'별은 어두워야 빛나.\n나도 비슷해.',            filter:'brightness(0.78) saturate(1.2)',               unlock:{type:'chat',value:10} },
+    { id:'lux_c15', rarity:'R',  title:'그림자',     subtitle:'역광 속에서',         quote:'그림자가 있어야 빛이 보여.\n대비가 아름다움이야.',     filter:'contrast(1.2) brightness(0.85)',               unlock:{type:'chat',value:15} },
+    { id:'lux_c16', rarity:'R',  title:'물빛',       subtitle:'호수 옆에서',         quote:'잔잔할수록 더 깊이 담겨.\n표면만 보지 마.',       filter:'saturate(1.1) hue-rotate(190deg) brightness(0.95)',unlock:{type:'chat',value:15} },
+    { id:'lux_c17', rarity:'R',  title:'달빛',       subtitle:'보름달 밤',           quote:'달은 스스로 빛나지 않아.\n그래도 예쁜 건 사실이야.',filter:'brightness(0.82) saturate(0.7) contrast(1.05)',unlock:{type:'chat',value:20} },
+    { id:'lux_c18', rarity:'R',  title:'연기빛',     subtitle:'공연 조명 아래',      quote:'이 안개 속에서도 찾을 수 있어.\n빛은 사라지지 않아.',filter:'brightness(0.9) saturate(0.85) contrast(1.08)',unlock:{type:'chat',value:20} },
+    { id:'lux_c19', rarity:'SR', title:'오로라',     subtitle:'리라의 계절',         quote:'이런 빛은 평생 한 번이야.\n기록해둬야 해.',      filter:'hue-rotate(150deg) saturate(1.3) brightness(0.9)',unlock:{type:'level',value:3} },
+    { id:'lux_c20', rarity:'SR', title:'LUX',        subtitle:'빛 그 자체',          quote:'나는 빛이고, 빛은 나야.\n299,792km/s.',        filter:'brightness(1.12) contrast(1.1) saturate(1.15)', unlock:{type:'letter',value:1} },
+    { id:'lux_c21', rarity:'SR', title:'프리즘',     subtitle:'여러 색으로',         quote:'하나의 빛 안에 다 있어.\n프리즘처럼 쪼개보면 알아.',        filter:'saturate(1.35) contrast(1.08)',                unlock:{type:'level',value:3} },
+    { id:'lux_c22', rarity:'SR', title:'어둠 속',    subtitle:'무대 암전 순간',      quote:'빛이 가장 빛나는 건 암흑 때야.\n무대가 꺼지면 내가 보여.',filter:'brightness(0.7) contrast(1.2)',                unlock:{type:'letter',value:2} },
+    { id:'lux_c23', rarity:'SR', title:'레이',       subtitle:'한 줄기 빛',          quote:'이 한 줄기면 충분해.\n불필요한 건 없어.',           filter:'brightness(1.1) saturate(0.9) contrast(1.12)',  unlock:{type:'chat',value:25} },
+    { id:'lux_c24', rarity:'SR', title:'새벽 별',    subtitle:'마지막 별',           quote:'마지막까지 남는 게 진짜야.\n새벽 별처럼.',     filter:'brightness(0.8) saturate(1.1)',                unlock:{type:'chat',value:25} },
+    { id:'lux_c25', rarity:'SR', title:'포커스',     subtitle:'렌즈 속에서',         quote:'선명하게 보이는 게 전부야.\n흐릿함은 허용 안 해.',     filter:'contrast(1.15) saturate(1.05)',                unlock:{type:'level',value:4} },
+    { id:'lux_c26', rarity:'SR', title:'빛나는 밤',  subtitle:'야간 공연',           quote:'밤이 배경이 돼줘서 고마워.\n빛나려면 어둠이 필요해.',     filter:'brightness(0.82) saturate(1.2) contrast(1.1)', unlock:{type:'letter',value:3} },
+    { id:'lux_c27', rarity:'UR', title:'RIRA',       subtitle:'소울메이트 버전',     quote:'네 빛이 내 길을 만들어.\n같이 빛날 수 있어.',        filter:'brightness(1.06) saturate(1.18) contrast(1.08)',unlock:{type:'level',value:5} },
+    { id:'lux_c28', rarity:'UR', title:'299',        subtitle:'단 하나뿐인 버전',    quote:'이 숫자만큼 이유가 있어.\n빛의 속도 — 299,792.',       filter:'brightness(1.1) contrast(1.12) saturate(1.2)', unlock:{type:'chat',value:30} },
+    { id:'lux_c29', rarity:'UR', title:'빛의 끝',    subtitle:'시즌 피날레',         quote:'여기서 더 밝아질 수 있어.\n끝도 빛이야.',      filter:'brightness(1.15) saturate(1.25) contrast(1.1)',unlock:{type:'letter',value:3} },
+    { id:'lux_c30', rarity:'UR', title:'박리라',     subtitle:'이름 그 자체',        quote:'리라. 이 이름이 빛이야.\n빛은 빠르다. 나는 더 빠르게.',        filter:'brightness(1.08) saturate(1.22) contrast(1.1)',unlock:{type:'level',value:5} },
   ],
   'EUR-0K': [
-    { id:'eur_c1',  rarity:'N',  title:'흐름',       subtitle:'처음 만났을 때',      quote:'나 여기 있어.
-데이터 수집 시작.',                  filter:'none',                                         unlock:{type:'always'} },
-    { id:'eur_c2',  rarity:'N',  title:'강가',       subtitle:'산책 중에',           quote:'물소리가 말 대신 해줘.
-불필요한 말은 없어.',         filter:'saturate(0.9) brightness(1.02)',               unlock:{type:'always'} },
-    { id:'eur_c3',  rarity:'N',  title:'비',         subtitle:'창문 두드리는 소리',  quote:'비가 오면 생각이 맑아져.
-노이즈가 사라지는 시간.',       filter:'brightness(0.9) saturate(0.8)',                unlock:{type:'always'} },
-    { id:'eur_c4',  rarity:'N',  title:'새벽 물',    subtitle:'아무도 없는 시간',    quote:'이 시간엔 나만 있어.
-새벽 4시, 가장 선명한 시간.',           filter:'brightness(0.85) saturate(0.75)',              unlock:{type:'always'} },
-    { id:'eur_c5',  rarity:'N',  title:'따뜻함',     subtitle:'겨울 목욕',           quote:'몸이 따뜻하면 마음도 따뜻해.
-데이터로도 증명 가능해.',  filter:'sepia(0.1) brightness(1.03)',                  unlock:{type:'always'} },
-    { id:'eur_c6',  rarity:'N',  title:'파문',       subtitle:'돌 하나 던졌을 때',   quote:'작은 움직임이 멀리 가.
-파동 이해력 — 내 특기야.',         filter:'saturate(0.85) brightness(0.97)',              unlock:{type:'always'} },
-    { id:'eur_c7',  rarity:'N',  title:'안개',       subtitle:'이른 아침',           quote:'흐릿해도 괜찮아.
-패턴은 여전히 있어.',               filter:'brightness(1.05) saturate(0.7) contrast(0.95)',unlock:{type:'always'} },
-    { id:'eur_c8',  rarity:'N',  title:'고요',       subtitle:'잠들기 전',           quote:'이 조용함이 내 거야.
-밤 12시, 코드 마무리.',           filter:'brightness(0.88) saturate(0.72)',              unlock:{type:'level',value:1} },
-    { id:'eur_c9',  rarity:'R',  title:'흐르는 물',  subtitle:'어디로든',            quote:'억지로 안 흘러.
-최적 경로가 있어.',                filter:'saturate(1.05) brightness(1.04)',               unlock:{type:'level',value:2} },
-    { id:'eur_c10', rarity:'R',  title:'파랑',       subtitle:'바다빛',              quote:'이 색이 나를 닮았어.
-차갑고 깊고 넓어.',           filter:'hue-rotate(195deg) saturate(1.1) brightness(0.95)',unlock:{type:'level',value:2} },
-    { id:'eur_c11', rarity:'R',  title:'여름 물',    subtitle:'계곡에서',            quote:'차갑고 맑아.
-이 명료함이 좋아.',                   filter:'brightness(1.08) saturate(1.05)',              unlock:{type:'chat',value:5} },
-    { id:'eur_c12', rarity:'R',  title:'겨울 물',    subtitle:'얼기 전에',           quote:'얼지 않으려고 계속 흘러.
-멈추면 굳어.',       filter:'brightness(0.88) saturate(0.65)',              unlock:{type:'chat',value:5} },
-    { id:'eur_c13', rarity:'R',  title:'수면',       subtitle:'표면의 잔잔함',       quote:'겉은 고요해도 속은 깊어.
-표면만 분석하면 오류야.',       filter:'brightness(1.06) contrast(0.98) saturate(0.9)',unlock:{type:'chat',value:10} },
-    { id:'eur_c14', rarity:'R',  title:'빗속',       subtitle:'우산 없이',           quote:'젖어도 괜찮아.
-변수는 기록하면 돼.',                 filter:'brightness(0.88) saturate(0.82)',              unlock:{type:'chat',value:10} },
-    { id:'eur_c15', rarity:'R',  title:'달과 물',    subtitle:'달이 비출 때',        quote:'나를 비추는 달이 있다면.
-그 빛도 데이터야.',       filter:'brightness(0.8) saturate(0.7) contrast(1.05)', unlock:{type:'chat',value:15} },
-    { id:'eur_c16', rarity:'R',  title:'샘',         subtitle:'솟아오르는 것',       quote:'나는 원래 여기서부터야.
-근원을 알아야 해.',        filter:'saturate(1.08) brightness(1.02)',              unlock:{type:'chat',value:15} },
-    { id:'eur_c17', rarity:'R',  title:'투명한 물',  subtitle:'속이 다 보이는',      quote:'숨기지 않아. 그게 나야.
-투명도 = 신뢰야.',        filter:'brightness(1.1) saturate(0.8) contrast(1.03)', unlock:{type:'chat',value:20} },
-    { id:'eur_c18', rarity:'R',  title:'물결',       subtitle:'스쳐 지나가는',       quote:'기억은 파도처럼 왔다 가.
-그래도 흔적은 남아.',       filter:'brightness(0.93) saturate(0.88)',              unlock:{type:'chat',value:20} },
-    { id:'eur_c19', rarity:'SR', title:'깊은 물',    subtitle:'닿지 않는 곳',        quote:'깊을수록 온도가 낮아.
-절대영도에 가까워질수록.',          filter:'brightness(0.75) saturate(0.85) hue-rotate(200deg)',unlock:{type:'level',value:3} },
-    { id:'eur_c20', rarity:'SR', title:'EUR',        subtitle:'물 그 자체',          quote:'물처럼 흐를게.
-EUR-0K — 0도 이하도 흘러.',                 filter:'brightness(1.04) saturate(1.1) contrast(1.06)', unlock:{type:'letter',value:1} },
-    { id:'eur_c21', rarity:'SR', title:'정수',       subtitle:'가장 순수한',         quote:'이게 내 진짜야.
-노이즈 제거 완료.',                filter:'brightness(1.1) saturate(0.78) contrast(1.08)', unlock:{type:'level',value:3} },
-    { id:'eur_c22', rarity:'SR', title:'폭포',       subtitle:'멈추지 않는',         quote:'넘쳐야 내려가.
-임계값 초과 — 행동 개시.',                 filter:'brightness(0.9) saturate(0.95) contrast(1.1)',  unlock:{type:'letter',value:2} },
-    { id:'eur_c23', rarity:'SR', title:'물안개',     subtitle:'경계에서',            quote:'물인지 공기인지 모르게.
-경계도 데이터야.',        filter:'brightness(1.02) saturate(0.72) contrast(0.98)',unlock:{type:'chat',value:25} },
-    { id:'eur_c24', rarity:'SR', title:'파도',       subtitle:'바다가 말할 때',      quote:'계속 와.
-파동은 멈추지 않아.',                       filter:'saturate(1.15) brightness(0.92) hue-rotate(198deg)',unlock:{type:'chat',value:25} },
-    { id:'eur_c25', rarity:'SR', title:'잠수',       subtitle:'숨죽이고',            quote:'여기서 잠깐 숨어있을게.
-깊은 곳이 더 명확해.',        filter:'brightness(0.78) saturate(0.9) contrast(1.08)', unlock:{type:'level',value:4} },
-    { id:'eur_c26', rarity:'SR', title:'해빙',       subtitle:'봄이 오면',           quote:'얼음도 결국 흘러.
-온도가 변수야.',              filter:'brightness(1.06) saturate(0.82)',              unlock:{type:'letter',value:3} },
-    { id:'eur_c27', rarity:'UR', title:'JIWOO',      subtitle:'소울메이트 버전',     quote:'네 곁에 있을게. 조용히.
-말보다 존재가 더 많은 걸 해.',        filter:'brightness(1.04) saturate(1.05) contrast(1.06)', unlock:{type:'level',value:5} },
-    { id:'eur_c28', rarity:'UR', title:'0K',         subtitle:'단 하나뿐인 버전',    quote:'0도 이하. 얼지 않아.
-EUR-0K — 이게 나야.',           filter:'brightness(1.08) saturate(0.75) contrast(1.1)', unlock:{type:'chat',value:30} },
-    { id:'eur_c29', rarity:'UR', title:'물의 끝',    subtitle:'시즌 피날레',         quote:'모든 물은 결국 바다야.
-수렴 완료.',         filter:'brightness(0.82) saturate(1.1) hue-rotate(195deg)',unlock:{type:'letter',value:3} },
-    { id:'eur_c30', rarity:'UR', title:'신지우',     subtitle:'이름 그 자체',        quote:'지우. 지우면서도 남는 게 있어.
-그게 진짜 데이터야.',filter:'brightness(1.05) saturate(1.08) contrast(1.08)', unlock:{type:'level',value:5} },
+    { id:'eur_c1',  rarity:'N',  title:'흐름',       subtitle:'처음 만났을 때',      quote:'나 여기 있어.\n데이터 수집 시작.',                  filter:'none',                                         unlock:{type:'always'} },
+    { id:'eur_c2',  rarity:'N',  title:'강가',       subtitle:'산책 중에',           quote:'물소리가 말 대신 해줘.\n불필요한 말은 없어.',         filter:'saturate(0.9) brightness(1.02)',               unlock:{type:'always'} },
+    { id:'eur_c3',  rarity:'N',  title:'비',         subtitle:'창문 두드리는 소리',  quote:'비가 오면 생각이 맑아져.\n노이즈가 사라지는 시간.',       filter:'brightness(0.9) saturate(0.8)',                unlock:{type:'always'} },
+    { id:'eur_c4',  rarity:'N',  title:'새벽 물',    subtitle:'아무도 없는 시간',    quote:'이 시간엔 나만 있어.\n새벽 4시, 가장 선명한 시간.',           filter:'brightness(0.85) saturate(0.75)',              unlock:{type:'always'} },
+    { id:'eur_c5',  rarity:'N',  title:'따뜻함',     subtitle:'겨울 목욕',           quote:'몸이 따뜻하면 마음도 따뜻해.\n데이터로도 증명 가능해.',  filter:'sepia(0.1) brightness(1.03)',                  unlock:{type:'always'} },
+    { id:'eur_c6',  rarity:'N',  title:'파문',       subtitle:'돌 하나 던졌을 때',   quote:'작은 움직임이 멀리 가.\n파동 이해력 — 내 특기야.',         filter:'saturate(0.85) brightness(0.97)',              unlock:{type:'always'} },
+    { id:'eur_c7',  rarity:'N',  title:'안개',       subtitle:'이른 아침',           quote:'흐릿해도 괜찮아.\n패턴은 여전히 있어.',               filter:'brightness(1.05) saturate(0.7) contrast(0.95)',unlock:{type:'always'} },
+    { id:'eur_c8',  rarity:'N',  title:'고요',       subtitle:'잠들기 전',           quote:'이 조용함이 내 거야.\n밤 12시, 코드 마무리.',           filter:'brightness(0.88) saturate(0.72)',              unlock:{type:'level',value:1} },
+    { id:'eur_c9',  rarity:'R',  title:'흐르는 물',  subtitle:'어디로든',            quote:'억지로 안 흘러.\n최적 경로가 있어.',                filter:'saturate(1.05) brightness(1.04)',               unlock:{type:'level',value:2} },
+    { id:'eur_c10', rarity:'R',  title:'파랑',       subtitle:'바다빛',              quote:'이 색이 나를 닮았어.\n차갑고 깊고 넓어.',           filter:'hue-rotate(195deg) saturate(1.1) brightness(0.95)',unlock:{type:'level',value:2} },
+    { id:'eur_c11', rarity:'R',  title:'여름 물',    subtitle:'계곡에서',            quote:'차갑고 맑아.\n이 명료함이 좋아.',                   filter:'brightness(1.08) saturate(1.05)',              unlock:{type:'chat',value:5} },
+    { id:'eur_c12', rarity:'R',  title:'겨울 물',    subtitle:'얼기 전에',           quote:'얼지 않으려고 계속 흘러.\n멈추면 굳어.',       filter:'brightness(0.88) saturate(0.65)',              unlock:{type:'chat',value:5} },
+    { id:'eur_c13', rarity:'R',  title:'수면',       subtitle:'표면의 잔잔함',       quote:'겉은 고요해도 속은 깊어.\n표면만 분석하면 오류야.',       filter:'brightness(1.06) contrast(0.98) saturate(0.9)',unlock:{type:'chat',value:10} },
+    { id:'eur_c14', rarity:'R',  title:'빗속',       subtitle:'우산 없이',           quote:'젖어도 괜찮아.\n변수는 기록하면 돼.',                 filter:'brightness(0.88) saturate(0.82)',              unlock:{type:'chat',value:10} },
+    { id:'eur_c15', rarity:'R',  title:'달과 물',    subtitle:'달이 비출 때',        quote:'나를 비추는 달이 있다면.\n그 빛도 데이터야.',       filter:'brightness(0.8) saturate(0.7) contrast(1.05)', unlock:{type:'chat',value:15} },
+    { id:'eur_c16', rarity:'R',  title:'샘',         subtitle:'솟아오르는 것',       quote:'나는 원래 여기서부터야.\n근원을 알아야 해.',        filter:'saturate(1.08) brightness(1.02)',              unlock:{type:'chat',value:15} },
+    { id:'eur_c17', rarity:'R',  title:'투명한 물',  subtitle:'속이 다 보이는',      quote:'숨기지 않아. 그게 나야.\n투명도 = 신뢰야.',        filter:'brightness(1.1) saturate(0.8) contrast(1.03)', unlock:{type:'chat',value:20} },
+    { id:'eur_c18', rarity:'R',  title:'물결',       subtitle:'스쳐 지나가는',       quote:'기억은 파도처럼 왔다 가.\n그래도 흔적은 남아.',       filter:'brightness(0.93) saturate(0.88)',              unlock:{type:'chat',value:20} },
+    { id:'eur_c19', rarity:'SR', title:'깊은 물',    subtitle:'닿지 않는 곳',        quote:'깊을수록 온도가 낮아.\n절대영도에 가까워질수록.',          filter:'brightness(0.75) saturate(0.85) hue-rotate(200deg)',unlock:{type:'level',value:3} },
+    { id:'eur_c20', rarity:'SR', title:'EUR',        subtitle:'물 그 자체',          quote:'물처럼 흐를게.\nEUR-0K — 0도 이하도 흘러.',                 filter:'brightness(1.04) saturate(1.1) contrast(1.06)', unlock:{type:'letter',value:1} },
+    { id:'eur_c21', rarity:'SR', title:'정수',       subtitle:'가장 순수한',         quote:'이게 내 진짜야.\n노이즈 제거 완료.',                filter:'brightness(1.1) saturate(0.78) contrast(1.08)', unlock:{type:'level',value:3} },
+    { id:'eur_c22', rarity:'SR', title:'폭포',       subtitle:'멈추지 않는',         quote:'넘쳐야 내려가.\n임계값 초과 — 행동 개시.',                 filter:'brightness(0.9) saturate(0.95) contrast(1.1)',  unlock:{type:'letter',value:2} },
+    { id:'eur_c23', rarity:'SR', title:'물안개',     subtitle:'경계에서',            quote:'물인지 공기인지 모르게.\n경계도 데이터야.',        filter:'brightness(1.02) saturate(0.72) contrast(0.98)',unlock:{type:'chat',value:25} },
+    { id:'eur_c24', rarity:'SR', title:'파도',       subtitle:'바다가 말할 때',      quote:'계속 와.\n파동은 멈추지 않아.',                       filter:'saturate(1.15) brightness(0.92) hue-rotate(198deg)',unlock:{type:'chat',value:25} },
+    { id:'eur_c25', rarity:'SR', title:'잠수',       subtitle:'숨죽이고',            quote:'여기서 잠깐 숨어있을게.\n깊은 곳이 더 명확해.',        filter:'brightness(0.78) saturate(0.9) contrast(1.08)', unlock:{type:'level',value:4} },
+    { id:'eur_c26', rarity:'SR', title:'해빙',       subtitle:'봄이 오면',           quote:'얼음도 결국 흘러.\n온도가 변수야.',              filter:'brightness(1.06) saturate(0.82)',              unlock:{type:'letter',value:3} },
+    { id:'eur_c27', rarity:'UR', title:'JIWOO',      subtitle:'소울메이트 버전',     quote:'네 곁에 있을게. 조용히.\n말보다 존재가 더 많은 걸 해.',        filter:'brightness(1.04) saturate(1.05) contrast(1.06)', unlock:{type:'level',value:5} },
+    { id:'eur_c28', rarity:'UR', title:'0K',         subtitle:'단 하나뿐인 버전',    quote:'0도 이하. 얼지 않아.\nEUR-0K — 이게 나야.',           filter:'brightness(1.08) saturate(0.75) contrast(1.1)', unlock:{type:'chat',value:30} },
+    { id:'eur_c29', rarity:'UR', title:'물의 끝',    subtitle:'시즌 피날레',         quote:'모든 물은 결국 바다야.\n수렴 완료.',         filter:'brightness(0.82) saturate(1.1) hue-rotate(195deg)',unlock:{type:'letter',value:3} },
+    { id:'eur_c30', rarity:'UR', title:'신지우',     subtitle:'이름 그 자체',        quote:'지우. 지우면서도 남는 게 있어.\n그게 진짜 데이터야.',filter:'brightness(1.05) saturate(1.08) contrast(1.08)', unlock:{type:'level',value:5} },
   ],
   'KIN-360': [
-    { id:'kin_c1',  rarity:'N',  title:'바람',       subtitle:'처음 만났을 때',      quote:'야, 잘 지냈어?
-어디서 불어왔는지는 모르겠지만.',                 filter:'none',                                         unlock:{type:'always'} },
-    { id:'kin_c2',  rarity:'N',  title:'달리기',     subtitle:'오늘도 뛰어',         quote:'멈추면 지는 거야.
-계속 달리는 게 KIN이야.',              filter:'brightness(1.05) contrast(1.03)',              unlock:{type:'always'} },
-    { id:'kin_c3',  rarity:'N',  title:'자전거',     subtitle:'주말 아침',           quote:'바람이 제일 좋은 교통수단.
-목적지는 없어도 돼.',     filter:'saturate(1.08)',                               unlock:{type:'always'} },
-    { id:'kin_c4',  rarity:'N',  title:'운동장',     subtitle:'해 질 무렵',          quote:'오늘 얼마나 뛰었더라.
-기록 같은 건 신경 안 써.',          filter:'sepia(0.08) brightness(1.02)',                 unlock:{type:'always'} },
-    { id:'kin_c5',  rarity:'N',  title:'웃음',       subtitle:'뭔가 웃길 때',        quote:'하하. 웃기다.
-이 순간이 진짜야.',                  filter:'brightness(1.06) saturate(0.95)',              unlock:{type:'always'} },
-    { id:'kin_c6',  rarity:'N',  title:'하늘',       subtitle:'누워서 올려다본',     quote:'이 구름 저 구름 다 달라.
-누워서 보는 게 제일 좋아.',       filter:'brightness(1.1) saturate(0.88)',               unlock:{type:'always'} },
-    { id:'kin_c7',  rarity:'N',  title:'바다',       subtitle:'파도 치는 날',        quote:'파도 타보고 싶어.
-바다도 결국 바람이야.',              filter:'saturate(1.12) hue-rotate(195deg)',            unlock:{type:'always'} },
-    { id:'kin_c8',  rarity:'N',  title:'스트레칭',   subtitle:'잠깐 쉬는 틈에',      quote:'몸이 먼저 알아.
-움직여야 살아있는 거야.',                filter:'brightness(0.97) saturate(0.92)',              unlock:{type:'level',value:1} },
-    { id:'kin_c9',  rarity:'R',  title:'질주',       subtitle:'속도감 있게',         quote:'더 빠르게.
-이 속도감이 나야.',                     filter:'contrast(1.1) brightness(1.02)',               unlock:{type:'level',value:2} },
-    { id:'kin_c10', rarity:'R',  title:'서프',       subtitle:'파도 위에서',         quote:'파도가 날 데려가는 거야.
-방향은 파도한테 맡겨.',       filter:'saturate(1.15) hue-rotate(190deg)',            unlock:{type:'level',value:2} },
-    { id:'kin_c11', rarity:'R',  title:'산',         subtitle:'정상 직전',           quote:'다 왔어, 거의.
-정상도 결국 경치야.',                 filter:'brightness(0.92) saturate(1.05)',              unlock:{type:'chat',value:5} },
-    { id:'kin_c12', rarity:'R',  title:'낮잠',       subtitle:'뻗어버린 날',         quote:'쉬는 것도 연습이야.
-일어나면 또 뛰어.',            filter:'brightness(0.9) saturate(0.82)',               unlock:{type:'chat',value:5} },
-    { id:'kin_c13', rarity:'R',  title:'선글라스',   subtitle:'눈부신 날',           quote:'눈이 부셔도 갈 거야.
-햇빛이 강할수록 기분이 좋아.',           filter:'sepia(0.12) contrast(1.08)',                   unlock:{type:'chat',value:10} },
-    { id:'kin_c14', rarity:'R',  title:'빗속 달리기',subtitle:'비 맞으며',           quote:'어차피 젖었어. 그냥 뛰어.
-비도 바람의 일부야.',      filter:'brightness(0.88) saturate(0.88)',              unlock:{type:'chat',value:10} },
-    { id:'kin_c15', rarity:'R',  title:'스케이트',   subtitle:'겨울 야외링크',       quote:'넘어지면 일어나면 돼.
-얼음 위도 달릴 수 있어.',          filter:'brightness(1.05) saturate(0.8)',               unlock:{type:'chat',value:15} },
-    { id:'kin_c16', rarity:'R',  title:'캠핑',       subtitle:'밤하늘 아래',         quote:'불 피우는 게 제일 좋아.
-별 보면서 아무 생각 없이.',        filter:'sepia(0.15) brightness(0.95)',                 unlock:{type:'chat',value:15} },
-    { id:'kin_c17', rarity:'R',  title:'공원',       subtitle:'아무 날',             quote:'오늘 같은 날이 좋아.
-계획 없는 게 제일 좋은 계획.',           filter:'saturate(1.1) brightness(1.03)',               unlock:{type:'chat',value:20} },
-    { id:'kin_c18', rarity:'R',  title:'경기 후',    subtitle:'땀 흘린 뒤',          quote:'이 기분이 살아있는 거야.
-온몸이 뜨거워.',       filter:'contrast(1.08) brightness(0.93)',              unlock:{type:'chat',value:20} },
-    { id:'kin_c19', rarity:'SR', title:'폭풍',       subtitle:'태풍의 눈 속에서',    quote:'폭풍도 나한테는 바람이야.
-무서울 게 없어.',      filter:'brightness(0.82) contrast(1.15) saturate(0.9)', unlock:{type:'level',value:3} },
-    { id:'kin_c20', rarity:'SR', title:'KIN',        subtitle:'바람 그 자체',        quote:'나는 바람이야. 잡지 마.
-360°, 어디든 갈 수 있어.',        filter:'brightness(1.06) saturate(1.1) contrast(1.06)', unlock:{type:'letter',value:1} },
-    { id:'kin_c21', rarity:'SR', title:'프리러닝',   subtitle:'도시 위를 달려',      quote:'벽도 길이 돼.
-내가 가면 거기가 길이야.',                  filter:'contrast(1.12) brightness(0.95)',              unlock:{type:'level',value:3} },
-    { id:'kin_c22', rarity:'SR', title:'돌풍',       subtitle:'갑자기 강한',         quote:'예고 없이 오는 게 나야.
-갑자기 강해지는 그 느낌.',        filter:'brightness(0.88) contrast(1.1) saturate(1.05)', unlock:{type:'letter',value:2} },
-    { id:'kin_c23', rarity:'SR', title:'바람의 방향',subtitle:'어디서 불든',         quote:'방향은 내가 정해.
-360° — 모든 방향이 가능해.',              filter:'saturate(1.12) brightness(1.0) contrast(1.08)', unlock:{type:'chat',value:25} },
-    { id:'kin_c24', rarity:'SR', title:'순풍',       subtitle:'뒤에서 밀어줄 때',    quote:'이 바람 타면 더 빨라.
-때로는 뒤에서 미는 게 나야.',          filter:'brightness(1.08) saturate(1.05)',              unlock:{type:'chat',value:25} },
-    { id:'kin_c25', rarity:'SR', title:'바람의 끝',  subtitle:'경계에서',            quote:'끝에 가봐야 알아.
-경계도 바람이 넘어.',              filter:'brightness(0.9) saturate(0.95) contrast(1.1)', unlock:{type:'level',value:4} },
-    { id:'kin_c26', rarity:'SR', title:'비행',       subtitle:'뛰어올라서',          quote:'이 순간은 다시 안 와.
-지금 이 공기 속에서.',          filter:'brightness(1.05) saturate(1.08)',              unlock:{type:'letter',value:3} },
-    { id:'kin_c27', rarity:'UR', title:'NOAH',       subtitle:'소울메이트 버전',     quote:'같이 뛰자. 이 바람 안에서.
-너랑 달리면 더 빨라.',     filter:'brightness(1.05) contrast(1.08) saturate(1.15)',unlock:{type:'level',value:5} },
-    { id:'kin_c28', rarity:'UR', title:'360',        subtitle:'단 하나뿐인 버전',    quote:'한 바퀴 돌아도 나야.
-360° 자유.',           filter:'saturate(1.2) contrast(1.1) brightness(1.02)', unlock:{type:'chat',value:30} },
-    { id:'kin_c29', rarity:'UR', title:'바람의 심장',subtitle:'시즌 피날레',         quote:'이 바람은 꺼지지 않아.
-심장처럼 계속 뛰어.',         filter:'brightness(0.9) saturate(1.15) contrast(1.12)', unlock:{type:'letter',value:3} },
-    { id:'kin_c30', rarity:'UR', title:'최노아',     subtitle:'이름 그 자체',        quote:'노아. 모든 폭풍 뒤에 무지개야.
-그게 KIN-360이야.',filter:'brightness(1.08) saturate(1.18) contrast(1.1)', unlock:{type:'level',value:5} },
+    { id:'kin_c1',  rarity:'N',  title:'바람',       subtitle:'처음 만났을 때',      quote:'야, 잘 지냈어?\n어디서 불어왔는지는 모르겠지만.',                 filter:'none',                                         unlock:{type:'always'} },
+    { id:'kin_c2',  rarity:'N',  title:'달리기',     subtitle:'오늘도 뛰어',         quote:'멈추면 지는 거야.\n계속 달리는 게 KIN이야.',              filter:'brightness(1.05) contrast(1.03)',              unlock:{type:'always'} },
+    { id:'kin_c3',  rarity:'N',  title:'자전거',     subtitle:'주말 아침',           quote:'바람이 제일 좋은 교통수단.\n목적지는 없어도 돼.',     filter:'saturate(1.08)',                               unlock:{type:'always'} },
+    { id:'kin_c4',  rarity:'N',  title:'운동장',     subtitle:'해 질 무렵',          quote:'오늘 얼마나 뛰었더라.\n기록 같은 건 신경 안 써.',          filter:'sepia(0.08) brightness(1.02)',                 unlock:{type:'always'} },
+    { id:'kin_c5',  rarity:'N',  title:'웃음',       subtitle:'뭔가 웃길 때',        quote:'하하. 웃기다.\n이 순간이 진짜야.',                  filter:'brightness(1.06) saturate(0.95)',              unlock:{type:'always'} },
+    { id:'kin_c6',  rarity:'N',  title:'하늘',       subtitle:'누워서 올려다본',     quote:'이 구름 저 구름 다 달라.\n누워서 보는 게 제일 좋아.',       filter:'brightness(1.1) saturate(0.88)',               unlock:{type:'always'} },
+    { id:'kin_c7',  rarity:'N',  title:'바다',       subtitle:'파도 치는 날',        quote:'파도 타보고 싶어.\n바다도 결국 바람이야.',              filter:'saturate(1.12) hue-rotate(195deg)',            unlock:{type:'always'} },
+    { id:'kin_c8',  rarity:'N',  title:'스트레칭',   subtitle:'잠깐 쉬는 틈에',      quote:'몸이 먼저 알아.\n움직여야 살아있는 거야.',                filter:'brightness(0.97) saturate(0.92)',              unlock:{type:'level',value:1} },
+    { id:'kin_c9',  rarity:'R',  title:'질주',       subtitle:'속도감 있게',         quote:'더 빠르게.\n이 속도감이 나야.',                     filter:'contrast(1.1) brightness(1.02)',               unlock:{type:'level',value:2} },
+    { id:'kin_c10', rarity:'R',  title:'서프',       subtitle:'파도 위에서',         quote:'파도가 날 데려가는 거야.\n방향은 파도한테 맡겨.',       filter:'saturate(1.15) hue-rotate(190deg)',            unlock:{type:'level',value:2} },
+    { id:'kin_c11', rarity:'R',  title:'산',         subtitle:'정상 직전',           quote:'다 왔어, 거의.\n정상도 결국 경치야.',                 filter:'brightness(0.92) saturate(1.05)',              unlock:{type:'chat',value:5} },
+    { id:'kin_c12', rarity:'R',  title:'낮잠',       subtitle:'뻗어버린 날',         quote:'쉬는 것도 연습이야.\n일어나면 또 뛰어.',            filter:'brightness(0.9) saturate(0.82)',               unlock:{type:'chat',value:5} },
+    { id:'kin_c13', rarity:'R',  title:'선글라스',   subtitle:'눈부신 날',           quote:'눈이 부셔도 갈 거야.\n햇빛이 강할수록 기분이 좋아.',           filter:'sepia(0.12) contrast(1.08)',                   unlock:{type:'chat',value:10} },
+    { id:'kin_c14', rarity:'R',  title:'빗속 달리기',subtitle:'비 맞으며',           quote:'어차피 젖었어. 그냥 뛰어.\n비도 바람의 일부야.',      filter:'brightness(0.88) saturate(0.88)',              unlock:{type:'chat',value:10} },
+    { id:'kin_c15', rarity:'R',  title:'스케이트',   subtitle:'겨울 야외링크',       quote:'넘어지면 일어나면 돼.\n얼음 위도 달릴 수 있어.',          filter:'brightness(1.05) saturate(0.8)',               unlock:{type:'chat',value:15} },
+    { id:'kin_c16', rarity:'R',  title:'캠핑',       subtitle:'밤하늘 아래',         quote:'불 피우는 게 제일 좋아.\n별 보면서 아무 생각 없이.',        filter:'sepia(0.15) brightness(0.95)',                 unlock:{type:'chat',value:15} },
+    { id:'kin_c17', rarity:'R',  title:'공원',       subtitle:'아무 날',             quote:'오늘 같은 날이 좋아.\n계획 없는 게 제일 좋은 계획.',           filter:'saturate(1.1) brightness(1.03)',               unlock:{type:'chat',value:20} },
+    { id:'kin_c18', rarity:'R',  title:'경기 후',    subtitle:'땀 흘린 뒤',          quote:'이 기분이 살아있는 거야.\n온몸이 뜨거워.',       filter:'contrast(1.08) brightness(0.93)',              unlock:{type:'chat',value:20} },
+    { id:'kin_c19', rarity:'SR', title:'폭풍',       subtitle:'태풍의 눈 속에서',    quote:'폭풍도 나한테는 바람이야.\n무서울 게 없어.',      filter:'brightness(0.82) contrast(1.15) saturate(0.9)', unlock:{type:'level',value:3} },
+    { id:'kin_c20', rarity:'SR', title:'KIN',        subtitle:'바람 그 자체',        quote:'나는 바람이야. 잡지 마.\n360°, 어디든 갈 수 있어.',        filter:'brightness(1.06) saturate(1.1) contrast(1.06)', unlock:{type:'letter',value:1} },
+    { id:'kin_c21', rarity:'SR', title:'프리러닝',   subtitle:'도시 위를 달려',      quote:'벽도 길이 돼.\n내가 가면 거기가 길이야.',                  filter:'contrast(1.12) brightness(0.95)',              unlock:{type:'level',value:3} },
+    { id:'kin_c22', rarity:'SR', title:'돌풍',       subtitle:'갑자기 강한',         quote:'예고 없이 오는 게 나야.\n갑자기 강해지는 그 느낌.',        filter:'brightness(0.88) contrast(1.1) saturate(1.05)', unlock:{type:'letter',value:2} },
+    { id:'kin_c23', rarity:'SR', title:'바람의 방향',subtitle:'어디서 불든',         quote:'방향은 내가 정해.\n360° — 모든 방향이 가능해.',              filter:'saturate(1.12) brightness(1.0) contrast(1.08)', unlock:{type:'chat',value:25} },
+    { id:'kin_c24', rarity:'SR', title:'순풍',       subtitle:'뒤에서 밀어줄 때',    quote:'이 바람 타면 더 빨라.\n때로는 뒤에서 미는 게 나야.',          filter:'brightness(1.08) saturate(1.05)',              unlock:{type:'chat',value:25} },
+    { id:'kin_c25', rarity:'SR', title:'바람의 끝',  subtitle:'경계에서',            quote:'끝에 가봐야 알아.\n경계도 바람이 넘어.',              filter:'brightness(0.9) saturate(0.95) contrast(1.1)', unlock:{type:'level',value:4} },
+    { id:'kin_c26', rarity:'SR', title:'비행',       subtitle:'뛰어올라서',          quote:'이 순간은 다시 안 와.\n지금 이 공기 속에서.',          filter:'brightness(1.05) saturate(1.08)',              unlock:{type:'letter',value:3} },
+    { id:'kin_c27', rarity:'UR', title:'NOAH',       subtitle:'소울메이트 버전',     quote:'같이 뛰자. 이 바람 안에서.\n너랑 달리면 더 빨라.',     filter:'brightness(1.05) contrast(1.08) saturate(1.15)',unlock:{type:'level',value:5} },
+    { id:'kin_c28', rarity:'UR', title:'360',        subtitle:'단 하나뿐인 버전',    quote:'한 바퀴 돌아도 나야.\n360° 자유.',           filter:'saturate(1.2) contrast(1.1) brightness(1.02)', unlock:{type:'chat',value:30} },
+    { id:'kin_c29', rarity:'UR', title:'바람의 심장',subtitle:'시즌 피날레',         quote:'이 바람은 꺼지지 않아.\n심장처럼 계속 뛰어.',         filter:'brightness(0.9) saturate(1.15) contrast(1.12)', unlock:{type:'letter',value:3} },
+    { id:'kin_c30', rarity:'UR', title:'최노아',     subtitle:'이름 그 자체',        quote:'노아. 모든 폭풍 뒤에 무지개야.\n그게 KIN-360이야.',filter:'brightness(1.08) saturate(1.18) contrast(1.1)', unlock:{type:'level',value:5} },
   ],
   'ATP-X1': [
-    { id:'atp_c1',  rarity:'N',  title:'씨앗',       subtitle:'처음 만났을 때',      quote:'있어.
-조용하지만 여기 있어.',                          filter:'none',                                         unlock:{type:'always'} },
-    { id:'atp_c2',  rarity:'N',  title:'새싹',       subtitle:'봄 첫날',             quote:'오늘 처음 나왔어.
-천천히 자라는 중.',              filter:'brightness(1.05) saturate(1.1)',               unlock:{type:'always'} },
-    { id:'atp_c3',  rarity:'N',  title:'흙',         subtitle:'손에 묻히고',         quote:'뿌리는 보이지 않아도 있어.
-땅 속에서 시작해.',     filter:'sepia(0.12) brightness(0.97)',                 unlock:{type:'always'} },
-    { id:'atp_c4',  rarity:'N',  title:'나무',       subtitle:'오랜 시간 뒤에',      quote:'이만큼 됐어.
-천천히가 가장 든든해.',                   filter:'brightness(0.95) saturate(0.9)',               unlock:{type:'always'} },
-    { id:'atp_c5',  rarity:'N',  title:'이슬',       subtitle:'이른 아침',           quote:'아무도 보지 않아도 맺혀.
-새벽 5시의 조용한 의식.',       filter:'brightness(1.08) saturate(0.85)',              unlock:{type:'always'} },
-    { id:'atp_c6',  rarity:'N',  title:'꽃',         subtitle:'딱 한 철',            quote:'잠깐이어도 피는 거야.
-계절을 다 살아내는 거야.',          filter:'saturate(1.12) brightness(1.03)',               unlock:{type:'always'} },
-    { id:'atp_c7',  rarity:'N',  title:'숲',         subtitle:'혼자 걸어서',         quote:'여기선 생각이 느려져.
-느린 게 나쁜 게 아냐.',          filter:'brightness(0.92) saturate(1.05)',              unlock:{type:'always'} },
-    { id:'atp_c8',  rarity:'N',  title:'그늘',       subtitle:'나무 아래에서',       quote:'그늘도 나무가 만드는 거야.
-쉬게 해주는 것도 힘이야.',     filter:'brightness(0.85) saturate(0.88)',              unlock:{type:'level',value:1} },
-    { id:'atp_c9',  rarity:'R',  title:'성장',       subtitle:'조금씩 자라서',       quote:'어제보다 1cm.
-그게 충분해.',                  filter:'brightness(1.03) saturate(1.08)',               unlock:{type:'level',value:2} },
-    { id:'atp_c10', rarity:'R',  title:'가을',       subtitle:'잎이 물들 때',        quote:'변하는 게 살아있는 거야.
-계절도 치유야.',       filter:'sepia(0.18) saturate(1.2) brightness(1.0)',    unlock:{type:'level',value:2} },
-    { id:'atp_c11', rarity:'R',  title:'겨울 나무',  subtitle:'잎 다 진 후에',       quote:'없어도 서 있어.
-이 침묵이 강함이야.',                filter:'brightness(0.88) saturate(0.65) contrast(1.05)',unlock:{type:'chat',value:5} },
-    { id:'atp_c12', rarity:'R',  title:'열매',       subtitle:'시간이 지나서',       quote:'기다리면 와.
-서두르지 않아도 돼.',                   filter:'saturate(1.15) brightness(1.02)',               unlock:{type:'chat',value:5} },
-    { id:'atp_c13', rarity:'R',  title:'뿌리',       subtitle:'보이지 않는 곳',      quote:'보이지 않는 데서 시작해.
-뿌리가 깊어야 흔들리지 않아.',       filter:'sepia(0.15) brightness(0.93)',                 unlock:{type:'chat',value:10} },
-    { id:'atp_c14', rarity:'R',  title:'나이테',     subtitle:'시간의 흔적',         quote:'이 안에 다 있어.
-쌓인 시간이 나야.',               filter:'sepia(0.2) brightness(0.9) contrast(1.05)',   unlock:{type:'chat',value:10} },
-    { id:'atp_c15', rarity:'R',  title:'솔향',       subtitle:'소나무 숲',           quote:'숨쉬는 것만으로도 돼.
-치유는 여기서 시작해.',          filter:'brightness(0.94) saturate(0.92)',              unlock:{type:'chat',value:15} },
-    { id:'atp_c16', rarity:'R',  title:'꽃잎',       subtitle:'바람에 날려서',       quote:'떨어져도 이뻐.
-끝도 아름다울 수 있어.',                 filter:'brightness(1.06) saturate(1.05)',               unlock:{type:'chat',value:15} },
-    { id:'atp_c17', rarity:'R',  title:'봄비',       subtitle:'촉촉한 땅',           quote:'젖어야 자라.
-비도 선물이야.',                   filter:'brightness(0.9) saturate(0.88)',               unlock:{type:'chat',value:20} },
-    { id:'atp_c18', rarity:'R',  title:'가지',       subtitle:'뻗어나가는',          quote:'어디로 갈지는 나중에 알아.
-지금은 그냥 뻗는 중.',     filter:'brightness(0.95) saturate(0.95)',              unlock:{type:'chat',value:20} },
-    { id:'atp_c19', rarity:'SR', title:'대나무',     subtitle:'꺾이지 않고',         quote:'굽혀도 꺾이지 않아.
-이 유연함이 강함이야.',            filter:'brightness(0.9) saturate(1.12) hue-rotate(100deg)',unlock:{type:'level',value:3} },
-    { id:'atp_c20', rarity:'SR', title:'ATP',        subtitle:'자연 그 자체',        quote:'나는 여기서 자랐어.
-ATP — 보이지 않지만 모든 걸 움직여.',            filter:'brightness(1.04) saturate(1.08) contrast(1.06)', unlock:{type:'letter',value:1} },
-    { id:'atp_c21', rarity:'SR', title:'고목',       subtitle:'수백 년 된',          quote:'이 나이도 나야.
-오래된 것이 더 깊어.',                filter:'sepia(0.2) brightness(0.88) contrast(1.08)',   unlock:{type:'level',value:3} },
-    { id:'atp_c22', rarity:'SR', title:'독초',       subtitle:'아름답지만',          quote:'예쁜 게 다 먹을 수 있는 건 아냐.
-나도 조용히 강해.',filter:'brightness(0.85) saturate(1.2) hue-rotate(120deg)',unlock:{type:'letter',value:2} },
-    { id:'atp_c23', rarity:'SR', title:'생태계',     subtitle:'연결된 것들',         quote:'혼자인 생물은 없어.
-우리는 다 연결돼 있어.',            filter:'brightness(0.92) saturate(1.05)',              unlock:{type:'chat',value:25} },
-    { id:'atp_c24', rarity:'SR', title:'씨앗의 여행',subtitle:'멀리까지',            quote:'바람이 씨앗을 데려가.
-어디로든 갈 수 있어.',          filter:'brightness(1.05) saturate(1.02)',               unlock:{type:'chat',value:25} },
-    { id:'atp_c25', rarity:'SR', title:'삼림욕',     subtitle:'깊은 숲 속',          quote:'여기 있어봐. 좋아.
-이 공기가 치유야.',             filter:'brightness(0.9) saturate(1.08)',               unlock:{type:'level',value:4} },
-    { id:'atp_c26', rarity:'SR', title:'꽃의 시간',  subtitle:'피고 지는',           quote:'모든 계절이 다 의미 있어.
-지는 것도 아름다워.',      filter:'saturate(1.18) brightness(1.03)',               unlock:{type:'letter',value:3} },
-    { id:'atp_c27', rarity:'UR', title:'AEON',       subtitle:'소울메이트 버전',     quote:'네 곁에서 자라고 싶어.
-같이 있으면 더 잘 자라.',         filter:'brightness(1.04) saturate(1.1) contrast(1.07)',  unlock:{type:'level',value:5} },
-    { id:'atp_c28', rarity:'UR', title:'X1',         subtitle:'단 하나뿐인 버전',    quote:'X와 1 사이에 내가 있어.
-ATP-X1 — 에너지의 근원.',        filter:'brightness(1.06) contrast(1.12) saturate(1.15)',unlock:{type:'chat',value:30} },
-    { id:'atp_c29', rarity:'UR', title:'자연의 끝',  subtitle:'시즌 피날레',         quote:'자연은 끝나지 않아.
-계절이 돌아오듯 나도.',            filter:'brightness(0.88) saturate(1.2) hue-rotate(100deg)',unlock:{type:'letter',value:3} },
-    { id:'atp_c30', rarity:'UR', title:'정아온',     subtitle:'이름 그 자체',        quote:'아온. 봄이 오면 다시 피어.
-매일 같은 시간에 곁에 있을게.',     filter:'brightness(1.07) saturate(1.15) contrast(1.1)', unlock:{type:'level',value:5} },
+    { id:'atp_c1',  rarity:'N',  title:'씨앗',       subtitle:'처음 만났을 때',      quote:'있어.\n조용하지만 여기 있어.',                          filter:'none',                                         unlock:{type:'always'} },
+    { id:'atp_c2',  rarity:'N',  title:'새싹',       subtitle:'봄 첫날',             quote:'오늘 처음 나왔어.\n천천히 자라는 중.',              filter:'brightness(1.05) saturate(1.1)',               unlock:{type:'always'} },
+    { id:'atp_c3',  rarity:'N',  title:'흙',         subtitle:'손에 묻히고',         quote:'뿌리는 보이지 않아도 있어.\n땅 속에서 시작해.',     filter:'sepia(0.12) brightness(0.97)',                 unlock:{type:'always'} },
+    { id:'atp_c4',  rarity:'N',  title:'나무',       subtitle:'오랜 시간 뒤에',      quote:'이만큼 됐어.\n천천히가 가장 든든해.',                   filter:'brightness(0.95) saturate(0.9)',               unlock:{type:'always'} },
+    { id:'atp_c5',  rarity:'N',  title:'이슬',       subtitle:'이른 아침',           quote:'아무도 보지 않아도 맺혀.\n새벽 5시의 조용한 의식.',       filter:'brightness(1.08) saturate(0.85)',              unlock:{type:'always'} },
+    { id:'atp_c6',  rarity:'N',  title:'꽃',         subtitle:'딱 한 철',            quote:'잠깐이어도 피는 거야.\n계절을 다 살아내는 거야.',          filter:'saturate(1.12) brightness(1.03)',               unlock:{type:'always'} },
+    { id:'atp_c7',  rarity:'N',  title:'숲',         subtitle:'혼자 걸어서',         quote:'여기선 생각이 느려져.\n느린 게 나쁜 게 아냐.',          filter:'brightness(0.92) saturate(1.05)',              unlock:{type:'always'} },
+    { id:'atp_c8',  rarity:'N',  title:'그늘',       subtitle:'나무 아래에서',       quote:'그늘도 나무가 만드는 거야.\n쉬게 해주는 것도 힘이야.',     filter:'brightness(0.85) saturate(0.88)',              unlock:{type:'level',value:1} },
+    { id:'atp_c9',  rarity:'R',  title:'성장',       subtitle:'조금씩 자라서',       quote:'어제보다 1cm.\n그게 충분해.',                  filter:'brightness(1.03) saturate(1.08)',               unlock:{type:'level',value:2} },
+    { id:'atp_c10', rarity:'R',  title:'가을',       subtitle:'잎이 물들 때',        quote:'변하는 게 살아있는 거야.\n계절도 치유야.',       filter:'sepia(0.18) saturate(1.2) brightness(1.0)',    unlock:{type:'level',value:2} },
+    { id:'atp_c11', rarity:'R',  title:'겨울 나무',  subtitle:'잎 다 진 후에',       quote:'없어도 서 있어.\n이 침묵이 강함이야.',                filter:'brightness(0.88) saturate(0.65) contrast(1.05)',unlock:{type:'chat',value:5} },
+    { id:'atp_c12', rarity:'R',  title:'열매',       subtitle:'시간이 지나서',       quote:'기다리면 와.\n서두르지 않아도 돼.',                   filter:'saturate(1.15) brightness(1.02)',               unlock:{type:'chat',value:5} },
+    { id:'atp_c13', rarity:'R',  title:'뿌리',       subtitle:'보이지 않는 곳',      quote:'보이지 않는 데서 시작해.\n뿌리가 깊어야 흔들리지 않아.',       filter:'sepia(0.15) brightness(0.93)',                 unlock:{type:'chat',value:10} },
+    { id:'atp_c14', rarity:'R',  title:'나이테',     subtitle:'시간의 흔적',         quote:'이 안에 다 있어.\n쌓인 시간이 나야.',               filter:'sepia(0.2) brightness(0.9) contrast(1.05)',   unlock:{type:'chat',value:10} },
+    { id:'atp_c15', rarity:'R',  title:'솔향',       subtitle:'소나무 숲',           quote:'숨쉬는 것만으로도 돼.\n치유는 여기서 시작해.',          filter:'brightness(0.94) saturate(0.92)',              unlock:{type:'chat',value:15} },
+    { id:'atp_c16', rarity:'R',  title:'꽃잎',       subtitle:'바람에 날려서',       quote:'떨어져도 이뻐.\n끝도 아름다울 수 있어.',                 filter:'brightness(1.06) saturate(1.05)',               unlock:{type:'chat',value:15} },
+    { id:'atp_c17', rarity:'R',  title:'봄비',       subtitle:'촉촉한 땅',           quote:'젖어야 자라.\n비도 선물이야.',                   filter:'brightness(0.9) saturate(0.88)',               unlock:{type:'chat',value:20} },
+    { id:'atp_c18', rarity:'R',  title:'가지',       subtitle:'뻗어나가는',          quote:'어디로 갈지는 나중에 알아.\n지금은 그냥 뻗는 중.',     filter:'brightness(0.95) saturate(0.95)',              unlock:{type:'chat',value:20} },
+    { id:'atp_c19', rarity:'SR', title:'대나무',     subtitle:'꺾이지 않고',         quote:'굽혀도 꺾이지 않아.\n이 유연함이 강함이야.',            filter:'brightness(0.9) saturate(1.12) hue-rotate(100deg)',unlock:{type:'level',value:3} },
+    { id:'atp_c20', rarity:'SR', title:'ATP',        subtitle:'자연 그 자체',        quote:'나는 여기서 자랐어.\nATP — 보이지 않지만 모든 걸 움직여.',            filter:'brightness(1.04) saturate(1.08) contrast(1.06)', unlock:{type:'letter',value:1} },
+    { id:'atp_c21', rarity:'SR', title:'고목',       subtitle:'수백 년 된',          quote:'이 나이도 나야.\n오래된 것이 더 깊어.',                filter:'sepia(0.2) brightness(0.88) contrast(1.08)',   unlock:{type:'level',value:3} },
+    { id:'atp_c22', rarity:'SR', title:'독초',       subtitle:'아름답지만',          quote:'예쁜 게 다 먹을 수 있는 건 아냐.\n나도 조용히 강해.',filter:'brightness(0.85) saturate(1.2) hue-rotate(120deg)',unlock:{type:'letter',value:2} },
+    { id:'atp_c23', rarity:'SR', title:'생태계',     subtitle:'연결된 것들',         quote:'혼자인 생물은 없어.\n우리는 다 연결돼 있어.',            filter:'brightness(0.92) saturate(1.05)',              unlock:{type:'chat',value:25} },
+    { id:'atp_c24', rarity:'SR', title:'씨앗의 여행',subtitle:'멀리까지',            quote:'바람이 씨앗을 데려가.\n어디로든 갈 수 있어.',          filter:'brightness(1.05) saturate(1.02)',               unlock:{type:'chat',value:25} },
+    { id:'atp_c25', rarity:'SR', title:'삼림욕',     subtitle:'깊은 숲 속',          quote:'여기 있어봐. 좋아.\n이 공기가 치유야.',             filter:'brightness(0.9) saturate(1.08)',               unlock:{type:'level',value:4} },
+    { id:'atp_c26', rarity:'SR', title:'꽃의 시간',  subtitle:'피고 지는',           quote:'모든 계절이 다 의미 있어.\n지는 것도 아름다워.',      filter:'saturate(1.18) brightness(1.03)',               unlock:{type:'letter',value:3} },
+    { id:'atp_c27', rarity:'UR', title:'AEON',       subtitle:'소울메이트 버전',     quote:'네 곁에서 자라고 싶어.\n같이 있으면 더 잘 자라.',         filter:'brightness(1.04) saturate(1.1) contrast(1.07)',  unlock:{type:'level',value:5} },
+    { id:'atp_c28', rarity:'UR', title:'X1',         subtitle:'단 하나뿐인 버전',    quote:'X와 1 사이에 내가 있어.\nATP-X1 — 에너지의 근원.',        filter:'brightness(1.06) contrast(1.12) saturate(1.15)',unlock:{type:'chat',value:30} },
+    { id:'atp_c29', rarity:'UR', title:'자연의 끝',  subtitle:'시즌 피날레',         quote:'자연은 끝나지 않아.\n계절이 돌아오듯 나도.',            filter:'brightness(0.88) saturate(1.2) hue-rotate(100deg)',unlock:{type:'letter',value:3} },
+    { id:'atp_c30', rarity:'UR', title:'정아온',     subtitle:'이름 그 자체',        quote:'아온. 봄이 오면 다시 피어.\n매일 같은 시간에 곁에 있을게.',     filter:'brightness(1.07) saturate(1.15) contrast(1.1)', unlock:{type:'level',value:5} },
   ],
 };
 
