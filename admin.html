@@ -223,6 +223,26 @@ a { color:var(--purple2); text-decoration:none; }
 .badge-purple { background:rgba(107,91,214,0.15); color:var(--purple2); }
 .badge-dim    { background:rgba(255,255,255,0.06); color:var(--muted); }
 
+/* ─── RESIZE TOOL ─── */
+.rz-member-btn {
+  padding:7px 14px; border-radius:7px;
+  border:1px solid var(--border);
+  background:var(--bg3); color:var(--dim);
+  font-size:12px; font-weight:600;
+  transition:all 0.15s; cursor:pointer;
+}
+.rz-member-btn:hover { border-color:var(--purple); color:var(--text); background:var(--purple-g); }
+.rz-member-btn.active { background:var(--purple-g); border-color:var(--purple); color:var(--text); }
+#rzDropZone.rz-drag { border-color:var(--purple2); background:var(--purple-g); }
+.rz-card {
+  background:var(--bg3); border:1px solid var(--border);
+  border-radius:10px; overflow:hidden;
+}
+.rz-card canvas { width:100%; aspect-ratio:1; display:block; }
+.rz-card-info { padding:7px 10px; }
+.rz-card-name { font-size:11px; color:var(--purple2); font-weight:700; margin-bottom:2px; }
+.rz-card-orig { font-size:10px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
 /* ─── EXPORT ─── */
 .export-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-bottom:32px; }
 .export-card {
@@ -701,6 +721,14 @@ a { color:var(--purple2); text-decoration:none; }
       <button class="sb-item" data-sec="music" onclick="showSection('music',this)">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
         <span class="sb-item-label">음원관리</span>
+      </button>
+      <button class="sb-item" data-sec="photocards" onclick="showSection('photocards',this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span class="sb-item-label">포토카드</span>
+      </button>
+      <button class="sb-item" data-sec="resize" onclick="showSection('resize',this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <span class="sb-item-label">이미지 리사이저</span>
       </button>
       <button class="sb-item" data-sec="export" onclick="showSection('export',this)">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -1259,7 +1287,116 @@ a { color:var(--purple2); text-decoration:none; }
       <div id="feedGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;"></div>
     </section>
 
-    <!-- ══════════ 업로드 모달 ══════════ -->
+    <!-- ── 11. PHOTOCARDS (신규) ── -->
+    <section id="sec-photocards" class="section">
+      <div class="sec-header">
+        <div>
+          <div class="sec-title">포토카드 관리</div>
+          <div class="sec-sub">멤버별 포토카드 이미지를 등록·편집·정렬합니다. (관리자 전용 · 로컬 저장 + 다운로드)</div>
+        </div>
+        <button onclick="openPcUpload()" style="padding:10px 16px;background:linear-gradient(135deg,#C77DFF,#FF5EE0);color:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-family:'Space Grotesk',sans-serif;letter-spacing:.02em;box-shadow:0 6px 20px rgba(199,125,255,0.35);">
+          ＋ 포토카드 추가
+        </button>
+      </div>
+
+      <!-- 멤버 탭 -->
+      <div id="pcMemberTabs" style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;">
+        <button class="pc-tab active" data-key="ARA-462" onclick="switchPcMember('ARA-462',this)"><span style="color:#FF6B5E">🔥</span> 이루나</button>
+        <button class="pc-tab" data-key="LUX-299" onclick="switchPcMember('LUX-299',this)"><span style="color:#FFC95E">✨</span> 박리라</button>
+        <button class="pc-tab" data-key="EUR-0K" onclick="switchPcMember('EUR-0K',this)"><span style="color:#5EC5FF">💧</span> 신지우</button>
+        <button class="pc-tab" data-key="KIN-360" onclick="switchPcMember('KIN-360',this)"><span style="color:#C49CFF">🌬️</span> 최노아</button>
+        <button class="pc-tab" data-key="ATP-X1" onclick="switchPcMember('ATP-X1',this)"><span style="color:#6BE7A8">🌿</span> 정아온</button>
+      </div>
+
+      <!-- 통계 + 액션 -->
+      <div style="display:flex;gap:12px;margin-bottom:16px;align-items:center;flex-wrap:wrap;">
+        <div style="display:flex;gap:18px;align-items:center;font-size:13px;color:var(--muted,#888);">
+          <span>총 <b id="pcTotal" style="color:#fff">0</b>장</span>
+          <span>이 멤버: <b id="pcMemberCount" style="color:#fff">0</b>장</span>
+        </div>
+        <div style="flex:1"></div>
+        <button onclick="exportPhotocards()" style="padding:8px 14px;background:rgba(255,255,255,0.05);border:1px solid rgba(199,125,255,0.25);color:#fff;border-radius:6px;cursor:pointer;font-size:13px;">⬇ JSON 백업</button>
+        <button onclick="importPhotocardsClick()" style="padding:8px 14px;background:rgba(255,255,255,0.05);border:1px solid rgba(199,125,255,0.25);color:#fff;border-radius:6px;cursor:pointer;font-size:13px;">⬆ JSON 복원</button>
+        <input id="pcImportFile" type="file" accept="application/json" style="display:none" onchange="importPhotocards(event)">
+      </div>
+
+      <!-- 포토카드 그리드 -->
+      <div id="pcGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;"></div>
+    </section>
+
+    <!-- ══════════ 포토카드 업로드 모달 ══════════ -->
+    <div id="pcUploadModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.78);backdrop-filter:blur(8px);align-items:center;justify-content:center;">
+      <div style="background:linear-gradient(180deg,#14182A,#0F121C);border:1px solid rgba(199,125,255,0.22);border-radius:14px;width:90%;max-width:520px;max-height:90vh;overflow-y:auto;padding:26px;box-shadow:0 24px 80px rgba(199,125,255,0.18);">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+          <div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;color:#fff;letter-spacing:-0.01em;">포토카드 추가</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:#C77DFF;text-transform:uppercase;margin-top:4px;">// NEW · PHOTOCARD</div>
+          </div>
+          <button onclick="closePcUpload()" style="background:none;border:none;font-size:22px;color:#888;cursor:pointer;">×</button>
+        </div>
+
+        <!-- 멤버 선택 -->
+        <div style="margin-bottom:14px;">
+          <label style="display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:#888;text-transform:uppercase;margin-bottom:6px;">MEMBER · 소속 멤버</label>
+          <select id="pcMember" style="width:100%;padding:12px;background:rgba(10,12,22,0.7);border:1px solid rgba(199,125,255,0.22);color:#fff;border-radius:8px;font-size:14px;">
+            <option value="ARA-462">🔥 이루나 · ARA-462</option>
+            <option value="LUX-299">✨ 박리라 · LUX-299</option>
+            <option value="EUR-0K">💧 신지우 · EUR-0K</option>
+            <option value="KIN-360">🌬️ 최노아 · KIN-360</option>
+            <option value="ATP-X1">🌿 정아온 · ATP-X1</option>
+          </select>
+        </div>
+
+        <!-- 이미지 업로드 -->
+        <div style="margin-bottom:14px;">
+          <label style="display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:#888;text-transform:uppercase;margin-bottom:6px;">IMAGE · 이미지 (max 4MB)</label>
+          <div style="position:relative;border:1.5px dashed rgba(199,125,255,0.28);border-radius:10px;padding:18px;text-align:center;background:rgba(10,12,22,0.5);">
+            <input id="pcImageInput" type="file" accept="image/*" onchange="onPcImage(event)" style="position:absolute;inset:0;opacity:0;cursor:pointer;">
+            <div id="pcImagePreview" style="display:none;"><img id="pcImagePreviewImg" style="max-width:100%;max-height:200px;border-radius:8px;"></div>
+            <div id="pcImageEmpty" style="color:#888;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;">
+              📷 클릭 또는 드래그하여 이미지 선택
+            </div>
+          </div>
+        </div>
+
+        <!-- 제목 -->
+        <div style="margin-bottom:14px;">
+          <label style="display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:#888;text-transform:uppercase;margin-bottom:6px;">TITLE · 제목</label>
+          <input id="pcTitle" type="text" placeholder="예: 462°C" maxlength="40" style="width:100%;padding:12px;background:rgba(10,12,22,0.7);border:1px solid rgba(199,125,255,0.22);color:#fff;border-radius:8px;font-size:14px;">
+        </div>
+
+        <!-- 부제 -->
+        <div style="margin-bottom:14px;">
+          <label style="display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:#888;text-transform:uppercase;margin-bottom:6px;">SUBTITLE · 부제 (선택)</label>
+          <input id="pcSubtitle" type="text" placeholder="예: 처음 만났을 때" maxlength="60" style="width:100%;padding:12px;background:rgba(10,12,22,0.7);border:1px solid rgba(199,125,255,0.22);color:#fff;border-radius:8px;font-size:14px;">
+        </div>
+
+        <!-- 레어도 + 잠금 LV -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;">
+          <div>
+            <label style="display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:#888;text-transform:uppercase;margin-bottom:6px;">RARITY · 레어도</label>
+            <select id="pcRarity" style="width:100%;padding:12px;background:rgba(10,12,22,0.7);border:1px solid rgba(199,125,255,0.22);color:#fff;border-radius:8px;font-size:14px;">
+              <option value="N">N · Normal</option>
+              <option value="R">R · Rare</option>
+              <option value="SR">SR · Super Rare</option>
+              <option value="SSR">SSR · Special</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:#888;text-transform:uppercase;margin-bottom:6px;">UNLOCK LV · 해금 레벨</label>
+            <input id="pcMinLv" type="number" value="1" min="1" max="20" style="width:100%;padding:12px;background:rgba(10,12,22,0.7);border:1px solid rgba(199,125,255,0.22);color:#fff;border-radius:8px;font-size:14px;">
+          </div>
+        </div>
+
+        <!-- 액션 -->
+        <div style="display:flex;gap:10px;">
+          <button onclick="closePcUpload()" style="flex:1;padding:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(199,125,255,0.22);color:#fff;border-radius:8px;font-size:14px;cursor:pointer;">취소</button>
+          <button onclick="savePhotocard()" style="flex:2;padding:14px;background:linear-gradient(135deg,#8B5FFF,#C77DFF,#FF5EE0);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 8px 24px rgba(199,125,255,0.35);">▸ 등록</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ 업로드 모달 (기존 피드) ══════════ -->
     <div id="feedUploadModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);align-items:center;justify-content:center;">
       <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;width:90%;max-width:560px;max-height:90vh;overflow-y:auto;padding:28px;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;">
@@ -1331,20 +1468,85 @@ a { color:var(--purple2); text-decoration:none; }
       </div>
     </div>
 
+    <!-- ══════════ 이미지 리사이저 ══════════ -->
+    <section id="sec-resize" class="section">
+      <div class="sec-header">
+        <div>
+          <div class="sec-title">이미지 리사이저</div>
+          <div class="sec-sub">피드 이미지를 800×800 정사각형으로 자동 크롭 · 멤버별 파일명으로 다운로드</div>
+        </div>
+      </div>
+
+      <!-- 멤버 선택 + 시작 번호 -->
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="rz-member-btn active" data-member="ARA-462" data-prefix="ara-feed" data-color="#FF6B5E" onclick="rzSelectMember(this)">
+            <span style="color:#FF6B5E">🔥</span> 이루나
+          </button>
+          <button class="rz-member-btn" data-member="LUX-299" data-prefix="lux-feed" data-color="#FFD84D" onclick="rzSelectMember(this)">
+            <span style="color:#FFD84D">✨</span> 박리라
+          </button>
+          <button class="rz-member-btn" data-member="EUR-0K" data-prefix="eur-feed" data-color="#00E5FF" onclick="rzSelectMember(this)">
+            <span style="color:#00E5FF">💧</span> 신지우
+          </button>
+          <button class="rz-member-btn" data-member="KIN-360" data-prefix="kin-feed" data-color="#B8C5FF" onclick="rzSelectMember(this)">
+            <span style="color:#B8C5FF">🌬️</span> 최노아
+          </button>
+          <button class="rz-member-btn" data-member="ATP-X1" data-prefix="atp-feed" data-color="#4DFF8B" onclick="rzSelectMember(this)">
+            <span style="color:#4DFF8B">🌿</span> 정아온
+          </button>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
+          <label style="font-size:12px;color:var(--dim);">시작 번호</label>
+          <input id="rzStartIdx" type="number" value="2" min="1" max="99"
+            style="width:64px;padding:7px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;text-align:center;">
+        </div>
+      </div>
+
+      <!-- 드래그존 -->
+      <div id="rzDropZone" onclick="document.getElementById('rzFileInput').click()"
+        style="border:2px dashed var(--border);border-radius:12px;padding:48px 24px;text-align:center;cursor:pointer;background:var(--bg2);transition:all 0.2s;margin-bottom:20px;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--purple2)" stroke-width="1.6" stroke-linecap="round" style="margin-bottom:12px;opacity:0.7;"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <div style="font-size:14px;color:var(--dim);">이미지를 드래그하거나 클릭해서 선택</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px;">JPG · PNG · WEBP · 여러 장 동시 선택 가능</div>
+      </div>
+      <input type="file" id="rzFileInput" accept="image/*" multiple style="display:none">
+
+      <!-- 액션 바 -->
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+        <button id="rzDownloadBtn" disabled onclick="rzDownloadAll()"
+          style="padding:10px 22px;background:var(--purple);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;opacity:0.4;transition:opacity 0.2s;">
+          ⬇ 전체 다운로드
+        </button>
+        <button onclick="rzClear()"
+          style="padding:10px 18px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--dim);">
+          ✕ 초기화
+        </button>
+        <span id="rzStatus" style="font-size:12px;color:var(--purple2);"></span>
+      </div>
+
+      <!-- 썸네일 그리드 -->
+      <div id="rzGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;"></div>
+
+      <!-- 숨김 워크 캔버스 -->
+      <canvas id="rzWorkCanvas" style="display:none;"></canvas>
+    </section>
+
   </main><!-- /main -->
 </div><!-- /app -->
 
 <!-- ════════════════ SCRIPT ════════════════ -->
 <script>
-// ─── AUTH ───
-const ADMIN_KEY = 'venux_admin_hash';
+// ─── AUTH ─── (FIXED HASH · 관리자 본인만)
+// 보안: 비밀번호 해시를 코드에 고정. 누구나 URL 와도 비번 모르면 못 들어옴.
+// JS 소스에 해시는 노출되지만 해시는 단방향 → 평문 추출 불가 (강한 비번이면 무차별 대입도 사실상 불가능)
+const ADMIN_PW_HASH = "fb3f48939aa4dd5b162f7640d0d8674baa84bec0d00a031047840b9ed7b40c5f";
+const SESSION_KEY = 'venux_admin_session';
 
 async function sha256(str) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
   return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
-
-const SESSION_KEY = 'venux_admin_session';
 
 function saveAdminSession() {
   const expiry = Date.now() + 7 * 24 * 60 * 60 * 1000;
@@ -1366,9 +1568,7 @@ async function verifyAdmin() {
   const pw = document.getElementById('pw-input').value;
   if (!pw) return;
   const hash = await sha256(pw);
-  const stored = localStorage.getItem(ADMIN_KEY);
-  if (!stored) { document.getElementById('gate-err').textContent = '비밀번호가 설정되어 있지 않습니다. 아래에서 설정하세요.'; return; }
-  if (hash === stored) {
+  if (hash === ADMIN_PW_HASH) {
     if (document.getElementById('remember-me').checked) saveAdminSession();
     document.getElementById('gate').style.display = 'none';
     document.getElementById('app').classList.add('visible');
@@ -1380,22 +1580,23 @@ async function verifyAdmin() {
 }
 document.getElementById('pw-input').addEventListener('keydown', e => { if(e.key==='Enter') verifyAdmin(); });
 
+// 비번 설정 기능 비활성 — 누구나 자기 비번 설정 못 함
 function showSetup() {
-  document.getElementById('setup-panel').style.display = 'block';
-  document.getElementById('gate-hint').style.display = 'none';
+  document.getElementById('gate-err').textContent = '비밀번호 설정은 비활성화되어 있습니다. 관리자에게 문의하세요.';
 }
 async function setupPassword() {
-  const a = document.getElementById('pw-new').value;
-  const b = document.getElementById('pw-confirm').value;
-  if (!a || a !== b) { document.getElementById('gate-err').textContent = '비밀번호가 일치하지 않습니다.'; return; }
-  localStorage.setItem(ADMIN_KEY, await sha256(a));
-  document.getElementById('gate-err').textContent = '';
-  document.getElementById('setup-panel').style.display = 'none';
-  document.getElementById('gate-hint').style.display = 'block';
-  document.getElementById('pw-input').focus();
-  document.getElementById('gate-err').style.color = 'var(--atp)';
-  document.getElementById('gate-err').textContent = '비밀번호가 설정되었습니다. 로그인하세요.';
+  document.getElementById('gate-err').textContent = '비밀번호 설정은 비활성화되어 있습니다.';
 }
+
+// 페이지 로드 시 setup 패널/링크 강제 숨김 (구버전 localStorage 잔존 대비)
+(function(){
+  document.addEventListener('DOMContentLoaded', function(){
+    var sp = document.getElementById('setup-panel'); if (sp) sp.style.display = 'none';
+    var su = document.querySelector('[onclick="showSetup()"]'); if (su) su.style.display = 'none';
+    // 구버전 자가설정 해시 흔적 제거
+    try { localStorage.removeItem('venux_admin_hash'); } catch(e) {}
+  });
+})();
 function logout() {
   clearAdminSession();
   document.getElementById('app').classList.remove('visible');
@@ -2267,6 +2468,126 @@ function renderJournalEntries() {
   });
 }
 
+// ─── RESIZE TOOL ───
+const rzState = { prefix:'ara-feed', color:'#FF6B5E', images:[] };
+
+function rzSelectMember(btn) {
+  document.querySelectorAll('.rz-member-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  rzState.prefix = btn.dataset.prefix;
+  rzState.color  = btn.dataset.color;
+  rzClear();
+}
+
+(function rzInit() {
+  const dz = document.getElementById('rzDropZone');
+  if (!dz) return;
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('rz-drag'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('rz-drag'));
+  dz.addEventListener('drop', e => {
+    e.preventDefault(); dz.classList.remove('rz-drag');
+    rzProcessFiles(e.dataTransfer.files);
+  });
+  document.getElementById('rzFileInput').addEventListener('change', e => {
+    rzProcessFiles(e.target.files);
+    e.target.value = '';
+  });
+})();
+
+function rzProcessFiles(files) {
+  const imgs = Array.from(files)
+    .filter(f => f.type.startsWith('image/'))
+    .sort((a,b) => a.name.localeCompare(b.name));
+  if (!imgs.length) return;
+
+  const startIdx = parseInt(document.getElementById('rzStartIdx').value) || 2;
+  const status   = document.getElementById('rzStatus');
+  status.textContent = `처리 중… 0/${imgs.length}`;
+
+  imgs.forEach((file, i) => {
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const img = new Image();
+      img.onload = () => {
+        const c = rzCrop(img, 800);
+        const idx = startIdx + rzState.images.length;
+        const name = `${rzState.prefix}-${String(idx).padStart(2,'0')}.png`;
+        rzState.images.push({ canvas:c, name, orig:file.name });
+        rzRenderCard(c, name, file.name);
+        status.textContent = `${rzState.images.length}/${imgs.length}장 완료`;
+        if (rzState.images.length === imgs.length) {
+          const btn = document.getElementById('rzDownloadBtn');
+          btn.disabled = false; btn.style.opacity = '1';
+          status.textContent = `✓ ${rzState.images.length}장 준비됨 — 전체 다운로드 클릭`;
+        }
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function rzCrop(img, size) {
+  const wc = document.getElementById('rzWorkCanvas');
+  wc.width = wc.height = size;
+  const ctx = wc.getContext('2d');
+  const s = Math.min(img.naturalWidth, img.naturalHeight);
+  const sx = (img.naturalWidth  - s) / 2;
+  const sy = (img.naturalHeight - s) / 2;
+  ctx.clearRect(0, 0, size, size);
+  ctx.drawImage(img, sx, sy, s, s, 0, 0, size, size);
+  const out = document.createElement('canvas');
+  out.width = out.height = size;
+  out.getContext('2d').drawImage(wc, 0, 0);
+  return out;
+}
+
+function rzRenderCard(canvas, name, origName) {
+  const grid = document.getElementById('rzGrid');
+  const card = document.createElement('div');
+  card.className = 'rz-card';
+  const thumb = document.createElement('canvas');
+  thumb.width = thumb.height = 150;
+  thumb.getContext('2d').drawImage(canvas, 0, 0, 150, 150);
+  const info = document.createElement('div');
+  info.className = 'rz-card-info';
+  info.innerHTML = `<div class="rz-card-name" style="color:${rzState.color}">${name}</div><div class="rz-card-orig">${origName}</div>`;
+  card.appendChild(thumb);
+  card.appendChild(info);
+  grid.appendChild(card);
+}
+
+function rzDownloadAll() {
+  if (!rzState.images.length) return;
+  const btn = document.getElementById('rzDownloadBtn');
+  btn.disabled = true; btn.textContent = '⏳ 저장 중…';
+  let i = 0;
+  function next() {
+    if (i >= rzState.images.length) {
+      btn.textContent = '✓ 완료!';
+      document.getElementById('rzStatus').textContent = `${rzState.images.length}장 다운로드 완료. venux_mobile/ 폴더에 넣어주세요.`;
+      return;
+    }
+    const { canvas, name } = rzState.images[i++];
+    canvas.toBlob(blob => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      a.click();
+      setTimeout(next, 180);
+    }, 'image/png');
+  }
+  next();
+}
+
+function rzClear() {
+  rzState.images = [];
+  document.getElementById('rzGrid').innerHTML = '';
+  const btn = document.getElementById('rzDownloadBtn');
+  btn.disabled = true; btn.style.opacity = '0.4'; btn.textContent = '⬇ 전체 다운로드';
+  document.getElementById('rzStatus').textContent = '';
+}
+
 // ─── EXPORT ───
 function exportCSV(type) {
   let csv='', filename='';
@@ -2746,6 +3067,203 @@ function initFeedSection() {
   updateFeedMemberBar(key);
   renderFeedGrid(key);
 }
+
+// ════════════════════════════════════════════════════
+// PHOTOCARDS MANAGEMENT (관리자 전용)
+// ════════════════════════════════════════════════════
+const PC_STORAGE_KEY = 'venux_photocards_v1';
+const PC_MEMBERS = {
+  'ARA-462': { name:'이루나', color:'#FF6B5E', icon:'🔥' },
+  'LUX-299': { name:'박리라', color:'#FFC95E', icon:'✨' },
+  'EUR-0K':  { name:'신지우', color:'#5EC5FF', icon:'💧' },
+  'KIN-360': { name:'최노아', color:'#C49CFF', icon:'🌬️' },
+  'ATP-X1':  { name:'정아온', color:'#6BE7A8', icon:'🌿' }
+};
+
+function pcLoad() {
+  try { return JSON.parse(localStorage.getItem(PC_STORAGE_KEY) || '{}'); }
+  catch(e) { return {}; }
+}
+function pcSave(data) {
+  try { localStorage.setItem(PC_STORAGE_KEY, JSON.stringify(data)); return true; }
+  catch(e) { alert('저장 실패 — 용량 초과일 수 있습니다 (이미지 크기 축소 필요)'); return false; }
+}
+
+window.pcCurrentKey = 'ARA-462';
+
+function switchPcMember(key, btn) {
+  window.pcCurrentKey = key;
+  document.querySelectorAll('.pc-tab').forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderPcGrid(key);
+}
+
+function renderPcGrid(key) {
+  const grid = document.getElementById('pcGrid');
+  if (!grid) return;
+  const data = pcLoad();
+  const cards = (data[key] || []).slice().reverse();
+  const all = Object.values(data).reduce((sum, arr) => sum + (arr ? arr.length : 0), 0);
+  const t = document.getElementById('pcTotal'); if (t) t.textContent = all;
+  const m = document.getElementById('pcMemberCount'); if (m) m.textContent = cards.length;
+
+  if (cards.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:#888;font-family:\'JetBrains Mono\',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;border:1.5px dashed rgba(199,125,255,0.20);border-radius:12px;">// EMPTY · 우측 상단 [＋ 포토카드 추가]로 등록</div>';
+    return;
+  }
+  grid.innerHTML = cards.map(card => {
+    const rarityColor = {N:'#9AA3B8',R:'#5EC5FF',SR:'#C49CFF',SSR:'#FFC95E'}[card.rarity] || '#9AA3B8';
+    return `
+      <div style="position:relative;background:rgba(15,18,30,0.7);border:1px solid rgba(199,125,255,0.18);border-radius:10px;overflow:hidden;">
+        <div style="position:relative;aspect-ratio:3/4;background:#06070C;">
+          <img src="${card.image}" alt="${card.title}" style="width:100%;height:100%;object-fit:cover;">
+          <span style="position:absolute;top:8px;right:8px;padding:3px 8px;border-radius:4px;background:rgba(0,0,0,0.65);color:${rarityColor};font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:0.06em;border:1px solid ${rarityColor};">${card.rarity}</span>
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:12px 10px 8px;background:linear-gradient(transparent,rgba(0,0,0,0.85));">
+            <div style="color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;">${escapeHtml(card.title)}</div>
+            ${card.subtitle ? `<div style="color:rgba(255,255,255,0.7);font-size:11px;margin-top:2px;">${escapeHtml(card.subtitle)}</div>` : ''}
+          </div>
+        </div>
+        <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:#888;letter-spacing:0.06em;">
+          <span>LV ${card.minLv} 해금</span>
+          <button onclick="deletePhotocard('${key}','${card.id}')" style="background:none;border:none;color:#FF5EE0;cursor:pointer;font-family:inherit;font-size:10px;letter-spacing:0.08em;">DELETE</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function openPcUpload() {
+  document.getElementById('pcUploadModal').style.display = 'flex';
+  document.getElementById('pcMember').value = window.pcCurrentKey || 'ARA-462';
+  document.getElementById('pcTitle').value = '';
+  document.getElementById('pcSubtitle').value = '';
+  document.getElementById('pcRarity').value = 'N';
+  document.getElementById('pcMinLv').value = '1';
+  document.getElementById('pcImagePreview').style.display = 'none';
+  document.getElementById('pcImageEmpty').style.display = 'block';
+  document.getElementById('pcImageInput').value = '';
+  window._pcImageData = null;
+}
+function closePcUpload() {
+  document.getElementById('pcUploadModal').style.display = 'none';
+}
+
+function onPcImage(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (file.size > 4 * 1024 * 1024) { alert('이미지가 4MB를 초과합니다. 더 작은 이미지를 선택해 주세요.'); return; }
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    window._pcImageData = ev.target.result;
+    document.getElementById('pcImagePreviewImg').src = ev.target.result;
+    document.getElementById('pcImagePreview').style.display = 'block';
+    document.getElementById('pcImageEmpty').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+function savePhotocard() {
+  const memberKey = document.getElementById('pcMember').value;
+  const title = document.getElementById('pcTitle').value.trim();
+  const subtitle = document.getElementById('pcSubtitle').value.trim();
+  const rarity = document.getElementById('pcRarity').value;
+  const minLv = parseInt(document.getElementById('pcMinLv').value, 10) || 1;
+
+  if (!window._pcImageData) { alert('이미지를 선택해 주세요.'); return; }
+  if (!title) { alert('제목을 입력해 주세요.'); return; }
+
+  const data = pcLoad();
+  if (!data[memberKey]) data[memberKey] = [];
+  data[memberKey].push({
+    id: 'pc_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
+    image: window._pcImageData,
+    title, subtitle, rarity, minLv,
+    createdAt: new Date().toISOString()
+  });
+  if (pcSave(data)) {
+    closePcUpload();
+    switchPcMember(memberKey, document.querySelector(`.pc-tab[data-key="${memberKey}"]`));
+  }
+}
+
+function deletePhotocard(memberKey, id) {
+  if (!confirm('이 포토카드를 삭제할까요?')) return;
+  const data = pcLoad();
+  if (!data[memberKey]) return;
+  data[memberKey] = data[memberKey].filter(c => c.id !== id);
+  pcSave(data);
+  renderPcGrid(memberKey);
+}
+
+function exportPhotocards() {
+  const data = pcLoad();
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `venux-photocards-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+function importPhotocardsClick() {
+  document.getElementById('pcImportFile').click();
+}
+function importPhotocards(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      if (!confirm('현재 저장된 포토카드를 모두 대체합니다. 진행할까요?')) return;
+      pcSave(data);
+      renderPcGrid(window.pcCurrentKey);
+    } catch(err) { alert('JSON 파싱 실패: ' + err.message); }
+  };
+  reader.readAsText(file);
+}
+
+function initPhotocardsSection() {
+  switchPcMember(window.pcCurrentKey || 'ARA-462', document.querySelector('.pc-tab.active'));
+}
+
+// 섹션 전환 hook — showSection이 호출될 때 photocards면 초기화
+(function(){
+  const orig = window.showSection;
+  if (typeof orig === 'function') {
+    window.showSection = function(id, el) {
+      orig(id, el);
+      if (id === 'photocards') initPhotocardsSection();
+    };
+  }
+})();
 </script>
+
+<style>
+  /* 포토카드 탭 — 피드 탭과 동일 톤 */
+  .pc-tab {
+    padding: 8px 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(199,125,255,0.18);
+    color: #C5CADC;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all .2s;
+    font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  }
+  .pc-tab:hover {
+    background: rgba(199,125,255,0.10);
+    color: #fff;
+    border-color: rgba(199,125,255,0.32);
+  }
+  .pc-tab.active {
+    background: linear-gradient(135deg, rgba(199,125,255,0.18), rgba(255,94,224,0.10));
+    color: #fff;
+    border-color: rgba(199,125,255,0.45);
+    box-shadow: 0 0 14px rgba(199,125,255,0.30);
+  }
+</style>
 </body>
 </html>

@@ -14,7 +14,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Inter:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -32,7 +32,7 @@
     .back-btn:active { background:rgba(107,91,214,0.18); }
     .back-btn svg { width:16px; height:16px; }
     .header { position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:12px 20px; background:rgba(245,243,255,0.92); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid rgba(0,0,0,0.04); }
-    .header-logo { font-family:'Fraunces',serif; font-size:20px; font-weight:600; background:linear-gradient(135deg,#6B5BD6,#8B6BD6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .header-logo { font-family:'Black Han Sans',sans-serif; font-size:20px; font-weight:600; background:linear-gradient(135deg,#6B5BD6,#8B6BD6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
     .header-actions { display:flex; gap:8px; }
     .header-btn { background:rgba(107,91,214,0.08); border:none; padding:8px 14px; border-radius:20px; font-size:13px; font-weight:500; color:#6B5BD6; cursor:pointer; transition:all 0.2s; font-family:'Noto Sans KR',sans-serif; }
     .header-btn:hover { background:rgba(107,91,214,0.15); }
@@ -46,13 +46,13 @@
     .circle-inner { font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:600; color:white; text-shadow:0 1px 3px rgba(0,0,0,0.3); }
     .member-circle.has-photo .circle-inner { display:none; }
     .member-label { display:flex; flex-direction:column; align-items:center; gap:2px; text-align:center; }
-    .member-kr-name { font-family:'Noto Sans KR',sans-serif; font-size:15px; font-weight:600; color:#0A0A0A; transition:color 0.18s; line-height:1.2; }
+    .member-kr-name { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:15px; font-weight:400; color:#0A0A0A; transition:color 0.18s; line-height:1.2; letter-spacing:0.02em; }
     .member-item:hover .member-kr-name { color:var(--member-accent); }
     .member-codename { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:500; letter-spacing:0.04em; line-height:1.2; }
 
     /* HEADLINE */
     .headline-section { text-align:center; padding:8px 24px 0; flex-shrink:0; }
-    .headline-main { font-family:'Fraunces',serif; font-size:38px; font-weight:500; color:#0A0A0A; line-height:1.05; margin-bottom:6px; }
+    .headline-main { font-family:'Black Han Sans',sans-serif; font-size:38px; font-weight:500; color:#0A0A0A; line-height:1.05; margin-bottom:6px; }
     .headline-sub { font-family:'Noto Sans KR',sans-serif; font-size:15px; color:#666; font-weight:400; margin-bottom:4px; }
     .headline-desc { font-family:'Inter',sans-serif; font-size:12px; color:#999; letter-spacing:0.02em; }
 
@@ -100,7 +100,7 @@
     /* LOADING SCREEN */
     #screen-loading { background:rgba(10,10,10,0.95); }
     .loading-container { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; padding:40px 24px; gap:16px; }
-    .loading-title { font-family:'Fraunces',serif; font-size:22px; color:white; margin-bottom:20px; text-align:center; }
+    .loading-title { font-family:'Black Han Sans',sans-serif; font-size:22px; color:white; margin-bottom:20px; text-align:center; }
     .loading-pill { display:flex; align-items:center; gap:12px; padding:14px 20px; background:rgba(255,255,255,0.06); border-radius:16px; width:100%; max-width:320px; transition:all 0.4s; }
     .loading-pill.active { background:rgba(255,255,255,0.12); }
     .loading-pill.done { background:rgba(107,91,214,0.2); }
@@ -141,7 +141,7 @@
     .verdict-portrait { width:140px; height:140px; border-radius:50%; margin:0 auto 16px; overflow:hidden; box-shadow:0 8px 40px rgba(0,0,0,0.1); }
     .verdict-portrait img { width:100%; height:100%; object-fit:cover; }
     .verdict-portrait-letter { width:140px; height:140px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:40px; font-weight:600; color:white; margin:0 auto 16px; }
-    .verdict-name { font-family:'Fraunces',serif; font-size:28px; font-weight:500; color:#0A0A0A; margin-bottom:4px; }
+    .verdict-name { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:28px; font-weight:400; color:#0A0A0A; margin-bottom:4px; letter-spacing:0.02em; }
     .verdict-reason { font-size:14px; font-weight:500; margin-bottom:8px; }
     .verdict-desc { font-size:13px; color:#888; line-height:1.5; max-width:300px; margin:0 auto; }
 
@@ -250,7 +250,7 @@
     .fourcut-frame-inner { background:#0A0A0A; padding:16px 12px; }
     .fourcut-frame-inner.white-theme { background:#FAFAFA; }
     .fourcut-frame-header { text-align:center; padding-bottom:12px; }
-    .fourcut-frame-header .fh-title { font-family:'Fraunces',serif; font-size:16px; color:white; font-weight:500; }
+    .fourcut-frame-header .fh-title { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:16px; color:white; font-weight:500; }
     .fourcut-frame-inner.white-theme .fh-title { color:#0A0A0A; }
     .fourcut-frame-header .fh-date { font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(255,255,255,0.4); margin-top:2px; }
     .fourcut-frame-inner.white-theme .fh-date { color:#bbb; }
@@ -321,12 +321,12 @@
     .hex-bracket-tr { top:4px; right:4px; border-top:1.8px solid currentColor; border-right:1.8px solid currentColor; border-radius:0 1px 0 0; }
     .hex-bracket-bl { bottom:4px; left:4px; border-bottom:1.8px solid currentColor; border-left:1.8px solid currentColor; border-radius:0 0 0 1px; }
     .hex-bracket-br { bottom:4px; right:4px; border-bottom:1.8px solid currentColor; border-right:1.8px solid currentColor; border-radius:0 0 1px 0; }
-    .ig-stats { display:flex; flex:1; justify-content:space-around; align-items:center; }
+    .ig-stats { display:flex; flex:1; justify-content:space-around; align-items:center; gap:2px; }
     .ig-stat { text-align:center; cursor:default; }
-    .ig-stat-num { font-size:17px; font-weight:700; color:#0A0A0A; font-family:'Fraunces',serif; line-height:1; }
+    .ig-stat-num { font-size:17px; font-weight:700; color:#0A0A0A; font-family:'Black Han Sans','Noto Sans KR',sans-serif; line-height:1; }
     .ig-stat-label { font-size:10.5px; color:#999; margin-top:3px; font-family:'Noto Sans KR',sans-serif; }
     .ig-bio { margin-bottom:12px; padding:0 2px; }
-    .ig-bio-name { font-family:'Fraunces',serif; font-size:18px; font-weight:600; color:#0A0A0A; line-height:1.2; }
+    .ig-bio-name { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:18px; font-weight:600; color:#0A0A0A; line-height:1.2; }
     .ig-bio-code { font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:600; margin-top:4px; }
     .ig-bio-role { font-size:12px; color:#999; margin-top:4px; line-height:1.5; }
     .ig-bio-sig { font-size:12px; font-style:italic; margin-top:6px; line-height:1.5; opacity:0.75; }
@@ -342,7 +342,7 @@
     .profile-portrait img { width:100%; height:100%; object-fit:cover; }
     @keyframes profile-pulse { 0%,100%{box-shadow:0 8px 30px rgba(0,0,0,0.1)} 50%{box-shadow:0 8px 40px var(--profile-glow)} }
     .profile-portrait { animation:profile-pulse 3s ease-in-out infinite; }
-    .profile-name { font-family:'Fraunces',serif; font-size:24px; font-weight:500; text-align:center; }
+    .profile-name { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:24px; font-weight:500; text-align:center; }
     .profile-codename-row { text-align:center; margin-top:4px; }
     .profile-codename { font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:500; }
     .profile-element { font-size:13px; text-align:center; margin-top:6px; color:#888; }
@@ -372,16 +372,48 @@
     /* 포스트 상세 오버레이 */
     .post-detail-overlay { position:fixed;inset:0;z-index:9999;background:#fff;display:none;flex-direction:column;overflow-y:auto; }
     .post-detail-overlay.show { display:flex; }
-    .post-detail-header { display:flex;align-items:center;padding:12px 14px 10px;gap:10px;border-bottom:1px solid #f0f0f0;flex-shrink:0;background:#fff;position:sticky;top:0;z-index:2; }
-    .post-detail-back { width:32px;height:32px;border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-right:2px;flex-shrink:0; }
-    .post-detail-avatar { width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1px solid #eee; }
+    .post-detail-header { display:flex;align-items:center;padding:14px 10px 12px;gap:8px;flex-shrink:0;background:linear-gradient(to bottom,rgba(0,0,0,0.5) 0%,transparent 100%);position:absolute;top:0;left:0;right:0;z-index:10; }
+    .post-detail-back { width:36px;height:36px;border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-right:0;flex-shrink:0;padding:0;color:#fff;-webkit-tap-highlight-color:transparent; }
+    .post-detail-avatar { width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1.5px solid rgba(255,255,255,0.8); }
     .post-detail-userinfo { flex:1;display:flex;flex-direction:column;gap:1px; }
-    .post-detail-username { font-size:13px;font-weight:700;color:#000;line-height:1.2; }
-    .post-detail-id { font-size:11px;color:#888;line-height:1.2; }
-    .post-detail-more { font-size:20px;color:#000;border:none;background:none;cursor:pointer;padding:0 2px;letter-spacing:1px; }
+    .post-detail-username { font-size:13px;font-weight:700;color:#fff;line-height:1.2;text-shadow:0 1px 3px rgba(0,0,0,0.6); }
+    .post-detail-id { font-size:11px;color:rgba(255,255,255,0.85);line-height:1.2;text-shadow:0 1px 3px rgba(0,0,0,0.6); }
+    .post-detail-more { font-size:20px;color:#fff;border:none;background:none;cursor:pointer;padding:0 2px;letter-spacing:1px;text-shadow:0 1px 3px rgba(0,0,0,0.6); }
     .post-detail-img { width:100%;aspect-ratio:1;object-fit:cover;flex-shrink:0; }
+    /* 스와이프 래퍼 */
+    .post-img-swipe-wrap { position:relative;width:100%;aspect-ratio:1;overflow:hidden;flex-shrink:0; }
+    .post-img-swipe-wrap img { position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform; }
+    .post-nav-btn { position:absolute;top:50%;transform:translateY(-50%);z-index:10;background:rgba(0,0,0,0.28);border:none;cursor:pointer;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:0;transition:background 0.15s; }
+    .post-nav-btn:active { background:rgba(0,0,0,0.5); }
+    .post-nav-btn.prev { left:10px; }
+    .post-nav-btn.next { right:10px; }
+    .post-nav-btn.hidden { display:none; }
+    .post-img-swipe-wrap img.si-l { animation:siL .22s ease forwards; }
+    .post-img-swipe-wrap img.si-r { animation:siR .22s ease forwards; }
+    .post-img-swipe-wrap img.so-l { animation:soL .22s ease forwards; }
+    .post-img-swipe-wrap img.so-r { animation:soR .22s ease forwards; }
+    @keyframes siL  { from{transform:translateX(100%)} to{transform:translateX(0)} }
+    @keyframes siR  { from{transform:translateX(-100%)} to{transform:translateX(0)} }
+    @keyframes soL  { from{transform:translateX(0)} to{transform:translateX(-100%)} }
+    @keyframes soR  { from{transform:translateX(0)} to{transform:translateX(100%)} }
+    .post-swipe-dots { display:flex;justify-content:center;gap:5px;padding:7px 0 2px;flex-shrink:0; }
+    .post-swipe-dot { width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,0.18);transition:background 0.15s; }
+    .post-swipe-dot.active { background:#333; }
     .post-detail-body { flex:1;background:white;padding:0 0 40px; }
+    /* ── Settings 저장된 게시물 ── */
+    .settings-saved-section { margin-top:24px;padding-top:18px;border-top:1px solid rgba(0,0,0,0.08); }
+    .settings-saved-title { font-size:13px;font-weight:700;color:#111;margin-bottom:12px;display:flex;align-items:center;gap:6px;letter-spacing:-0.01em; }
+    .settings-saved-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border-radius:0;overflow:hidden; }
+    .settings-saved-thumb { aspect-ratio:1;width:100%;object-fit:cover;display:block;cursor:pointer;transition:opacity .15s; }
+    .settings-saved-thumb:active { opacity:.7; }
+    .settings-saved-empty { text-align:center;padding:24px 0 16px;color:#bbb;font-size:13px;line-height:1.8; }
+    .settings-saved-count { font-size:11px;font-weight:500;color:#999;margin-left:auto; }
+    
     .post-detail-actions { display:flex;align-items:center;gap:12px;padding:14px 16px 6px; }
+    .post-actions-left { display:flex;align-items:center;gap:12px;flex:1; }
+    .post-save-btn { background:none;border:none;cursor:pointer;padding:0;line-height:1;display:flex;align-items:center;justify-content:center;transition:transform 0.12s; }
+    .post-save-btn:active { transform:scale(1.2); }
+    .post-save-btn svg { transition:fill 0.15s,stroke 0.15s; }
     .post-like-btn { background:none;border:none;cursor:pointer;font-size:24px;padding:0;line-height:1;transition:transform 0.12s; }
     .post-like-btn:active { transform:scale(1.2); }
     .post-like-count { font-size:13px;font-weight:700;color:#222; }
@@ -410,11 +442,11 @@
     .post-comment-area { position:relative; }
     /* 편지 탭 */
     /* ── 포토카드 탭 ── */
-    .pc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; padding:14px 14px 8px; }
+    .pc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; padding:0; }
     .pc-card-wrap { perspective:600px; cursor:pointer; }
-    .pc-card { position:relative; width:100%; padding-top:148%; transform-style:preserve-3d; transition:transform 0.55s cubic-bezier(0.4,0,0.2,1); border-radius:10px; }
+    .pc-card { position:relative; width:100%; padding-top:133%; transform-style:preserve-3d; transition:transform 0.55s cubic-bezier(0.4,0,0.2,1); border-radius:0; }
     .pc-card.flipped { transform:rotateY(180deg); }
-    .pc-front, .pc-back { position:absolute; inset:0; border-radius:10px; backface-visibility:hidden; overflow:hidden; }
+    .pc-front, .pc-back { position:absolute; inset:0; border-radius:0; backface-visibility:hidden; overflow:hidden; }
     .pc-front { display:flex; flex-direction:column; }
     .pc-back { transform:rotateY(180deg); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:12px 10px; text-align:center; }
     .pc-img-wrap { flex:1; overflow:hidden; position:relative; }
@@ -424,7 +456,7 @@
     .pc-title { font-size:11px; font-weight:800; color:#fff; letter-spacing:0.04em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .pc-subtitle { font-size:9px; color:rgba(255,255,255,0.6); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .pc-rarity-badge { position:absolute; top:6px; right:6px; font-size:9px; font-weight:800; padding:2px 5px; border-radius:4px; letter-spacing:0.06em; }
-    .pc-locked-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.55); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; border-radius:10px; }
+    .pc-locked-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.55); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; border-radius:0; }
     .pc-lock-icon { font-size:20px; opacity:0.9; }
     .pc-lock-hint { font-size:9px; color:rgba(255,255,255,0.7); text-align:center; line-height:1.4; padding:0 6px; }
     .pc-back-quote { font-size:11px; color:#fff; line-height:1.7; font-style:italic; margin-bottom:8px; }
@@ -492,7 +524,7 @@
     .about-overlay.show { opacity:1; pointer-events:auto; }
     .about-card { background:white; border-radius:24px; padding:32px 24px; max-width:340px; width:90%; text-align:center; transform:scale(0.9); transition:transform 0.35s cubic-bezier(0.32,0.72,0,1); }
     .about-overlay.show .about-card { transform:scale(1); }
-    .about-title { font-family:'Fraunces',serif; font-size:24px; margin-bottom:12px; }
+    .about-title { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:24px; margin-bottom:12px; }
     .about-text { font-size:14px; color:#666; line-height:1.6; margin-bottom:20px; }
     .about-close { padding:12px 32px; border:none; border-radius:12px; background:linear-gradient(135deg,#6B5BD6,#8B6BD6); color:white; font-size:14px; font-weight:600; cursor:pointer; }
 
@@ -612,7 +644,7 @@
     .onboarding-step { display:none; flex-direction:column; align-items:center; gap:16px; }
     .onboarding-step.active { display:flex; }
     .onboarding-emoji { font-size:64px; margin-bottom:8px; }
-    .onboarding-title { font-family:'Fraunces',serif; font-size:26px; font-weight:500; color:#0A0A0A; line-height:1.2; }
+    .onboarding-title { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:26px; font-weight:500; color:#0A0A0A; line-height:1.2; }
     .onboarding-sub { font-size:14px; color:#888; line-height:1.5; }
     .onboarding-input { width:100%; padding:14px 16px; border:2px solid #e8e8e8; border-radius:14px; font-size:16px; font-family:'Noto Sans KR',sans-serif; outline:none; text-align:center; transition:border-color 0.2s; background:white; }
     .onboarding-input:focus { border-color:#6B5BD6; }
@@ -625,7 +657,7 @@
     .onboarding-recommend { margin-top:8px; display:flex; flex-direction:column; align-items:center; gap:12px; }
     .onboarding-recommend-portrait { width:100px; height:100px; border-radius:50%; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.12); }
     .onboarding-recommend-portrait img { width:100%; height:100%; object-fit:cover; }
-    .onboarding-recommend-name { font-family:'Fraunces',serif; font-size:22px; font-weight:500; }
+    .onboarding-recommend-name { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:22px; font-weight:500; }
     .onboarding-recommend-reason { font-size:13px; color:#888; }
 
     /* ─ 개인정보 동의 아코디언 ─ */
@@ -703,7 +735,7 @@
     .today-portrait img { width:100%; height:100%; object-fit:cover; }
     .today-info { flex:1; }
     .today-greeting { font-size:15px; font-weight:500; color:#333; line-height:1.4; }
-    .today-member-name { font-family:'Fraunces',serif; font-size:18px; font-weight:500; color:#0A0A0A; margin-bottom:2px; }
+    .today-member-name { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:19px; font-weight:400; color:#0A0A0A; margin-bottom:2px; letter-spacing:0.02em; }
     .today-mood { font-size:12px; color:#999; }
     .today-arrow { font-size:20px; color:#ccc; }
 
@@ -746,10 +778,10 @@
     .attendance-portrait { width:120px; height:120px; border-radius:50%; margin:0 auto 16px; overflow:hidden; box-shadow:0 8px 40px rgba(0,0,0,0.12); }
     .attendance-portrait img { width:100%; height:100%; object-fit:cover; }
     .attendance-greeting { font-size:18px; font-weight:500; color:#333; line-height:1.5; margin-bottom:8px; }
-    .attendance-member-name { font-family:'Fraunces',serif; font-size:24px; font-weight:500; margin-bottom:4px; }
+    .attendance-member-name { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:24px; font-weight:500; margin-bottom:4px; }
     .attendance-mood { font-size:13px; color:#999; margin-bottom:16px; }
     .attendance-streak { font-size:13px; color:#6B5BD6; font-weight:600; margin-bottom:16px; }
-    .attendance-btn { width:100%; padding:14px; border:none; border-radius:14px; background:linear-gradient(135deg,#6B5BD6,#8B6BD6); color:white; font-size:15px; font-weight:600; cursor:pointer; font-family:'Noto Sans KR',sans-serif; }
+    .attendance-btn { width:100%; padding:14px; border:none; border-radius:14px; background:linear-gradient(135deg,#6B5BD6,#8B6BD6); color:white; font-size:15px; font-weight:600; cursor:pointer; font-family:'Noto Sans KR',sans-serif; display:flex; align-items:center; justify-content:center; gap:6px; }
 
     /* MBTI section in profile */
     .profile-mbti-card { margin:16px 20px; padding:16px; background:linear-gradient(135deg,#f8f7ff,#f0eeff); border-radius:16px; border:1px solid rgba(107,91,214,0.1); }
@@ -772,7 +804,7 @@
     .admin-overlay.show { opacity:1; visibility:visible; }
     .admin-card { background:white; border-radius:24px; width:90%; max-width:380px; padding:32px 24px; box-shadow:0 16px 48px rgba(0,0,0,0.15); transform:translateY(20px); transition:transform 0.3s cubic-bezier(0.32,0.72,0,1); }
     .admin-overlay.show .admin-card { transform:translateY(0); }
-    .admin-card-title { font-family:'Fraunces',serif; font-size:22px; font-weight:600; text-align:center; margin-bottom:4px; }
+    .admin-card-title { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:22px; font-weight:600; text-align:center; margin-bottom:4px; }
     .admin-card-sub { font-size:12px; color:#999; text-align:center; margin-bottom:24px; }
     .admin-tabs { display:flex; gap:0; margin-bottom:20px; background:#F3F3F3; border-radius:12px; padding:3px; }
     .admin-tab { flex:1; text-align:center; padding:10px; font-size:13px; font-weight:600; border-radius:10px; cursor:pointer; transition:all 0.2s; color:#888; }
@@ -844,7 +876,7 @@
     .fp-cover img { width:100%; height:100%; object-fit:cover; }
 
     .fp-track-info { text-align:center; margin-bottom:24px; }
-    .fp-track-title { font-family:'Fraunces',serif; font-size:24px; font-weight:600; color:white; margin-bottom:4px; }
+    .fp-track-title { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:24px; font-weight:600; color:white; margin-bottom:4px; }
     .fp-track-artist { font-size:14px; color:rgba(255,255,255,0.6); }
     .fp-track-member { font-size:12px; color:rgba(255,255,255,0.4); margin-top:2px; }
 
@@ -907,7 +939,7 @@
     .notif-modal { background:white; width:100%; max-width:480px; max-height:75vh; border-radius:24px 24px 0 0; display:flex; flex-direction:column; transform:translateY(100%); transition:transform 0.3s cubic-bezier(0.32,0.72,0,1); }
     .notif-overlay.show .notif-modal { transform:translateY(0); }
     .notif-modal-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid #f0f0f0; flex-shrink:0; }
-    .notif-modal-title { font-family:'Fraunces',serif; font-size:20px; font-weight:600; }
+    .notif-modal-title { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:20px; font-weight:600; }
     .notif-modal-actions { display:flex; align-items:center; gap:12px; }
     .notif-read-all { background:none; border:none; font-size:13px; color:#6B5BD6; cursor:pointer; font-family:'Noto Sans KR',sans-serif; font-weight:500; }
     .notif-close { width:32px; height:32px; border:none; background:#f5f5f5; border-radius:50%; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
@@ -932,13 +964,13 @@
     /* ============================================ */
 
     .affinity-page-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; background:white; border-bottom:1px solid #f0f0f0; }
-    .affinity-page-title { font-family:'Fraunces',serif; font-size:20px; font-weight:600; color:#000; }
+    .affinity-page-title { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:20px; font-weight:600; color:#000; }
     .affinity-sort-btn { font-size:12px; color:#6B5BD6; background:rgba(107,91,214,0.08); border:none; padding:6px 12px; border-radius:10px; font-weight:600; cursor:pointer; font-family:'Noto Sans KR',sans-serif; }
 
     .affinity-summary-card { margin:16px; padding:20px; background:linear-gradient(135deg,#f0eeff,#e8e0ff); border-radius:20px; display:flex; align-items:center; justify-content:space-between; animation:affinitySlideDown 0.3s ease-out; }
     @keyframes affinitySlideDown { from{opacity:0;transform:translateY(-12px)} to{opacity:1;transform:translateY(0)} }
     .affinity-summary-left { }
-    .affinity-summary-total { font-family:'Fraunces',serif; font-size:32px; font-weight:700; color:#6B5BD6; }
+    .affinity-summary-total { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:32px; font-weight:700; color:#6B5BD6; }
     .affinity-summary-label { font-size:12px; color:#888; margin-top:2px; }
     .affinity-summary-right { text-align:right; }
     .affinity-summary-avg { font-size:16px; font-weight:600; color:#555; }
@@ -984,7 +1016,7 @@
     .achievements-modal { background:white; width:100%; max-width:480px; max-height:80vh; border-radius:24px 24px 0 0; padding:20px 0; overflow-y:auto; transform:translateY(100%); transition:transform 0.3s cubic-bezier(0.32,0.72,0,1); }
     .achievements-modal-overlay.show .achievements-modal { transform:translateY(0); }
     .achievements-modal-header { display:flex; align-items:center; justify-content:space-between; padding:0 20px 16px; border-bottom:1px solid #f0f0f0; }
-    .achievements-modal-title { font-family:'Fraunces',serif; font-size:20px; font-weight:600; }
+    .achievements-modal-title { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:20px; font-weight:600; }
     .achievements-modal-close { width:32px; height:32px; border:none; background:#f5f5f5; border-radius:50%; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
 
     /* ============================================ */
@@ -997,7 +1029,7 @@
 
     /* Chat header — KakaoTalk style */
     .chat-header { display:flex; align-items:center; height:56px; padding:0 12px; background:white; border-bottom:1px solid #E5E5E5; flex-shrink:0; position:relative; z-index:10; }
-    .chat-back { width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:22px; color:#000; border:none; background:none; -webkit-tap-highlight-color:transparent; }
+    .chat-back { width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#000; border:none; background:none; -webkit-tap-highlight-color:transparent; padding:0; }
     .chat-header-info { flex:1; display:flex; align-items:center; gap:10px; padding-left:4px; }
     .chat-header-portrait { width:32px; height:32px; border-radius:50%; overflow:hidden; flex-shrink:0; }
     .chat-header-portrait img { width:100%; height:100%; object-fit:cover; }
@@ -1118,9 +1150,19 @@
     @keyframes chipFadeIn { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:translateY(0); } }
 
     /* Chat input bar — KakaoTalk style */
-    .chat-input-bar { display:flex; align-items:flex-end; gap:8px; padding:10px 12px; background:white; border-top:1px solid #E5E5E5; flex-shrink:0; padding-bottom:max(10px, env(safe-area-inset-bottom)); }
+    .chat-input-bar { display:flex; align-items:flex-end; gap:8px; padding:10px 12px; background:white; border-top:1px solid #E5E5E5; flex-shrink:0; padding-bottom:max(10px, env(safe-area-inset-bottom)); position:relative; }
     .chat-plus-btn { width:32px; height:32px; border-radius:50%; background:#F0F0F0; border:none; display:flex; align-items:center; justify-content:center; font-size:18px; color:#666; cursor:pointer; flex-shrink:0; }
-    .chat-input-wrap { flex:1; background:#F5F5F5; border-radius:18px; padding:8px 14px; display:flex; align-items:flex-end; }
+    .chat-input-wrap { flex:1; background:#F5F5F5; border-radius:18px; padding:8px 10px 8px 14px; display:flex; align-items:flex-end; gap:2px; }
+    .chat-emoji-btn { flex-shrink:0; width:32px; height:32px; border:none; background:none; cursor:pointer; display:flex; align-items:center; justify-content:center; color:#999; padding:0; -webkit-tap-highlight-color:transparent; transition:color 0.15s; }
+    .chat-emoji-btn:active { color:#6B5BD6; transform:scale(0.88); }
+    .emoji-picker { position:absolute; bottom:calc(100% + 8px); left:0; right:0; background:white; border-radius:16px 16px 0 0; box-shadow:0 -4px 24px rgba(0,0,0,0.12); z-index:100; overflow:hidden; max-height:260px; display:flex; flex-direction:column; }
+    .emoji-picker-tabs { display:flex; padding:8px 12px 4px; gap:4px; border-bottom:1px solid #f0f0f0; flex-shrink:0; overflow-x:auto; scrollbar-width:none; }
+    .emoji-picker-tabs::-webkit-scrollbar { display:none; }
+    .emoji-tab { flex-shrink:0; padding:4px 10px; border-radius:14px; border:none; background:none; font-size:14px; cursor:pointer; -webkit-tap-highlight-color:transparent; transition:background 0.12s; }
+    .emoji-tab.active { background:rgba(107,91,214,0.1); }
+    .emoji-picker-grid { display:grid; grid-template-columns:repeat(8,1fr); gap:0; padding:8px 4px 12px; overflow-y:auto; flex:1; }
+    .emoji-item { display:flex; align-items:center; justify-content:center; font-size:22px; height:40px; cursor:pointer; border-radius:8px; transition:background 0.1s; -webkit-tap-highlight-color:transparent; border:none; background:none; }
+    .emoji-item:active { background:rgba(0,0,0,0.06); transform:scale(0.85); }
     .chat-input-wrap textarea { width:100%; border:none; background:transparent; font-size:14px; font-family:'Noto Sans KR',sans-serif; resize:none; outline:none; line-height:1.4; max-height:80px; color:#000; }
     .chat-input-wrap textarea::placeholder { color:#999; }
     .chat-send-btn { width:32px; height:32px; border-radius:50%; border:none; display:flex; align-items:center; justify-content:center; font-size:16px; color:white; cursor:pointer; flex-shrink:0; transition:all 0.15s; }
@@ -1161,6 +1203,56 @@
        Dark · Neon · Holographic · Interactive
   ═══════════════════════════════════════════ -->
   <style>
+    /* ══════════════════════════════════════════
+       COIN PAYWALL STYLES
+    ══════════════════════════════════════════ */
+    .coin-overlay { position:fixed; inset:0; z-index:3000; background:rgba(6,4,15,.85); backdrop-filter:blur(10px); display:flex; align-items:flex-end; justify-content:center; opacity:0; pointer-events:none; transition:opacity .25s; }
+    .coin-overlay.show { opacity:1; pointer-events:auto; }
+    .coin-sheet { width:100%; max-width:480px; background:#0D0A1C; border-radius:24px 24px 0 0; border:1px solid rgba(167,139,250,.2); border-bottom:none; padding:12px 20px 32px; transform:translateY(100%); transition:transform .3s cubic-bezier(.4,0,.2,1); max-height:90vh; overflow-y:auto; }
+    .coin-overlay.show .coin-sheet { transform:translateY(0); }
+    .cpw-icon { font-size:36px; text-align:center; margin:8px 0 4px; }
+    .cpw-title { font-family:'JetBrains Mono',monospace; font-size:18px; font-weight:700; color:#EDE9FF; text-align:center; margin-bottom:4px; }
+    .cpw-sub { font-size:13px; color:rgba(139,130,170,.8); text-align:center; margin-bottom:18px; }
+    /* 잔액 행 */
+    .cpw-balance-row { display:flex; gap:10px; margin-bottom:18px; }
+    .cpw-balance-item { flex:1; background:rgba(167,139,250,.07); border:1px solid rgba(167,139,250,.15); border-radius:14px; padding:12px 8px; text-align:center; transition:border-color .2s; }
+    .cpw-balance-item.empty { border-color:rgba(239,68,68,.3); background:rgba(239,68,68,.06); }
+    .cpw-balance-item.has-coins { border-color:rgba(167,139,250,.4); }
+    .cpw-balance-icon { font-size:18px; margin-bottom:4px; }
+    .cpw-balance-val { font-family:'JetBrains Mono',monospace; font-size:20px; font-weight:700; color:#A78BFA; line-height:1; margin-bottom:2px; }
+    .cpw-balance-item.empty .cpw-balance-val { color:#EF4444; }
+    .cpw-balance-label { font-size:10px; color:rgba(139,130,170,.7); letter-spacing:.04em; }
+    /* BYOK 옵션 */
+    .cpw-option { display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-radius:14px; border:1.5px solid rgba(167,139,250,.2); background:rgba(167,139,250,.06); cursor:pointer; transition:all .2s; margin-bottom:12px; }
+    .cpw-option:active { transform:scale(.98); }
+    .cpw-option-byok:hover { border-color:rgba(167,139,250,.5); background:rgba(167,139,250,.12); }
+    .cpw-opt-left { display:flex; align-items:center; gap:12px; }
+    .cpw-opt-icon { font-size:22px; }
+    .cpw-opt-title { font-size:14px; font-weight:700; color:#EDE9FF; margin-bottom:2px; }
+    .cpw-opt-desc { font-size:11px; color:rgba(139,130,170,.8); }
+    .cpw-opt-badge { font-size:11px; font-weight:700; padding:4px 10px; border-radius:20px; white-space:nowrap; }
+    .cpw-badge-free { background:rgba(74,222,128,.15); color:#4ADE80; border:1px solid rgba(74,222,128,.3); }
+    /* 구분선 */
+    .cpw-divider { display:flex; align-items:center; gap:10px; margin:14px 0; }
+    .cpw-divider::before, .cpw-divider::after { content:''; flex:1; height:1px; background:rgba(167,139,250,.15); }
+    .cpw-divider span { font-size:11px; color:rgba(139,130,170,.6); white-space:nowrap; letter-spacing:.05em; }
+    /* 패키지 */
+    .cpw-packages { display:flex; gap:8px; margin-bottom:14px; }
+    .cpw-pkg { flex:1; background:rgba(167,139,250,.06); border:1.5px solid rgba(167,139,250,.15); border-radius:14px; padding:12px 8px; text-align:center; cursor:pointer; transition:all .2s; position:relative; overflow:hidden; }
+    .cpw-pkg:hover { border-color:rgba(167,139,250,.45); background:rgba(167,139,250,.12); transform:translateY(-2px); }
+    .cpw-pkg:active { transform:scale(.97); }
+    .cpw-pkg-popular { border-color:rgba(167,139,250,.5); background:rgba(167,139,250,.1); }
+    .cpw-pkg-popular::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(167,139,250,.08),transparent); pointer-events:none; }
+    .cpw-pkg-badge { position:absolute; top:0; right:0; background:#A78BFA; color:#06040F; font-size:9px; font-weight:800; padding:3px 8px; border-radius:0 12px 0 8px; letter-spacing:.04em; }
+    .cpw-pkg-coins { font-size:16px; font-weight:700; color:#EDE9FF; margin-bottom:4px; }
+    .cpw-pkg-label { font-size:11px; font-weight:700; color:#A78BFA; margin-bottom:3px; }
+    .cpw-pkg-detail { font-size:9px; color:rgba(139,130,170,.7); margin-bottom:6px; line-height:1.3; }
+    .cpw-pkg-price { font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:700; color:#E8C97A; }
+    .cpw-footer-note { font-size:10px; color:rgba(139,130,170,.5); text-align:center; }
+    /* 코인 뱃지 */
+    .coin-stat { animation:vx-dot-blink 3s ease-in-out infinite; }
+    .coin-stat .daily-stat-value { color:#E8C97A !important; }
+
     /* ── KEYFRAMES ─────────────────────────────── */
     @keyframes vx-pulse { 0%,100%{opacity:.7;transform:scale(1)} 50%{opacity:1;transform:scale(1.04)} }
     @keyframes vx-ring-spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
@@ -1609,7 +1701,7 @@
 
       /* === Typography === */
       --vx-font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-      --vx-font-display: 'Space Grotesk', 'Pretendard Variable', 'Pretendard', sans-serif;
+      --vx-font-display: 'Black Han Sans', 'Noto Sans KR', sans-serif;
       --vx-font-body: 'Pretendard Variable', 'Pretendard', 'Space Grotesk', system-ui, sans-serif;
 
       /* === Motion === */
@@ -1835,7 +1927,8 @@
       overflow: hidden !important;
     }
     .member-circle::before { content: none !important; }
-    .member-circle::after  { content: none !important; }
+
+    .member-circle::after { content: none !important; }
 
     .member-circle img {
       border-radius: 10px !important;
@@ -1860,19 +1953,21 @@
       width: 100% !important;
       height: 100% !important;
     }
-    .member-label { gap:2px !important; }
+
+    .member-label { gap: 3px !important; margin-top: 2px; }
     .member-kr-name {
-      font-family: var(--vx-font-body) !important;
-      font-size: 12px !important;
+      font-family: var(--vx-font-display) !important;
+      font-size: 14px !important;
       color: var(--vx-text) !important;
-      font-weight: 500 !important;
+      font-weight: 600 !important;
+      letter-spacing: -0.01em !important;
     }
     .member-codename {
       font-family: var(--vx-font-mono) !important;
-      font-size: 9px !important;
+      font-size: 10px !important;
       letter-spacing: 0.06em !important;
       color: var(--member-accent, var(--vx-text-4)) !important;
-      opacity: .85;
+      opacity: .9;
     }
 
     /* === Input === */
@@ -1990,7 +2085,7 @@
       border-radius: 8px !important;
       margin: 12px 16px !important;
     }
-    .today-member-name { color: var(--vx-text) !important; font-family: var(--vx-font-display) !important; }
+    .today-member-name { color: var(--vx-text) !important; font-family: 'Black Han Sans', 'Noto Sans KR', sans-serif !important; letter-spacing: 0.02em !important; }
     .today-greeting, .today-mood { color: var(--vx-text-2) !important; }
     .today-arrow { color: var(--vx-signal) !important; }
 
@@ -2447,10 +2542,16 @@
 
     /* Post detail overlay — keep readable but dark */
     .post-detail-overlay { background: #07090F !important; color: var(--vx-text) !important; }
+    .settings-saved-title { color: var(--vx-text) !important; }
+    .settings-saved-section { border-top-color: rgba(255,255,255,0.08) !important; }
     .post-detail-header { background: rgba(10,12,22,0.92) !important; border-bottom: 1px solid var(--vx-line) !important; }
     .post-detail-username, .post-like-count, .post-caption, .post-caption strong { color: #FFFFFF !important; }
+    .post-save-btn svg path { stroke: rgba(255,255,255,0.75); }
+    .post-save-btn svg[fill="#6B5BD6"] path { stroke: #8B7FE8 !important; fill: #8B7FE8 !important; }
     .post-detail-id, .post-date { color: var(--vx-text-3) !important; }
     .post-detail-body { background: transparent !important; }
+    .post-swipe-dot { background: rgba(255,255,255,0.25) !important; }
+    .post-swipe-dot.active { background: rgba(255,255,255,0.9) !important; }
     .post-comments-divider { background: var(--vx-line) !important; }
     .post-comment-input-wrap { background: rgba(10,12,22,0.92) !important; border-top: 1px solid var(--vx-line) !important; }
     .post-comment-input { color: var(--vx-text) !important; }
@@ -2604,30 +2705,30 @@
     .chat-header-btn:hover { color: var(--vx-text) !important; }
     .chat-header-portrait { border: 1px solid var(--vx-line-strong) !important; box-shadow: 0 0 12px rgba(199,125,255,0.18); }
 
-    /* Back arrow — 화이트 + 핑크 글로우, 잘 보이게 */
+    /* Back arrow — 심플 < 화살표 */
     .chat-back, .chat-header .chat-back, .chat-header button.chat-back {
-      color: #FFFFFF !important;
-      width: 36px !important;
-      height: 36px !important;
-      border-radius: 8px !important;
-      background: rgba(255,255,255,0.04) !important;
-      border: 1px solid var(--vx-line) !important;
+      color: rgba(255,255,255,0.85) !important;
+      width: 40px !important;
+      height: 40px !important;
+      border-radius: 0 !important;
+      background: none !important;
+      border: none !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      font-size: 20px !important;
-      transition: all .15s var(--vx-ease) !important;
-      backdrop-filter: blur(6px);
+      transition: color .15s var(--vx-ease) !important;
+      backdrop-filter: none !important;
     }
-    .chat-back:hover {
-      background: rgba(199,125,255,0.14) !important;
-      border-color: var(--vx-line-strong) !important;
-      color: var(--vx-signal-2) !important;
-    }
-    .chat-back:active { transform: scale(0.94); }
-
-    /* If the arrow is text (←) make it pulse-readable. If SVG, force white stroke. */
-    .chat-back svg { stroke: #FFFFFF !important; fill: none !important; }
+    .chat-back:hover { color: #FFFFFF !important; }
+    .chat-back:active { transform: scale(0.88); opacity: 0.7; }
+    .chat-back svg { stroke: currentColor !important; fill: none !important; }
+    .chat-emoji-btn { color: rgba(255,255,255,0.5) !important; }
+    .chat-emoji-btn:active { color: var(--vx-signal-2) !important; }
+    .emoji-picker { background: var(--vx-bg2) !important; box-shadow: 0 -4px 24px rgba(0,0,0,0.4) !important; }
+    .emoji-picker-tabs { border-color: var(--vx-line) !important; }
+    .emoji-tab { color: var(--vx-text) !important; }
+    .emoji-tab.active { background: rgba(167,139,250,0.15) !important; }
+    .emoji-item:active { background: rgba(255,255,255,0.08) !important; }
 
     /* Body — show cosmic bg through */
     .chat-body { background: transparent !important; }
@@ -3238,7 +3339,7 @@
     <!-- Step C: 개인정보 동의 -->
     <div class="onboarding-step" id="onboardStepC">
       <div class="consent-card">
-        <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:500;color:#0A0A0A;margin-bottom:4px;text-align:center">서비스 이용 동의</div>
+        <div style="font-family:'Black Han Sans','Noto Sans KR',sans-serif;font-size:22px;font-weight:500;color:#0A0A0A;margin-bottom:4px;text-align:center">서비스 이용 동의</div>
         <div style="font-size:13px;color:#888;margin-bottom:18px;text-align:center">아래 약관을 확인하고 동의해 주세요</div>
 
         <!-- 전체 동의 -->
@@ -3384,7 +3485,10 @@
     <div class="attendance-mood" id="attendanceMood"></div>
     <div class="attendance-greeting" id="attendanceGreeting"></div>
     <div class="attendance-streak" id="attendanceStreak"></div>
-    <button class="attendance-btn" onclick="closeAttendance()">오늘도 함께 →</button>
+    <button class="attendance-btn" id="attendanceBtn" onclick="closeAttendance()">
+      <span id="attendanceBtnMsg">오늘도 함께</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
   </div>
 </div>
 
@@ -3436,10 +3540,11 @@
     <div class="modal-label" data-i18n="settings_model_label">AI 모델</div>
     <div class="modal-radio-group">
       <div class="modal-radio selected" data-model="gpt-4o" onclick="selectModel(this)">gpt-4o<br><small style="color:#999">정확 · 고급</small></div>
-      <div class="modal-radio" data-model="gpt-4o" onclick="selectModel(this)">gpt-4o<br><small style="color:#999">정확 · 고급</small></div>
+      <div class="modal-radio" data-model="gpt-4o-mini" onclick="selectModel(this)">gpt-4o-mini<br><small style="color:#999">빠름 · 경제적</small></div>
     </div>
     <div class="modal-privacy" data-i18n="settings_privacy">🔒 API 키는 브라우저 localStorage에만 저장됩니다. 서버로 전송되지 않습니다.</div>
     <button class="modal-save-btn" onclick="saveSettings()" data-i18n="settings_save">저장</button>
+    <div id="settingsSavedSection"></div>
   </div>
 </div>
 
@@ -3465,6 +3570,81 @@
       <span style="font-size:12px;color:#999">Built with ❤️ by SOAVIZ AI STUDIO</span>
     </div>
     <button class="about-close" onclick="closeAbout()">닫기</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     COIN PAYWALL MODAL
+══════════════════════════════════════════════ -->
+<div class="coin-overlay" id="coinPaywallModal" onclick="if(event.target===this)closeCoinPaywall()">
+  <div class="coin-sheet">
+    <div class="modal-handle"></div>
+
+    <!-- 상태: 코인 부족 -->
+    <div id="cpw-main">
+      <div class="cpw-icon" id="cpwIcon">🪙</div>
+      <div class="cpw-title" id="cpwTitle">코인이 부족해요</div>
+      <div class="cpw-sub" id="cpwSub">무료 횟수를 모두 사용했어요</div>
+
+      <!-- 코인 현황 -->
+      <div class="cpw-balance-row">
+        <div class="cpw-balance-item" id="cpwBalChat">
+          <div class="cpw-balance-icon">💬</div>
+          <div class="cpw-balance-val" id="cpwChatVal">0</div>
+          <div class="cpw-balance-label">대화</div>
+        </div>
+        <div class="cpw-balance-item" id="cpwBalSelfie">
+          <div class="cpw-balance-icon">🤳</div>
+          <div class="cpw-balance-val" id="cpwSelfieVal">0</div>
+          <div class="cpw-balance-label">셀카</div>
+        </div>
+        <div class="cpw-balance-item" id="cpwBalFourcut">
+          <div class="cpw-balance-icon">🎞️</div>
+          <div class="cpw-balance-val" id="cpwFourcutVal">0</div>
+          <div class="cpw-balance-label">네컷</div>
+        </div>
+      </div>
+
+      <!-- BYOK 옵션 -->
+      <div class="cpw-option cpw-option-byok" onclick="closeCoinPaywall();openSettings()">
+        <div class="cpw-opt-left">
+          <div class="cpw-opt-icon">🔑</div>
+          <div class="cpw-opt-text">
+            <div class="cpw-opt-title">내 API 키 사용하기</div>
+            <div class="cpw-opt-desc">OpenAI 키 입력 → 무제한 이용</div>
+          </div>
+        </div>
+        <div class="cpw-opt-badge cpw-badge-free">무제한</div>
+      </div>
+
+      <!-- 구분선 -->
+      <div class="cpw-divider"><span>또는 코인 구매</span></div>
+
+      <!-- 코인 패키지 -->
+      <div class="cpw-packages">
+        <div class="cpw-pkg" onclick="buyCoinPkg('basic')">
+          <div class="cpw-pkg-coins">🪙 30</div>
+          <div class="cpw-pkg-label">기본 패키지</div>
+          <div class="cpw-pkg-detail">대화 30회</div>
+          <div class="cpw-pkg-price">₩3,900</div>
+        </div>
+        <div class="cpw-pkg cpw-pkg-popular" onclick="buyCoinPkg('standard')">
+          <div class="cpw-pkg-badge">인기</div>
+          <div class="cpw-pkg-coins">🪙 100</div>
+          <div class="cpw-pkg-label">스탠다드</div>
+          <div class="cpw-pkg-detail">대화 100회 + 사진 5회</div>
+          <div class="cpw-pkg-price">₩9,900</div>
+        </div>
+        <div class="cpw-pkg" onclick="buyCoinPkg('pro')">
+          <div class="cpw-pkg-coins">🪙 300</div>
+          <div class="cpw-pkg-label">프리미엄</div>
+          <div class="cpw-pkg-detail">대화 300회 + 사진 20회</div>
+          <div class="cpw-pkg-price">₩19,900</div>
+        </div>
+      </div>
+
+      <div class="cpw-footer-note">구매 전 결제 페이지로 이동합니다</div>
+    </div>
   </div>
 </div>
 
@@ -3525,6 +3705,7 @@
       <span class="daily-dday" id="dailyDday" style="display:none"></span>
       <div class="daily-stat">🔥 <span class="daily-stat-value" id="dailyStreak">0</span>일</div>
       <div class="daily-stat">⚡ <span class="daily-stat-value" id="dailyActions">3</span>남음</div>
+      <div class="daily-stat coin-stat" id="coinStatBadge" onclick="openCoinPaywall('chat')" style="display:none;cursor:pointer">🪙 <span class="daily-stat-value" id="coinStatVal">10</span></div>
     </div>
   </div>
 
@@ -3536,29 +3717,31 @@
       <div class="today-greeting" id="todayGreeting"></div>
       <div class="today-mood" id="todayMood"></div>
     </div>
-    <div class="today-arrow">→</div>
+    <div class="today-arrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </div>
   </div>
 
   <div class="vx-divider">// 00 · MEMBER INDEX</div>
   <div class="member-row">
     <div class="member-item" onclick="openProfileModal('ARA-462')" style="--member-accent:var(--vx-ara)">
-      <div class="member-circle"><div class="circle-inner">ARA</div></div>
+      <div class="member-circle" data-name="이루나"><div class="circle-inner">ARA</div></div>
       <div class="member-label"><span class="member-kr-name">이루나</span><span class="member-codename">ARA·462Hz</span></div>
     </div>
     <div class="member-item" onclick="openProfileModal('LUX-299')" style="--member-accent:var(--vx-lux)">
-      <div class="member-circle"><div class="circle-inner">LUX</div></div>
+      <div class="member-circle" data-name="박리라"><div class="circle-inner">LUX</div></div>
       <div class="member-label"><span class="member-kr-name">박리라</span><span class="member-codename">LUX·299Hz</span></div>
     </div>
     <div class="member-item" onclick="openProfileModal('EUR-0K')" style="--member-accent:var(--vx-eur)">
-      <div class="member-circle"><div class="circle-inner">EUR</div></div>
+      <div class="member-circle" data-name="신지우"><div class="circle-inner">EUR</div></div>
       <div class="member-label"><span class="member-kr-name">신지우</span><span class="member-codename">EUR·174Hz</span></div>
     </div>
     <div class="member-item" onclick="openProfileModal('KIN-360')" style="--member-accent:var(--vx-kin)">
-      <div class="member-circle"><div class="circle-inner">KIN</div></div>
+      <div class="member-circle" data-name="최노아"><div class="circle-inner">KIN</div></div>
       <div class="member-label"><span class="member-kr-name">최노아</span><span class="member-codename">KIN·360Hz</span></div>
     </div>
     <div class="member-item" onclick="openProfileModal('ATP-X1')" style="--member-accent:var(--vx-atp)">
-      <div class="member-circle"><div class="circle-inner">ATP</div></div>
+      <div class="member-circle" data-name="정아온"><div class="circle-inner">ATP</div></div>
       <div class="member-label"><span class="member-kr-name">정아온</span><span class="member-codename">ATP·528Hz</span></div>
     </div>
   </div>
@@ -3919,8 +4102,8 @@ function vxCamShoot(){
   <div class="verdict-section" id="verdictSection"></div>
 
   <div class="photo-section" id="photoSection" style="display:none;">
-    <div class="photo-section-title">📸 최애 멤버와 함께 셀카찍기</div>
-    <div class="photo-section-sub">좋아하는 멤버와 셀카 찍어봐요!</div>
+    <div class="photo-section-title" data-i18n="photo_section_title">📸 최애 멤버와 함께 셀카찍기</div>
+    <div class="photo-section-sub" data-i18n="photo_section_sub">좋아하는 멤버와 셀카 찍어봐요!</div>
 
     <!-- MODE TABS -->
     <div class="photo-mode-tabs">
@@ -3984,7 +4167,7 @@ function vxCamShoot(){
       </div>
       <input type="file" id="photoFileInput" accept="image/*" style="display:none" onchange="handlePhotoUpload(event)">
       <div class="photo-status-text" id="photoStatusText" style="display:none;"></div>
-      <button class="photo-generate-btn" id="photoGenerateBtn" onclick="handlePhotoGenerate()" disabled>✨ 최애 멤버와 함께 셀카찍기</button>
+      <button class="photo-generate-btn" id="photoGenerateBtn" onclick="handlePhotoGenerate()" disabled data-i18n="photo_generate_btn">✨ 최애 멤버와 함께 셀카찍기</button>
       <div class="photo-result" id="photoResult" style="display:none;"></div>
     </div>
 
@@ -4037,7 +4220,7 @@ function vxCamShoot(){
       </div>
 
       <div class="photo-status-text" id="fourcutStatusText" style="display:none;"></div>
-      <button class="photo-generate-btn" id="fourcutGenerateBtn" onclick="handleFourcutGenerate()" disabled>✨ 인생네컷 만들기</button>
+      <button class="photo-generate-btn" id="fourcutGenerateBtn" onclick="handleFourcutGenerate()" disabled data-i18n="fourcut_generate_btn">✨ 인생네컷 만들기</button>
       <div class="photo-result" id="fourcutResult" style="display:none;"></div>
     </div>
     </div><!-- /photo-modes-frame -->
@@ -4201,7 +4384,7 @@ function vxCamShoot(){
 <div class="screen" id="screen-achievements">
   <div class="header">
     <button class="back-btn" onclick="goBack()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>뒤로</button>
-    <div class="header-logo">🏆 도전과제</div>
+    <div class="header-logo" data-i18n="screen_achievements">🏆 도전과제</div>
     <div class="header-actions"></div>
   </div>
   <div class="achievements-grid" id="achievementsGrid"></div>
@@ -4211,7 +4394,7 @@ function vxCamShoot(){
 <div class="screen" id="screen-game-settings">
   <div class="header">
     <button class="back-btn" onclick="goBack()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>뒤로</button>
-    <div class="header-logo">⚙️ 설정</div>
+    <div class="header-logo" data-i18n="screen_settings">⚙️ 설정</div>
     <div class="header-actions"></div>
   </div>
   <div style="padding:20px">
@@ -4427,7 +4610,9 @@ function vxCamShoot(){
 <!-- 1:1 CHAT SCREEN -->
 <div class="chat-screen" id="chatScreen">
   <div class="chat-header">
-    <button class="chat-back" onclick="closeChatRoom()">←</button>
+    <button class="chat-back" onclick="closeChatRoom()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
     <div class="chat-header-info">
       <div class="chat-header-portrait" id="chatPortrait"></div>
       <div class="chat-header-text">
@@ -4448,6 +4633,19 @@ function vxCamShoot(){
     <button class="chat-plus-btn" onclick="toggleChatActions()">+</button>
     <div class="chat-input-wrap">
       <textarea id="chatInput" rows="1" placeholder="" oninput="onChatInput()"></textarea>
+      <button class="chat-emoji-btn" id="chatEmojiBtn" onclick="toggleEmojiPicker(event)" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+          <line x1="9" y1="9" x2="9.01" y2="9"/>
+          <line x1="15" y1="9" x2="15.01" y2="9"/>
+        </svg>
+      </button>
+    </div>
+    <!-- 이모지 피커 패널 -->
+    <div class="emoji-picker" id="emojiPicker" style="display:none">
+      <div class="emoji-picker-tabs" id="emojiPickerTabs"></div>
+      <div class="emoji-picker-grid" id="emojiPickerGrid"></div>
     </div>
     <button class="chat-send-btn" id="chatSendBtn" onclick="sendChatMessage()" disabled>➤</button>
   </div>
@@ -4473,23 +4671,23 @@ function vxCamShoot(){
 <div class="tab-bar" id="tabBar">
   <div class="tab-bar-item active" data-tab="screen-landing" onclick="switchTab(this)">
     <div class="tab-icon">🏠</div>
-    <div class="tab-label">홈</div>
+    <div class="tab-label" data-i18n="tab_home">홈</div>
   </div>
   <div class="tab-bar-item" data-tab="screen-results" onclick="switchTab(this)">
     <div class="tab-icon">💬</div>
-    <div class="tab-label">채팅</div>
+    <div class="tab-label" data-i18n="tab_chat">채팅</div>
   </div>
   <div class="tab-bar-item" data-tab="screen-affinity" onclick="switchTab(this)">
     <div class="tab-icon">💕</div>
-    <div class="tab-label">친밀도</div>
+    <div class="tab-label" data-i18n="tab_affinity">친밀도</div>
   </div>
   <div class="tab-bar-item" data-tab="screen-collection" onclick="switchTab(this)">
     <div class="tab-icon">📸</div>
-    <div class="tab-label">사진첩</div>
+    <div class="tab-label" data-i18n="tab_photos">사진첩</div>
   </div>
   <div class="tab-bar-item" data-tab="screen-game-settings" onclick="switchTab(this)">
     <div class="tab-icon">⚙️</div>
-    <div class="tab-label">설정</div>
+    <div class="tab-label" data-i18n="tab_settings">설정</div>
   </div>
 </div>
 
@@ -4522,12 +4720,26 @@ loadAdminPhotos();
 const MEMBER_POSTS = {
   'ARA-462': [
     { id:'ara_p0', image:'ara-feed-01.png', caption:'왔어.\n\n그게 전부야.\n근데 — 나 여기 오래 있을 것 같아. #ARA462 #VenuX #첫피드', date:'2025.05.19', likes:4108, filter:'none' },
-    { id:'ara_p1', caption:'오늘 연습 3시간. 근데 진짜 잘 됐어. 힘들면 끝이 있는 거잖아 #이루나 #연습', date:'2025.05.14', likes:6821, filter:'none' },
-    { id:'ara_p2', caption:'막내가 케이크 사왔음. 안 먹을 수가 없잖아 🎂 고마워 아온아', date:'2025.04.28', likes:5203, filter:'saturate(0.88)' },
-    { id:'ara_p3', caption:'콘서트 전날 긴장 안 한다고는 안 했어. 근데 해낼 거야.', date:'2025.04.03', likes:8104, filter:'brightness(1.07)' },
-    { id:'ara_p4', caption:'새벽 연습실 혼자. 이 시간이 제일 좋아. 아무도 없고 음악만.', date:'2025.03.17', likes:4392, filter:'brightness(0.92) contrast(1.06)' },
-    { id:'ara_p5', caption:'소화 잘 되는 음식 추천 받음. 리라가 또 별걸 다 알아 ✨', date:'2025.02.22', likes:3817, filter:'saturate(1.08)' },
-    { id:'ara_p6', caption:'VenuX 데뷔 1주년 🔥 고마워 다들. 462°C 식지 않았어.', date:'2025.01.08', likes:12403, filter:'none' },
+    { id:'ara_p1', image:'ara-feed-02.png', caption:'지우랑 쉬는 날.\n말 없어도 됨. 차 한 잔이면 충분해. ☕\n\n#이루나 #오늘하루 #VenuX', date:'2025.05.23', likes:7832, filter:'none' },
+    { id:'ara_p2', image:'ara-feed-03.png', caption:'462°C.\n아직 안 식었어.\n\n#ARA462 #이루나 #불꽃', date:'2025.05.20', likes:5621, filter:'brightness(1.05) contrast(1.08)' },
+    { id:'ara_p3', image:'ara-feed-04.png', caption:'무대 30분 전.\n지금은 말 걸지 마.\n\n#이루나 #공연전 #집중모드', date:'2025.05.16', likes:4103, filter:'none' },
+    { id:'ara_p4', image:'ara-feed-05.png', caption:'마이크 앞에서만 이렇게 솔직해지는 것 같아.\n\n녹음 중. 🎙️\n\n#이루나 #녹음 #음악이좋아', date:'2025.05.11', likes:9240, filter:'brightness(0.94)' },
+    { id:'ara_p5', image:'ara-feed-06.png', caption:'오늘 코디 어때.\n핑크 후디 + 데님이면 일단 맞지.\n\n#이루나 #OOTD #오늘뭐입었어', date:'2025.05.07', likes:3856, filter:'none' },
+    { id:'ara_p6', image:'ara-feed-07.png', caption:'요즘 꽂힌 것들.\n다 핑크인 건 우연 아님. 🩷\n\n#이루나 #뷰티 #립틴트추천', date:'2025.04.29', likes:6412, filter:'saturate(1.08)' },
+    { id:'ara_p7', image:'ara-feed-08.png', caption:'스킨케어 루틴 시작.\n이 시간이 제일 나다운 것 같아.\n\n#이루나 #아침루틴 #스킨케어', date:'2025.04.22', likes:2918, filter:'brightness(1.04)' },
+    { id:'ara_p8', image:'ara-feed-09.png', caption:'생각 중.\n뭔지는 안 알려줄게.\n\n#이루나 #생각많은날', date:'2025.04.15', likes:11203, filter:'none' },
+    { id:'ara_p9', image:'ara-feed-10.png', caption:'컨셉 촬영 마침.\n이번 건 좀 마음에 든다.\n\n#이루나 #화보 #ARA462', date:'2025.04.08', likes:4567, filter:'brightness(1.07)' },
+    { id:'ara_p10', image:'ara-feed-11.png', caption:'방 새로 꾸몄어.\n꽃 하나 사니까 분위기 달라지더라. 🌸\n\n#이루나 #인테리어 #꽃좋아', date:'2025.03.31', likes:7810, filter:'none' },
+    { id:'ara_p11', image:'ara-feed-12.png', caption:'꽃집 왔어.\n이 냄새 맡으면 왜 기분이 좋아지는지 이제 알겠어.\n\n#이루나 #꽃 #LaLune', date:'2025.03.24', likes:5034, filter:'saturate(1.06)' },
+    { id:'ara_p12', image:'ara-feed-13.png', caption:'해질 때 옥상 올라왔어.\n혼자. 꽤 좋았어. ✌️\n\n#이루나 #노을 #혼자만의시간', date:'2025.03.18', likes:8921, filter:'brightness(1.06)' },
+    { id:'ara_p13', image:'ara-feed-14.png', caption:'이동 중.\n노을이 예뻐서 그냥 찍었어.\n\n#이루나 #이동중 #노을', date:'2025.03.10', likes:3401, filter:'none' },
+    { id:'ara_p14', image:'ara-feed-15.png', caption:'서점에서 한 시간.\n이게 내가 쉬는 방식이야. 📚\n\n#이루나 #서점 #책좋아', date:'2025.03.02', likes:6103, filter:'brightness(0.96)' },
+    { id:'ara_p15', image:'ara-feed-16.png', caption:'연습실.\n오늘 느낌 잘 됐어. 💪\n알면 알지.\n\n#이루나 #연습 #댄스연습', date:'2025.02.24', likes:9842, filter:'contrast(1.06)' },
+    { id:'ara_p16', image:'ara-feed-17.png', caption:'헤어 손봤어.\n솔직히 좀 마음에 듦.\n\n#이루나 #헤어 #셀카', date:'2025.02.17', likes:4209, filter:'none' },
+    { id:'ara_p17', image:'ara-feed-18.png', caption:'이 카페 세 번째야.\n단골 된 것 같은데. 라떼 진짜 맛있어. ☕\n\n#이루나 #카페 #라떼추천', date:'2025.02.10', likes:7512, filter:'saturate(0.92) brightness(1.03)' },
+    { id:'ara_p18', image:'ara-feed-19.png', caption:'집에서 브이. ✌️\n특별한 이유 없어.\n그냥.\n\n#이루나 #집순이 #오늘도집', date:'2025.02.03', likes:5801, filter:'none' },
+    { id:'ara_p19', image:'ara-feed-20.png', caption:'밤에 왜 이러냐고.\n모르겠어. 그냥. 🌙\n\n#이루나 #밤셀카 #이유없음', date:'2025.01.27', likes:3294, filter:'brightness(0.9)' },
+    { id:'ara_p20', caption:'VenuX 데뷔 1주년 🔥 고마워 다들. 462°C 식지 않았어.', date:'2025.01.08', likes:12403, filter:'none' },
   ],
   'LUX-299': [
     { id:'lux_p0', image:'lux-feed-01.png', caption:'빛이 닿는 각도가 매일 조금씩 달라.\n그래서 나도 매일 다른 것 같기도.\n\n처음 와봤어. 생각보다 따뜻하네. ✨ #LUX299 #VenuX #빛의각도 #첫피드', date:'2025.05.19', likes:2847, filter:'none' },
@@ -5022,44 +5234,164 @@ const RARITY = {
 
 const PHOTOCARDS = {
   'ARA-462': [
-    { id:'ara_c1', rarity:'N',  title:'462°C',     subtitle:'처음 만났을 때',    quote:'왔어.',                   filter:'none',                              unlock:{type:'always'} },
-    { id:'ara_c2', rarity:'R',  title:'연습실',    subtitle:'새벽 혼자',          quote:'이 시간이 제일 좋아.',     filter:'brightness(0.9) contrast(1.1)',     unlock:{type:'level',value:2} },
-    { id:'ara_c3', rarity:'R',  title:'무대 직전', subtitle:'콘서트 전날',        quote:'긴장은 하는 거야.',        filter:'saturate(1.15)',                    unlock:{type:'chat',value:10} },
-    { id:'ara_c4', rarity:'SR', title:'불꽃',      subtitle:'462°C 버전',         quote:'타오르지 않고 따뜻하게.',  filter:'sepia(0.2) saturate(1.3) hue-rotate(350deg)', unlock:{type:'level',value:3} },
-    { id:'ara_c5', rarity:'SR', title:'비 오는 날',subtitle:'쉬는 날 루나',       quote:'나도 그냥 있고 싶을 때 있어.', filter:'brightness(0.85) saturate(0.7)', unlock:{type:'letter',value:2} },
-    { id:'ara_c6', rarity:'UR', title:'LUNA',      subtitle:'소울메이트 버전',    quote:'네가 있으니 됐어.',        filter:'brightness(1.05) contrast(1.08) saturate(1.2)', unlock:{type:'level',value:5} },
+    { id:'ara_c1',  rarity:'N',  title:'462°C',      subtitle:'처음 만났을 때',     quote:'왔어.',                          filter:'none',                                         unlock:{type:'always'} },
+    { id:'ara_c2',  rarity:'N',  title:'연습실',     subtitle:'새벽 혼자',           quote:'이 시간이 제일 좋아.',           filter:'brightness(0.9) contrast(1.1)',                unlock:{type:'always'} },
+    { id:'ara_c3',  rarity:'N',  title:'쉬는 날',    subtitle:'평범한 하루',         quote:'아무것도 안 해도 돼.',           filter:'saturate(0.85)',                               unlock:{type:'always'} },
+    { id:'ara_c4',  rarity:'N',  title:'첫 인사',    subtitle:'팬 미팅',             quote:'반가워, 잘 부탁해.',             filter:'brightness(1.05)',                             unlock:{type:'always'} },
+    { id:'ara_c5',  rarity:'N',  title:'무대',       subtitle:'공연 중',             quote:'지금 이 순간.',                  filter:'contrast(1.05)',                               unlock:{type:'always'} },
+    { id:'ara_c6',  rarity:'N',  title:'오후',       subtitle:'연습 후',             quote:'됐어, 오늘은 여기까지.',         filter:'brightness(0.95)',                             unlock:{type:'always'} },
+    { id:'ara_c7',  rarity:'N',  title:'거울',       subtitle:'혼자만의 시간',       quote:'나는 나야.',                     filter:'saturate(0.9) brightness(0.95)',               unlock:{type:'always'} },
+    { id:'ara_c8',  rarity:'N',  title:'새벽',       subtitle:'잠 못 드는 밤',       quote:'이 시간엔 솔직해져.',            filter:'brightness(0.8) saturate(0.8)',                unlock:{type:'level',value:1} },
+    { id:'ara_c9',  rarity:'R',  title:'무대 직전',  subtitle:'콘서트 전날',         quote:'긴장은 하는 거야.',              filter:'saturate(1.15)',                               unlock:{type:'level',value:2} },
+    { id:'ara_c10', rarity:'R',  title:'불꽃 Ⅰ',    subtitle:'462°C 버전',          quote:'타오르지 않고 따뜻하게.',        filter:'sepia(0.15) saturate(1.2)',                    unlock:{type:'level',value:2} },
+    { id:'ara_c11', rarity:'R',  title:'여름',       subtitle:'바다 앞에서',         quote:'파도처럼 밀려와.',               filter:'saturate(1.2) hue-rotate(5deg)',               unlock:{type:'chat',value:5} },
+    { id:'ara_c12', rarity:'R',  title:'겨울',       subtitle:'눈 오는 날',          quote:'조용한 게 좋아.',                filter:'brightness(1.1) saturate(0.7)',                unlock:{type:'chat',value:5} },
+    { id:'ara_c13', rarity:'R',  title:'카페',       subtitle:'혼자 앉아서',         quote:'커피는 아메리카노.',             filter:'sepia(0.1) brightness(0.95)',                  unlock:{type:'chat',value:10} },
+    { id:'ara_c14', rarity:'R',  title:'백스테이지', subtitle:'공연 후',             quote:'수고했어, 다들.',                filter:'contrast(1.1) brightness(0.9)',                unlock:{type:'chat',value:10} },
+    { id:'ara_c15', rarity:'R',  title:'새 곡',      subtitle:'작업실에서',          quote:'멜로디가 먼저 와.',              filter:'saturate(1.1)',                                unlock:{type:'chat',value:15} },
+    { id:'ara_c16', rarity:'R',  title:'트레이닝',   subtitle:'운동 중',             quote:'쉬고 싶어도 안 쉬는 게 루나.',  filter:'brightness(0.9) contrast(1.08)',               unlock:{type:'chat',value:15} },
+    { id:'ara_c17', rarity:'R',  title:'봄',         subtitle:'꽃 피는 날',          quote:'이것도 잠깐이야.',               filter:'saturate(1.15) brightness(1.05)',               unlock:{type:'chat',value:20} },
+    { id:'ara_c18', rarity:'R',  title:'야경',       subtitle:'늦은 밤 창가',        quote:'불빛이 예쁜 건 어둠이 있어서야.',filter:'brightness(0.85) saturate(0.9)',               unlock:{type:'chat',value:20} },
+    { id:'ara_c19', rarity:'SR', title:'불꽃 Ⅱ',    subtitle:'462°C 한정',          quote:'꺼지지 않을 테니까.',            filter:'sepia(0.2) saturate(1.3) hue-rotate(350deg)', unlock:{type:'level',value:3} },
+    { id:'ara_c20', rarity:'SR', title:'비 오는 날', subtitle:'쉬는 날 루나',        quote:'나도 그냥 있고 싶을 때 있어.',  filter:'brightness(0.85) saturate(0.7)',               unlock:{type:'letter',value:1} },
+    { id:'ara_c21', rarity:'SR', title:'눈빛',       subtitle:'진심으로',            quote:'내가 보는 건 너야.',             filter:'contrast(1.12) saturate(1.1)',                 unlock:{type:'level',value:3} },
+    { id:'ara_c22', rarity:'SR', title:'적막',       subtitle:'모든 소리가 꺼진 후', quote:'이 고요함이 내 것.',             filter:'brightness(0.82) saturate(0.75)',              unlock:{type:'letter',value:2} },
+    { id:'ara_c23', rarity:'SR', title:'불꽃 Ⅲ',    subtitle:'라이브 독점',         quote:'오늘 밤은 절대 안 꺼.',          filter:'saturate(1.4) hue-rotate(345deg) contrast(1.1)',unlock:{type:'chat',value:25} },
+    { id:'ara_c24', rarity:'SR', title:'각오',       subtitle:'시즌 시작',           quote:'후회할 짓은 안 해.',             filter:'contrast(1.15) brightness(0.88)',              unlock:{type:'chat',value:25} },
+    { id:'ara_c25', rarity:'SR', title:'경계',       subtitle:'프로의 얼굴',         quote:'무대 위와 아래는 달라.',         filter:'brightness(0.9) contrast(1.1) saturate(0.9)', unlock:{type:'level',value:4} },
+    { id:'ara_c26', rarity:'SR', title:'불씨',       subtitle:'한 줄기',             quote:'이 정도면 됐어.',                filter:'sepia(0.25) saturate(1.25)',                   unlock:{type:'letter',value:3} },
+    { id:'ara_c27', rarity:'UR', title:'LUNA',       subtitle:'소울메이트 버전',     quote:'네가 있으니 됐어.',              filter:'brightness(1.05) contrast(1.08) saturate(1.2)',unlock:{type:'level',value:5} },
+    { id:'ara_c28', rarity:'UR', title:'462',        subtitle:'단 하나뿐인 버전',    quote:'처음부터 끝까지 나야.',          filter:'saturate(1.3) contrast(1.12) brightness(1.02)',unlock:{type:'chat',value:30} },
+    { id:'ara_c29', rarity:'UR', title:'불의 끝',    subtitle:'시즌 피날레',         quote:'여기서 멈추면 나 아냐.',         filter:'sepia(0.3) saturate(1.4) hue-rotate(340deg)',  unlock:{type:'letter',value:3} },
+    { id:'ara_c30', rarity:'UR', title:'이루나',     subtitle:'이름 그 자체',        quote:'이루나. 이것만으로 충분해.',     filter:'brightness(1.08) contrast(1.1) saturate(1.15)',unlock:{type:'level',value:5} },
   ],
   'LUX-299': [
-    { id:'lux_c1', rarity:'N',  title:'빛',         subtitle:'처음 만났을 때',   quote:'어떤 각도로 볼 거야?',      filter:'none',                              unlock:{type:'always'} },
-    { id:'lux_c2', rarity:'R',  title:'산책',       subtitle:'오후의 리라',      quote:'이 각도 발견했어.',         filter:'brightness(1.08) saturate(0.9)',    unlock:{type:'level',value:2} },
-    { id:'lux_c3', rarity:'R',  title:'독서',       subtitle:'리라 픽 오늘의 책', quote:'스며드는 거야.',           filter:'sepia(0.15) brightness(1.03)',      unlock:{type:'chat',value:10} },
-    { id:'lux_c4', rarity:'SR', title:'빛의 굴절', subtitle:'스테이지 버전',     quote:'반사할 대상이 있어야 해.',   filter:'brightness(1.12) contrast(1.05)',   unlock:{type:'level',value:3} },
-    { id:'lux_c5', rarity:'SR', title:'거울',       subtitle:'메이크업 오프',    quote:'필터 없는 거울 속에도 내가 있어.', filter:'saturate(0.75) brightness(1.05)', unlock:{type:'letter',value:2} },
-    { id:'lux_c6', rarity:'UR', title:'299,792',    subtitle:'소울메이트 버전',  quote:'같이 빛날게.',              filter:'brightness(1.1) saturate(1.3) contrast(1.05)', unlock:{type:'level',value:5} },
+    { id:'lux_c1',  rarity:'N',  title:'빛',         subtitle:'처음 만났을 때',      quote:'어떤 각도로 볼 거야?',          filter:'none',                                         unlock:{type:'always'} },
+    { id:'lux_c2',  rarity:'N',  title:'창가',       subtitle:'오후의 햇살',         quote:'빛이 이렇게 들어오네.',          filter:'brightness(1.08) saturate(0.9)',               unlock:{type:'always'} },
+    { id:'lux_c3',  rarity:'N',  title:'산책',       subtitle:'혼자 걸어서',         quote:'오늘 하늘 색이 마음에 들어.',   filter:'saturate(0.95) brightness(1.03)',              unlock:{type:'always'} },
+    { id:'lux_c4',  rarity:'N',  title:'책',         subtitle:'조용한 오후',         quote:'이 문장이 나를 건드렸어.',       filter:'sepia(0.08)',                                  unlock:{type:'always'} },
+    { id:'lux_c5',  rarity:'N',  title:'눈',         subtitle:'첫눈 오는 날',        quote:'하얀 건 다 예뻐.',              filter:'brightness(1.12) saturate(0.6)',               unlock:{type:'always'} },
+    { id:'lux_c6',  rarity:'N',  title:'노을',       subtitle:'저녁 무렵',           quote:'오늘도 저물어.',                 filter:'sepia(0.15) saturate(1.2)',                    unlock:{type:'always'} },
+    { id:'lux_c7',  rarity:'N',  title:'새벽 빛',    subtitle:'아직 어두울 때',      quote:'이 빛이 나만의 것 같아.',        filter:'brightness(0.88) saturate(0.85)',              unlock:{type:'always'} },
+    { id:'lux_c8',  rarity:'N',  title:'반사',       subtitle:'거울 앞에서',         quote:'나는 지금 어떤 빛이지?',        filter:'brightness(1.05) contrast(0.98)',              unlock:{type:'level',value:1} },
+    { id:'lux_c9',  rarity:'R',  title:'빛의 각도',  subtitle:'스튜디오에서',        quote:'같은 빛도 각도가 달라.',         filter:'brightness(1.1) contrast(1.05)',               unlock:{type:'level',value:2} },
+    { id:'lux_c10', rarity:'R',  title:'유리창',     subtitle:'비 오는 날',          quote:'빗방울이 빛을 쪼개.',            filter:'brightness(0.92) saturate(0.8)',               unlock:{type:'level',value:2} },
+    { id:'lux_c11', rarity:'R',  title:'황금빛',     subtitle:'매직아워',            quote:'이 순간은 곧 사라져.',           filter:'sepia(0.2) saturate(1.3) brightness(1.05)',   unlock:{type:'chat',value:5} },
+    { id:'lux_c12', rarity:'R',  title:'투명',       subtitle:'맑은 날',             quote:'보이는 게 전부가 아니야.',       filter:'brightness(1.15) saturate(0.8)',               unlock:{type:'chat',value:5} },
+    { id:'lux_c13', rarity:'R',  title:'흑백',       subtitle:'필름 사진처럼',       quote:'색을 빼면 형태가 남아.',         filter:'grayscale(0.7) contrast(1.1)',                 unlock:{type:'chat',value:10} },
+    { id:'lux_c14', rarity:'R',  title:'별빛',       subtitle:'밤하늘 아래',         quote:'별은 어두워야 빛나.',            filter:'brightness(0.78) saturate(1.2)',               unlock:{type:'chat',value:10} },
+    { id:'lux_c15', rarity:'R',  title:'그림자',     subtitle:'역광 속에서',         quote:'그림자가 있어야 빛이 보여.',     filter:'contrast(1.2) brightness(0.85)',               unlock:{type:'chat',value:15} },
+    { id:'lux_c16', rarity:'R',  title:'물빛',       subtitle:'호수 옆에서',         quote:'잔잔할수록 더 깊이 담겨.',       filter:'saturate(1.1) hue-rotate(190deg) brightness(0.95)',unlock:{type:'chat',value:15} },
+    { id:'lux_c17', rarity:'R',  title:'달빛',       subtitle:'보름달 밤',           quote:'달은 스스로 빛나지 않아. 그래도 예뻐.',filter:'brightness(0.82) saturate(0.7) contrast(1.05)',unlock:{type:'chat',value:20} },
+    { id:'lux_c18', rarity:'R',  title:'연기빛',     subtitle:'공연 조명 아래',      quote:'이 안개 속에서도 찾을 수 있어.',filter:'brightness(0.9) saturate(0.85) contrast(1.08)',unlock:{type:'chat',value:20} },
+    { id:'lux_c19', rarity:'SR', title:'오로라',     subtitle:'리라의 계절',         quote:'이런 빛은 평생 한 번이야.',      filter:'hue-rotate(150deg) saturate(1.3) brightness(0.9)',unlock:{type:'level',value:3} },
+    { id:'lux_c20', rarity:'SR', title:'LUX',        subtitle:'빛 그 자체',          quote:'나는 빛이고, 빛은 나야.',        filter:'brightness(1.12) contrast(1.1) saturate(1.15)', unlock:{type:'letter',value:1} },
+    { id:'lux_c21', rarity:'SR', title:'프리즘',     subtitle:'여러 색으로',         quote:'하나의 빛 안에 다 있어.',        filter:'saturate(1.35) contrast(1.08)',                unlock:{type:'level',value:3} },
+    { id:'lux_c22', rarity:'SR', title:'어둠 속',    subtitle:'무대 암전 순간',      quote:'빛이 가장 빛나는 건 암흑 때야.',filter:'brightness(0.7) contrast(1.2)',                unlock:{type:'letter',value:2} },
+    { id:'lux_c23', rarity:'SR', title:'레이',       subtitle:'한 줄기 빛',          quote:'이 한 줄기면 충분해.',           filter:'brightness(1.1) saturate(0.9) contrast(1.12)',  unlock:{type:'chat',value:25} },
+    { id:'lux_c24', rarity:'SR', title:'새벽 별',    subtitle:'마지막 별',           quote:'마지막까지 남는 게 진짜야.',     filter:'brightness(0.8) saturate(1.1)',                unlock:{type:'chat',value:25} },
+    { id:'lux_c25', rarity:'SR', title:'포커스',     subtitle:'렌즈 속에서',         quote:'선명하게 보이는 게 전부야.',     filter:'contrast(1.15) saturate(1.05)',                unlock:{type:'level',value:4} },
+    { id:'lux_c26', rarity:'SR', title:'빛나는 밤',  subtitle:'야간 공연',           quote:'밤이 배경이 돼줘서 고마워.',     filter:'brightness(0.82) saturate(1.2) contrast(1.1)', unlock:{type:'letter',value:3} },
+    { id:'lux_c27', rarity:'UR', title:'RIRA',       subtitle:'소울메이트 버전',     quote:'네 빛이 내 길을 만들어.',        filter:'brightness(1.06) saturate(1.18) contrast(1.08)',unlock:{type:'level',value:5} },
+    { id:'lux_c28', rarity:'UR', title:'299',        subtitle:'단 하나뿐인 버전',    quote:'이 숫자만큼 이유가 있어.',       filter:'brightness(1.1) contrast(1.12) saturate(1.2)', unlock:{type:'chat',value:30} },
+    { id:'lux_c29', rarity:'UR', title:'빛의 끝',    subtitle:'시즌 피날레',         quote:'여기서 더 밝아질 수 있어.',      filter:'brightness(1.15) saturate(1.25) contrast(1.1)',unlock:{type:'letter',value:3} },
+    { id:'lux_c30', rarity:'UR', title:'박리라',     subtitle:'이름 그 자체',        quote:'리라. 이 이름이 빛이야.',        filter:'brightness(1.08) saturate(1.22) contrast(1.1)',unlock:{type:'level',value:5} },
   ],
   'EUR-0K': [
-    { id:'eur_c1', rarity:'N',  title:'0K',         subtitle:'처음 만났을 때',   quote:'천천히 와도 돼.',           filter:'none',                              unlock:{type:'always'} },
-    { id:'eur_c2', rarity:'R',  title:'창가',       subtitle:'비 오는 날',       quote:'이 조용함이 좋아.',          filter:'brightness(0.92) saturate(0.8)',    unlock:{type:'level',value:2} },
-    { id:'eur_c3', rarity:'R',  title:'수중',       subtitle:'수중 컨셉 촬영',   quote:'물속이 제일 편해.',          filter:'hue-rotate(10deg) saturate(0.85)', unlock:{type:'chat',value:10} },
-    { id:'eur_c4', rarity:'SR', title:'깊은 물',    subtitle:'유로파 버전',      quote:'깊이 있어서 조용한 거야.',   filter:'brightness(0.88) saturate(1.1) hue-rotate(5deg)', unlock:{type:'level',value:3} },
-    { id:'eur_c5', rarity:'SR', title:'루이보스',   subtitle:'쉬는 날 지우',     quote:'차 마시면 정리돼.',          filter:'sepia(0.18) brightness(1.02)',     unlock:{type:'letter',value:2} },
-    { id:'eur_c6', rarity:'UR', title:'유로파',     subtitle:'소울메이트 버전',  quote:'가득 차 있어서 조용한 거야.',filter:'brightness(0.95) saturate(1.25) contrast(1.1)', unlock:{type:'level',value:5} },
+    { id:'eur_c1',  rarity:'N',  title:'흐름',       subtitle:'처음 만났을 때',      quote:'나 여기 있어.',                  filter:'none',                                         unlock:{type:'always'} },
+    { id:'eur_c2',  rarity:'N',  title:'강가',       subtitle:'산책 중에',           quote:'물소리가 말 대신 해줘.',         filter:'saturate(0.9) brightness(1.02)',               unlock:{type:'always'} },
+    { id:'eur_c3',  rarity:'N',  title:'비',         subtitle:'창문 두드리는 소리',  quote:'비가 오면 생각이 맑아져.',       filter:'brightness(0.9) saturate(0.8)',                unlock:{type:'always'} },
+    { id:'eur_c4',  rarity:'N',  title:'새벽 물',    subtitle:'아무도 없는 시간',    quote:'이 시간엔 나만 있어.',           filter:'brightness(0.85) saturate(0.75)',              unlock:{type:'always'} },
+    { id:'eur_c5',  rarity:'N',  title:'따뜻함',     subtitle:'겨울 목욕',           quote:'몸이 따뜻하면 마음도 따뜻해.',  filter:'sepia(0.1) brightness(1.03)',                  unlock:{type:'always'} },
+    { id:'eur_c6',  rarity:'N',  title:'파문',       subtitle:'돌 하나 던졌을 때',   quote:'작은 움직임이 멀리 가.',         filter:'saturate(0.85) brightness(0.97)',              unlock:{type:'always'} },
+    { id:'eur_c7',  rarity:'N',  title:'안개',       subtitle:'이른 아침',           quote:'흐릿해도 괜찮아.',               filter:'brightness(1.05) saturate(0.7) contrast(0.95)',unlock:{type:'always'} },
+    { id:'eur_c8',  rarity:'N',  title:'고요',       subtitle:'잠들기 전',           quote:'이 조용함이 내 거야.',           filter:'brightness(0.88) saturate(0.72)',              unlock:{type:'level',value:1} },
+    { id:'eur_c9',  rarity:'R',  title:'흐르는 물',  subtitle:'어디로든',            quote:'억지로 안 흘러.',                filter:'saturate(1.05) brightness(1.04)',               unlock:{type:'level',value:2} },
+    { id:'eur_c10', rarity:'R',  title:'파랑',       subtitle:'바다빛',              quote:'이 색이 나를 닮았어.',           filter:'hue-rotate(195deg) saturate(1.1) brightness(0.95)',unlock:{type:'level',value:2} },
+    { id:'eur_c11', rarity:'R',  title:'여름 물',    subtitle:'계곡에서',            quote:'차갑고 맑아.',                   filter:'brightness(1.08) saturate(1.05)',              unlock:{type:'chat',value:5} },
+    { id:'eur_c12', rarity:'R',  title:'겨울 물',    subtitle:'얼기 전에',           quote:'얼지 않으려고 계속 흘러.',       filter:'brightness(0.88) saturate(0.65)',              unlock:{type:'chat',value:5} },
+    { id:'eur_c13', rarity:'R',  title:'수면',       subtitle:'표면의 잔잔함',       quote:'겉은 고요해도 속은 깊어.',       filter:'brightness(1.06) contrast(0.98) saturate(0.9)',unlock:{type:'chat',value:10} },
+    { id:'eur_c14', rarity:'R',  title:'빗속',       subtitle:'우산 없이',           quote:'젖어도 괜찮아.',                 filter:'brightness(0.88) saturate(0.82)',              unlock:{type:'chat',value:10} },
+    { id:'eur_c15', rarity:'R',  title:'달과 물',    subtitle:'달이 비출 때',        quote:'나를 비추는 달이 있다면.',       filter:'brightness(0.8) saturate(0.7) contrast(1.05)', unlock:{type:'chat',value:15} },
+    { id:'eur_c16', rarity:'R',  title:'샘',         subtitle:'솟아오르는 것',       quote:'나는 원래 여기서부터야.',        filter:'saturate(1.08) brightness(1.02)',              unlock:{type:'chat',value:15} },
+    { id:'eur_c17', rarity:'R',  title:'투명한 물',  subtitle:'속이 다 보이는',      quote:'숨기지 않아. 그게 나야.',        filter:'brightness(1.1) saturate(0.8) contrast(1.03)', unlock:{type:'chat',value:20} },
+    { id:'eur_c18', rarity:'R',  title:'물결',       subtitle:'스쳐 지나가는',       quote:'기억은 파도처럼 왔다 가.',       filter:'brightness(0.93) saturate(0.88)',              unlock:{type:'chat',value:20} },
+    { id:'eur_c19', rarity:'SR', title:'깊은 물',    subtitle:'닿지 않는 곳',        quote:'깊을수록 온도가 낮아.',          filter:'brightness(0.75) saturate(0.85) hue-rotate(200deg)',unlock:{type:'level',value:3} },
+    { id:'eur_c20', rarity:'SR', title:'EUR',        subtitle:'물 그 자체',          quote:'물처럼 흐를게.',                 filter:'brightness(1.04) saturate(1.1) contrast(1.06)', unlock:{type:'letter',value:1} },
+    { id:'eur_c21', rarity:'SR', title:'정수',       subtitle:'가장 순수한',         quote:'이게 내 진짜야.',                filter:'brightness(1.1) saturate(0.78) contrast(1.08)', unlock:{type:'level',value:3} },
+    { id:'eur_c22', rarity:'SR', title:'폭포',       subtitle:'멈추지 않는',         quote:'넘쳐야 내려가.',                 filter:'brightness(0.9) saturate(0.95) contrast(1.1)',  unlock:{type:'letter',value:2} },
+    { id:'eur_c23', rarity:'SR', title:'물안개',     subtitle:'경계에서',            quote:'물인지 공기인지 모르게.',        filter:'brightness(1.02) saturate(0.72) contrast(0.98)',unlock:{type:'chat',value:25} },
+    { id:'eur_c24', rarity:'SR', title:'파도',       subtitle:'바다가 말할 때',      quote:'계속 와.',                       filter:'saturate(1.15) brightness(0.92) hue-rotate(198deg)',unlock:{type:'chat',value:25} },
+    { id:'eur_c25', rarity:'SR', title:'잠수',       subtitle:'숨죽이고',            quote:'여기서 잠깐 숨어있을게.',        filter:'brightness(0.78) saturate(0.9) contrast(1.08)', unlock:{type:'level',value:4} },
+    { id:'eur_c26', rarity:'SR', title:'해빙',       subtitle:'봄이 오면',           quote:'얼음도 결국 흘러.',              filter:'brightness(1.06) saturate(0.82)',              unlock:{type:'letter',value:3} },
+    { id:'eur_c27', rarity:'UR', title:'JIWOO',      subtitle:'소울메이트 버전',     quote:'네 곁에 있을게. 조용히.',        filter:'brightness(1.04) saturate(1.05) contrast(1.06)', unlock:{type:'level',value:5} },
+    { id:'eur_c28', rarity:'UR', title:'0K',         subtitle:'단 하나뿐인 버전',    quote:'0도 이하. 얼지 않아.',           filter:'brightness(1.08) saturate(0.75) contrast(1.1)', unlock:{type:'chat',value:30} },
+    { id:'eur_c29', rarity:'UR', title:'물의 끝',    subtitle:'시즌 피날레',         quote:'모든 물은 결국 바다야.',         filter:'brightness(0.82) saturate(1.1) hue-rotate(195deg)',unlock:{type:'letter',value:3} },
+    { id:'eur_c30', rarity:'UR', title:'신지우',     subtitle:'이름 그 자체',        quote:'지우. 지우면서도 남는 게 있어.',filter:'brightness(1.05) saturate(1.08) contrast(1.08)', unlock:{type:'level',value:5} },
   ],
   'KIN-360': [
-    { id:'kin_c1', rarity:'N',  title:'360°',      subtitle:'처음 만났을 때',    quote:'어디든 갈 수 있어.',         filter:'none',                              unlock:{type:'always'} },
-    { id:'kin_c2', rarity:'R',  title:'스케이트',  subtitle:'연습 중 노아',      quote:'넘어지는 것도 방향이야.',    filter:'contrast(1.08) saturate(1.1)',      unlock:{type:'level',value:2} },
-    { id:'kin_c3', rarity:'R',  title:'즉흥여행',  subtitle:'목적지 없이',       quote:'계획하면 못 찾는 거야.',     filter:'brightness(1.04) saturate(0.95)',   unlock:{type:'chat',value:10} },
-    { id:'kin_c4', rarity:'SR', title:'바람',      subtitle:'스테이지 버전',     quote:'멈춰있는 걸 가만 두지 않아.',filter:'brightness(1.06) saturate(1.2)',    unlock:{type:'level',value:3} },
-    { id:'kin_c5', rarity:'SR', title:'새벽4시',   subtitle:'편의점 노아',       quote:'이게 행복이야. 진짜로.',     filter:'brightness(0.85) saturate(0.75)',   unlock:{type:'letter',value:2} },
-    { id:'kin_c6', rarity:'UR', title:'자유',      subtitle:'소울메이트 버전',   quote:'같이 어디 갈 수 있어?',      filter:'saturate(1.25) contrast(1.08)',     unlock:{type:'level',value:5} },
+    { id:'kin_c1',  rarity:'N',  title:'바람',       subtitle:'처음 만났을 때',      quote:'야, 잘 지냈어?',                 filter:'none',                                         unlock:{type:'always'} },
+    { id:'kin_c2',  rarity:'N',  title:'달리기',     subtitle:'오늘도 뛰어',         quote:'멈추면 지는 거야.',              filter:'brightness(1.05) contrast(1.03)',              unlock:{type:'always'} },
+    { id:'kin_c3',  rarity:'N',  title:'자전거',     subtitle:'주말 아침',           quote:'바람이 제일 좋은 교통수단.',     filter:'saturate(1.08)',                               unlock:{type:'always'} },
+    { id:'kin_c4',  rarity:'N',  title:'운동장',     subtitle:'해 질 무렵',          quote:'오늘 얼마나 뛰었더라.',          filter:'sepia(0.08) brightness(1.02)',                 unlock:{type:'always'} },
+    { id:'kin_c5',  rarity:'N',  title:'웃음',       subtitle:'뭔가 웃길 때',        quote:'하하. 웃기다.',                  filter:'brightness(1.06) saturate(0.95)',              unlock:{type:'always'} },
+    { id:'kin_c6',  rarity:'N',  title:'하늘',       subtitle:'누워서 올려다본',     quote:'이 구름 저 구름 다 달라.',       filter:'brightness(1.1) saturate(0.88)',               unlock:{type:'always'} },
+    { id:'kin_c7',  rarity:'N',  title:'바다',       subtitle:'파도 치는 날',        quote:'파도 타보고 싶어.',              filter:'saturate(1.12) hue-rotate(195deg)',            unlock:{type:'always'} },
+    { id:'kin_c8',  rarity:'N',  title:'스트레칭',   subtitle:'잠깐 쉬는 틈에',      quote:'몸이 먼저 알아.',                filter:'brightness(0.97) saturate(0.92)',              unlock:{type:'level',value:1} },
+    { id:'kin_c9',  rarity:'R',  title:'질주',       subtitle:'속도감 있게',         quote:'더 빠르게.',                     filter:'contrast(1.1) brightness(1.02)',               unlock:{type:'level',value:2} },
+    { id:'kin_c10', rarity:'R',  title:'서프',       subtitle:'파도 위에서',         quote:'파도가 날 데려가는 거야.',       filter:'saturate(1.15) hue-rotate(190deg)',            unlock:{type:'level',value:2} },
+    { id:'kin_c11', rarity:'R',  title:'산',         subtitle:'정상 직전',           quote:'다 왔어, 거의.',                 filter:'brightness(0.92) saturate(1.05)',              unlock:{type:'chat',value:5} },
+    { id:'kin_c12', rarity:'R',  title:'낮잠',       subtitle:'뻗어버린 날',         quote:'쉬는 것도 연습이야.',            filter:'brightness(0.9) saturate(0.82)',               unlock:{type:'chat',value:5} },
+    { id:'kin_c13', rarity:'R',  title:'선글라스',   subtitle:'눈부신 날',           quote:'눈이 부셔도 갈 거야.',           filter:'sepia(0.12) contrast(1.08)',                   unlock:{type:'chat',value:10} },
+    { id:'kin_c14', rarity:'R',  title:'빗속 달리기',subtitle:'비 맞으며',           quote:'어차피 젖었어. 그냥 뛰어.',      filter:'brightness(0.88) saturate(0.88)',              unlock:{type:'chat',value:10} },
+    { id:'kin_c15', rarity:'R',  title:'스케이트',   subtitle:'겨울 야외링크',       quote:'넘어지면 일어나면 돼.',          filter:'brightness(1.05) saturate(0.8)',               unlock:{type:'chat',value:15} },
+    { id:'kin_c16', rarity:'R',  title:'캠핑',       subtitle:'밤하늘 아래',         quote:'불 피우는 게 제일 좋아.',        filter:'sepia(0.15) brightness(0.95)',                 unlock:{type:'chat',value:15} },
+    { id:'kin_c17', rarity:'R',  title:'공원',       subtitle:'아무 날',             quote:'오늘 같은 날이 좋아.',           filter:'saturate(1.1) brightness(1.03)',               unlock:{type:'chat',value:20} },
+    { id:'kin_c18', rarity:'R',  title:'경기 후',    subtitle:'땀 흘린 뒤',          quote:'이 기분이 살아있는 거야.',       filter:'contrast(1.08) brightness(0.93)',              unlock:{type:'chat',value:20} },
+    { id:'kin_c19', rarity:'SR', title:'폭풍',       subtitle:'태풍의 눈 속에서',    quote:'폭풍도 나한테는 바람이야.',      filter:'brightness(0.82) contrast(1.15) saturate(0.9)', unlock:{type:'level',value:3} },
+    { id:'kin_c20', rarity:'SR', title:'KIN',        subtitle:'바람 그 자체',        quote:'나는 바람이야. 잡지 마.',        filter:'brightness(1.06) saturate(1.1) contrast(1.06)', unlock:{type:'letter',value:1} },
+    { id:'kin_c21', rarity:'SR', title:'프리러닝',   subtitle:'도시 위를 달려',      quote:'벽도 길이 돼.',                  filter:'contrast(1.12) brightness(0.95)',              unlock:{type:'level',value:3} },
+    { id:'kin_c22', rarity:'SR', title:'돌풍',       subtitle:'갑자기 강한',         quote:'예고 없이 오는 게 나야.',        filter:'brightness(0.88) contrast(1.1) saturate(1.05)', unlock:{type:'letter',value:2} },
+    { id:'kin_c23', rarity:'SR', title:'바람의 방향',subtitle:'어디서 불든',         quote:'방향은 내가 정해.',              filter:'saturate(1.12) brightness(1.0) contrast(1.08)', unlock:{type:'chat',value:25} },
+    { id:'kin_c24', rarity:'SR', title:'순풍',       subtitle:'뒤에서 밀어줄 때',    quote:'이 바람 타면 더 빨라.',          filter:'brightness(1.08) saturate(1.05)',              unlock:{type:'chat',value:25} },
+    { id:'kin_c25', rarity:'SR', title:'바람의 끝',  subtitle:'경계에서',            quote:'끝에 가봐야 알아.',              filter:'brightness(0.9) saturate(0.95) contrast(1.1)', unlock:{type:'level',value:4} },
+    { id:'kin_c26', rarity:'SR', title:'비행',       subtitle:'뛰어올라서',          quote:'이 순간은 다시 안 와.',          filter:'brightness(1.05) saturate(1.08)',              unlock:{type:'letter',value:3} },
+    { id:'kin_c27', rarity:'UR', title:'NOAH',       subtitle:'소울메이트 버전',     quote:'같이 뛰자. 이 바람 안에서.',     filter:'brightness(1.05) contrast(1.08) saturate(1.15)',unlock:{type:'level',value:5} },
+    { id:'kin_c28', rarity:'UR', title:'360',        subtitle:'단 하나뿐인 버전',    quote:'한 바퀴 돌아도 나야.',           filter:'saturate(1.2) contrast(1.1) brightness(1.02)', unlock:{type:'chat',value:30} },
+    { id:'kin_c29', rarity:'UR', title:'바람의 심장',subtitle:'시즌 피날레',         quote:'이 바람은 꺼지지 않아.',         filter:'brightness(0.9) saturate(1.15) contrast(1.12)', unlock:{type:'letter',value:3} },
+    { id:'kin_c30', rarity:'UR', title:'최노아',     subtitle:'이름 그 자체',        quote:'노아. 모든 폭풍 뒤에 무지개야.',filter:'brightness(1.08) saturate(1.18) contrast(1.1)', unlock:{type:'level',value:5} },
   ],
   'ATP-X1': [
-    { id:'atp_c1', rarity:'N',  title:'ATP',       subtitle:'처음 만났을 때',    quote:'왜 그런 거 같아?',           filter:'none',                              unlock:{type:'always'} },
-    { id:'atp_c2', rarity:'R',  title:'연습 후',   subtitle:'혼자 남아서',       quote:'모르면 해야지.',             filter:'brightness(0.96) saturate(0.9)',    unlock:{type:'level',value:2} },
-    { id:'atp_c3', rarity:'R',  title:'공원',      subtitle:'개미 관찰 중',      quote:'맴돌다 어느 순간 방향이 생겨.',filter:'brightness(1.04) saturate(0.92)', unlock:{type:'chat',value:10} },
-    { id:'atp_c4', rarity:'SR', title:'뿌리',      subtitle:'ATP 버전',          quote:'보이지 않아도 움직이는 에너지.',filter:'brightness(0.94) saturate(1.15) contrast(1.06)', unlock:{type:'level',value:3} },
-    { id:'atp_c5', rarity:'SR', title:'질문',      subtitle:'사색하는 아온',     quote:'왜 좋아하는 노래는 슬플 때 더 좋지?', filter:'sepia(0.1) brightness(1.03)', unlock:{type:'letter',value:2} },
-    { id:'atp_c6', rarity:'UR', title:'X1',        subtitle:'소울메이트 버전',   quote:'이게 좋은가? YES.',          filter:'brightness(1.06) saturate(1.2) contrast(1.06)', unlock:{type:'level',value:5} },
+    { id:'atp_c1',  rarity:'N',  title:'씨앗',       subtitle:'처음 만났을 때',      quote:'있어.',                          filter:'none',                                         unlock:{type:'always'} },
+    { id:'atp_c2',  rarity:'N',  title:'새싹',       subtitle:'봄 첫날',             quote:'오늘 처음 나왔어.',              filter:'brightness(1.05) saturate(1.1)',               unlock:{type:'always'} },
+    { id:'atp_c3',  rarity:'N',  title:'흙',         subtitle:'손에 묻히고',         quote:'뿌리는 보이지 않아도 있어.',     filter:'sepia(0.12) brightness(0.97)',                 unlock:{type:'always'} },
+    { id:'atp_c4',  rarity:'N',  title:'나무',       subtitle:'오랜 시간 뒤에',      quote:'이만큼 됐어.',                   filter:'brightness(0.95) saturate(0.9)',               unlock:{type:'always'} },
+    { id:'atp_c5',  rarity:'N',  title:'이슬',       subtitle:'이른 아침',           quote:'아무도 보지 않아도 맺혀.',       filter:'brightness(1.08) saturate(0.85)',              unlock:{type:'always'} },
+    { id:'atp_c6',  rarity:'N',  title:'꽃',         subtitle:'딱 한 철',            quote:'잠깐이어도 피는 거야.',          filter:'saturate(1.12) brightness(1.03)',               unlock:{type:'always'} },
+    { id:'atp_c7',  rarity:'N',  title:'숲',         subtitle:'혼자 걸어서',         quote:'여기선 생각이 느려져.',          filter:'brightness(0.92) saturate(1.05)',              unlock:{type:'always'} },
+    { id:'atp_c8',  rarity:'N',  title:'그늘',       subtitle:'나무 아래에서',       quote:'그늘도 나무가 만드는 거야.',     filter:'brightness(0.85) saturate(0.88)',              unlock:{type:'level',value:1} },
+    { id:'atp_c9',  rarity:'R',  title:'성장',       subtitle:'조금씩 자라서',       quote:'어제보다 1cm.',                  filter:'brightness(1.03) saturate(1.08)',               unlock:{type:'level',value:2} },
+    { id:'atp_c10', rarity:'R',  title:'가을',       subtitle:'잎이 물들 때',        quote:'변하는 게 살아있는 거야.',       filter:'sepia(0.18) saturate(1.2) brightness(1.0)',    unlock:{type:'level',value:2} },
+    { id:'atp_c11', rarity:'R',  title:'겨울 나무',  subtitle:'잎 다 진 후에',       quote:'없어도 서 있어.',                filter:'brightness(0.88) saturate(0.65) contrast(1.05)',unlock:{type:'chat',value:5} },
+    { id:'atp_c12', rarity:'R',  title:'열매',       subtitle:'시간이 지나서',       quote:'기다리면 와.',                   filter:'saturate(1.15) brightness(1.02)',               unlock:{type:'chat',value:5} },
+    { id:'atp_c13', rarity:'R',  title:'뿌리',       subtitle:'보이지 않는 곳',      quote:'보이지 않는 데서 시작해.',       filter:'sepia(0.15) brightness(0.93)',                 unlock:{type:'chat',value:10} },
+    { id:'atp_c14', rarity:'R',  title:'나이테',     subtitle:'시간의 흔적',         quote:'이 안에 다 있어.',               filter:'sepia(0.2) brightness(0.9) contrast(1.05)',   unlock:{type:'chat',value:10} },
+    { id:'atp_c15', rarity:'R',  title:'솔향',       subtitle:'소나무 숲',           quote:'숨쉬는 것만으로도 돼.',          filter:'brightness(0.94) saturate(0.92)',              unlock:{type:'chat',value:15} },
+    { id:'atp_c16', rarity:'R',  title:'꽃잎',       subtitle:'바람에 날려서',       quote:'떨어져도 이뻐.',                 filter:'brightness(1.06) saturate(1.05)',               unlock:{type:'chat',value:15} },
+    { id:'atp_c17', rarity:'R',  title:'봄비',       subtitle:'촉촉한 땅',           quote:'젖어야 자라.',                   filter:'brightness(0.9) saturate(0.88)',               unlock:{type:'chat',value:20} },
+    { id:'atp_c18', rarity:'R',  title:'가지',       subtitle:'뻗어나가는',          quote:'어디로 갈지는 나중에 알아.',     filter:'brightness(0.95) saturate(0.95)',              unlock:{type:'chat',value:20} },
+    { id:'atp_c19', rarity:'SR', title:'대나무',     subtitle:'꺾이지 않고',         quote:'굽혀도 꺾이지 않아.',            filter:'brightness(0.9) saturate(1.12) hue-rotate(100deg)',unlock:{type:'level',value:3} },
+    { id:'atp_c20', rarity:'SR', title:'ATP',        subtitle:'자연 그 자체',        quote:'나는 여기서 자랐어.',            filter:'brightness(1.04) saturate(1.08) contrast(1.06)', unlock:{type:'letter',value:1} },
+    { id:'atp_c21', rarity:'SR', title:'고목',       subtitle:'수백 년 된',          quote:'이 나이도 나야.',                filter:'sepia(0.2) brightness(0.88) contrast(1.08)',   unlock:{type:'level',value:3} },
+    { id:'atp_c22', rarity:'SR', title:'독초',       subtitle:'아름답지만',          quote:'예쁜 게 다 먹을 수 있는 건 아냐.',filter:'brightness(0.85) saturate(1.2) hue-rotate(120deg)',unlock:{type:'letter',value:2} },
+    { id:'atp_c23', rarity:'SR', title:'생태계',     subtitle:'연결된 것들',         quote:'혼자인 생물은 없어.',            filter:'brightness(0.92) saturate(1.05)',              unlock:{type:'chat',value:25} },
+    { id:'atp_c24', rarity:'SR', title:'씨앗의 여행',subtitle:'멀리까지',            quote:'바람이 씨앗을 데려가.',          filter:'brightness(1.05) saturate(1.02)',               unlock:{type:'chat',value:25} },
+    { id:'atp_c25', rarity:'SR', title:'삼림욕',     subtitle:'깊은 숲 속',          quote:'여기 있어봐. 좋아.',             filter:'brightness(0.9) saturate(1.08)',               unlock:{type:'level',value:4} },
+    { id:'atp_c26', rarity:'SR', title:'꽃의 시간',  subtitle:'피고 지는',           quote:'모든 계절이 다 의미 있어.',      filter:'saturate(1.18) brightness(1.03)',               unlock:{type:'letter',value:3} },
+    { id:'atp_c27', rarity:'UR', title:'AEON',       subtitle:'소울메이트 버전',     quote:'네 곁에서 자라고 싶어.',         filter:'brightness(1.04) saturate(1.1) contrast(1.07)',  unlock:{type:'level',value:5} },
+    { id:'atp_c28', rarity:'UR', title:'X1',         subtitle:'단 하나뿐인 버전',    quote:'X와 1 사이에 내가 있어.',        filter:'brightness(1.06) contrast(1.12) saturate(1.15)',unlock:{type:'chat',value:30} },
+    { id:'atp_c29', rarity:'UR', title:'자연의 끝',  subtitle:'시즌 피날레',         quote:'자연은 끝나지 않아.',            filter:'brightness(0.88) saturate(1.2) hue-rotate(100deg)',unlock:{type:'letter',value:3} },
+    { id:'atp_c30', rarity:'UR', title:'정아온',     subtitle:'이름 그 자체',        quote:'아온. 봄이 오면 다시 피어.',     filter:'brightness(1.07) saturate(1.15) contrast(1.1)', unlock:{type:'level',value:5} },
   ],
 };
 
@@ -6100,6 +6432,47 @@ document.addEventListener('visibilitychange', () => {
 // ============================================================
 // SETTINGS
 // ============================================================
+
+function renderSavedPostsSection() {
+  const el = document.getElementById('settingsSavedSection');
+  if (!el) return;
+  const savedIds = getSavedPosts();
+  
+  // Collect all posts from MEMBER_POSTS
+  const allPosts = {};
+  const memberKeys = Object.keys(memberData);
+  memberKeys.forEach(key => {
+    (MEMBER_POSTS[key] || []).forEach(p => { allPosts[p.id] = { post: p, key }; });
+  });
+  
+  const savedItems = savedIds
+    .map(id => allPosts[id])
+    .filter(Boolean);
+  
+  if (savedItems.length === 0) {
+    el.innerHTML = `<div class="settings-saved-section">
+      <div class="settings-saved-title">🔖 저장됨<span class="settings-saved-count">0</span></div>
+      <div class="settings-saved-empty">저장한 게시물이 없어요.<br>인스타그램에서 북마크하면 여기 모입니다.</div>
+    </div>`;
+    return;
+  }
+  
+  const thumbs = savedItems.map(({ post, key }) => {
+    const m = memberData[key];
+    const src = post.image || (m ? m.photo : '');
+    const filter = post.filter || 'none';
+    return `<img class="settings-saved-thumb" src="${src}" style="filter:${filter}"
+      onclick="closeSettings();setTimeout(()=>openPostDetail('${post.id}','${key}'),120)"
+      onerror="this.onerror=null;this.src='${m ? m.photo : ''}'"
+      alt="">`;
+  }).join('');
+  
+  el.innerHTML = `<div class="settings-saved-section">
+    <div class="settings-saved-title">🔖 저장됨<span class="settings-saved-count">${savedItems.length}</span></div>
+    <div class="settings-saved-grid">${thumbs}</div>
+  </div>`;
+}
+
 function openSettings() { document.getElementById('settingsModal').classList.add('show'); refreshSettingsUI(); }
 function closeSettings() { document.getElementById('settingsModal').classList.remove('show'); }
 function refreshSettingsUI() {
@@ -6126,6 +6499,7 @@ function refreshSettingsUI() {
     ? '활성 — AI가 서버에서 대화를 기억합니다 ✓'
     : '비활성 — 대화는 이 기기에만 저장됩니다';
   if (status) status.style.color = consented ? '#6B5BD6' : '#bbb';
+  renderSavedPostsSection();
 }
 
 function toggleResearchConsent(checked) {
@@ -6152,14 +6526,20 @@ function saveSettings() {
   else localStorage.removeItem('venux_openai_key');
   const sel = document.querySelector('.modal-radio.selected:not(.lang-radio)');
   localStorage.setItem('venux_ai_model', sel ? sel.dataset.model : 'gpt-4o');
-  // 언어 저장
+  // 언어 저장 — 변경 시 리로드로 전체 패치
   const langSel = document.querySelector('.lang-radio.selected');
+  const prevLang = currentLang;
   if (langSel) {
     currentLang = langSel.dataset.lang;
     localStorage.setItem('venux_lang', currentLang);
   }
-  applyLang();
   closeSettings();
+  if (currentLang !== prevLang) {
+    // 언어 전환: 페이지 리로드로 전체 텍스트 완전 교체
+    location.reload();
+    return;
+  }
+  applyLang();
   showToast(currentLang === 'en' ? 'Settings saved ✨' : '설정이 저장되었습니다 ✨');
 }
 
@@ -7629,7 +8009,7 @@ async function showFourcutResult(cutUrls, m) {
 
   // Header
   ctx.fillStyle = 'white';
-  ctx.font = '500 28px Fraunces, serif';
+  ctx.font = '400 28px "Black Han Sans", "Noto Sans KR", sans-serif';
   ctx.textAlign = 'center';
   ctx.fillText('VenuX × Me', W / 2 - 8, 60);
   ctx.fillStyle = 'rgba(255,255,255,0.4)';
@@ -8127,6 +8507,17 @@ function showAttendanceModal(memberKey, db) {
   document.getElementById('attendanceGreeting').textContent = `"${greeting}"`;
   document.getElementById('attendanceStreak').textContent = `🔥 ${db.user.current_streak}일 연속 출석!`;
 
+  // 멤버별 버튼 메시지
+  const ATTENDANCE_BTN = {
+    'ARA-462': '됐어, 이제 시작이야',
+    'LUX-299': '오늘도 너만의 빛 찾아봐',
+    'EUR-0K':  '천천히 가도 괜찮아',
+    'KIN-360': '뭐해, 빨리 나와',
+    'ATP-X1':  '오늘은 어떤 계절이야',
+  };
+  const btnMsg = document.getElementById('attendanceBtnMsg');
+  if (btnMsg) btnMsg.textContent = ATTENDANCE_BTN[memberKey] || '시작해보자';
+
   document.getElementById('attendanceOverlay').classList.add('show');
 }
 
@@ -8432,8 +8823,12 @@ openProfileModal = function(key) {
         </div>
         <div class="ig-stats">
           <div class="ig-stat">
-            <div class="ig-stat-num">6</div>
+            <div class="ig-stat-num">${(MEMBER_POSTS[key]||[]).length}</div>
             <div class="ig-stat-label">게시물</div>
+          </div>
+          <div class="ig-stat">
+            <div class="ig-stat-num" style="color:${m.badgeColor}">${(PHOTOCARDS[key]||[]).filter(c=>isCardUnlocked(c,db,key)).length}<span style="font-size:10px;color:#aaa;font-weight:400">/${(PHOTOCARDS[key]||[]).length}</span></div>
+            <div class="ig-stat-label">포토카드</div>
           </div>
           <div class="ig-stat">
             <div class="ig-stat-num" style="color:${m.badgeColor}">LV.${info.level}</div>
@@ -8786,7 +9181,7 @@ function renderCardTab(key) {
     const r = RARITY[card.rarity];
     return `
     <div class="pc-card-wrap" onclick="flipCard('${card.id}')">
-      <div class="pc-card" id="pc-${card.id}" style="border-radius:10px;box-shadow:0 3px 14px ${unlocked ? r.glow : 'rgba(0,0,0,0.12)'}">
+      <div class="pc-card" id="pc-${card.id}" style="box-shadow:0 3px 14px ${unlocked ? r.glow : 'rgba(0,0,0,0.12)'}">
         <!-- 앞면 -->
         <div class="pc-front" style="background:${r.bg}">
           <div class="pc-img-wrap">
@@ -8826,11 +9221,11 @@ function renderCardTab(key) {
       </div>
       <div style="font-size:20px">${m.element}</div>
     </div>
-    <div style="margin:0 14px 12px;background:#eee;border-radius:8px;overflow:hidden;height:4px">
+    <div style="margin:0 14px 8px;background:#eee;border-radius:8px;overflow:hidden;height:3px">
       <div style="height:100%;border-radius:8px;background:${m.gradient};width:${pct}%;transition:width 0.5s ease"></div>
     </div>
     <div class="pc-grid">${cardsHtml}</div>
-    <div style="text-align:center;font-size:11px;color:#bbb;padding:8px 0 20px">탭 → 뒤집기 · 잠금 해제하며 수집해보세요</div>
+    <div style="text-align:center;font-size:10px;color:#bbb;padding:10px 0 28px">탭 → 뒤집기  ·  잠금 해제하며 수집해보세요</div>
   `;
 }
 
@@ -9118,45 +9513,64 @@ function buildCommentListHtml(postComments) {
   }).join('');
 }
 
-function openPostDetail(postId, key) {
-  const m = memberData[key];
-  const posts = MEMBER_POSTS[key] || [];
-  const post = posts.find(p => p.id === postId);
-  if (!post || !m) return;
+// ── 포스트 상세 스와이프 상태 ──
+window._pdState = { key: null, idx: 0, animating: false };
+
+function _buildPostDetailHtml(post, m, key, idx, total) {
   const db = getOrCreateDB();
   const myName = db.user.nickname || '나';
   const likes = getPostLikes();
   const comments = getPostComments();
+  const postId = post.id;
   const liked = !!likes[postId];
   const likeCount = post.likes + (liked ? 1 : 0);
   const postComments = comments[postId] || [];
-
+  const savedPosts = JSON.parse(localStorage.getItem('venux_saved_posts') || '[]');
+  const isSaved = savedPosts.includes(postId);
   const emojiOpts = POST_EMOJIS.map(e =>
     `<button class="post-emoji-opt" onclick="insertPostEmoji('${postId}','${e}')">${e}</button>`
   ).join('');
-
-  const overlay = document.getElementById('postDetailOverlay');
-  overlay.scrollTop = 0;
-  overlay.innerHTML = `
-    <div class="post-detail-header">
-      <button class="post-detail-back" onclick="closePostDetail()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.2" width="20" height="20" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      </button>
-      <img class="post-detail-avatar" src="${m.photo}" alt="${m.name}">
-      <div class="post-detail-userinfo">
-        <div class="post-detail-username">${m.name}</div>
-        <div class="post-detail-id">${key.toLowerCase().replace('-','_')}</div>
+  const dots = total > 1 ? `<div class="post-swipe-dots">${
+    Array.from({length: total}, (_,i) =>
+      `<div class="post-swipe-dot${i===idx?' active':''}"></div>`
+    ).join('')
+  }</div>` : '';
+  return `
+    <div class="post-img-swipe-wrap" id="postSwipeWrap">
+      <div class="post-detail-header">
+        <button class="post-detail-back" onclick="closePostDetail()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="22" height="22" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <img class="post-detail-avatar" src="${m.photo}" alt="${m.name}">
+        <div class="post-detail-userinfo">
+          <div class="post-detail-username">${m.name}</div>
+          <div class="post-detail-id">${key.toLowerCase().replace('-','_')}</div>
+        </div>
+        <button class="post-detail-more">···</button>
       </div>
-      <button class="post-detail-more">···</button>
+      <img id="postSwipeImg" src="${post.image || m.photo}" onerror="this.onerror=null;this.src='${m.photo}'" alt="${m.name}" style="filter:${post.filter}">
+      <button class="post-nav-btn prev${idx === 0 ? ' hidden' : ''}" id="postNavPrev" onclick="_navPostDetail(-1)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" width="14" height="14" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="post-nav-btn next${idx === total-1 ? ' hidden' : ''}" id="postNavNext" onclick="_navPostDetail(1)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" width="14" height="14" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
     </div>
-    <img class="post-detail-img" src="${post.image || m.photo}" onerror="this.onerror=null;this.src='${m.photo}'" alt="${m.name}" style="filter:${post.filter}">
+    ${dots}
     <div class="post-detail-body">
       <div class="post-detail-actions">
-        <button class="post-like-btn" id="postLikeBtn-${postId}" onclick="togglePostLike('${postId}','${key}')">${liked?'❤️':'🤍'}</button>
-        <span class="post-like-count" id="postLikeCount-${postId}">${likeCount.toLocaleString()}</span>
+        <div class="post-actions-left">
+          <button class="post-like-btn" id="postLikeBtn-${postId}" onclick="togglePostLike('${postId}','${key}')">${liked?'❤️':'🤍'}</button>
+          <span class="post-like-count" id="postLikeCount-${postId}">${likeCount.toLocaleString()}</span>
+        </div>
+        <button class="post-save-btn" id="postSaveBtn-${postId}" onclick="togglePostSave('${postId}')" title="저장">
+          ${isSaved
+            ? '<svg viewBox="0 0 24 24" width="24" height="24" fill="#6B5BD6" stroke="#6B5BD6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>'
+            : '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#222" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>'}
+        </button>
       </div>
-      <div class="post-caption"><strong>${m.name}</strong>${post.caption}</div>
-      <div class="post-date">${post.date}</div>
+      <div class="post-caption" id="postCaption"><strong>${m.name}</strong> ${post.caption}</div>
+      <div class="post-date" id="postDate">${post.date}</div>
       <div class="post-comments-divider"></div>
       <div class="post-comments-list" id="postCommentsList-${postId}">${buildCommentListHtml(postComments)}</div>
       <div class="post-comment-area">
@@ -9170,9 +9584,144 @@ function openPostDetail(postId, key) {
           <button class="post-comment-send" onclick="submitPostComment('${postId}','${key}')">게시</button>
         </div>
       </div>
-    </div>
-  `;
+    </div>`;
+}
+
+function _attachSwipeListeners() {
+  const wrap = document.getElementById('postSwipeWrap');
+  if (!wrap) return;
+  let tx = 0, ty = 0, tracking = false, locked = false;
+  wrap.addEventListener('touchstart', e => {
+    tx = e.touches[0].clientX;
+    ty = e.touches[0].clientY;
+    tracking = true;
+    locked = false;
+  }, { passive: true });
+  wrap.addEventListener('touchmove', e => {
+    if (!tracking) return;
+    const dx = e.touches[0].clientX - tx;
+    const dy = e.touches[0].clientY - ty;
+    if (!locked) {
+      // 첫 움직임으로 방향 확정
+      if (Math.abs(dx) > Math.abs(dy)) {
+        locked = 'h'; // 가로 스와이프
+      } else {
+        locked = 'v'; // 세로 스크롤
+        tracking = false;
+      }
+    }
+    if (locked === 'h') e.preventDefault(); // 세로 스크롤 막기
+  }, { passive: false });
+  wrap.addEventListener('touchend', e => {
+    if (!tracking || locked !== 'h') return;
+    tracking = false;
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) < 30) return;
+    if (dx < 0) _navPostDetail(1);   // 왼쪽 → 다음
+    else         _navPostDetail(-1);  // 오른쪽 → 이전
+  }, { passive: true });
+}
+
+function _navPostDetail(dir) {
+  const s = window._pdState;
+  if (s.animating) return;
+  const posts = MEMBER_POSTS[s.key] || [];
+  const newIdx = s.idx + dir;
+  if (newIdx < 0 || newIdx >= posts.length) return;
+
+  s.animating = true;
+  const wrap = document.getElementById('postSwipeWrap');
+  const oldImg = document.getElementById('postSwipeImg');
+  const m = memberData[s.key];
+  const newPost = posts[newIdx];
+
+  // 새 이미지 생성
+  const newImg = document.createElement('img');
+  newImg.src = newPost.image || m.photo;
+  newImg.style.filter = newPost.filter;
+  newImg.onerror = () => { newImg.onerror = null; newImg.src = m.photo; };
+  newImg.classList.add(dir > 0 ? 'si-l' : 'si-r');
+  oldImg.classList.add(dir > 0 ? 'so-l' : 'so-r');
+  wrap.appendChild(newImg);
+
+  // dots + 화살표 업데이트
+  const dotEls = document.querySelectorAll('.post-swipe-dot');
+  dotEls.forEach((d, i) => d.classList.toggle('active', i === newIdx));
+  const prevBtn = document.getElementById('postNavPrev');
+  const nextBtn = document.getElementById('postNavNext');
+  if (prevBtn) prevBtn.classList.toggle('hidden', newIdx === 0);
+  if (nextBtn) nextBtn.classList.toggle('hidden', newIdx === posts.length - 1);
+
+  // body 콘텐츠 교체
+  const likes = getPostLikes();
+  const comments = getPostComments();
+  const pid = newPost.id;
+  const liked = !!likes[pid];
+  const likeCount = newPost.likes + (liked ? 1 : 0);
+  const postComments = comments[pid] || [];
+  const emojiOpts = POST_EMOJIS.map(e =>
+    `<button class="post-emoji-opt" onclick="insertPostEmoji('${pid}','${e}')">${e}</button>`
+  ).join('');
+
+  setTimeout(() => {
+    oldImg.remove();
+    newImg.id = 'postSwipeImg';
+    newImg.classList.remove('si-l','si-r');
+    s.idx = newIdx;
+    s.animating = false;
+
+    // 텍스트 영역 교체
+    const cap = document.getElementById('postCaption');
+    const dat = document.getElementById('postDate');
+    if (cap) cap.innerHTML = `<strong>${m.name}</strong> ${newPost.caption}`;
+    if (dat) dat.textContent = newPost.date;
+
+    const lBtn = document.getElementById('postLikeBtn-' + s._currentPid);
+    const lCnt = document.getElementById('postLikeCount-' + s._currentPid);
+    const body = document.querySelector('.post-detail-body');
+    if (body) {
+      const savedPosts2 = getSavedPosts();
+      const isSaved2 = savedPosts2.includes(pid);
+      body.querySelector('.post-detail-actions').innerHTML = `
+        <div class="post-actions-left">
+          <button class="post-like-btn" id="postLikeBtn-${pid}" onclick="togglePostLike('${pid}','${s.key}')">${liked?'❤️':'🤍'}</button>
+          <span class="post-like-count" id="postLikeCount-${pid}">${likeCount.toLocaleString()}</span>
+        </div>
+        <button class="post-save-btn" id="postSaveBtn-${pid}" onclick="togglePostSave('${pid}')" title="저장">
+          ${isSaved2
+            ? '<svg viewBox="0 0 24 24" width="24" height="24" fill="#6B5BD6" stroke="#6B5BD6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>'
+            : '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#222" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>'}
+        </button>`;
+      const cl = body.querySelector('.post-comments-list');
+      if (cl) { cl.id = 'postCommentsList-'+pid; cl.innerHTML = buildCommentListHtml(postComments); }
+      const ep = body.querySelector('.post-emoji-picker');
+      if (ep) { ep.id = 'postEmojiPicker-'+pid; ep.innerHTML = emojiOpts; ep.classList.add('hidden'); }
+      const ci = body.querySelector('.post-comment-input');
+      if (ci) { ci.id = 'postCommentInput-'+pid; ci.value = ''; ci.setAttribute('onkeydown',`if(event.key==='Enter')submitPostComment('${pid}','${s.key}')`); }
+      const cs = body.querySelector('.post-comment-send');
+      if (cs) cs.setAttribute('onclick', `submitPostComment('${pid}','${s.key}')`);
+      const eb = body.querySelector('.post-emoji-btn');
+      if (eb) eb.setAttribute('onclick', `togglePostEmojiPicker('${pid}')`);
+    }
+    s._currentPid = pid;
+    _attachSwipeListeners();
+  }, 220);
+}
+
+function openPostDetail(postId, key) {
+  const m = memberData[key];
+  const posts = MEMBER_POSTS[key] || [];
+  const idx = posts.findIndex(p => p.id === postId);
+  if (idx < 0 || !m) return;
+  const post = posts[idx];
+
+  window._pdState = { key, idx, animating: false, _currentPid: postId };
+
+  const overlay = document.getElementById('postDetailOverlay');
+  overlay.scrollTop = 0;
+  overlay.innerHTML = _buildPostDetailHtml(post, m, key, idx, posts.length);
   overlay.classList.add('show');
+  _attachSwipeListeners();
 }
 
 function togglePostEmojiPicker(postId) {
@@ -9193,6 +9742,35 @@ function insertPostEmoji(postId, emoji) {
 
 function closePostDetail() {
   document.getElementById('postDetailOverlay').classList.remove('show');
+}
+
+
+function getSavedPosts() {
+  return JSON.parse(localStorage.getItem('venux_saved_posts') || '[]');
+}
+function setSavedPosts(arr) {
+  localStorage.setItem('venux_saved_posts', JSON.stringify(arr));
+}
+
+function togglePostSave(postId) {
+  const saved = getSavedPosts();
+  const idx = saved.indexOf(postId);
+  const nowSaved = idx === -1;
+  if (nowSaved) saved.push(postId);
+  else saved.splice(idx, 1);
+  setSavedPosts(saved);
+
+  const btn = document.getElementById('postSaveBtn-' + postId);
+  if (!btn) return;
+  btn.innerHTML = nowSaved
+    ? '<svg viewBox="0 0 24 24" width="24" height="24" fill="#6B5BD6" stroke="#6B5BD6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>'
+    : '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#222" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
+
+  // 저장 시 짧은 애니메이션
+  btn.style.transform = 'scale(1.35)';
+  setTimeout(() => { btn.style.transform = ''; }, 180);
+
+  if (nowSaved) showToast('게시물 저장됨 🔖');
 }
 
 function togglePostLike(postId, key) {
@@ -9685,6 +10263,8 @@ function switchProfileTab(tabId, memberKey) {
   sheet.querySelectorAll('.profile-tab-content').forEach(c => c.classList.remove('active'));
   const target = document.getElementById(`profileTab-${tabId}-${memberKey}`);
   if (target) target.classList.add('active');
+  // 탭 전환 시 항상 최상단으로 스크롤 (Instagram 동일 동작)
+  sheet.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function onLetterInput(memberKey) {
@@ -11787,6 +12367,108 @@ const LANG_PACK = {
     // 헤더
     header_settings:      'Settings',
     header_about:         'About',
+
+    // 탭바
+    tab_home:             'Home',
+    tab_chat:             'Chat',
+    tab_affinity:         'Affinity',
+    tab_photos:           'Photos',
+    tab_settings:         'Settings',
+
+    // 사진 섹션
+    photo_section_title:  '📸 Take a Selfie with Your Fave',
+    photo_section_sub:    'Snap a selfie with your favorite member!',
+    photo_generate_btn:   '✨ Take Selfie with Member',
+    fourcut_generate_btn: '✨ Create Photo Strip',
+
+    // 스크린 타이틀
+    screen_achievements:  '🏆 Achievements',
+    screen_settings:      '⚙️ Settings',
+
+    // 뒤로 버튼
+    back_btn:             'Back',
+
+    // 사진 모드 탭
+    selfie_mode:          'Selfie',
+    selfie_mode_sub:      'One shot',
+    fourcut_mode:         'Photo Strip',
+    fourcut_mode_sub:     '4-cut memories',
+
+    // 아코디언
+    accord_outfit:        "What to wear today?",
+    accord_bg:            "Where to shoot?",
+    accord_outfit_default:'Default',
+    accord_bg_default:    'Photo Booth',
+
+    // 셀카 업로드 플레이스홀더
+    upload_selfie:        'Upload Selfie',
+    select_member:        'Select a member',
+
+    // 네컷 가이드
+    fourcut_guide:        '📸 Take or upload 4 photos',
+    fourcut_guide_sub:    'Try different expressions — smile, serious, wink, free',
+    fourcut_slot1:        '😊 Smile',
+    fourcut_slot2:        '😎 Serious',
+    fourcut_slot3:        '😜 Wink',
+    fourcut_slot4:        '✌️ Free',
+    fourcut_counter:      (n) => `${n} / 4 uploaded`,
+
+    // 친밀도
+    affinity_title:       '💕 Affinity',
+    affinity_sort:        'By Affinity',
+
+    // 사진첩
+    photos_title:         'Photos',
+    photos_empty:         'NO RECORDS · Take a selfie with a member',
+    my_memories:          'My Memories',
+
+    // 채팅 액션
+    chat_action_fourcut:  'Photo Strip',
+
+    // 설정 화면
+    api_key_setting:      'Set OpenAI API Key →',
+    data_export:          '📦 Export Data',
+    data_reset:           '🗑️ Reset',
+    data_reset_confirm:   'Reset all game data?',
+
+    // 업로드 존
+    upload_click_drag:    'Click or drag to upload',
+    upload_hint:          'JPG, PNG, WEBP, GIF (max 10MB)',
+    upload_click:         'Click to upload photo',
+
+    // 관리자
+    admin_music_upload:   '🔐 Admin Music Upload',
+    admin_photo_upload:   '🔐 Admin Photo Upload',
+    admin_login_required: '🔒 Log in as admin to upload',
+    admin_save_photo:     '✅ Save Photo',
+    admin_music_section:  '🎵 Music',
+    admin_photo_section:  '🖼️ Member Photos',
+    track_title_placeholder: 'Track title',
+
+    // 출석
+    attendance_btn:       'Together Today →',
+
+    // 알림
+    notification_empty:   "You'll see messages from members here",
+
+    // 도전과제 모달
+    achievements_modal:   '🏆 Achievements',
+
+    // 코인 페이월
+    coin_balance_selfie:  'Selfie',
+    coin_balance_fourcut: 'Strip',
+
+    // 토스트 기본
+    saved_toast:          'Settings saved ✨',
+
+    // 온보딩
+    onboarding_sub1:      'Your daily life with 5 members begins',
+    onboarding_sub2:      'What should we call you?',
+    onboarding_sub3:      "We'll find your compatible members",
+    onboarding_best_match:'Your best match',
+
+    // About
+    about_desc:           '5 members each answer your concerns with their own philosophy.',
   }
 };
 
@@ -11818,6 +12500,111 @@ function applyLang() {
   document.querySelectorAll('.lang-radio').forEach(r => {
     r.classList.toggle('selected', r.dataset.lang === currentLang);
   });
+
+  // ── 영어 전용 DOM 패치 ──────────────────────────────────────
+  if (currentLang === 'en') {
+    // 뒤로 버튼 텍스트 노드 교체
+    document.querySelectorAll('.back-btn').forEach(btn => {
+      btn.childNodes.forEach(n => {
+        if (n.nodeType === 3 && n.textContent.trim()) n.textContent = ' ' + t('back_btn');
+      });
+    });
+
+    // 사진 모드 탭
+    const selfieTab = document.querySelector('.photo-mode-tab[onclick*="selfie"]');
+    const fourcutTab = document.querySelector('.photo-mode-tab[onclick*="fourcut"]');
+    if (selfieTab) {
+      selfieTab.childNodes.forEach(n => { if (n.nodeType === 3) n.textContent = t('selfie_mode'); });
+      const sub = selfieTab.querySelector('.tab-sub');
+      if (sub) sub.textContent = t('selfie_mode_sub');
+    }
+    if (fourcutTab) {
+      fourcutTab.childNodes.forEach(n => { if (n.nodeType === 3) n.textContent = t('fourcut_mode'); });
+      const sub = fourcutTab.querySelector('.tab-sub');
+      if (sub) sub.textContent = t('fourcut_mode_sub');
+    }
+
+    // 아코디언 타이틀
+    document.querySelectorAll('.accord-title').forEach(el => {
+      const txt = el.textContent.trim();
+      if (txt === '오늘 뭐입을까?') el.textContent = t('accord_outfit');
+      if (txt === '어디가서 찍을까?') el.textContent = t('accord_bg');
+    });
+    // 아코디언 기본값 배지
+    const outfitLabel = document.getElementById('accordOutfitLabel');
+    if (outfitLabel && outfitLabel.textContent === '기본') outfitLabel.textContent = t('accord_outfit_default');
+    const bgLabel = document.getElementById('accordBgLabel');
+    if (bgLabel && bgLabel.textContent === '포토부스') bgLabel.textContent = t('accord_bg_default');
+
+    // 셀카 업로드 / 멤버 선택 플레이스홀더
+    document.querySelectorAll('.photo-preview-placeholder > div:last-child').forEach(el => {
+      if (el.textContent === '셀카 업로드') el.textContent = t('upload_selfie');
+      if (el.textContent === '멤버를 선택하세요') el.textContent = t('select_member');
+    });
+
+    // 네컷 가이드
+    const guideMain = document.querySelector('.guide-main');
+    if (guideMain) guideMain.textContent = t('fourcut_guide');
+    const guideSub = document.querySelector('.guide-sub');
+    if (guideSub) guideSub.textContent = t('fourcut_guide_sub');
+
+    // 네컷 슬롯 레이블
+    const slotLabels = ['fourcut_slot1','fourcut_slot2','fourcut_slot3','fourcut_slot4'];
+    document.querySelectorAll('.slot-placeholder > div:last-child').forEach((el, i) => {
+      if (slotLabels[i]) el.textContent = t(slotLabels[i]);
+    });
+
+    // 네컷 카운터
+    const fc = document.getElementById('fourcutCounter');
+    if (fc) {
+      const span = fc.querySelector('span');
+      const n = span ? span.textContent : '0';
+      fc.innerHTML = `<span>${n}</span> ${t('fourcut_counter', n).replace(n + ' ', '')}`;
+    }
+
+    // 친밀도 헤더
+    const affinityTitle = document.querySelector('.affinity-page-title');
+    if (affinityTitle) affinityTitle.textContent = t('affinity_title');
+    const affinitySortBtn = document.getElementById('affinitySortBtn');
+    if (affinitySortBtn) affinitySortBtn.textContent = t('affinity_sort');
+
+    // 사진첩 타이틀
+    const photoTitle = document.querySelector('.vx-photo-title');
+    if (photoTitle) photoTitle.textContent = t('photos_title');
+    const collectionEmpty = document.getElementById('collectionEmpty');
+    if (collectionEmpty) collectionEmpty.textContent = t('photos_empty');
+
+    // 채팅 액션
+    document.querySelectorAll('.chat-action-label').forEach(el => {
+      if (el.textContent === '인생네컷') el.textContent = t('chat_action_fourcut');
+    });
+
+    // 설정 화면 버튼
+    document.querySelectorAll('.header-btn, .admin-header-btn').forEach(el => {
+      if (el.textContent.includes('API Key 설정')) el.textContent = t('api_key_setting');
+      if (el.textContent.includes('데이터 내보내기')) el.textContent = t('data_export');
+      if (el.textContent.includes('초기화')) el.textContent = t('data_reset');
+    });
+
+    // 업로드 존 텍스트
+    document.querySelectorAll('.upload-zone-text').forEach(el => {
+      if (el.textContent.includes('클릭 또는 드래그')) el.textContent = t('upload_click_drag');
+      if (el.textContent.includes('클릭하여 사진')) el.textContent = t('upload_click');
+    });
+    document.querySelectorAll('.upload-zone-hint').forEach(el => {
+      el.textContent = t('upload_hint');
+    });
+
+    // 알림 비어있음 텍스트
+    const notifEmpty = document.querySelector('.notif-empty-sub, [style*="멤버들이 메시지"]');
+    if (notifEmpty) notifEmpty.textContent = t('notification_empty');
+
+    // 코인 페이월 잔액 레이블
+    document.querySelectorAll('.cpw-balance-label').forEach(el => {
+      if (el.textContent === '셀카') el.textContent = t('coin_balance_selfie');
+      if (el.textContent === '네컷') el.textContent = t('coin_balance_fourcut');
+    });
+  }
 }
 
 function selectLang(el) {
@@ -12215,6 +13002,7 @@ async function sendChatMessage() {
   document.getElementById('chatChips').style.display = 'none';
 
   // Show typing indicator
+  const typingStart = Date.now(); // ← 타이핑 시작 시각 기록
   body.innerHTML += `<div class="chat-typing" id="chatTyping">
     <div class="chat-msg-avatar"><img src="${m.photo}" alt="${m.letter}"></div>
     <div class="chat-typing-dots"><div class="chat-typing-dot"></div><div class="chat-typing-dot"></div><div class="chat-typing-dot"></div></div>
@@ -12285,6 +13073,12 @@ async function sendChatMessage() {
     }
   }
 
+  // 타이핑 indicator 최소 노출 시간: 2000~3200ms
+  const minTypingDuration = 2000 + Math.random() * 1200;
+  const elapsed = Date.now() - typingStart;
+  const remainWait = Math.max(0, minTypingDuration - elapsed);
+  if (remainWait > 0) await new Promise(r => setTimeout(r, remainWait));
+
   // Remove typing indicator
   const typingEl = document.getElementById('chatTyping');
   if (typingEl) typingEl.remove();
@@ -12298,8 +13092,8 @@ async function sendChatMessage() {
     sigLine = parts[1]?.trim() || '';
   }
 
-  // Slight delay for natural feel
-  await new Promise(r => setTimeout(r, 400 + Math.random() * 600));
+  // 짧은 추가 딜레이 (typing 사라진 후 → 말풍선 등장까지 자연스러운 텀)
+  await new Promise(r => setTimeout(r, 120 + Math.random() * 180));
 
   const replyTime = new Date().toISOString();
 
@@ -12346,6 +13140,86 @@ async function sendChatMessage() {
 }
 
 // Action sheet
+
+// ============================================================
+// EMOJI PICKER
+// ============================================================
+const EMOJI_CATEGORIES = [
+  { label:'😊', name:'표정', emojis:['😀','😃','😄','😁','😆','😅','🤣','😂','🙂','🙃','😉','😊','😇','🥰','😍','🤩','😘','😗','😚','😙','🥲','😋','😛','😜','🤪','😝','🤑','🤗','🤭','🤫','🤔','🤐','🤨','😐','😑','😶','😏','😒','🙄','😬','🤥','😌','😔','😪','🤤','😴','😷','🤒','🤕','🤢','🤮','🤧','🥵','🥶','🥴','😵','🤯','🤠','🥳','🥸','😎','🤓','🧐','😕','😟','🙁','☹️','😮','😯','😲','😳','🥺','😦','😧','😨','😰','😥','😢','😭','😱','😖','😣','😞','😓','😩','😫','🥱','😤','😡','😠','🤬','😈','👿','💀','☠️','💩','🤡','👹','👺','👻','👽','👾','🤖'] },
+  { label:'❤️', name:'하트', emojis:['❤️','🧡','💛','💚','💙','💜','🖤','🤍','🤎','💔','❣️','💕','💞','💓','💗','💖','💘','💝','💟','♥️','💋','💌'] },
+  { label:'👋', name:'손짓', emojis:['👋','🤚','🖐️','✋','🖖','👌','🤌','🤏','✌️','🤞','🤟','🤘','🤙','👈','👉','👆','🖕','👇','☝️','👍','👎','✊','👊','🤛','🤜','👏','🙌','🤲','🤝','🙏','💪','🦵','🦶','👀','👁️','👅','👂','🦷','🫀','🫁','🧠'] },
+  { label:'🌸', name:'자연', emojis:['🌸','💐','🌷','🌹','🥀','🌺','🌻','🌼','🌾','🍀','🍁','🍂','🍃','🌿','☘️','🌱','🌲','🌳','🌴','🌵','🎋','🎍','🪴','🌊','🌈','☀️','🌙','⭐','🌟','✨','⚡','🔥','❄️','🌊','🌀','🌬️','🌪️','🌫️','🌤️','⛅','🌦️','🌧️','🌩️','🌨️','☃️','⛄','🌍','🌎','🌏'] },
+  { label:'🎵', name:'기타', emojis:['🎵','🎶','🎤','🎧','🎼','🎹','🥁','🎷','🎺','🎸','🎻','🪕','🎮','🕹️','🎲','🎯','🎳','🎰','🧩','🪅','🎭','🎨','🖼️','🎬','📸','📷','📹','🎥','📽️','🎞️','📱','💻','🖥️','⌨️','🖱️','🖨️','📡','🔭','🔬','💡','🔦','🕯️','🪔','💰','💳','💎','🏆','🥇','🥈','🥉','🎀','🎁','🎊','🎉','🎈','🎐','🎏','🎑','🎃','🎄','🎆','🎇','🧨','✨'] },
+];
+
+let _emojiPickerOpen = false;
+let _emojiActiveTab = 0;
+
+function toggleEmojiPicker(e) {
+  e.stopPropagation();
+  const picker = document.getElementById('emojiPicker');
+  _emojiPickerOpen = !_emojiPickerOpen;
+  if (_emojiPickerOpen) {
+    _renderEmojiPicker();
+    picker.style.display = 'flex';
+    picker.style.flexDirection = 'column';
+    document.getElementById('chatEmojiBtn').style.color = '#6B5BD6';
+  } else {
+    picker.style.display = 'none';
+    document.getElementById('chatEmojiBtn').style.color = '';
+  }
+}
+
+function _renderEmojiPicker() {
+  const tabsEl = document.getElementById('emojiPickerTabs');
+  const gridEl = document.getElementById('emojiPickerGrid');
+  // 탭
+  tabsEl.innerHTML = EMOJI_CATEGORIES.map((cat, i) =>
+    `<button class="emoji-tab${i === _emojiActiveTab ? ' active' : ''}" onclick="_switchEmojiTab(${i})">${cat.label}</button>`
+  ).join('');
+  // 그리드
+  const emojis = EMOJI_CATEGORIES[_emojiActiveTab].emojis;
+  gridEl.innerHTML = emojis.map(em =>
+    `<button class="emoji-item" onclick="_insertEmoji('${em}')">${em}</button>`
+  ).join('');
+}
+
+function _switchEmojiTab(idx) {
+  _emojiActiveTab = idx;
+  _renderEmojiPicker();
+}
+
+function _insertEmoji(em) {
+  const ta = document.getElementById('chatInput');
+  if (!ta) return;
+  const start = ta.selectionStart;
+  const end = ta.selectionEnd;
+  ta.value = ta.value.slice(0, start) + em + ta.value.slice(end);
+  ta.selectionStart = ta.selectionEnd = start + em.length;
+  ta.focus();
+  onChatInput();
+}
+
+function closeEmojiPickerIfOpen() {
+  if (_emojiPickerOpen) {
+    _emojiPickerOpen = false;
+    const picker = document.getElementById('emojiPicker');
+    if (picker) picker.style.display = 'none';
+    const btn = document.getElementById('chatEmojiBtn');
+    if (btn) btn.style.color = '';
+  }
+}
+
+// 피커 외부 클릭 시 닫기
+document.addEventListener('click', function(e) {
+  if (!_emojiPickerOpen) return;
+  const picker = document.getElementById('emojiPicker');
+  const btn = document.getElementById('chatEmojiBtn');
+  if (picker && !picker.contains(e.target) && btn && !btn.contains(e.target)) {
+    closeEmojiPickerIfOpen();
+  }
+});
+
 function toggleChatActions() {
   const sheet = document.getElementById('chatActionSheet');
   const overlay = document.getElementById('chatActionOverlay');
@@ -12447,8 +13321,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Game init
   const db = getOrCreateDB();
   if (!db.user.nickname) {
-    // First time — show onboarding
-    showOnboarding();
+    // 닉네임 없으면 기본값 세팅 후 바로 시작 (온보딩 스킵)
+    db.user.nickname = '나';
+    db.user.joined_date = db.user.joined_date || todayStr();
+    if (!db.consent) db.consent = { terms:true, privacy:true, research:true, marketing:false, agreedAt: new Date().toISOString() };
+    saveDB(db);
+    const att = processAttendance(db);
+    if (att.isNew) showAttendanceModal(att.todayMember, att.db);
+    initGameUI(att.db);
   } else {
     // Returning user
     const att = processAttendance(db);
@@ -12478,6 +13358,203 @@ const imgObserver = new MutationObserver((mutations) => {
   });
 });
 imgObserver.observe(document.body, { childList: true, subtree: true });
+</script>
+
+<!-- ═══════════════════════════════════════════════════
+     VENUX COIN SYSTEM
+     - 가입 시 무료: 대화 10 / 셀카 1 / 네컷 1
+     - API 키 있으면 코인 불필요 (BYOK 무제한)
+     - 소진 시 페이월 → BYOK 또는 코인 구매
+═══════════════════════════════════════════════════ -->
+<script>
+(function() {
+  'use strict';
+
+  // ── 코인 초기값 ─────────────────────────────────
+  const COIN_FREE_CHAT    = 10;
+  const COIN_FREE_SELFIE  = 1;
+  const COIN_FREE_FOURCUT = 1;
+
+  // 코인 패키지 정의
+  const COIN_PACKAGES = {
+    basic:    { chat:30,  photo:3,  price:'₩3,900',  label:'기본',     url:'https://venux.soaviz.com/buy?pkg=basic' },
+    standard: { chat:100, photo:10, price:'₩9,900',  label:'스탠다드', url:'https://venux.soaviz.com/buy?pkg=standard' },
+    pro:      { chat:300, photo:30, price:'₩19,900', label:'프리미엄', url:'https://venux.soaviz.com/buy?pkg=pro' },
+  };
+
+  // ── DB 코인 헬퍼 ─────────────────────────────────
+  function getCoins() {
+    let db;
+    try { db = JSON.parse(localStorage.getItem('venux_daily_db') || '{}'); } catch { db = {}; }
+    if (!db.coins) {
+      db.coins = { chat: COIN_FREE_CHAT, selfie: COIN_FREE_SELFIE, fourcut: COIN_FREE_FOURCUT };
+      try { localStorage.setItem('venux_daily_db', JSON.stringify(db)); } catch {}
+    }
+    return db.coins;
+  }
+
+  function saveCoins(coins) {
+    let db;
+    try { db = JSON.parse(localStorage.getItem('venux_daily_db') || '{}'); } catch { db = {}; }
+    db.coins = coins;
+    try { localStorage.setItem('venux_daily_db', JSON.stringify(db)); } catch {}
+  }
+
+  // API 키 존재 여부 → BYOK 우선
+  function hasByok() {
+    return !!localStorage.getItem('venux_openai_key');
+  }
+
+  // 코인 차감 — 성공 true / 실패(부족) false
+  window.vxDeductCoin = function(type) {
+    if (hasByok()) return true; // BYOK: 코인 불필요
+    const coins = getCoins();
+    const key = type; // 'chat' | 'selfie' | 'fourcut'
+    if ((coins[key] || 0) > 0) {
+      coins[key] = (coins[key] || 0) - 1;
+      saveCoins(coins);
+      updateCoinBadge();
+      return true;
+    }
+    return false; // 코인 없음
+  };
+
+  // 코인 추가 (구매 후 콜백)
+  window.vxAddCoins = function(chat, photo) {
+    const coins = getCoins();
+    coins.chat    = (coins.chat    || 0) + (chat  || 0);
+    coins.selfie  = (coins.selfie  || 0) + Math.floor((photo || 0) / 2);
+    coins.fourcut = (coins.fourcut || 0) + Math.floor((photo || 0) / 2);
+    saveCoins(coins);
+    updateCoinBadge();
+    showToast(`🪙 코인이 추가됐어요!`);
+  };
+
+  // 잔액 뱃지 업데이트
+  function updateCoinBadge() {
+    if (hasByok()) {
+      const badge = document.getElementById('coinStatBadge');
+      if (badge) badge.style.display = 'none';
+      return;
+    }
+    const coins = getCoins();
+    const total = (coins.chat || 0) + (coins.selfie || 0) + (coins.fourcut || 0);
+    const valEl = document.getElementById('coinStatVal');
+    const badge = document.getElementById('coinStatBadge');
+    if (valEl) valEl.textContent = total;
+    if (badge) badge.style.display = total > 0 ? 'flex' : 'flex';
+    // 색 경고
+    if (badge) badge.style.opacity = total === 0 ? '.7' : '1';
+  }
+
+  // ── 페이월 모달 ──────────────────────────────────
+  let _paywallType = 'chat'; // 현재 부족한 타입
+
+  window.openCoinPaywall = function(type) {
+    _paywallType = type || 'chat';
+    const coins = getCoins();
+
+    // 아이콘 & 문구 타입별 분기
+    const cfg = {
+      chat:    { icon:'💬', title:'대화 코인이 부족해요', sub:'무료 대화 10회를 모두 사용했어요' },
+      selfie:  { icon:'🤳', title:'셀카 코인이 부족해요', sub:'무료 셀카 1회를 사용했어요' },
+      fourcut: { icon:'🎞️', title:'네컷 코인이 부족해요', sub:'무료 네컷 1회를 사용했어요' },
+    }[type] || { icon:'🪙', title:'코인이 부족해요', sub:'무료 횟수를 모두 사용했어요' };
+
+    const el = id => document.getElementById(id);
+    if (el('cpwIcon'))     el('cpwIcon').textContent   = cfg.icon;
+    if (el('cpwTitle'))    el('cpwTitle').textContent  = cfg.title;
+    if (el('cpwSub'))      el('cpwSub').textContent    = cfg.sub;
+    if (el('cpwChatVal'))    el('cpwChatVal').textContent    = coins.chat    || 0;
+    if (el('cpwSelfieVal'))  el('cpwSelfieVal').textContent  = coins.selfie  || 0;
+    if (el('cpwFourcutVal')) el('cpwFourcutVal').textContent = coins.fourcut || 0;
+
+    // 잔액 아이템 색상
+    ['chat','selfie','fourcut'].forEach(k => {
+      const map = { chat:'cpwBalChat', selfie:'cpwBalSelfie', fourcut:'cpwBalFourcut' };
+      const item = el(map[k]);
+      if (!item) return;
+      item.classList.toggle('empty', (coins[k] || 0) === 0);
+      item.classList.toggle('has-coins', (coins[k] || 0) > 0);
+    });
+
+    document.getElementById('coinPaywallModal').classList.add('show');
+  };
+
+  window.closeCoinPaywall = function() {
+    document.getElementById('coinPaywallModal').classList.remove('show');
+  };
+
+  window.buyCoinPkg = function(pkg) {
+    const p = COIN_PACKAGES[pkg];
+    if (!p) return;
+    // 실제 결제 페이지로 이동 (향후 Stripe/토스페이 연동)
+    const ok = confirm(`${p.label} 패키지 구매\n\n대화 ${p.chat}회 + 사진 ${p.photo}회\n금액: ${p.price}\n\n결제 페이지로 이동할까요?`);
+    if (ok) {
+      // 현재는 데모: 바로 코인 지급 (실제 배포 시 결제 콜백으로 대체)
+      window.vxAddCoins(p.chat, p.photo);
+      closeCoinPaywall();
+      showToast(`🪙 ${p.label} 패키지 활성화! (데모 모드)`);
+    }
+  };
+
+  // ── handleAsk 패치 ───────────────────────────────
+  const _origHandleAsk = window.handleAsk;
+  window.handleAsk = async function() {
+    if (!window.vxDeductCoin('chat')) {
+      openCoinPaywall('chat');
+      return;
+    }
+    return _origHandleAsk.apply(this, arguments);
+  };
+
+  // ── handlePhotoGenerate 패치 ─────────────────────
+  const _origHandlePhotoGenerate = window.handlePhotoGenerate;
+  window.handlePhotoGenerate = function() {
+    if (!window.vxDeductCoin('selfie')) {
+      openCoinPaywall('selfie');
+      return;
+    }
+    return _origHandlePhotoGenerate.apply(this, arguments);
+  };
+
+  // ── handleFourcutGenerate 패치 ───────────────────
+  const _origHandleFourcutGenerate = window.handleFourcutGenerate;
+  window.handleFourcutGenerate = async function() {
+    if (!window.vxDeductCoin('fourcut')) {
+      openCoinPaywall('fourcut');
+      return;
+    }
+    return _origHandleFourcutGenerate.apply(this, arguments);
+  };
+
+  // ── 초기화: DB coin 마이그레이션 + 뱃지 ─────────
+  function initCoins() {
+    // 신규 유저: DB에 coins 없으면 → getCoins()가 자동 생성
+    getCoins();
+    updateCoinBadge();
+  }
+
+  // DOMContentLoaded 후 실행
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCoins);
+  } else {
+    initCoins();
+  }
+
+  // updateDailyStatusBar 호출 후 코인 뱃지도 갱신하도록 훅
+  const _origUpdateDailyStatusBar = window.updateDailyStatusBar;
+  if (_origUpdateDailyStatusBar) {
+    window.updateDailyStatusBar = function(db) {
+      _origUpdateDailyStatusBar.apply(this, arguments);
+      updateCoinBadge();
+    };
+  }
+
+  // onboarding 완료 시 코인 초기화 (닉네임 저장 시점)
+  // → initCoins는 이미 실행되어 있으므로 자동 처리됨
+
+})();
 </script>
 
 <!-- ═══ VENUX INTERACTIVE ENHANCEMENT ═══ -->
