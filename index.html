@@ -461,26 +461,76 @@
     .post-comment-area { position:relative; }
     /* 편지 탭 */
     /* ── 포토카드 탭 ── */
-    .pc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; padding:0; }
-    .pc-card-wrap { perspective:600px; cursor:pointer; }
-    .pc-card { position:relative; width:100%; padding-top:133%; transform-style:preserve-3d; transition:transform 0.55s cubic-bezier(0.4,0,0.2,1); border-radius:0; }
+    /* ── PHOTOCARD GRID ── */
+    .pc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; padding:0; }
+    .pc-card-wrap { perspective:700px; cursor:pointer; }
+    .pc-card { position:relative; width:100%; padding-top:142%; transform-style:preserve-3d; transition:transform 0.6s cubic-bezier(0.23,1,0.32,1); border-radius:0; }
     .pc-card.flipped { transform:rotateY(180deg); }
     .pc-front, .pc-back { position:absolute; inset:0; border-radius:0; backface-visibility:hidden; overflow:hidden; }
-    .pc-front { display:flex; flex-direction:column; }
-    .pc-back { transform:rotateY(180deg); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:12px 10px; text-align:center; }
-    .pc-img-wrap { flex:1; overflow:hidden; position:relative; }
-    .pc-img-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
-    .pc-img-overlay { position:absolute; inset:0; background:linear-gradient(to bottom,transparent 55%,rgba(0,0,0,0.55) 100%); }
-    .pc-front-bottom { padding:6px 7px; background:rgba(0,0,0,0.72); }
-    .pc-title { font-size:11px; font-weight:800; color:#fff; letter-spacing:0.04em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .pc-subtitle { font-size:9px; color:rgba(255,255,255,0.6); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .pc-rarity-badge { position:absolute; top:6px; right:6px; font-size:9px; font-weight:800; padding:2px 5px; border-radius:4px; letter-spacing:0.06em; }
-    .pc-locked-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.28); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; border-radius:0; backdrop-filter:blur(0); }
-    .pc-lock-icon { font-size:18px; filter:drop-shadow(0 1px 4px rgba(0,0,0,0.6)); }
-    .pc-lock-hint { font-size:9px; color:rgba(255,255,255,0.75); text-align:center; line-height:1.4; padding:0 6px; text-shadow:0 1px 3px rgba(0,0,0,0.8); }
-    .pc-back-quote { font-size:11px; color:#fff; line-height:1.7; font-style:italic; margin-bottom:8px; }
-    .pc-back-rarity { font-size:10px; font-weight:800; letter-spacing:0.08em; }
-    .pc-back-tap { font-size:9px; color:rgba(255,255,255,0.45); margin-top:10px; }
+
+    /* ── FRONT ── */
+    .pc-front { background:#111; }
+    .pc-img-wrap { position:absolute; inset:0; }
+    .pc-img-wrap img { width:100%; height:100%; object-fit:cover; display:block; transition:filter 0.3s; }
+    /* cinematic gradient — taller fade */
+    .pc-img-overlay { position:absolute; inset:0; background:linear-gradient(to bottom, transparent 38%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.88) 100%); }
+    /* rarity badge — top left, glass pill */
+    .pc-rarity-badge { position:absolute; top:7px; left:7px; font-family:'JetBrains Mono',monospace; font-size:8px; font-weight:800; padding:2px 6px; border-radius:3px; letter-spacing:0.1em; background:rgba(0,0,0,0.45); border:1px solid rgba(255,255,255,0.22); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+    /* bottom info — overlaid on image */
+    .pc-info { position:absolute; bottom:0; left:0; right:0; padding:0 7px 7px; }
+    .pc-title { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; color:#fff; letter-spacing:0.05em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-shadow:0 1px 6px rgba(0,0,0,0.9); }
+    .pc-card-id { font-family:'JetBrains Mono',monospace; font-size:7.5px; color:rgba(255,255,255,0.38); letter-spacing:0.04em; margin-top:2px; }
+
+    /* ── HOLOGRAPHIC SHIMMER (SSR/UR) ── */
+    @keyframes pcHolo { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+    .pc-holo { position:absolute; inset:0; opacity:0; pointer-events:none; background:linear-gradient(115deg, transparent 20%, rgba(255,200,100,0.08) 35%, rgba(255,100,200,0.08) 50%, rgba(100,200,255,0.08) 65%, transparent 80%); background-size:200% 200%; animation:pcHolo 3.5s ease infinite; }
+    .pc-card-wrap[data-rarity="SSR"] .pc-holo,
+    .pc-card-wrap[data-rarity="UR"]  .pc-holo { opacity:1; }
+
+    /* ── GLITCH LOCKED STATE ── */
+    @keyframes pcGlitchImg {
+      0%,84%   { transform:translate(0,0); clip-path:none; }
+      85%      { transform:translate(-3px,0); clip-path:inset(8% 0 88% 0); }
+      86%      { transform:translate(3px,1px); clip-path:inset(60% 0 28% 0); }
+      87%      { transform:translate(0,0); clip-path:none; }
+      92%      { transform:translate(0,0); clip-path:none; }
+      93%      { transform:translate(2px,-1px); clip-path:inset(33% 0 55% 0); }
+      94%      { transform:translate(-2px,0); clip-path:inset(74% 0 14% 0); }
+      95%,100% { transform:translate(0,0); clip-path:none; }
+    }
+    @keyframes pcGlitchFlicker { 0%,83%,100%{opacity:1} 84%{opacity:.5} 86%{opacity:.9} 88%{opacity:.3} 90%{opacity:.95} }
+    @keyframes pcScanMove { from{background-position:0 0} to{background-position:0 4px} }
+    @keyframes pcLockText {
+      0%,84%,100% { letter-spacing:.16em; text-shadow:none; opacity:1; }
+      85%  { letter-spacing:.22em; text-shadow:2px 0 #ff003c,-2px 0 #00e5ff; opacity:.9; }
+      87%  { letter-spacing:.10em; text-shadow:-2px 0 #ff003c,2px 0 #00e5ff; opacity:1; }
+      89%  { letter-spacing:.16em; text-shadow:none; }
+    }
+    @keyframes pcGlitchR { 0%,84%,100%{opacity:0;transform:translate(0)} 85%,87%{opacity:.3;transform:translate(4px,0)} 86%{opacity:.4;transform:translate(-4px,0)} }
+    @keyframes pcGlitchC { 0%,84%,100%{opacity:0;transform:translate(0)} 85%{opacity:.28;transform:translate(-3px,0)} 86%,87%{opacity:.32;transform:translate(3px,0)} }
+
+    .pc-locked .pc-img-wrap img { filter:saturate(0) brightness(0.45)!important; animation:pcGlitchImg 2.8s steps(1) infinite; }
+
+    /* glitch overlay */
+    .pc-glitch-overlay { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; animation:pcGlitchFlicker 2.8s steps(1) infinite; }
+    /* scanlines */
+    .pc-glitch-overlay::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.18) 2px,rgba(0,0,0,0.18) 4px); background-size:100% 4px; animation:pcScanMove 0.5s linear infinite; pointer-events:none; }
+    /* RGB red channel */
+    .pc-glitch-r { position:absolute; inset:0; background:rgba(255,0,60,0.07); mix-blend-mode:screen; animation:pcGlitchR 2.8s steps(1) infinite; pointer-events:none; }
+    /* RGB cyan channel */
+    .pc-glitch-c { position:absolute; inset:0; background:rgba(0,229,255,0.07); mix-blend-mode:screen; animation:pcGlitchC 2.8s steps(1) infinite; pointer-events:none; }
+    /* lock text */
+    .pc-lock-label { font-family:'JetBrains Mono',monospace; font-size:8px; font-weight:800; letter-spacing:.16em; color:rgba(255,255,255,0.72); text-transform:uppercase; animation:pcLockText 2.8s steps(1) infinite; text-shadow:0 0 8px rgba(255,255,255,0.3); position:relative; z-index:2; }
+    .pc-lock-bar { width:18px; height:1px; background:rgba(255,255,255,0.3); margin:5px auto 0; position:relative; z-index:2; }
+
+    /* ── BACK ── */
+    .pc-back { transform:rotateY(180deg); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 10px; text-align:center; background:#07070F; }
+    .pc-back-stripe { position:absolute; left:0; top:0; bottom:0; width:3px; }
+    .pc-back-code { font-family:'JetBrains Mono',monospace; font-size:8px; font-weight:700; letter-spacing:0.14em; color:rgba(255,255,255,0.35); text-transform:uppercase; margin-bottom:8px; }
+    .pc-back-quote { font-size:12px; color:rgba(255,255,255,0.88); line-height:1.8; font-style:italic; margin-bottom:10px; letter-spacing:0.01em; }
+    .pc-back-divider { width:32px; height:1px; background:rgba(255,255,255,0.15); margin:0 auto 8px; }
+    .pc-back-rarity { font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:800; letter-spacing:0.1em; }
+    .pc-back-tap { font-family:'JetBrains Mono',monospace; font-size:7px; color:rgba(255,255,255,0.28); margin-top:10px; letter-spacing:0.12em; text-transform:uppercase; }
     .pc-collection-bar { margin:0 14px 14px; background:rgba(0,0,0,0.06); border-radius:8px; overflow:hidden; height:5px; }
     .pc-collection-fill { height:100%; border-radius:8px; transition:width 0.4s ease; }
     /* ── 다이어리 탭 ── */
@@ -9395,34 +9445,36 @@ function renderCardTab(key) {
     const unlocked = isCardUnlocked(card, db, key);
     const r = RARITY[card.rarity];
     return `
-    <div class="pc-card-wrap" onclick="flipCard('${card.id}')">
-      <div class="pc-card" id="pc-${card.id}" style="box-shadow:0 3px 14px ${unlocked ? r.glow : 'rgba(0,0,0,0.12)'}">
+    <div class="pc-card-wrap ${!unlocked ? 'pc-locked' : ''}" data-rarity="${card.rarity}" onclick="flipCard('${card.id}')">
+      <div class="pc-card" id="pc-${card.id}" style="box-shadow:0 2px 12px ${unlocked ? r.glow : 'rgba(0,0,0,0.5)'}">
         <!-- 앞면 -->
-        <div class="pc-front" style="background:${r.bg}">
+        <div class="pc-front">
           <div class="pc-img-wrap">
-            <img src="${m.photo}" alt="${m.name}" style="filter:${unlocked ? card.filter : `blur(8px) saturate(0) brightness(0.45) ${card.filter}`}">
+            <img src="${m.photo}" alt="${m.name}" style="filter:${card.filter}">
             <div class="pc-img-overlay"></div>
-            <!-- 희귀도 배지 -->
-            <div class="pc-rarity-badge" style="background:${r.bg};color:${r.color};border:1px solid ${r.color}">${r.label}</div>
+            <div class="pc-holo"></div>
+            <div class="pc-rarity-badge" style="color:${r.color}">${r.label}</div>
+            <div class="pc-info">
+              <div class="pc-title">${card.title}</div>
+              <div class="pc-card-id">${card.id.toUpperCase()}</div>
+            </div>
+            ${!unlocked ? `
+            <div class="pc-glitch-overlay">
+              <div class="pc-glitch-r"></div>
+              <div class="pc-glitch-c"></div>
+              <div class="pc-lock-label">LOCKED</div>
+              <div class="pc-lock-bar"></div>
+            </div>` : ''}
           </div>
-          <div class="pc-front-bottom">
-            <div class="pc-title">${card.title}</div>
-            <div class="pc-subtitle">${card.subtitle}</div>
-          </div>
-          ${!unlocked ? `
-          <div class="pc-locked-overlay">
-            <div class="pc-lock-icon">🔒</div>
-            <div class="pc-lock-hint">${unlockHint(card)}</div>
-          </div>` : ''}
         </div>
         <!-- 뒷면 -->
-        <div class="pc-back" style="background:${r.bg}">
-          <div style="font-size:22px;margin-bottom:6px">${m.element}</div>
-          <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.5);letter-spacing:0.1em;margin-bottom:8px">${key}</div>
+        <div class="pc-back">
+          <div class="pc-back-stripe" style="background:${r.color}"></div>
+          <div class="pc-back-code">${key} · ${m.element}</div>
           <div class="pc-back-quote">"${card.quote}"</div>
-          <div style="height:1px;background:rgba(255,255,255,0.2);width:60%;margin-bottom:8px"></div>
-          <div class="pc-back-rarity" style="color:${r.color}">${r.label} · ${card.title}</div>
-          <div class="pc-back-tap">탭해서 앞면 보기</div>
+          <div class="pc-back-divider"></div>
+          <div class="pc-back-rarity" style="color:${r.color}">${r.label}</div>
+          <div class="pc-back-tap">— TAP TO FLIP —</div>
         </div>
       </div>
     </div>`;
