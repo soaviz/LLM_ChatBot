@@ -13501,6 +13501,16 @@ const COMPLEX_PRELUDE = {
   'ATP-X1':  '…천천히 생각해볼게 🌿',
 };
 
+// ── 채팅 전용 이미지 (chat-images/{PREFIX}/ 정적 파일) ──────
+// 파일 명명 규칙: ara_1.png, ara_2.png ... / 이미지 추가 시 count 업데이트
+const CHAT_IMG_CFG = {
+  'ARA-462': { count:0, prefix:'ARA', id:'ara' },
+  'LUX-299': { count:0, prefix:'LUX', id:'lux' },
+  'EUR-0K':  { count:0, prefix:'EUR', id:'eur' },
+  'KIN-360': { count:0, prefix:'KIN', id:'kin' },
+  'ATP-X1':  { count:0, prefix:'ATP', id:'atp' },
+};
+
 // ── 채팅 포토카드 전송 ──────────────────────────────────────
 const CHAT_PHOTO_CFG = {
   'ARA-462': { count:20, prefix:'ARA', id:'ara' },
@@ -13541,11 +13551,14 @@ function isChatPhotoContextual(reply) {
   return CHAT_PHOTO_CONTEXT_KEYWORDS.some(k => reply.includes(k));
 }
 function pickChatPhoto(memberKey) {
-  // 채팅 전용 이미지만 사용 (venux_chatimg_extra_{mk})
-  const extras = getChatImgExtras(memberKey);
-  if (!extras.length) return null;
-  const idx = Math.floor(Math.random() * extras.length);
-  return { src: extras[idx], cardId: `chatimg_${memberKey}_${idx + 1}` };
+  // 채팅 전용 이미지 — chat-images/{PREFIX}/{id}_{n}.png 정적 파일
+  const cfg = CHAT_IMG_CFG[memberKey];
+  if (!cfg || cfg.count === 0) return null;
+  const n = Math.floor(Math.random() * cfg.count) + 1;
+  return {
+    src: `chat-images/${cfg.prefix}/${cfg.id}_${n}.png`,
+    cardId: `${cfg.id}_chat_${n}`
+  };
 }
 
 // ── 사진요청 하루 3회 제한 ─────────────────────────────────
