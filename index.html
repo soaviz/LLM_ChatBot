@@ -1165,7 +1165,7 @@
     /* ============================================ */
 
     /* Chat screen — fullscreen overlay, above tab bar */
-    .chat-screen { position:fixed; inset:0; z-index:2000; display:flex; flex-direction:column; background:#F5F3FF; transform:translateX(100%); transition:transform 0.3s cubic-bezier(0.32,0.72,0,1); }
+    .chat-screen { position:fixed; inset:0; z-index:2000; display:flex; flex-direction:row; background:#F5F3FF; transform:translateX(100%); transition:transform 0.3s cubic-bezier(0.32,0.72,0,1); overflow:hidden; }
     .chat-screen.open { transform:translateX(0); }
 
     /* Chat header — KakaoTalk style */
@@ -1301,6 +1301,8 @@
     .chat-bubble.member-bubble { background:white; border-radius:4px 18px 18px 18px; }
     .chat-bubble.user-bubble { border-radius:18px 4px 18px 18px; }
     .chat-bubble.sig-bubble { font-style:italic; font-size:13px; opacity:0.8; margin-top:2px; }
+    .chat-img-bubble { max-width:200px; border-radius:4px 18px 18px 18px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,0.18); animation:chatBubbleIn 0.22s ease-out; cursor:pointer; flex-shrink:0; }
+    .chat-img-bubble img { width:100%; display:block; }
 
     /* Time label */
     .chat-msg-time { font-size:11px; color:#888; align-self:flex-end; margin:0 6px; white-space:nowrap; flex-shrink:0; }
@@ -1320,6 +1322,10 @@
     .chat-chip:active { transform:scale(0.95); }
     .chat-chip.fade-out { opacity:0; transform:translateY(4px); transition:all 0.3s ease; }
     .chat-chip.fade-in { animation:chipFadeIn 0.3s ease forwards; }
+    .chat-photo-tab-bar { display:flex; align-items:center; padding:6px 12px 2px; gap:8px; flex-shrink:0; }
+    .chat-photo-tab { flex-shrink:0; padding:6px 14px; border-radius:16px; font-size:12px; font-weight:600; cursor:pointer; border:1.5px solid #ff6b9d; color:#ff6b9d; background:rgba(255,107,157,0.08); white-space:nowrap; font-family:'Noto Sans KR',sans-serif; transition:all 0.15s; letter-spacing:-0.01em; }
+    .chat-photo-tab:active { transform:scale(0.95); background:rgba(255,107,157,0.18); }
+    .chat-photo-tab.exhausted { opacity:0.4; cursor:default; border-style:dashed; }
     @keyframes chipFadeIn { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:translateY(0); } }
 
     /* Chat input bar — KakaoTalk style */
@@ -1336,7 +1342,7 @@
     .emoji-picker-grid { display:grid; grid-template-columns:repeat(8,1fr); gap:0; padding:8px 4px 12px; overflow-y:auto; flex:1; }
     .emoji-item { display:flex; align-items:center; justify-content:center; font-size:22px; height:40px; cursor:pointer; border-radius:8px; transition:background 0.1s; -webkit-tap-highlight-color:transparent; border:none; background:none; }
     .emoji-item:active { background:rgba(0,0,0,0.06); transform:scale(0.85); }
-    .chat-input-wrap textarea { width:100%; border:none; background:transparent; font-size:14px; font-family:'Noto Sans KR',sans-serif; resize:none; outline:none; line-height:1.4; max-height:80px; color:#000; }
+    .chat-input-wrap textarea { width:100%; border:none; background:transparent; font-size:14px; font-family:'Noto Sans KR',sans-serif; resize:none; outline:none; line-height:1.4; max-height:80px; color:#000; overflow:hidden; }
     .chat-input-wrap textarea::placeholder { color:#999; }
     .chat-send-btn { width:32px; height:32px; border-radius:50%; border:none; display:flex; align-items:center; justify-content:center; font-size:16px; color:white; cursor:pointer; flex-shrink:0; transition:all 0.15s; }
     .chat-send-btn:active { transform:scale(0.9); }
@@ -1345,6 +1351,31 @@
     /* Action sheet (+) */
     .chat-action-sheet { position:fixed; bottom:0; left:0; right:0; z-index:2100; background:white; border-radius:20px 20px 0 0; box-shadow:0 -2px 10px rgba(0,0,0,0.1); padding:20px; transform:translateY(100%); transition:transform 0.3s cubic-bezier(0.32,0.72,0,1); }
     .chat-action-sheet.open { transform:translateY(0); }
+
+    /* ── 채팅방 사진 서랍 ── */
+    .chat-main { flex:1; display:flex; flex-direction:column; overflow:hidden; min-width:0; }
+    .chat-drawer { width:0; flex-shrink:0; display:flex; flex-direction:column; overflow:hidden; transition:width 0.32s cubic-bezier(0.32,0.72,0,1); border-left:1px solid rgba(0,0,0,0.08); background:#f8f8fb; }
+    .chat-drawer.open { width:280px; }
+    .chat-drawer-topbar { display:flex; align-items:center; justify-content:space-between; padding:14px 12px 14px 18px; flex-shrink:0; border-bottom:1px solid rgba(0,0,0,0.07); }
+    .chat-drawer-topbar-title { font-size:16px; font-weight:700; }
+    .chat-drawer-close { width:36px; height:36px; border:none; background:none; cursor:pointer; display:flex; align-items:center; justify-content:center; border-radius:50%; }
+    .chat-drawer-scroll { flex:1; overflow-y:auto; padding:0 0 40px; }
+    .chat-drawer-profile-section { display:flex; flex-direction:column; align-items:center; padding:24px 16px 20px; }
+    .chat-drawer-avatar { width:60px; height:60px; border-radius:50%; overflow:hidden; margin-bottom:8px; }
+    .chat-drawer-avatar img { width:100%; height:100%; object-fit:cover; }
+    .chat-drawer-member-name { font-size:18px; font-weight:700; margin-bottom:2px; }
+    .chat-drawer-member-code { font-family:'JetBrains Mono',monospace; font-size:12px; opacity:0.5; }
+    .chat-drawer-section { margin:0 12px 8px; border-radius:14px; overflow:hidden; }
+    .chat-drawer-section-title { font-size:13px; font-weight:600; padding:14px 16px 8px; opacity:0.6; }
+    .chat-drawer-photo-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; padding:0 2px 2px; }
+    .chat-drawer-photo-item { aspect-ratio:1; overflow:hidden; cursor:pointer; position:relative; }
+    .chat-drawer-photo-item img { width:100%; height:100%; object-fit:cover; transition:transform 0.2s; }
+    .chat-drawer-photo-item:active img { transform:scale(0.96); }
+    .chat-drawer-empty { padding:24px; text-align:center; font-size:13px; opacity:0.4; }
+    .chat-drawer-user-row { display:flex; align-items:center; gap:12px; padding:12px 16px; }
+    .chat-drawer-user-avatar { width:42px; height:42px; border-radius:50%; overflow:hidden; flex-shrink:0; }
+    .chat-drawer-user-avatar img { width:100%; height:100%; object-fit:cover; }
+    .chat-drawer-user-name { font-size:15px; font-weight:600; }
     .chat-action-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
     .chat-action-item { display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; padding:12px; border-radius:12px; transition:background 0.15s; }
     .chat-action-item:active { background:#f5f3ff; }
@@ -2945,6 +2976,17 @@
     /* Body — show cosmic bg through */
     .chat-body { background: transparent !important; }
 
+    /* 사진 서랍 다크모드 */
+    .chat-drawer { background: var(--vx-bg2) !important; border-left-color: var(--vx-line) !important; }
+    .chat-drawer-topbar { border-bottom-color: var(--vx-line) !important; }
+    .chat-drawer-topbar-title { color: var(--vx-text) !important; }
+    .chat-drawer-close { color: var(--vx-text-2) !important; }
+    .chat-drawer-member-name { color: var(--vx-text) !important; }
+    .chat-drawer-section { background: var(--vx-bg3) !important; }
+    .chat-drawer-section-title { color: var(--vx-text-2) !important; }
+    .chat-drawer-user-name { color: var(--vx-text) !important; }
+    .chat-drawer-empty { color: var(--vx-text-2) !important; }
+
     /* Bubbles */
     .chat-bubble {
       box-shadow: 0 4px 14px rgba(0,0,0,0.35) !important;
@@ -2977,6 +3019,7 @@
 
     /* Suggested chips — dark + pink/purple border */
     .chat-chips { background: transparent !important; }
+    .chat-photo-tab { border-color:#ff6b9d !important; color:#ff9dc0 !important; background:rgba(255,107,157,0.12) !important; }
     .chat-chip {
       background: rgba(255,255,255,0.04) !important;
       color: #FFFFFF !important;
@@ -4975,6 +5018,7 @@ function vxCamShoot(){
 
 <!-- 1:1 CHAT SCREEN -->
 <div class="chat-screen" id="chatScreen">
+  <div class="chat-main">
   <div class="chat-header">
     <button class="chat-back" onclick="closeChatRoom()">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -4990,10 +5034,19 @@ function vxCamShoot(){
       </div>
     </div>
     <div class="chat-header-actions">
-      <button class="chat-header-btn" onclick="openGroupFromChat()" title="그룹 모드">👥</button>
+      <button class="chat-header-btn" onclick="toggleChatDrawer()" title="사진첩">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+          <rect x="3" y="3" width="18" height="18" rx="3"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+      </button>
     </div>
   </div>
   <div class="chat-body" id="chatBody"></div>
+  <div class="chat-photo-tab-bar" id="chatPhotoTabBar">
+    <button class="chat-photo-tab" id="chatPhotoTabBtn" onclick="onPhotoTabClick()">📸 사진요청 <span id="chatPhotoTabCount"></span></button>
+  </div>
   <div class="chat-chips" id="chatChips"></div>
   <div class="chat-input-bar">
     <button class="chat-plus-btn" onclick="toggleChatActions()">+</button>
@@ -5015,7 +5068,29 @@ function vxCamShoot(){
     </div>
     <button class="chat-send-btn" id="chatSendBtn" onclick="sendChatMessage()" disabled>➤</button>
   </div>
-</div>
+  </div><!-- /chat-main -->
+
+  <!-- 채팅방 사진 서랍 -->
+  <div class="chat-drawer" id="chatDrawer">
+    <div class="chat-drawer-topbar">
+      <button class="chat-drawer-close" onclick="closeChatDrawer()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <span class="chat-drawer-topbar-title">채팅방 정보</span>
+    </div>
+    <div class="chat-drawer-scroll">
+      <div class="chat-drawer-profile-section" id="chatDrawerProfile"></div>
+      <div class="chat-drawer-section" id="chatDrawerPhotoSection">
+        <div class="chat-drawer-section-title">사진</div>
+        <div class="chat-drawer-photo-grid" id="chatDrawerPhotoGrid"></div>
+      </div>
+      <div class="chat-drawer-section" style="margin-top:8px" id="chatDrawerUserSection">
+        <div class="chat-drawer-section-title">대화상대</div>
+        <div id="chatDrawerUserRow"></div>
+      </div>
+    </div>
+  </div>
+</div><!-- /chat-screen -->
 
 <!-- Chat action sheet -->
 <div class="chat-action-overlay" id="chatActionOverlay" onclick="toggleChatActions()"></div>
@@ -13112,6 +13187,121 @@ const COMPLEX_PRELUDE = {
   'ATP-X1':  '…천천히 생각해볼게 🌿',
 };
 
+// ── 채팅 포토카드 전송 ──────────────────────────────────────
+const CHAT_PHOTO_CFG = {
+  'ARA-462': { count:20, prefix:'ARA', id:'ara' },
+  'LUX-299': { count:20, prefix:'LUX', id:'lux' },
+  'EUR-0K':  { count:29, prefix:'EUR', id:'eur' },
+  'KIN-360': { count:20, prefix:'KIN', id:'kin' },
+  'ATP-X1':  { count:32, prefix:'ATP', id:'atp' },
+};
+// 사용자가 명시적으로 요청하는 키워드
+const CHAT_PHOTO_KEYWORDS = [
+  '사진','셀카','포토카드','찍어줘','찍어봐','얼굴 보여','모습 보여',
+  '지금 어때','지금 뭐 해','지금 뭐해','뭐하고 있어','뭐 하고 있어',
+  '보고싶어','보고 싶어','사진 줘','사진 보내','지금 어디야','지금 어디 있어',
+  '뭐 입고 있어','어떻게 생겼어','오늘 어때','지금 상태 어때'
+];
+
+// 멤버 답변 맥락에서 자연스럽게 사진 보낼 만한 상황 키워드
+const CHAT_PHOTO_CONTEXT_KEYWORDS = [
+  '연습실','연습 중','연습하고','연습 끝','운동 중','운동하고',
+  '카페 왔','카페에 있','카페에서','산책 중','산책하고','산책 나왔',
+  '무대 끝','공연 끝','공연 전','무대 전','백스테이지',
+  '쉬는 날','오늘 쉬어','오늘은 쉬','쉬고 있어',
+  '밥 먹고','밥 먹었','먹고 있어','지금 먹','맛있는 거',
+  '날씨 좋','하늘 예쁘','오늘 날씨','노을','벚꽃','눈 온다',
+  '이거 봐봐','봐봐','찍었어','찍어봤','보여줄게','보내줄게',
+  '지금 여기','지금 이 곳','지금 여기서',
+  '거울 보','입어봤','새 옷','새로 샀',
+  '오늘 이렇게','이런 모습','이런 날'
+];
+
+function isChatPhotoTrigger(text) {
+  const t = text;
+  return CHAT_PHOTO_KEYWORDS.some(k => t.includes(k));
+}
+
+// 멤버 reply 맥락 기반 — 확률 40%로 자연스럽게 전송
+function isChatPhotoContextual(reply) {
+  return CHAT_PHOTO_CONTEXT_KEYWORDS.some(k => reply.includes(k));
+}
+function pickChatPhoto(memberKey) {
+  const cfg = CHAT_PHOTO_CFG[memberKey];
+  if (!cfg) return null;
+  const n = Math.floor(Math.random() * cfg.count) + 1;
+  const cardId = `${cfg.id}_c${n}`;
+  const src = `photocards/${cfg.prefix}/${cardId}.png`;
+  return { src, cardId };
+}
+
+// ── 사진요청 하루 3회 제한 ─────────────────────────────────
+const PHOTO_REQ_MAX = 3;
+
+function _photoReqKey(memberKey) {
+  const d = new Date().toISOString().slice(0,10);
+  return `venux_photoreq_${memberKey}_${d}`;
+}
+function getPhotoReqCount(memberKey) {
+  return parseInt(localStorage.getItem(_photoReqKey(memberKey)) || '0', 10);
+}
+function incPhotoReqCount(memberKey) {
+  const key = _photoReqKey(memberKey);
+  const v = parseInt(localStorage.getItem(key) || '0', 10) + 1;
+  localStorage.setItem(key, v);
+  return v;
+}
+function canRequestPhoto(memberKey) {
+  return getPhotoReqCount(memberKey) < PHOTO_REQ_MAX;
+}
+
+// 탭 UI 업데이트
+function updatePhotoTabUI(memberKey) {
+  const btn = document.getElementById('chatPhotoTabBtn');
+  const cnt = document.getElementById('chatPhotoTabCount');
+  if (!btn || !memberKey) return;
+  const used = getPhotoReqCount(memberKey);
+  const left = PHOTO_REQ_MAX - used;
+  cnt.textContent = `${left}/${PHOTO_REQ_MAX}`;
+  if (left <= 0) {
+    btn.classList.add('exhausted');
+    btn.title = '오늘 사진요청 횟수를 모두 사용했어요';
+  } else {
+    btn.classList.remove('exhausted');
+    btn.title = '';
+  }
+}
+
+// 탭 클릭 핸들러
+function onPhotoTabClick() {
+  if (!currentChatMember) return;
+  const body = document.getElementById('chatBody');
+  const now = new Date().toISOString();
+  const m = memberData[currentChatMember];
+
+  // 1) 하루 3회 초과 체크
+  if (!canRequestPhoto(currentChatMember)) {
+    body.innerHTML += `<div class="chat-msg-row member">
+      <div class="chat-msg-avatar"><img src="${m.photo}" alt=""></div>
+      <div class="chat-bubble member-bubble" style="font-size:13px;opacity:0.8">오늘 사진은 이미 다 보냈어. 내일 또 보여줄게 🙈</div>
+      <span class="chat-msg-time">${formatChatTime(now)}</span>
+    </div>`;
+    body.scrollTop = body.scrollHeight;
+    return;
+  }
+
+  // 2) 코인 차감 (selfie 코인 1개) — BYOK면 무료
+  if (window.vxDeductCoin && !window.vxDeductCoin('selfie')) {
+    if (window.openCoinPaywall) window.openCoinPaywall('selfie');
+    return;
+  }
+
+  // 3) 사진요청 전송
+  document.getElementById('chatInput').value = '사진 보내줘';
+  onChatInput();
+  sendChatMessage();
+}
+
 
 // Load/save chat history
 function loadChatHistory(memberKey) {
@@ -13594,6 +13784,9 @@ function openChatRoom(memberKey) {
   // Render messages
   renderChatMessages(memberKey);
 
+  // 사진요청 탭 UI 초기화
+  updatePhotoTabUI(memberKey);
+
   // Open
   document.getElementById('chatScreen').classList.add('open');
   document.getElementById('tabBar').style.display = 'none';
@@ -13605,7 +13798,73 @@ function openChatRoom(memberKey) {
   }, 100);
 }
 
+// ── 채팅방 사진 서랍 ─────────────────────────────────────────
+function openChatDrawer() {
+  if (!currentChatMember) return;
+  const memberKey = currentChatMember;
+  const m = memberData[memberKey];
+  const history = loadChatHistory(memberKey);
+
+  // 멤버 프로필
+  const colors = CHAT_COLORS[memberKey];
+  document.getElementById('chatDrawerProfile').innerHTML = `
+    <div class="chat-drawer-avatar"><img src="${m.photo}" alt="${m.name}"></div>
+    <div class="chat-drawer-member-name" style="color:${m.badgeColor}">${m.name}</div>
+    <div class="chat-drawer-member-code">${memberKey}</div>`;
+
+  // 사진 그리드 — history에서 isPhoto 항목만
+  const photos = history.filter(msg => msg.isPhoto);
+  const grid = document.getElementById('chatDrawerPhotoGrid');
+  if (photos.length === 0) {
+    grid.innerHTML = '';
+    document.getElementById('chatDrawerPhotoSection').querySelector('.chat-drawer-section-title').textContent = '사진 (0)';
+    grid.innerHTML = '<div class="chat-drawer-empty" style="grid-column:1/-1">아직 주고받은 사진이 없어요</div>';
+  } else {
+    document.getElementById('chatDrawerPhotoSection').querySelector('.chat-drawer-section-title').textContent = `사진 (${photos.length})`;
+    grid.innerHTML = photos.slice().reverse().map(msg =>
+      `<div class="chat-drawer-photo-item" onclick="openCardLightbox('${msg.cardId}','${memberKey}')">
+         <img src="${msg.text}" alt="photo" loading="lazy">
+       </div>`
+    ).join('');
+  }
+
+  // 대화상대 (유저 + 멤버)
+  const userPhoto = localStorage.getItem('venux_user_photo') || '';
+  const userName = localStorage.getItem('venux_user_name') || '나';
+  document.getElementById('chatDrawerUserRow').innerHTML = `
+    <div class="chat-drawer-user-row" style="display:flex;align-items:center;gap:10px;padding:10px 14px;">
+      <div class="chat-drawer-user-avatar">
+        ${userPhoto
+          ? `<img src="${userPhoto}" alt="me">`
+          : `<div style="width:100%;height:100%;background:${colors.userBubble};display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff">${userName[0]||'나'}</div>`}
+      </div>
+      <div class="chat-drawer-user-name">${userName} <span style="font-size:11px;opacity:0.4;font-weight:400">나</span></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;">
+      <div class="chat-drawer-user-avatar" style="border:2px solid ${m.badgeColor}">
+        <img src="${m.photo}" alt="${m.name}">
+      </div>
+      <div class="chat-drawer-user-name" style="color:${m.badgeColor}">${m.name} <span style="font-size:11px;opacity:0.5;font-weight:400;color:inherit">${memberKey}</span></div>
+    </div>`;
+
+  document.getElementById('chatDrawer').classList.add('open');
+}
+
+function closeChatDrawer() {
+  document.getElementById('chatDrawer').classList.remove('open');
+}
+
+function toggleChatDrawer() {
+  const drawer = document.getElementById('chatDrawer');
+  if (drawer.classList.contains('open')) {
+    closeChatDrawer();
+  } else {
+    openChatDrawer();
+  }
+}
+
 function closeChatRoom() {
+  closeChatDrawer();
   stopChipRotation();
   document.getElementById('chatScreen').classList.remove('open');
   document.getElementById('tabBar').style.display = 'flex';
@@ -13727,11 +13986,19 @@ function renderChatMessages(memberKey) {
     if (msg.role === 'member') {
       const showAvatar = lastRole !== 'member';
       const m = memberData[memberKey];
-      html += `<div class="chat-msg-row member">
-        <div class="chat-msg-avatar" style="${showAvatar?'':'visibility:hidden'}"><img src="${m.photo}" alt="${m.letter}"></div>
-        <div class="chat-bubble member-bubble${msg.isSig?' sig-bubble':''}" style="${msg.isSig?'color:'+m.badgeColor:''}">${msg.text}</div>
-        ${timeStr}
-      </div>`;
+      if (msg.isPhoto) {
+        html += `<div class="chat-msg-row member">
+          <div class="chat-msg-avatar" style="${showAvatar?'':'visibility:hidden'}"><img src="${m.photo}" alt="${m.letter}"></div>
+          <div class="chat-img-bubble" onclick="openCardLightbox('${msg.cardId}','${memberKey}')"><img src="${msg.text}" alt="photo"></div>
+          ${timeStr}
+        </div>`;
+      } else {
+        html += `<div class="chat-msg-row member">
+          <div class="chat-msg-avatar" style="${showAvatar?'':'visibility:hidden'}"><img src="${m.photo}" alt="${m.letter}"></div>
+          <div class="chat-bubble member-bubble${msg.isSig?' sig-bubble':''}" style="${msg.isSig?'color:'+m.badgeColor:''}">${msg.text}</div>
+          ${timeStr}
+        </div>`;
+      }
     } else {
       const colors = CHAT_COLORS[memberKey];
       html += `<div class="chat-msg-row user">
@@ -13747,7 +14014,7 @@ function renderChatMessages(memberKey) {
 
 function onChatInput() {
   const ta = document.getElementById('chatInput');
-  ta.style.height = 'auto';
+  ta.style.height = '0';
   ta.style.height = Math.min(ta.scrollHeight, 80) + 'px';
   document.getElementById('chatSendBtn').disabled = !ta.value.trim();
 }
@@ -13942,6 +14209,30 @@ async function sendChatMessage() {
   // Remove typing indicator
   const typingEl = document.getElementById('chatTyping');
   if (typingEl) typingEl.remove();
+
+  // 📸 포토카드 전송: 명시 요청(100%) or 맥락 자연 발송(40%)
+  const _photoExplicit = isChatPhotoTrigger(text);
+  const _photoContextual = !_photoExplicit && isChatPhotoContextual(reply) && Math.random() < 0.40;
+  if (_photoExplicit || _photoContextual) {
+    const photo = pickChatPhoto(memberKey);
+    if (photo) {
+      const imgTime = new Date().toISOString();
+      body.innerHTML += `<div class="chat-msg-row member">
+        <div class="chat-msg-avatar"><img src="${m.photo}" alt="${m.letter}"></div>
+        <div class="chat-img-bubble" onclick="openCardLightbox('${photo.cardId}','${memberKey}')">
+          <img src="${photo.src}" alt="photo">
+        </div>
+        <span class="chat-msg-time">${formatChatTime(imgTime)}</span>
+      </div>`;
+      body.scrollTop = body.scrollHeight;
+      // 사진 히스토리 저장 + 요청 카운트 차감
+      history.push({ role:'member', text: photo.src, isPhoto: true, cardId: photo.cardId, timestamp: imgTime });
+      saveChatHistory(memberKey, history);
+      if (_photoExplicit) { incPhotoReqCount(memberKey); updatePhotoTabUI(memberKey); }
+      // 이미지 → 텍스트 사이 자연스러운 텀 (700~1200ms)
+      await new Promise(r => setTimeout(r, 700 + Math.random() * 500));
+    }
+  }
 
   // Parse signature line
   let mainReply = reply;
