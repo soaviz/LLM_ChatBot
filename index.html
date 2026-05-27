@@ -901,6 +901,14 @@
     .admin-input { width:100%; padding:12px 14px; border:1px solid rgba(255,255,255,0.12); border-radius:12px; font-size:14px; font-family:'Noto Sans KR',sans-serif; margin-bottom:10px; box-sizing:border-box; transition:border-color 0.2s; outline:none; background:rgba(255,255,255,0.06); color:#fff; }
     .admin-input:focus { border-color:rgba(167,139,250,0.6); background:rgba(255,255,255,0.09); }
     .admin-input::placeholder { color:rgba(255,255,255,0.3); }
+    .cimg-tab { padding:6px 14px; border-radius:20px; font-size:12px; font-weight:700; cursor:pointer; border:1.5px solid #e0dce8; background:#fff; color:#888; font-family:'JetBrains Mono',monospace; transition:all 0.15s; }
+    .cimg-tab.active { background:#6B5BD6; border-color:#6B5BD6; color:#fff; }
+    .cimg-item { aspect-ratio:1; border-radius:8px; overflow:hidden; position:relative; cursor:pointer; }
+    .cimg-item img { width:100%; height:100%; object-fit:cover; display:block; }
+    .cimg-item .cimg-del { position:absolute; top:3px; right:3px; width:18px; height:18px; border-radius:50%; background:rgba(0,0,0,0.6); color:#fff; font-size:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; opacity:0; transition:opacity 0.15s; border:none; line-height:1; }
+    .cimg-item:hover .cimg-del { opacity:1; }
+    .cimg-item.static-img .cimg-del { display:none; }
+    .cimg-item .cimg-badge { position:absolute; bottom:3px; left:3px; font-size:9px; font-family:'JetBrains Mono',monospace; background:rgba(0,0,0,0.55); color:#fff; padding:1px 4px; border-radius:4px; }
     .admin-btn { width:100%; padding:13px; border:none; border-radius:14px; font-size:14px; font-weight:700; cursor:pointer; transition:all 0.15s; font-family:'Noto Sans KR',sans-serif; }
     .admin-btn-primary { background:linear-gradient(135deg,rgba(167,139,250,0.9),rgba(232,121,249,0.85)); color:#fff; box-shadow:0 4px 20px rgba(167,139,250,0.3); }
     .admin-btn-primary:active { transform:scale(0.97); }
@@ -4894,6 +4902,41 @@ function vxCamShoot(){
         <div style="font-size:12px;color:#aaa;text-align:center;padding:8px">🔒 관리자 로그인 시 사진 업로드 가능</div>
       </div>
     </div>
+    <!-- ── 채팅 이미지 관리 ── -->
+    <div class="profile-info-card" id="chatImgAdminCard">
+      <div class="profile-info-label">📸 채팅 이미지 관리</div>
+      <div id="chatImgAdminSection" style="display:none;margin-top:12px">
+        <div style="font-size:13px;font-weight:600;color:#6B5BD6;margin-bottom:12px">멤버별 채팅 이미지 추가</div>
+        <!-- 멤버 탭 -->
+        <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
+          <button class="cimg-tab active" data-mk="ARA-462" onclick="selectChatImgMember(this,'ARA-462')">ARA</button>
+          <button class="cimg-tab" data-mk="LUX-299" onclick="selectChatImgMember(this,'LUX-299')">LUX</button>
+          <button class="cimg-tab" data-mk="EUR-0K" onclick="selectChatImgMember(this,'EUR-0K')">EUR</button>
+          <button class="cimg-tab" data-mk="KIN-360" onclick="selectChatImgMember(this,'KIN-360')">KIN</button>
+          <button class="cimg-tab" data-mk="ATP-X1" onclick="selectChatImgMember(this,'ATP-X1')">ATP</button>
+        </div>
+        <!-- 현황 배지 -->
+        <div id="chatImgStatBadge" style="font-size:12px;color:#888;margin-bottom:10px"></div>
+        <!-- 이미지 그리드 -->
+        <div id="chatImgGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px"></div>
+        <!-- 업로드 존 -->
+        <div class="upload-zone" id="chatImgUploadZone"
+          onclick="document.getElementById('chatImgFileInput').click()"
+          ondragover="event.preventDefault();this.classList.add('dragover')"
+          ondragleave="this.classList.remove('dragover')"
+          ondrop="event.preventDefault();this.classList.remove('dragover');handleChatImgDrop(event)">
+          <div class="upload-zone-icon">📸</div>
+          <div class="upload-zone-text">클릭 또는 드래그하여 이미지 추가</div>
+          <div class="upload-zone-hint">JPG, PNG, WEBP · 여러 장 동시 가능</div>
+        </div>
+        <input type="file" id="chatImgFileInput" accept="image/jpeg,image/png,image/webp" multiple style="display:none" onchange="handleChatImgSelect(event)">
+        <div id="chatImgUploadProgress" style="display:none;margin-top:8px;font-size:12px;color:#6B5BD6;text-align:center"></div>
+      </div>
+      <div id="chatImgAdminLocked" style="margin-top:4px">
+        <div style="font-size:12px;color:#aaa;text-align:center;padding:8px">🔒 관리자 로그인 시 이미지 관리 가능</div>
+      </div>
+    </div>
+
     <div class="profile-info-card">
       <div class="profile-info-label">🔐 관리자</div>
       <div id="settingsAdminInfo" style="margin-top:8px"></div>
@@ -10923,6 +10966,14 @@ function updateAdminUploadVisibility() {
   const photoLocked = document.getElementById('adminPhotoUploadLocked');
   if (photoSection) photoSection.style.display = session ? 'block' : 'none';
   if (photoLocked) photoLocked.style.display = session ? 'none' : 'block';
+  // 채팅 이미지 관리 섹션
+  const chatImgSection = document.getElementById('chatImgAdminSection');
+  const chatImgLocked = document.getElementById('chatImgAdminLocked');
+  if (chatImgSection) {
+    chatImgSection.style.display = session ? 'block' : 'none';
+    if (session) renderChatImgAdminGrid(_chatImgCurrentMember);
+  }
+  if (chatImgLocked) chatImgLocked.style.display = session ? 'none' : 'block';
 }
 
 // ── 관리자 멤버 프로필 사진 업로드 ─────────────────────────
@@ -10989,6 +11040,136 @@ function resetAdminPhoto() {
   document.getElementById('adminPhotoPreview').style.display = 'none';
   document.getElementById('adminPhotoSaveBtn').style.display = 'none';
   showToast('🗑️ 기본 사진으로 초기화했어요');
+}
+
+// ══════════════════════════════════════════
+// 📸 채팅 이미지 관리 (Admin)
+// ══════════════════════════════════════════
+let _chatImgCurrentMember = 'ARA-462';
+
+function getChatImgExtras(memberKey) {
+  try { return JSON.parse(localStorage.getItem('venux_chatimg_extra_' + memberKey)) || []; }
+  catch { return []; }
+}
+function saveChatImgExtras(memberKey, arr) {
+  localStorage.setItem('venux_chatimg_extra_' + memberKey, JSON.stringify(arr));
+}
+
+function selectChatImgMember(tabEl, memberKey) {
+  _chatImgCurrentMember = memberKey;
+  document.querySelectorAll('.cimg-tab').forEach(t => t.classList.remove('active'));
+  tabEl.classList.add('active');
+  renderChatImgAdminGrid(memberKey);
+}
+
+function renderChatImgAdminGrid(memberKey) {
+  const cfg = CHAT_PHOTO_CFG[memberKey];
+  if (!cfg) return;
+  const extras = getChatImgExtras(memberKey);
+  const grid = document.getElementById('chatImgGrid');
+  const badge = document.getElementById('chatImgStatBadge');
+  const total = cfg.count + extras.length;
+  badge.innerHTML = `기본 <b>${cfg.count}장</b> + 추가 <b style="color:#6B5BD6">${extras.length}장</b> = 합계 <b>${total}장</b>`;
+
+  let html = '';
+  // 기본 이미지 (static)
+  for (let i = 1; i <= cfg.count; i++) {
+    const src = `photocards/${cfg.prefix}/${cfg.id}_c${i}.png`;
+    html += `<div class="cimg-item static-img">
+      <img src="${src}" alt="c${i}" onerror="this.parentElement.style.display='none'">
+      <div class="cimg-badge">c${i}</div>
+    </div>`;
+  }
+  // 추가 이미지 (localStorage)
+  extras.forEach((dataURL, idx) => {
+    html += `<div class="cimg-item">
+      <img src="${dataURL}" alt="extra${idx}">
+      <div class="cimg-badge">+${idx+1}</div>
+      <button class="cimg-del" onclick="deleteChatImgExtra('${memberKey}',${idx})">✕</button>
+    </div>`;
+  });
+  grid.innerHTML = html;
+}
+
+function deleteChatImgExtra(memberKey, idx) {
+  const extras = getChatImgExtras(memberKey);
+  extras.splice(idx, 1);
+  saveChatImgExtras(memberKey, extras);
+  renderChatImgAdminGrid(memberKey);
+  showToast('🗑️ 이미지 삭제됨');
+}
+
+function handleChatImgSelect(event) {
+  const files = Array.from(event.target.files);
+  if (!files.length) return;
+  _processChatImgFiles(files);
+  event.target.value = '';
+}
+
+function handleChatImgDrop(event) {
+  const files = Array.from(event.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+  if (!files.length) return;
+  _processChatImgFiles(files);
+}
+
+function _processChatImgFiles(files) {
+  const prog = document.getElementById('chatImgUploadProgress');
+  prog.style.display = 'block';
+  prog.textContent = `0 / ${files.length} 처리 중…`;
+  let done = 0;
+  const extras = getChatImgExtras(_chatImgCurrentMember);
+
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      // 600×600 리사이즈
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const size = 600;
+        canvas.width = size; canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        const ratio = Math.min(size / img.width, size / img.height);
+        const w = img.width * ratio, h = img.height * ratio;
+        ctx.drawImage(img, (size - w) / 2, (size - h) / 2, w, h);
+        extras.push(canvas.toDataURL('image/jpeg', 0.88));
+        done++;
+        prog.textContent = `${done} / ${files.length} 처리 중…`;
+        if (done === files.length) {
+          saveChatImgExtras(_chatImgCurrentMember, extras);
+          renderChatImgAdminGrid(_chatImgCurrentMember);
+          prog.style.display = 'none';
+          showToast(`✅ ${files.length}장 추가됨`);
+        }
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function exportChatImages() {
+  const memberKey = _chatImgCurrentMember;
+  const extras = getChatImgExtras(memberKey);
+  if (!extras.length) { showToast('추가 이미지가 없어요'); return; }
+  extras.forEach((dataURL, i) => {
+    const a = document.createElement('a');
+    a.href = dataURL;
+    a.download = `${memberKey.split('-')[0].toLowerCase()}_extra_${i+1}.jpg`;
+    a.click();
+  });
+}
+
+function exportAllChatImages() {
+  ['ARA-462','LUX-299','EUR-0K','KIN-360','ATP-X1'].forEach(mk => {
+    const extras = getChatImgExtras(mk);
+    extras.forEach((dataURL, i) => {
+      const a = document.createElement('a');
+      a.href = dataURL;
+      a.download = `${mk.split('-')[0].toLowerCase()}_extra_${i+1}.jpg`;
+      a.click();
+    });
+  });
 }
 
 function exportGameData() {
@@ -13235,10 +13416,21 @@ function isChatPhotoContextual(reply) {
 function pickChatPhoto(memberKey) {
   const cfg = CHAT_PHOTO_CFG[memberKey];
   if (!cfg) return null;
-  const n = Math.floor(Math.random() * cfg.count) + 1;
-  const cardId = `${cfg.id}_c${n}`;
-  const src = `photocards/${cfg.prefix}/${cardId}.png`;
-  return { src, cardId };
+  // localStorage 추가 이미지 포함
+  const extras = getChatImgExtras(memberKey);
+  const totalPool = cfg.count + extras.length;
+  const n = Math.floor(Math.random() * totalPool);
+  if (n < cfg.count) {
+    // 기본 정적 파일
+    const cardId = `${cfg.id}_c${n + 1}`;
+    const src = `photocards/${cfg.prefix}/${cardId}.png`;
+    return { src, cardId };
+  } else {
+    // localStorage 추가 이미지 (base64)
+    const extraIdx = n - cfg.count;
+    const src = extras[extraIdx];
+    return { src, cardId: `${cfg.id}_extra_${extraIdx + 1}` };
+  }
 }
 
 // ── 사진요청 하루 3회 제한 ─────────────────────────────────
