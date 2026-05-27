@@ -4905,11 +4905,43 @@ function vxCamShoot(){
         <div style="font-size:12px;color:#aaa;text-align:center;padding:8px">🔒 관리자 로그인 시 사진 업로드 가능</div>
       </div>
     </div>
+    <!-- ── 포토카드 추가 ── -->
+    <div class="profile-info-card" id="pcardAdminCard">
+      <div class="profile-info-label">🃏 포토카드 추가</div>
+      <div id="pcardAdminSection" style="display:none;margin-top:12px">
+        <div style="font-size:13px;font-weight:600;color:#6B5BD6;margin-bottom:4px">프로필 포토카드 탭에 표시</div>
+        <div style="font-size:11px;color:#aaa;margin-bottom:12px">채팅 이미지와 별도로 관리됩니다</div>
+        <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
+          <button class="cimg-tab pcard-tab active" data-mk="ARA-462" onclick="selectPcardMember(this,'ARA-462')">ARA</button>
+          <button class="cimg-tab pcard-tab" data-mk="LUX-299" onclick="selectPcardMember(this,'LUX-299')">LUX</button>
+          <button class="cimg-tab pcard-tab" data-mk="EUR-0K" onclick="selectPcardMember(this,'EUR-0K')">EUR</button>
+          <button class="cimg-tab pcard-tab" data-mk="KIN-360" onclick="selectPcardMember(this,'KIN-360')">KIN</button>
+          <button class="cimg-tab pcard-tab" data-mk="ATP-X1" onclick="selectPcardMember(this,'ATP-X1')">ATP</button>
+        </div>
+        <div id="pcardImgStatBadge" style="font-size:12px;color:#888;margin-bottom:10px"></div>
+        <div id="pcardImgGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px"></div>
+        <div class="upload-zone"
+          onclick="document.getElementById('pcardFileInput').click()"
+          ondragover="event.preventDefault();this.classList.add('dragover')"
+          ondragleave="this.classList.remove('dragover')"
+          ondrop="event.preventDefault();this.classList.remove('dragover');handlePcardDrop(event)">
+          <div class="upload-zone-icon">🃏</div>
+          <div class="upload-zone-text">클릭 또는 드래그하여 포토카드 추가</div>
+          <div class="upload-zone-hint">JPG, PNG, WEBP · 프로필 포토카드 탭에 표시</div>
+        </div>
+        <input type="file" id="pcardFileInput" accept="image/jpeg,image/png,image/webp" multiple style="display:none" onchange="handlePcardImgSelect(event)">
+        <div id="pcardUploadProgress" style="display:none;margin-top:8px;font-size:12px;color:#6B5BD6;text-align:center"></div>
+      </div>
+      <div id="pcardAdminLocked" style="margin-top:4px">
+        <div style="font-size:12px;color:#aaa;text-align:center;padding:8px">🔒 관리자 로그인 시 포토카드 관리 가능</div>
+      </div>
+    </div>
     <!-- ── 채팅 이미지 관리 ── -->
     <div class="profile-info-card" id="chatImgAdminCard">
       <div class="profile-info-label">📸 채팅 이미지 관리</div>
       <div id="chatImgAdminSection" style="display:none;margin-top:12px">
-        <div style="font-size:13px;font-weight:600;color:#6B5BD6;margin-bottom:12px">멤버별 채팅 이미지 추가</div>
+        <div style="font-size:13px;font-weight:600;color:#6B5BD6;margin-bottom:4px">채팅 중 랜덤 전송되는 이미지</div>
+        <div style="font-size:11px;color:#aaa;margin-bottom:12px">포토카드와 별도 — 대화 중 자동 발송용</div>
         <!-- 멤버 탭 -->
         <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
           <button class="cimg-tab active" data-mk="ARA-462" onclick="selectChatImgMember(this,'ARA-462')">ARA</button>
@@ -4934,6 +4966,7 @@ function vxCamShoot(){
         </div>
         <input type="file" id="chatImgFileInput" accept="image/jpeg,image/png,image/webp" multiple style="display:none" onchange="handleChatImgSelect(event)">
         <div id="chatImgUploadProgress" style="display:none;margin-top:8px;font-size:12px;color:#6B5BD6;text-align:center"></div>
+        <button onclick="clearAllChatImgExtras(_chatImgCurrentMember)" style="margin-top:10px;width:100%;padding:8px;border-radius:10px;border:1.5px solid #ffcdd2;background:#fff5f5;color:#e53935;font-size:12px;font-weight:600;cursor:pointer">🗑️ 현재 멤버 추가 이미지 전체 초기화</button>
       </div>
       <div id="chatImgAdminLocked" style="margin-top:4px">
         <div style="font-size:12px;color:#aaa;text-align:center;padding:8px">🔒 관리자 로그인 시 이미지 관리 가능</div>
@@ -9916,6 +9949,17 @@ function renderCardTab(key) {
       <div style="height:100%;border-radius:8px;background:${m.gradient};width:${pct}%;transition:width 0.5s ease"></div>
     </div>
     <div class="pc-grid">${cardsHtml}</div>
+    ${(() => {
+      const extras = getPcardExtras(key);
+      if (!extras.length) return '';
+      const extHtml = extras.map((src, i) => `
+        <div class="cimg-item" style="aspect-ratio:2/3;border-radius:10px">
+          <img src="${src}" alt="extra${i}" style="width:100%;height:100%;object-fit:cover;border-radius:10px">
+          <div class="cimg-badge">#${i+1}</div>
+        </div>`).join('');
+      return `<div style="padding:14px 14px 4px;font-size:12px;font-weight:700;color:#6B5BD6;letter-spacing:0.02em">추가 포토카드</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 14px 8px">${extHtml}</div>`;
+    })()}
     <div style="text-align:center;font-size:10px;color:#bbb;padding:10px 0 28px">탭 → 뒤집기  ·  잠금 해제하며 수집해보세요</div>
   `;
 }
@@ -10977,6 +11021,14 @@ function updateAdminUploadVisibility() {
     if (session) renderChatImgAdminGrid(_chatImgCurrentMember);
   }
   if (chatImgLocked) chatImgLocked.style.display = session ? 'none' : 'block';
+  // 포토카드 추가 섹션
+  const pcardSection = document.getElementById('pcardAdminSection');
+  const pcardLocked = document.getElementById('pcardAdminLocked');
+  if (pcardSection) {
+    pcardSection.style.display = session ? 'block' : 'none';
+    if (session) renderPcardAdminGrid(_pcardCurrentMember);
+  }
+  if (pcardLocked) pcardLocked.style.display = session ? 'none' : 'block';
 }
 
 // ── 관리자 멤버 프로필 사진 업로드 ─────────────────────────
@@ -11046,6 +11098,110 @@ function resetAdminPhoto() {
 }
 
 // ══════════════════════════════════════════
+// 🃏 포토카드 추가 (Admin)
+// ══════════════════════════════════════════
+let _pcardCurrentMember = 'ARA-462';
+
+function getPcardExtras(memberKey) {
+  try { return JSON.parse(localStorage.getItem('venux_pcard_extra_' + memberKey)) || []; }
+  catch { return []; }
+}
+function savePcardExtras(memberKey, arr) {
+  localStorage.setItem('venux_pcard_extra_' + memberKey, JSON.stringify(arr));
+}
+
+function selectPcardMember(tabEl, memberKey) {
+  _pcardCurrentMember = memberKey;
+  document.querySelectorAll('.pcard-tab').forEach(t => t.classList.remove('active'));
+  tabEl.classList.add('active');
+  renderPcardAdminGrid(memberKey);
+}
+
+function renderPcardAdminGrid(memberKey) {
+  const cfg = CHAT_PHOTO_CFG[memberKey];
+  const extras = getPcardExtras(memberKey);
+  const grid = document.getElementById('pcardImgGrid');
+  const badge = document.getElementById('pcardImgStatBadge');
+  if (!grid) return;
+  const total = (cfg ? cfg.count : 0) + extras.length;
+  badge.innerHTML = `기본 <b>${cfg ? cfg.count : 0}장</b> + 추가 <b style="color:#6B5BD6">${extras.length}장</b> = 합계 <b>${total}장</b>`;
+  let html = '';
+  // 정적 포토카드 (photocards 폴더)
+  if (cfg) {
+    for (let i = 1; i <= cfg.count; i++) {
+      const src = `photocards/${cfg.prefix}/${cfg.id}_c${i}.png`;
+      html += `<div class="cimg-item static-img">
+        <img src="${src}" alt="c${i}" onerror="this.parentElement.style.display='none'">
+        <div class="cimg-badge">c${i}</div>
+      </div>`;
+    }
+  }
+  // 추가 포토카드 (localStorage)
+  extras.forEach((dataURL, idx) => {
+    html += `<div class="cimg-item">
+      <img src="${dataURL}" alt="pcard${idx}">
+      <div class="cimg-badge">+${idx+1}</div>
+      <button class="cimg-del" onclick="deletePcardExtra('${memberKey}',${idx})">✕</button>
+    </div>`;
+  });
+  if (!html) html = `<div style="grid-column:span 4;text-align:center;padding:14px;font-size:12px;color:#bbb">포토카드 없음</div>`;
+  grid.innerHTML = html;
+}
+
+function deletePcardExtra(memberKey, idx) {
+  const extras = getPcardExtras(memberKey);
+  extras.splice(idx, 1);
+  savePcardExtras(memberKey, extras);
+  renderPcardAdminGrid(memberKey);
+  showToast('🗑️ 포토카드 삭제됨');
+}
+
+function handlePcardImgSelect(event) {
+  const files = Array.from(event.target.files);
+  if (!files.length) return;
+  _processPcardFiles(files);
+  event.target.value = '';
+}
+function handlePcardDrop(event) {
+  const files = Array.from(event.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+  if (!files.length) return;
+  _processPcardFiles(files);
+}
+function _processPcardFiles(files) {
+  const prog = document.getElementById('pcardUploadProgress');
+  prog.style.display = 'block';
+  prog.textContent = `0 / ${files.length} 처리 중…`;
+  let done = 0;
+  const extras = getPcardExtras(_pcardCurrentMember);
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const size = 600; canvas.width = size; canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        const ratio = Math.min(size / img.width, size / img.height);
+        const w = img.width * ratio, h = img.height * ratio;
+        ctx.drawImage(img, (size - w) / 2, (size - h) / 2, w, h);
+        extras.push(canvas.toDataURL('image/jpeg', 0.88));
+        done++;
+        prog.textContent = `${done} / ${files.length} 처리 중…`;
+        if (done === files.length) {
+          savePcardExtras(_pcardCurrentMember, extras);
+          renderPcardAdminGrid(_pcardCurrentMember);
+          prog.style.display = 'none';
+          showToast(`✅ ${files.length}장 포토카드 추가됨`);
+          if (typeof renderCardTab === 'function') renderCardTab(_pcardCurrentMember);
+        }
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+// ══════════════════════════════════════════
 // 📸 채팅 이미지 관리 (Admin)
 // ══════════════════════════════════════════
 let _chatImgCurrentMember = 'ARA-462';
@@ -11071,19 +11227,10 @@ function renderChatImgAdminGrid(memberKey) {
   const extras = getChatImgExtras(memberKey);
   const grid = document.getElementById('chatImgGrid');
   const badge = document.getElementById('chatImgStatBadge');
-  const total = cfg.count + extras.length;
-  badge.innerHTML = `기본 <b>${cfg.count}장</b> + 추가 <b style="color:#6B5BD6">${extras.length}장</b> = 합계 <b>${total}장</b>`;
+  badge.innerHTML = `추가된 채팅 이미지 <b style="color:#6B5BD6">${extras.length}장</b>`;
 
   let html = '';
-  // 기본 이미지 (static)
-  for (let i = 1; i <= cfg.count; i++) {
-    const src = `photocards/${cfg.prefix}/${cfg.id}_c${i}.png`;
-    html += `<div class="cimg-item static-img">
-      <img src="${src}" alt="c${i}" onerror="this.parentElement.style.display='none'">
-      <div class="cimg-badge">c${i}</div>
-    </div>`;
-  }
-  // 추가 이미지 (localStorage)
+  // 추가 이미지 (localStorage) only
   extras.forEach((dataURL, idx) => {
     html += `<div class="cimg-item">
       <img src="${dataURL}" alt="extra${idx}">
@@ -11091,6 +11238,7 @@ function renderChatImgAdminGrid(memberKey) {
       <button class="cimg-del" onclick="deleteChatImgExtra('${memberKey}',${idx})">✕</button>
     </div>`;
   });
+  if (!html) html = `<div style="grid-column:span 4;text-align:center;padding:14px;font-size:12px;color:#bbb">추가된 채팅 이미지 없음</div>`;
   grid.innerHTML = html;
 }
 
@@ -11100,6 +11248,15 @@ function deleteChatImgExtra(memberKey, idx) {
   saveChatImgExtras(memberKey, extras);
   renderChatImgAdminGrid(memberKey);
   showToast('🗑️ 이미지 삭제됨');
+}
+
+function clearAllChatImgExtras(memberKey) {
+  const extras = getChatImgExtras(memberKey);
+  if (!extras.length) { showToast('추가 이미지가 없어요'); return; }
+  if (!confirm(`${memberKey} 추가 채팅 이미지 ${extras.length}장을 전체 삭제할까요?`)) return;
+  localStorage.removeItem('venux_chatimg_extra_' + memberKey);
+  renderChatImgAdminGrid(memberKey);
+  showToast('🗑️ 채팅 이미지 초기화 완료');
 }
 
 function handleChatImgSelect(event) {
@@ -14272,6 +14429,7 @@ function sendQuickReplyQA(qaIdx) {
 }
 
 async function sendChatMessage() {
+  try {
   const ta = document.getElementById('chatInput');
   const text = ta.value.trim();
   if (!text || !currentChatMember) return;
@@ -14304,7 +14462,6 @@ async function sendChatMessage() {
   document.getElementById('chatChips').style.display = 'none';
 
   // Show typing indicator
-  const typingStart = Date.now(); // ← 타이핑 시작 시각 기록
   body.innerHTML += `<div class="chat-typing" id="chatTyping">
     <div class="chat-msg-avatar"><img src="${m.photo}" alt="${m.letter}"></div>
     <div class="chat-typing-dots"><div class="chat-typing-dot"></div><div class="chat-typing-dot"></div><div class="chat-typing-dot"></div></div>
@@ -14321,7 +14478,8 @@ async function sendChatMessage() {
   const apiKey = localStorage.getItem('venux_openai_key');
 
   // ① DB 직접 매칭 시도 (토큰 0)
-  const dbMatch = matchChatDB(memberKey, text);
+  let dbMatch = null;
+  try { dbMatch = matchChatDB(memberKey, text); } catch(e) { console.warn('matchChatDB 오류:', e); }
   if (dbMatch) {
     reply = dbMatch.reply;
   } else if (apiKey) {
@@ -14400,12 +14558,6 @@ async function sendChatMessage() {
       }
     }
   }
-
-  // 타이핑 indicator 최소 노출 시간: 2000~3200ms
-  const minTypingDuration = 2000 + Math.random() * 1200;
-  const elapsed = Date.now() - typingStart;
-  const remainWait = Math.max(0, minTypingDuration - elapsed);
-  if (remainWait > 0) await new Promise(r => setTimeout(r, remainWait));
 
   // Remove typing indicator
   const typingEl = document.getElementById('chatTyping');
@@ -14489,6 +14641,24 @@ async function sendChatMessage() {
   }
   updateDailyStatusBar(db);
   renderAffinityDashboard(db);
+  } catch(err) {
+    console.error('sendChatMessage 오류:', err);
+    // 타이핑 인디케이터 강제 제거 + 폴백 응답
+    const _te = document.getElementById('chatTyping');
+    if (_te) _te.remove();
+    const _body = document.getElementById('chatBody');
+    const _mk = currentChatMember;
+    if (_body && _mk) {
+      const _m = memberData[_mk];
+      const _bank = responseBank[_mk];
+      const _fallback = _bank ? _bank[Math.floor(Math.random() * _bank.length)].answer : '…';
+      _body.innerHTML += `<div class="chat-msg-row member">
+        <div class="chat-msg-avatar"><img src="${_m.photo}" alt="${_m.letter}"></div>
+        <div class="chat-bubble member-bubble">${_fallback}</div>
+      </div>`;
+      _body.scrollTop = _body.scrollHeight;
+    }
+  }
 }
 
 // Action sheet
@@ -14662,7 +14832,7 @@ document.addEventListener('keydown', function(e) {
 
 // Enter key to send
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' && !e.shiftKey && currentChatMember) {
+  if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && currentChatMember) {
     const ta = document.getElementById('chatInput');
     if (document.activeElement === ta && ta.value.trim()) {
       e.preventDefault();
