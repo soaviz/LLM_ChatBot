@@ -2995,9 +2995,15 @@
       backdrop-filter: blur(8px);
     }
     .chat-bubble.member-bubble {
-      background: rgba(20,24,40,0.78) !important;
-      border: 1px solid var(--vx-line) !important;
+      background: rgba(38,55,160,0.72) !important;
+      border: 1px solid rgba(100,130,255,0.30) !important;
       color: #FFFFFF !important;
+    }
+    .chat-bubble.member-bubble.deep-bubble {
+      background: rgba(220,85,30,0.82) !important;
+      border: 1px solid rgba(255,140,80,0.45) !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 16px rgba(255,107,63,0.30) !important;
     }
     .chat-bubble.user-bubble {
       background: linear-gradient(135deg, var(--vx-aurora) 0%, var(--vx-signal) 60%, var(--vx-pulse) 100%) !important;
@@ -14096,7 +14102,7 @@ async function sendChatMessage() {
 
   // Clear input
   ta.value = '';
-  ta.style.height = 'auto';
+  ta.style.height = '0';
   document.getElementById('chatSendBtn').disabled = true;
 
   // Hide chips
@@ -14133,7 +14139,7 @@ async function sendChatMessage() {
     body.innerHTML += `<div class="chat-msg-row member" id="chatPreludeBubble">
       <div class="chat-msg-avatar"><img src="${m.photo}" alt="${m.letter}"></div>
       <div style="display:flex;flex-direction:column;gap:4px">
-        <div class="chat-bubble member-bubble">${prelude}</div>
+        <div class="chat-bubble member-bubble deep-bubble">${prelude}</div>
         <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.28);letter-spacing:.05em;padding-left:4px">🔑 AI 응답 중…</span>
       </div>
     </div>`;
