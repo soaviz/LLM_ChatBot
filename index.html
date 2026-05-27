@@ -3003,9 +3003,12 @@
       backdrop-filter: blur(8px);
     }
     .chat-bubble.member-bubble {
-      background: rgba(38,55,160,0.72) !important;
-      border: 1px solid rgba(100,130,255,0.30) !important;
+      background: linear-gradient(135deg, rgba(15,25,80,0.55) 0%, rgba(25,45,120,0.45) 50%, rgba(10,20,70,0.50) 100%) !important;
+      border: 1px solid rgba(120,150,255,0.18) !important;
       color: #FFFFFF !important;
+      backdrop-filter: blur(16px) saturate(1.4) !important;
+      -webkit-backdrop-filter: blur(16px) saturate(1.4) !important;
+      box-shadow: 0 4px 20px rgba(10,20,80,0.30), inset 0 1px 0 rgba(255,255,255,0.08) !important;
     }
     .chat-bubble.member-bubble.deep-bubble {
       background: rgba(220,85,30,0.82) !important;

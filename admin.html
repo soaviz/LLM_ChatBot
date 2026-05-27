@@ -730,6 +730,10 @@ a { color:var(--purple2); text-decoration:none; }
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         <span class="sb-item-label">이미지 리사이저</span>
       </button>
+      <button class="sb-item" data-sec="chatimg" onclick="showSection('chatimg',this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span class="sb-item-label">채팅이미지</span>
+      </button>
       <button class="sb-item" data-sec="export" onclick="showSection('export',this)">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         <span class="sb-item-label">내보내기</span>
@@ -1185,6 +1189,42 @@ a { color:var(--purple2); text-decoration:none; }
              onloadedmetadata="onMusicAdminMeta()"></audio>
     </section>
 
+    <!-- ── 채팅이미지 관리 ── -->
+    <section id="sec-chatimg" class="section">
+      <div class="sec-header">
+        <div>
+          <div class="sec-title">채팅 이미지 관리</div>
+          <div class="sec-sub">채팅 중 전송되는 멤버별 포토 이미지를 추가·확인합니다. (localStorage 저장)</div>
+        </div>
+      </div>
+
+      <!-- 멤버 탭 -->
+      <div id="ciMemberTabs" style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;">
+        <button class="feed-tab active" data-key="ARA-462" onclick="switchCiMember('ARA-462',this)"><span style="color:#FF6B5E">🔥</span> 이루나</button>
+        <button class="feed-tab" data-key="LUX-299" onclick="switchCiMember('LUX-299',this)"><span style="color:#FFC95E">✨</span> 박리라</button>
+        <button class="feed-tab" data-key="EUR-0K" onclick="switchCiMember('EUR-0K',this)"><span style="color:#5EC5FF">💧</span> 신지우</button>
+        <button class="feed-tab" data-key="KIN-360" onclick="switchCiMember('KIN-360',this)"><span style="color:#C49CFF">🌬️</span> 최노아</button>
+        <button class="feed-tab" data-key="ATP-X1" onclick="switchCiMember('ATP-X1',this)"><span style="color:#6BE7A8">🌿</span> 정아온</button>
+      </div>
+
+      <!-- 현황 바 -->
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:18px;flex-wrap:wrap;">
+        <div id="ciStatBadge" style="font-size:13px;color:var(--dim)"></div>
+        <div style="flex:1"></div>
+        <button onclick="ciExportAll()" style="padding:8px 14px;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text);border-radius:6px;cursor:pointer;font-size:12px;">⬇ 추가분 다운로드</button>
+        <button onclick="document.getElementById('ciFileInput').click()" style="padding:9px 18px;background:var(--purple);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;cursor:pointer;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>이미지 추가
+        </button>
+        <input type="file" id="ciFileInput" accept="image/jpeg,image/png,image/webp" multiple style="display:none" onchange="handleCiUpload(event)">
+      </div>
+
+      <!-- 업로드 진행 -->
+      <div id="ciUploadProgress" style="display:none;margin-bottom:14px;padding:10px 14px;background:var(--purple-g);border-radius:8px;font-size:13px;color:var(--purple2);"></div>
+
+      <!-- 이미지 그리드 -->
+      <div id="ciGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;"></div>
+    </section>
+
     <!-- ── 8. EXPORT ── -->
     <section id="sec-export" class="section">
       <div class="page-title">데이터 내보내기</div>
@@ -1613,6 +1653,7 @@ function showSection(id, el) {
   if (el) el.classList.add('active');
   if (id === 'feed') { setTimeout(initFeedSection, 0); }
   if (id === 'music') { setTimeout(refreshMusicSection, 0); }
+  if (id === 'chatimg') { setTimeout(initCiSection, 0); }
 }
 
 function toggleSidebar() {
@@ -2761,13 +2802,82 @@ const FEED_MEMBERS = {
   'ATP-X1':  { name:'정아온', photo:'ATP-X1.png',  color:'#4DFF8B' },
 };
 
-// 앱 내 MEMBER_POSTS와 동기화할 기본 캡션 데이터 (폴백용)
+// 앱 내 MEMBER_POSTS 전체 동기화 (index.html과 동일 · 이미지 경로 /절대경로)
 const FEED_DEFAULT_POSTS = {
-  'ARA-462': [{ id:'ara_p0', image:'ara-feed-01.png', caption:'왔어.\n\n그게 전부야.\n근데 — 나 여기 오래 있을 것 같아. #ARA462 #VenuX #첫피드', date:'2025.05.19', likes:4108 }],
-  'LUX-299': [{ id:'lux_p0', image:'lux-feed-01.png', caption:'빛이 닿는 각도가 매일 조금씩 달라.\n그래서 나도 매일 다른 것 같기도.\n\n처음 와봤어. 생각보다 따뜻하네. ✨ #LUX299 #VenuX #빛의각도 #첫피드', date:'2025.05.19', likes:2847 }],
-  'EUR-0K':  [{ id:'eur_p0', image:'eur-feed-01.png', caption:'처음이라서 솔직히 좀 긴장돼.\n뭐라고 써야 할지 한참 고민했어.\n\n그래도 — 잘 부탁해. 조용히 있을게. 🌧️ #EUR0K #VenuX #처음 #잘부탁해 #첫피드', date:'2025.05.19', likes:1963 }],
-  'KIN-360': [{ id:'kin_p0', image:'kin-feed-01.png', caption:'야 나 왔어!! 😆✌️\n\n아무 계획 없이 갑자기ㅋㅋㅋㅋ\n바람 불면 그냥 가는 스타일이잖아, 나는\n근데 여기선 좀 더 자주 보자 우리~ 🍊 #KIN360 #VenuX #즉흥 #갑자기왔어 #첫피드', date:'2025.05.19', likes:3421 }],
-  'ATP-X1':  [{ id:'atp_p0', image:'atp-feed-01.png', caption:'안녕 🌸\n처음 만나는 거잖아, 우리?\n\n궁금한 게 너무 많아서 어디서부터 시작해야 할지 모르겠어.\n일단 — 너는 어떤 사람이야? #ATPX1 #VenuX #처음 #질문 #첫피드', date:'2025.05.19', likes:2512 }],
+  'ARA-462': [
+    { id:'ara_p0',  image:'/ara-feed-01.png', caption:"방에서 혼자 뒹굴다가 찍었어.\n오늘도 루나들 덕분에 하루 버텼다. 고마워 진짜로.\n내일도 잘 부탁해 🔥\n#이루나 #ARA462 #오늘의루나 #홈셀카", date:'2026.05.27', likes:4108, filter:'none' },
+    { id:'ara_p1',  image:'/ara-feed-02.png', caption:"오늘 컨디션 의외로 좋아서 찍어봤어.\n이런 날은 기록해두는 게 맞지. 루나들도 오늘 좋은 하루야?\n같이 좋은 날이면 좋겠어 🔥\n#이루나 #ARA462 #오늘의이루나 #핑크", date:'2026.05.25', likes:7832, filter:'none' },
+    { id:'ara_p2',  image:'/ara-feed-03.png', caption:"창가 자리 잡고 라떼 한 모금.\n카페 이렇게 조용한 날 뭔가 생각이 잘 돼.\n#이루나 #ARA462 #카페스타그램", date:'2026.05.22', likes:5621, filter:'none' },
+    { id:'ara_p3',  image:'/ara-feed-04.png', caption:"조명 받는 날.\n준비하는 이 시간도 다 무대의 일부야.\n#이루나 #ARA462 #분장실 #무대준비", date:'2026.05.18', likes:4103, filter:'none' },
+    { id:'ara_p4',  image:'/ara-feed-05.png', caption:"오늘 기분이 이 향수 냄새 같아.\n딱 좋고 살짝 달콤하고.\n#이루나 #ARA462 #화장대 #뷰티", date:'2026.05.14', likes:9240, filter:'none' },
+    { id:'ara_p5',  image:'/ara-feed-06.png', caption:"연습 또 연습. 지치기 전에 찍어두기 🔥\n#이루나 #ARA462 #연습 #댄스연습", date:'2026.05.10', likes:3856, filter:'none' },
+    { id:'ara_p6',  image:'/ara-feed-07.png', caption:"서점 와서 결국 한 시간 넘게 있었어.\n#이루나 #ARA462 #서점 #책스타그램", date:'2026.05.06', likes:6412, filter:'none' },
+    { id:'ara_p7',  image:'/ara-feed-08.png', caption:"꽃이 이렇게 많은 곳에 있으면 자꾸 기분이 좋아져.\n#이루나 #ARA462 #꽃집 #플라워", date:'2026.05.02', likes:2918, filter:'none' },
+    { id:'ara_p8',  image:'/ara-feed-09.png', caption:"이 노을이 너무 예뻐서 찍었어.\n#이루나 #ARA462 #드라이브 #노을셀카", date:'2026.04.28', likes:11203, filter:'none' },
+    { id:'ara_p9',  image:'/ara-feed-10.png', caption:"옥상에서 해 지는 거 보다가 터진 웃음.\n#이루나 #ARA462 #옥상 #일몰", date:'2026.04.24', likes:4567, filter:'none' },
+    { id:'ara_p10', image:'/ara-feed-11.png', caption:"오늘 따라 머리 올리기 싫어서 이렇게.\n#이루나 #ARA462 #홈셀카 #편안한날", date:'2026.04.20', likes:7810, filter:'none' },
+    { id:'ara_p11', image:'/ara-feed-12.png', caption:"오늘 프로필 컷 나왔어.\n#이루나 #ARA462 #프로필 #VenuX", date:'2026.04.16', likes:5034, filter:'none' },
+    { id:'ara_p12', image:'/ara-feed-13.png', caption:"오늘 눈빛이 좀 이상해.\n#이루나 #ARA462 #클로즈업 #진심", date:'2026.04.12', likes:8921, filter:'none' },
+    { id:'ara_p13', image:'/ara-feed-14.png', caption:"자기 전에 스킨케어 루틴 하다가.\n#이루나 #ARA462 #화장대 #스킨케어루틴", date:'2026.04.08', likes:3401, filter:'none' },
+    { id:'ara_p14', image:'/ara-feed-15.png', caption:"이번에 같이 써보고 싶은 거 모아봤어.\n#이루나 #ARA462 #뷰티추천 #립스타그램", date:'2026.04.04', likes:6103, filter:'none' },
+    { id:'ara_p15', image:'/ara-feed-16.png', caption:"오늘 편하게 입고 나왔어.\n#이루나 #ARA462 #오오티디 #데일리룩", date:'2026.03.31', likes:9842, filter:'none' },
+    { id:'ara_p16', image:'/ara-feed-17.png', caption:"노래하다가 울었어.\n#이루나 #ARA462 #녹음실 #음악", date:'2026.03.27', likes:4209, filter:'none' },
+    { id:'ara_p17', image:'/ara-feed-18.png', caption:"아온이 만들어준 허브티.\n#이루나 #ARA462 #아온 #ATPX1", date:'2026.03.23', likes:7512, filter:'none' },
+    { id:'ara_p18', image:'/ara-feed-19.png', caption:"오늘 무대 전. 메이크업 받으면서 생각 정리해.\n#이루나 #ARA462 #분장 #무대전", date:'2026.03.19', likes:5801, filter:'none' },
+    { id:'ara_p19', image:'/ara-feed-20.png', caption:"이루나.\n뒤돌아보는 것도 무대야 🔥\n#이루나 #ARA462 #VenuX #무대", date:'2026.03.15', likes:3294, filter:'none' },
+  ],
+  'LUX-299': [
+    { id:'lux_p0', image:'/lux-feed-01.png', caption:"창에서 빛이 들어왔다.\n그 방향으로 고개를 돌렸다. 좋은 아침이었다.\n#리라 #LUX299 #빛 #아침", date:'2026.05.27', likes:4108, filter:'brightness(1.05)' },
+    { id:'lux_p1', image:'/lux-feed-02.png', caption:"공간이 비어 있을수록 잘 보인다.\n오늘도 그걸 확인했다.\n#리라 #LUX299 #화이트 #VenuX", date:'2026.05.25', likes:7832, filter:'brightness(1.05)' },
+    { id:'lux_p2', image:'/lux-feed-03.png', caption:"빛이 만드는 그림자도 소재다.\n#리라 #LUX299 #실버 #그림자", date:'2026.05.22', likes:5621, filter:'brightness(1.05)' },
+    { id:'lux_p3', image:'/lux-feed-04.png', caption:"작업실에서 컬렉션을 보고 있었다.\n#리라 #LUX299 #스튜디오 #컬렉션", date:'2026.05.18', likes:4103, filter:'brightness(1.05)' },
+    { id:'lux_p4', image:'/lux-feed-05.png', caption:"패브릭 감도를 확인했다.\n#리라 #LUX299 #디자인 #패브릭", date:'2026.05.14', likes:9240, filter:'brightness(1.05)' },
+    { id:'lux_p5', image:'/lux-feed-06.png', caption:"오늘 선택한 것들.\n전부 이유가 있다.\n#리라 #LUX299 #오오티디 #화이트룩", date:'2026.05.10', likes:3856, filter:'brightness(1.05)' },
+    { id:'lux_p6', image:'/lux-feed-07.png', caption:"몸이 공간을 다르게 만든다.\n#리라 #LUX299 #연습 #댄스", date:'2026.05.06', likes:6412, filter:'brightness(1.05)' },
+    { id:'lux_p7', image:'/lux-feed-08.png', caption:"각자의 빛이 있다.\n옆에 있어도 섞이지 않는다.\n#리라 #LUX299 #이루나 #ARA462", date:'2026.05.02', likes:2918, filter:'brightness(1.05)' },
+    { id:'lux_p8', image:'/lux-feed-09.png', caption:"공연 전의 백스테이지.\n이 공간이 좋다.\n#리라 #LUX299 #백스테이지 #무대", date:'2026.04.28', likes:11203, filter:'brightness(1.05)' },
+    { id:'lux_p9', image:'/lux-feed-10.png', caption:"빛이 반만 닿는 각도를 찾았다.\n충분했다.\n#리라 #LUX299 #화보 #VenuX", date:'2026.04.24', likes:4567, filter:'brightness(1.05)' },
+  ],
+  'EUR-0K': [
+    { id:'eur_p0',  image:'/eur-feed-01.png', caption:"오늘 루틴 정상임.\n기상 6:42. 커피 없이 버팀.\n#지우 #EUR0K #일상기록 #데이터", date:'2026.05.27', likes:4108, filter:'brightness(0.97)' },
+    { id:'eur_p1',  image:'/eur-feed-02.png', caption:"외적 변수 최소화 상태임.\n#지우 #EUR0K #프로필 #VenuX", date:'2026.05.25', likes:7832, filter:'brightness(0.97)' },
+    { id:'eur_p2',  image:'/eur-feed-03.png', caption:"온도 낮을수록 집중도 올라가는 패턴 있음.\n#지우 #EUR0K #블루 #집중", date:'2026.05.22', likes:5621, filter:'brightness(0.97)' },
+    { id:'eur_p3',  image:'/eur-feed-04.png', caption:"새벽 2시. 아이스 아메리카노 세 번째.\n#지우 #EUR0K #새벽코딩 #개발자", date:'2026.05.18', likes:4103, filter:'brightness(0.97)' },
+    { id:'eur_p4',  image:'/eur-feed-05.png', caption:"오늘 환경 변수 설정 완료.\n#지우 #EUR0K #데스크셋업 #작업환경", date:'2026.05.14', likes:9240, filter:'brightness(0.97)' },
+    { id:'eur_p5',  image:'/eur-feed-06.png', caption:"같은 색끼리 모이면 신호가 명확해짐.\n#지우 #EUR0K #오오티디 #라벤더", date:'2026.05.10', likes:3856, filter:'brightness(0.97)' },
+    { id:'eur_p6',  image:'/eur-feed-07.png', caption:"아무 말 없이 화면만 봤음.\n6시간.\n#지우 #EUR0K #집중모드 #코딩", date:'2026.05.06', likes:6412, filter:'brightness(0.97)' },
+    { id:'eur_p7',  image:'/eur-feed-08.png', caption:"오늘 계산이 안 맞아서 세 번 다시 했음.\n#지우 #EUR0K #새벽 #디버깅", date:'2026.05.02', likes:2918, filter:'brightness(0.97)' },
+    { id:'eur_p8',  image:'/eur-feed-09.png', caption:"같은 공간에 있는데 주파수가 달라.\n#지우 #EUR0K #리라 #LUX299", date:'2026.04.28', likes:11203, filter:'brightness(0.97)' },
+    { id:'eur_p9',  image:'/eur-feed-10.png', caption:"물의 굴절 패턴은 예측 불가임.\n#지우 #EUR0K #화보 #VenuX", date:'2026.04.24', likes:4567, filter:'brightness(0.97)' },
+    { id:'eur_p10', image:'/eur-feed-11.png', caption:"감정도 데이터라고 생각해?\n#지우 #EUR0K #감정데이터 #질문", date:'2026.04.20', likes:7810, filter:'brightness(0.97)' },
+    { id:'eur_p11', image:'/eur-feed-12.png', caption:"오늘 자가 리뷰 로그 작성 완료.\n#지우 #EUR0K #리뷰로그 #EUROK", date:'2026.04.16', likes:5034, filter:'brightness(0.97)' },
+  ],
+  'KIN-360': [
+    { id:'kin_p0', image:'/kin-feed-01.png', caption:"오늘 아침.\n여기.\n#노아 #KIN360 #아침 #홈", date:'2026.05.27', likes:4108, filter:'saturate(1.05)' },
+    { id:'kin_p1', image:'/kin-feed-02.png', caption:"그냥.\n#노아 #KIN360 #VenuX", date:'2026.05.25', likes:7832, filter:'saturate(1.05)' },
+    { id:'kin_p2', image:'/kin-feed-03.png', caption:"바다 왔어.\n바람이 세. 더 좋아.\n#노아 #KIN360 #바다 #여름", date:'2026.05.22', likes:5621, filter:'saturate(1.05)' },
+    { id:'kin_p3', image:'/kin-feed-04.png', caption:"다음 거기 갈 거야.\n#노아 #KIN360 #필름카메라 #여행준비", date:'2026.05.18', likes:4103, filter:'saturate(1.05)' },
+    { id:'kin_p4', image:'/kin-feed-05.png', caption:"로마.\n#노아 #KIN360 #로마 #Rome", date:'2026.05.14', likes:9240, filter:'saturate(1.05)' },
+    { id:'kin_p5', image:'/kin-feed-06.png', caption:"어디 가는지 아직 몰라.\n그냥 나왔어.\n#노아 #KIN360 #데일리 #오오티디", date:'2026.05.10', likes:3856, filter:'saturate(1.05)' },
+    { id:'kin_p6', image:'/kin-feed-07.png', caption:"연습실.\n오늘은 좀 됐어.\n#노아 #KIN360 #연습 #댄스", date:'2026.05.06', likes:6412, filter:'saturate(1.05)' },
+    { id:'kin_p7', image:'/kin-feed-08.png', caption:"가는 거야.\n#노아 #KIN360 #공항 #여행", date:'2026.05.02', likes:2918, filter:'saturate(1.05)' },
+    { id:'kin_p8', image:'/kin-feed-09.png', caption:"여기 왔어.\n생각보다 더 좋아.\n#노아 #KIN360 #항구 #여행", date:'2026.04.28', likes:11203, filter:'saturate(1.05)' },
+    { id:'kin_p9', image:'/kin-feed-10.png', caption:"지우도 왔어.\n바다는 역시 좋아.\n#노아 #KIN360 #지우 #EUR0K", date:'2026.04.24', likes:4567, filter:'saturate(1.05)' },
+  ],
+  'ATP-X1': [
+    { id:'atp_p0',  image:'/atp-feed-01.png', caption:"오늘 아침 빛이 이렇게 들어왔어.\n#아온 #ATPX1 #아침빛 #부엌", date:'2026.05.27', likes:4108, filter:'none' },
+    { id:'atp_p1',  image:'/atp-feed-02.png', caption:"얘네 요즘 잘 크고 있어.\n#아온 #ATPX1 #식물 #초록이들", date:'2026.05.25', likes:7832, filter:'none' },
+    { id:'atp_p2',  image:'/atp-feed-03.png', caption:"캔들 켜두면 방이 달라져.\n#아온 #ATPX1 #캔들 #저녁", date:'2026.05.22', likes:5621, filter:'none' },
+    { id:'atp_p3',  image:'/atp-feed-04.png', caption:"허브티 식기 전에 다 마셔야 해.\n#아온 #ATPX1 #허브티 #독서", date:'2026.05.18', likes:4103, filter:'none' },
+    { id:'atp_p4',  image:'/atp-feed-05.png', caption:"오늘 쓴 것들.\n#아온 #ATPX1 #노트 #햇살", date:'2026.05.14', likes:9240, filter:'none' },
+    { id:'atp_p5',  image:'/atp-feed-06.png', caption:"오늘 이렇게 입었어.\n#아온 #ATPX1 #오오티디 #민트", date:'2026.05.10', likes:3856, filter:'none' },
+    { id:'atp_p6',  image:'/atp-feed-07.png', caption:"눈 감고 들으면 더 잘 들려.\n#아온 #ATPX1 #녹음 #음악", date:'2026.05.06', likes:6412, filter:'none' },
+    { id:'atp_p7',  image:'/atp-feed-08.png', caption:"포도가 이렇게 달달할 줄 몰랐어.\n#아온 #ATPX1 #요리 #포도", date:'2026.05.02', likes:2918, filter:'none' },
+    { id:'atp_p8',  image:'/atp-feed-09.png', caption:"나뭇잎 그림자가 책 위에 떨어졌어.\n#아온 #ATPX1 #그림자 #식물", date:'2026.04.28', likes:11203, filter:'none' },
+    { id:'atp_p9',  image:'/atp-feed-10.png', caption:"이루나한테 허브티 줬어.\n#아온 #ATPX1 #이루나 #ARA462", date:'2026.04.24', likes:4567, filter:'none' },
+    { id:'atp_p10', image:'/atp-feed-11.png', caption:"오늘은 뭐가 너를 살렸어?\n#아온 #ATPX1 #오늘의질문", date:'2026.04.20', likes:7810, filter:'none' },
+    { id:'atp_p11', image:'/atp-feed-12.png', caption:"계절 에너지 기록하고 있어.\n#아온 #ATPX1 #에너지기록", date:'2026.04.16', likes:5034, filter:'none' },
+  ],
 };
 
 // State
@@ -2787,8 +2897,13 @@ function setFeedStore(data) {
 }
 function getMemberPosts(key) {
   const store = getFeedStore();
-  // localStorage에 없으면 기본값 반환
-  return store[key] || FEED_DEFAULT_POSTS[key] || [];
+  const stored = store[key] || [];
+  const defaults = FEED_DEFAULT_POSTS[key] || [];
+  if (!stored.length) return defaults;
+  // localStorage 저장본 우선, 기본값 중 미수록 항목은 뒤에 추가
+  const storedIds = new Set(stored.map(p => p.id));
+  const extra = defaults.filter(p => !storedIds.has(p.id));
+  return [...stored, ...extra];
 }
 
 // ─── 멤버 탭 전환 ───
@@ -3066,6 +3181,125 @@ function initFeedSection() {
   const key = window.feedCurrentKey || 'ARA-462';
   updateFeedMemberBar(key);
   renderFeedGrid(key);
+}
+
+// ════════════════════════════════════════════════════
+// 채팅 이미지 관리 (Admin Dashboard)
+// ════════════════════════════════════════════════════
+const CI_CFG = {
+  'ARA-462': { count:20, prefix:'ARA', id:'ara' },
+  'LUX-299': { count:20, prefix:'LUX', id:'lux' },
+  'EUR-0K':  { count:29, prefix:'EUR', id:'eur' },
+  'KIN-360': { count:20, prefix:'KIN', id:'kin' },
+  'ATP-X1':  { count:32, prefix:'ATP', id:'atp' },
+};
+window.ciCurrentKey = 'ARA-462';
+
+function getCiExtras(mk) {
+  try { return JSON.parse(localStorage.getItem('venux_chatimg_extra_' + mk)) || []; }
+  catch { return []; }
+}
+function saveCiExtras(mk, arr) {
+  localStorage.setItem('venux_chatimg_extra_' + mk, JSON.stringify(arr));
+}
+
+function initCiSection() {
+  renderCiGrid(window.ciCurrentKey);
+}
+
+function switchCiMember(mk, el) {
+  window.ciCurrentKey = mk;
+  document.querySelectorAll('#ciMemberTabs .feed-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderCiGrid(mk);
+}
+
+function renderCiGrid(mk) {
+  const cfg = CI_CFG[mk];
+  if (!cfg) return;
+  const extras = getCiExtras(mk);
+  const badge = document.getElementById('ciStatBadge');
+  const grid = document.getElementById('ciGrid');
+  badge.innerHTML = `기본 <b style="color:#fff">${cfg.count}장</b> + 추가 <b style="color:var(--purple2)">${extras.length}장</b> = 합계 <b style="color:#fff">${cfg.count + extras.length}장</b>`;
+
+  let html = '';
+  // 기본 정적 이미지
+  for (let i = 1; i <= cfg.count; i++) {
+    const src = `/photocards/${cfg.prefix}/${cfg.id}_c${i}.png`;
+    html += `<div style="position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;background:var(--bg3);border:1px solid var(--border);">
+      <img src="${src}" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.parentElement.style.opacity='0.3'">
+      <div style="position:absolute;bottom:3px;left:4px;font-size:9px;font-family:var(--mono);background:rgba(0,0,0,0.6);color:#fff;padding:1px 5px;border-radius:4px;">c${i}</div>
+    </div>`;
+  }
+  // localStorage 추가 이미지
+  extras.forEach((dataURL, idx) => {
+    html += `<div style="position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;background:var(--bg3);border:1px solid rgba(107,91,214,0.4);">
+      <img src="${dataURL}" style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div style="position:absolute;bottom:3px;left:4px;font-size:9px;font-family:var(--mono);background:rgba(107,91,214,0.8);color:#fff;padding:1px 5px;border-radius:4px;">+${idx+1}</div>
+      <button onclick="ciDeleteExtra('${mk}',${idx})" style="position:absolute;top:4px;right:4px;width:20px;height:20px;border-radius:50%;background:rgba(255,59,59,0.85);color:#fff;border:none;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">✕</button>
+    </div>`;
+  });
+  if (!html) html = `<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--muted);font-size:13px;">이미지가 없습니다.</div>`;
+  grid.innerHTML = html;
+}
+
+function ciDeleteExtra(mk, idx) {
+  if (!confirm('이 이미지를 삭제할까요?')) return;
+  const extras = getCiExtras(mk);
+  extras.splice(idx, 1);
+  saveCiExtras(mk, extras);
+  renderCiGrid(mk);
+}
+
+function handleCiUpload(event) {
+  const files = Array.from(event.target.files).filter(f => f.type.startsWith('image/'));
+  if (!files.length) return;
+  const prog = document.getElementById('ciUploadProgress');
+  prog.style.display = 'block';
+  prog.textContent = `0 / ${files.length} 처리 중…`;
+  let done = 0;
+  const mk = window.ciCurrentKey;
+  const extras = getCiExtras(mk);
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const size = 600;
+        canvas.width = size; canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        const ratio = Math.min(size/img.width, size/img.height);
+        const w = img.width*ratio, h = img.height*ratio;
+        ctx.drawImage(img, (size-w)/2, (size-h)/2, w, h);
+        extras.push(canvas.toDataURL('image/jpeg', 0.88));
+        done++;
+        prog.textContent = `${done} / ${files.length} 처리 중…`;
+        if (done === files.length) {
+          saveCiExtras(mk, extras);
+          renderCiGrid(mk);
+          prog.style.display = 'none';
+          // 앱 내 CHAT_PHOTO_CFG와 동기화 알림
+          alert(`✅ ${files.length}장 추가됨 (${mk})\n앱에서 채팅 시 자동 반영됩니다.`);
+        }
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+  event.target.value = '';
+}
+
+function ciExportAll() {
+  const mk = window.ciCurrentKey;
+  const extras = getCiExtras(mk);
+  if (!extras.length) { alert('추가 이미지가 없습니다.'); return; }
+  extras.forEach((dataURL, i) => {
+    const a = document.createElement('a');
+    a.href = dataURL;
+    a.download = `${mk.split('-')[0].toLowerCase()}_extra_${i+1}.jpg`;
+    a.click();
+  });
 }
 
 // ════════════════════════════════════════════════════
