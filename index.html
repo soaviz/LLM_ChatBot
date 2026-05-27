@@ -1009,15 +1009,17 @@
 
     @media (max-width:768px) {
       .mini-player { max-width:200px; padding:4px 8px; }
-      .mini-player-cover { width:28px; height:28px; }
+      .mini-player-cover { width:26px; height:26px; }
       .mini-player-title { font-size:11px; }
       .mini-player-artist { display:none; }
-      .mini-player-btn.prev-btn, .mini-player-btn.next-btn { display:none; }
+      .mini-player-btn.prev-btn, .mini-player-btn.next-btn { display:flex; }
+      .mini-player-btn { width:24px; height:24px; font-size:13px; }
+      .mini-player-btn.play-btn { width:28px; height:28px; font-size:15px; }
       .fp-cover { width:240px; height:240px; }
       .fp-track-title { font-size:20px; }
     }
     @media (max-width:380px) {
-      .mini-player { max-width:140px; }
+      .mini-player { max-width:150px; padding:3px 6px; }
       .mini-player-info { display:none; }
       .mini-player-empty { max-width:100px; }
       .mini-player-empty span { display:none; }
@@ -2332,6 +2334,9 @@
     }
     .mini-player-title { color: var(--vx-text) !important; }
     .mini-player-artist { color: var(--vx-text-3) !important; font-family: var(--vx-font-mono) !important; }
+    .mini-player-btn { color: var(--vx-text-2) !important; }
+    .mini-player-btn:hover { background: rgba(167,139,250,0.12) !important; color: var(--vx-purple) !important; }
+    .mini-player-btn.play-btn { color: #e879f9 !important; }
 
     /* === VX section divider (cosmic line) === */
     .vx-divider {
@@ -3926,13 +3931,19 @@
   <div class="header">
     <div class="header-logo">VENUX</div>
     <div class="mini-player-empty" id="miniPlayerEmpty" onclick="openFullPlayer()" style="display:none"><span>♪</span><span>SIGNAL</span></div>
-    <div class="mini-player" id="miniPlayer" style="display:none" onclick="openFullPlayer()">
+    <div class="mini-player" id="miniPlayer" style="display:flex" onclick="openFullPlayer()">
       <div class="mini-player-cover" id="miniCover"><img id="miniCoverImg" src="" alt=""></div>
       <div class="mini-player-info"><div class="mini-player-title" id="miniTitle">-</div><div class="mini-player-artist">VenuX</div></div>
       <div class="mini-player-controls" onclick="event.stopPropagation()">
-        <button class="mini-player-btn prev-btn" onclick="playerPrev()">⏮</button>
-        <button class="mini-player-btn play-btn" id="miniPlayBtn" onclick="playerToggle()">▶</button>
-        <button class="mini-player-btn next-btn" onclick="playerNext()">⏭</button>
+        <button class="mini-player-btn prev-btn" onclick="playerPrev()" title="이전">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
+        </button>
+        <button class="mini-player-btn play-btn" id="miniPlayBtn" onclick="playerToggle()" title="재생/정지">
+          <svg id="miniPlayIcon" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </button>
+        <button class="mini-player-btn next-btn" onclick="playerNext()" title="다음">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+        </button>
       </div>
     </div>
     <div class="header-actions">
@@ -11155,7 +11166,7 @@ function getMemberCoverFallback(member) {
 function playerPlay() {
   if (!venuxTracks.length || !playerAudio.src) return;
   playerAudio.play().catch(() => {});
-  document.getElementById('miniPlayBtn').textContent = '⏸';
+  document.getElementById('miniPlayBtn').innerHTML = '<svg id="miniPlayIcon" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
   document.getElementById('fpPlayBtn').textContent = '⏸';
   document.getElementById('miniCover').classList.add('spinning');
   document.getElementById('fpCover').classList.add('playing');
@@ -11163,7 +11174,7 @@ function playerPlay() {
 
 function playerPause() {
   playerAudio.pause();
-  document.getElementById('miniPlayBtn').textContent = '▶';
+  document.getElementById('miniPlayBtn').innerHTML = '<svg id="miniPlayIcon" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
   document.getElementById('fpPlayBtn').textContent = '▶';
   document.getElementById('miniCover').classList.remove('spinning');
   document.getElementById('fpCover').classList.remove('playing');
