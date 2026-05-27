@@ -1208,6 +1208,7 @@ a { color:var(--purple2); text-decoration:none; }
       <div style="display:flex;align-items:center;gap:16px;margin-bottom:18px;flex-wrap:wrap;">
         <div id="ciStatBadge" style="font-size:13px;color:var(--dim)"></div>
         <div style="flex:1"></div>
+        <button onclick="ciClearAll()" style="padding:8px 14px;background:rgba(229,57,53,0.1);border:1px solid rgba(229,57,53,0.35);color:#ef5350;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">🗑️ 전체 초기화</button>
         <button onclick="ciExportAll()" style="padding:8px 14px;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text);border-radius:6px;cursor:pointer;font-size:12px;">⬇ 추가분 다운로드</button>
         <button onclick="document.getElementById('ciFileInput').click()" style="padding:9px 18px;background:var(--purple);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;cursor:pointer;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>이미지 추가
@@ -3277,6 +3278,15 @@ function handleCiUpload(event) {
     reader.readAsDataURL(file);
   });
   event.target.value = '';
+}
+
+function ciClearAll() {
+  const mk = window.ciCurrentKey;
+  const extras = getCiExtras(mk);
+  if (!extras.length) { alert('삭제할 이미지가 없습니다.'); return; }
+  if (!confirm(`${mk} 추가 채팅 이미지 ${extras.length}장을 전체 삭제할까요?`)) return;
+  localStorage.removeItem('venux_chatimg_extra_' + mk);
+  renderCiGrid(mk);
 }
 
 function ciExportAll() {
