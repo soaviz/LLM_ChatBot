@@ -13643,49 +13643,50 @@ const CHAT_CONTEXT_DB = {
 };
 
 // ────────────────────────────────────────────────────────────
-// getChatContextExamples(memberKey, userText, n=3)
-// 사용자 메시지의 컨텍스트를 감지해 관련 예시 n개를 반환
 // ────────────────────────────────────────────────────────────
-function getChatContextExamples(memberKey, userText, n = 3) {
+// matchChatDB(memberKey, userText) → { reply, score } | null
+// CHAT_CONTEXT_DB q값과 유사도 매칭 → 직접 응답 반환 (토큰 0)
+// 매칭 점수 기준: 공통 키워드 비율 ≥ 0.55
+// ────────────────────────────────────────────────────────────
+function matchChatDB(memberKey, userText) {
   const db = CHAT_CONTEXT_DB[memberKey];
-  if (!db) return '';
+  if (!db) return null;
 
-  const t = userText.toLowerCase();
+  const normalize = s => s.replace(/[?!.,~ㅋㅎ…✨🔥🌬️⚡✌️🍵🌿🌱]/g, '').trim().toLowerCase();
+  const tokenize = s => normalize(s).split(/\s+/).filter(Boolean);
 
-  // 컨텍스트 키워드 맵
-  const CTX_KEYWORDS = {
-    인사:    ['뭐해','안녕','잘 잤','좋은 아침','오랜만','밥 먹','요즘','어때'],
-    걱정:    ['힘들','불안','실수','하기 싫','충분','잠을','상처','눈물','뒤처'],
-    상담:    ['어떡해','진로','싸웠','그만','지쳐','안 되','선택','두려','어떻게 생각','맞는 건지'],
-    칭찬:    ['진짜 예','최고','대단','자극','성장','있어서','잘해','특별'],
-    장난:    ['여자친구','남자친구','반한','잘생','약점','웃기','보고 싶','숨기'],
-    음식:    ['먹었','음식','배고','디저트','식욕','요리','야식'],
-    새벽:    ['이 시간','잠이','새벽','외로워','뭐 들고','감성','연락해서 미안'],
-    응원:    ['시험','발표','포기','잘 할 수','응원','무너','힘들다','해낼'],
-    감성:    ['비 오는','계절','노래 들','슬픈','의미 없','사진','언제 감동','둔해','그리운'],
-    일상공유:['산책','드라마','운동','책','잘 풀','강아지','커피','청소','웃긴','오늘 어'],
-  };
+  const userTokens = tokenize(userText);
+  if (!userTokens.length) return null;
 
-  // 매칭 컨텍스트 찾기
-  let matchedCtx = null;
+  let best = null;
   let bestScore = 0;
-  for (const [ctx, keywords] of Object.entries(CTX_KEYWORDS)) {
-    const score = keywords.filter(k => t.includes(k)).length;
-    if (score > bestScore) { bestScore = score; matchedCtx = ctx; }
+
+  for (const entry of db) {
+    const qTokens = tokenize(entry.q);
+    if (!qTokens.length) continue;
+
+    // recall: q의 몇 %가 user에 포함되는가
+    const recall = qTokens.filter(qt => userTokens.some(ut => ut.includes(qt) || qt.includes(ut))).length / qTokens.length;
+    // precision: user의 몇 %가 q에 포함되는가
+    const precision = userTokens.filter(ut => qTokens.some(qt => ut.includes(qt) || qt.includes(ut))).length / userTokens.length;
+    // F0.5 (precision 더 중요)
+    const score = recall >= 0.5 ? (1.25 * precision * recall) / (0.25 * precision + recall + 1e-9) : 0;
+
+    if (score > bestScore) { bestScore = score; best = entry; }
   }
 
-  if (!matchedCtx) return '';
-
-  const pool = db.filter(e => e.ctx === matchedCtx);
-  if (!pool.length) return '';
-
-  // 랜덤 n개 선택
-  const shuffled = pool.slice().sort(() => Math.random() - 0.5);
-  const picked = shuffled.slice(0, n);
-
-  return `\n\n[카톡 예시 — ${matchedCtx} 상황]\n` +
-    picked.map(e => `사용자: ${e.q}\n${memberKey.split('-')[0] === 'ARA' ? '루나' : memberKey.split('-')[0] === 'LUX' ? '리라' : memberKey.split('-')[0] === 'EUR' ? '지우' : memberKey.split('-')[0] === 'KIN' ? '노아' : '아온'}: ${e.r}`).join('\n');
+  if (bestScore >= 0.55 && best) return { reply: best.r, score: bestScore };
+  return null;
 }
+
+// 멤버별 "복잡한 질문" 선행 대사 (토큰 사용 암시)
+const COMPLEX_PRELUDE = {
+  'ARA-462': '...생각 좀 해볼게.',
+  'LUX-299': '…이건 좀 깊은 질문이야 ✨',
+  'EUR-0K':  '잠깐… 데이터 처리 중 🍵',
+  'KIN-360': '오 이건 좀 생각해봐야 해ㅋㅋ ⚡',
+  'ATP-X1':  '…천천히 생각해볼게 🌿',
+};
 
 
 // Load/save chat history
@@ -14427,7 +14428,33 @@ async function sendChatMessage() {
   let reply = '';
   const apiKey = localStorage.getItem('venux_openai_key');
 
-  if (apiKey) {
+  // ① DB 직접 매칭 시도 (토큰 0)
+  const dbMatch = matchChatDB(memberKey, text);
+  if (dbMatch) {
+    reply = dbMatch.reply;
+  } else if (apiKey) {
+    // ② DB 미매칭 → 복잡한 질문 선행 말풍선 출력 후 API 호출
+    const typingEl2 = document.getElementById('chatTyping');
+    if (typingEl2) typingEl2.remove();
+
+    const prelude = COMPLEX_PRELUDE[memberKey] || '…잠깐만.';
+    const preludeTime = new Date().toISOString();
+    body.innerHTML += `<div class="chat-msg-row member" id="chatPreludeBubble">
+      <div class="chat-msg-avatar"><img src="${m.photo}" alt="${m.letter}"></div>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <div class="chat-bubble member-bubble">${prelude}</div>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.28);letter-spacing:.05em;padding-left:4px">🔑 AI 응답 중…</span>
+      </div>
+    </div>`;
+    body.scrollTop = body.scrollHeight;
+
+    // 타이핑 인디케이터 다시 추가
+    body.innerHTML += `<div class="chat-typing" id="chatTyping">
+      <div class="chat-msg-avatar"><img src="${m.photo}" alt="${m.letter}"></div>
+      <div class="chat-typing-dots"><div class="chat-typing-dot"></div><div class="chat-typing-dot"></div><div class="chat-typing-dot"></div></div>
+    </div>`;
+    body.scrollTop = body.scrollHeight;
+
     try {
       // Build context: Supabase 기억(서버) 우선, 없으면 localStorage fallback
       let context = [];
@@ -14449,7 +14476,7 @@ async function sendChatMessage() {
         headers:{ 'Content-Type':'application/json', 'Authorization':`Bearer ${apiKey}` },
         body: JSON.stringify({
           model: localStorage.getItem('venux_ai_model') || 'gpt-4o',
-          messages: [{ role:'system', content: CHAT_SYSTEM_PROMPTS[memberKey] + getChatContextExamples(memberKey, text) }, ...context],
+          messages: [{ role:'system', content: CHAT_SYSTEM_PROMPTS[memberKey] }, ...context],
           max_tokens: 300,
           temperature: 0.85
         })
