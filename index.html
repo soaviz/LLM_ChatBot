@@ -700,8 +700,8 @@
       /* DAILY GAME LAYER */
       .daily-status-bar { padding:6px 16px; }
       .daily-nickname { font-size:13px; }
-      .daily-meet-label { font-size:7px !important; }
-      .daily-meet-count { font-size:10px !important; }
+      .daily-meet-label { font-size:13px !important; }
+      .daily-meet-count { font-size:13px !important; }
       .today-member-card { margin:10px 16px; padding:16px; }
       .today-portrait { width:56px; height:56px; }
       .today-member-name { font-size:16px; }
@@ -796,17 +796,19 @@
     .consent-next-btn:not(:disabled):active { transform:scale(0.97); }
 
     /* DAILY STATUS BAR */
-    .daily-status-bar { display:flex; align-items:center; justify-content:space-between; padding:8px 20px; background:rgba(107,91,214,0.05); border-bottom:1px solid rgba(107,91,214,0.08); }
-    .daily-user-info { display:flex; align-items:center; gap:8px; }
+    .daily-status-bar { display:flex; align-items:center; justify-content:space-between; padding:8px 20px; background:rgba(107,91,214,0.05); border-bottom:1px solid rgba(107,91,214,0.08); gap:8px; }
+    .daily-user-info { display:flex; align-items:center; gap:6px; min-width:0; flex-shrink:1; overflow:hidden; }
+    .daily-nickname { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:80px; }
     .daily-nickname { font-size:14px; font-weight:600; color:#333; }
     .daily-mbti { font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:600; color:#6B5BD6; background:rgba(107,91,214,0.1); padding:2px 8px; border-radius:8px; }
-    .daily-stats { display:flex; align-items:center; gap:12px; }
+    .daily-stats { display:flex; align-items:center; gap:10px; flex-shrink:0; }
     .daily-stat { display:flex; align-items:center; gap:4px; font-size:12px; color:#888; }
     .daily-stat-value { font-weight:700; color:#6B5BD6; }
     .daily-dday { font-size:11px; font-weight:700; color:white; background:linear-gradient(135deg,#6B5BD6,#8B6BD6); padding:3px 8px; border-radius:8px; font-family:'JetBrains Mono',monospace; letter-spacing:0.03em; }
-    .daily-meet-timer { display:flex; flex-direction:column; gap:0px; margin-left:4px; }
-    .daily-meet-label { font-size:8px; color:rgba(107,91,214,0.55); font-family:'JetBrains Mono',monospace; letter-spacing:0.1em; line-height:1.2; }
-    .daily-meet-count { font-size:11px; font-weight:700; color:#e879f9; font-family:'JetBrains Mono',monospace; letter-spacing:0.04em; line-height:1.2; }
+    .daily-meet-timer { display:inline-flex; align-items:center; gap:4px; flex-shrink:0; white-space:nowrap; }
+    .daily-meet-label { font-size:14px; font-weight:600; color:#333; }
+    .daily-meet-count { font-size:14px; font-weight:600; color:#333; white-space:nowrap; }
+    .daily-meet-count .n { color:#e879f9; font-weight:700; }
 
     /* TODAY'S MEMBER CARD */
     .today-member-card { margin:12px 20px; padding:20px; background:white; border-radius:20px; box-shadow:0 2px 12px rgba(0,0,0,0.04); display:flex; align-items:center; gap:16px; position:relative; overflow:hidden; cursor:pointer; transition:transform 0.25s ease, opacity 0.25s ease, box-shadow 0.25s ease; }
@@ -1488,8 +1490,9 @@
     .daily-nickname { color: var(--vx-text) !important; }
     .daily-stat { color: var(--vx-muted) !important; }
     .daily-stat-value { color: var(--vx-purple) !important; }
-    .daily-meet-label { color: rgba(167,139,250,0.45) !important; }
-    .daily-meet-count { color: #e879f9 !important; text-shadow: 0 0 8px rgba(232,121,249,0.4); }
+    .daily-meet-label { color: var(--vx-text-2) !important; }
+    .daily-meet-count { color: var(--vx-text-2) !important; }
+    .daily-meet-count .n { color: #e879f9 !important; text-shadow: 0 0 6px rgba(232,121,249,0.5); }
     .daily-mbti {
       background: rgba(167,139,250,.12) !important;
       color: var(--vx-cyan) !important;
@@ -3921,7 +3924,7 @@
 <!-- SCREEN 1: LANDING -->
 <div class="screen active" id="screen-landing">
   <div class="header">
-    <div class="header-logo">VENUX <span style="opacity:.5;margin:0 4px">//</span> ALEKA</div>
+    <div class="header-logo">VENUX</div>
     <div class="mini-player-empty" id="miniPlayerEmpty" onclick="openFullPlayer()" style="display:none"><span>♪</span><span>SIGNAL</span></div>
     <div class="mini-player" id="miniPlayer" style="display:none" onclick="openFullPlayer()">
       <div class="mini-player-cover" id="miniCover"><img id="miniCoverImg" src="" alt=""></div>
@@ -3960,7 +3963,7 @@
       <span class="daily-nickname" id="dailyNickname"></span>
       <div class="daily-meet-timer" id="dailyMeetTimer">
         <span class="daily-meet-label">우리가 만난 시간</span>
-        <span class="daily-meet-count" id="dailyMeetCount">···</span>
+        <span class="daily-meet-count" id="dailyMeetCount"><span class="n">···</span></span>
       </div>
       <span class="daily-mbti" id="dailyMBTI" style="display:none"></span>
     </div>
@@ -4072,24 +4075,22 @@
   function updateMeetTimer() {
     var first = parseInt(localStorage.getItem(MEET_KEY), 10);
     if (!first) return;
-    var diff = Math.floor((Date.now() - first) / 1000); // 초 단위
+    var diff = Math.floor((Date.now() - first) / 1000);
     var days  = Math.floor(diff / 86400);
     var hours = Math.floor((diff % 86400) / 3600);
     var mins  = Math.floor((diff % 3600) / 60);
     var secs  = diff % 60;
     var pad   = function(n){ return n < 10 ? '0'+n : ''+n; };
+    // 숫자만 핑크 span으로 감싸기
+    var p = function(num, unit){ return '<span class="n">' + num + '</span>' + unit; };
     var parts = [];
-    if (days > 0)  parts.push(days + '일');
-    if (hours > 0 || days > 0) parts.push(hours + '시간');
-    parts.push(mins + '분');
-    parts.push(pad(secs) + '초');
-    var text = parts.join(' ');
-    // 헤더용
-    var el1 = document.getElementById('vxMeetCount');
-    if (el1) el1.textContent = text;
-    // 닉네임 옆
+    if (days > 0)              parts.push(p(days, '일'));
+    if (hours > 0 || days > 0) parts.push(p(hours, '시간'));
+    parts.push(p(mins, '분'));
+    parts.push(p(pad(secs), '초'));
+    var html = parts.join(' ');
     var el2 = document.getElementById('dailyMeetCount');
-    if (el2) el2.textContent = text;
+    if (el2) el2.innerHTML = html;
   }
 
   function tick(){
