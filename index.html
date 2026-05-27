@@ -886,26 +886,55 @@
     /* ADMIN AUTH SYSTEM                           */
     /* ============================================ */
 
-    .admin-overlay { position:fixed; inset:0; z-index:6000; background:rgba(0,0,0,0.5); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transition:all 0.25s; }
-    .admin-overlay.show { opacity:1; visibility:visible; }
-    .admin-card { background:white; border-radius:24px; width:90%; max-width:380px; padding:32px 24px; box-shadow:0 16px 48px rgba(0,0,0,0.15); transform:translateY(20px); transition:transform 0.3s cubic-bezier(0.32,0.72,0,1); }
-    .admin-overlay.show .admin-card { transform:translateY(0); }
-    .admin-card-title { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:22px; font-weight:600; text-align:center; margin-bottom:4px; }
-    .admin-card-sub { font-size:12px; color:#999; text-align:center; margin-bottom:24px; }
-    .admin-tabs { display:flex; gap:0; margin-bottom:20px; background:#F3F3F3; border-radius:12px; padding:3px; }
-    .admin-tab { flex:1; text-align:center; padding:10px; font-size:13px; font-weight:600; border-radius:10px; cursor:pointer; transition:all 0.2s; color:#888; }
-    .admin-tab.active { background:white; color:#333; box-shadow:0 1px 4px rgba(0,0,0,0.08); }
-    .admin-input { width:100%; padding:12px 14px; border:1.5px solid #E8E8E8; border-radius:12px; font-size:14px; font-family:'Noto Sans KR',sans-serif; margin-bottom:10px; box-sizing:border-box; transition:border-color 0.2s; outline:none; }
-    .admin-input:focus { border-color:#6B5BD6; }
-    .admin-input::placeholder { color:#bbb; }
-    .admin-btn { width:100%; padding:14px; border:none; border-radius:14px; font-size:15px; font-weight:700; cursor:pointer; transition:all 0.15s; font-family:'Noto Sans KR',sans-serif; }
-    .admin-btn-primary { background:linear-gradient(135deg,#6B5BD6,#8B7AE8); color:white; }
+    /* ADMIN MODAL — glassmorphism (about-style) */
+    .admin-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(10,8,24,0.6); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); z-index:6000; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+    .admin-overlay.show { opacity:1; pointer-events:auto; visibility:visible; }
+    .admin-card { position:relative; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.14); backdrop-filter:blur(32px); -webkit-backdrop-filter:blur(32px); border-radius:24px; padding:36px 28px 28px; max-width:360px; width:90%; transform:scale(0.92) translateY(12px); transition:transform 0.35s cubic-bezier(0.32,0.72,0,1); box-shadow:0 24px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15); }
+    .admin-overlay.show .admin-card { transform:scale(1) translateY(0); }
+    .admin-card-title { font-family:'JetBrains Mono',monospace; font-size:18px; font-weight:700; letter-spacing:.05em; color:#fff; text-align:center; margin-bottom:4px; }
+    .admin-card-sub { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.16em; color:rgba(167,139,250,.65); text-transform:uppercase; text-align:center; margin-bottom:24px; }
+    .admin-close { position:absolute; top:14px; right:14px; width:30px; height:30px; border:1px solid rgba(255,255,255,.15); border-radius:50%; background:rgba(255,255,255,.07); color:rgba(255,255,255,.6); font-size:13px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .15s; }
+    .admin-close:active { background:rgba(255,255,255,.18); }
+    .admin-tabs { display:flex; gap:0; margin-bottom:22px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:3px; }
+    .admin-tab { flex:1; text-align:center; padding:9px; font-size:12px; font-weight:600; border-radius:11px; cursor:pointer; transition:all 0.2s; color:rgba(255,255,255,0.4); font-family:'JetBrains Mono',monospace; letter-spacing:.04em; }
+    .admin-tab.active { background:rgba(167,139,250,0.25); color:#e879f9; box-shadow:0 1px 8px rgba(167,139,250,0.2); }
+    .admin-input { width:100%; padding:12px 14px; border:1px solid rgba(255,255,255,0.12); border-radius:12px; font-size:14px; font-family:'Noto Sans KR',sans-serif; margin-bottom:10px; box-sizing:border-box; transition:border-color 0.2s; outline:none; background:rgba(255,255,255,0.06); color:#fff; }
+    .admin-input:focus { border-color:rgba(167,139,250,0.6); background:rgba(255,255,255,0.09); }
+    .admin-input::placeholder { color:rgba(255,255,255,0.3); }
+    .admin-btn { width:100%; padding:13px; border:none; border-radius:14px; font-size:14px; font-weight:700; cursor:pointer; transition:all 0.15s; font-family:'Noto Sans KR',sans-serif; }
+    .admin-btn-primary { background:linear-gradient(135deg,rgba(167,139,250,0.9),rgba(232,121,249,0.85)); color:#fff; box-shadow:0 4px 20px rgba(167,139,250,0.3); }
     .admin-btn-primary:active { transform:scale(0.97); }
-    .admin-btn-primary:disabled { opacity:0.5; cursor:not-allowed; }
+    .admin-btn-primary:disabled { opacity:0.4; cursor:not-allowed; }
     .admin-error { font-size:12px; color:#E55; text-align:center; margin-bottom:10px; min-height:16px; }
     .admin-close { position:absolute; top:16px; right:16px; width:32px; height:32px; border:none; background:rgba(0,0,0,0.05); border-radius:50%; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
     .admin-badge { display:inline-flex; align-items:center; gap:4px; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:600; }
     .admin-badge-on { background:linear-gradient(135deg,#6B5BD6,#8B7AE8); color:white; }
+    /* ── Album Art Crop Tool ── */
+    .cover-crop-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(10,8,24,0.97); z-index:9200; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px 0 0; box-sizing:border-box; opacity:0; pointer-events:none; transition:opacity 0.25s; }
+    .cover-crop-overlay.show { opacity:1; pointer-events:auto; }
+    .cover-crop-header { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:rgba(167,139,250,0.75); margin-bottom:16px; }
+    .cover-crop-img-wrap { position:relative; display:inline-block; line-height:0; touch-action:none; user-select:none; }
+    .cover-crop-img-wrap img { display:block; max-width:calc(100vw - 40px); max-height:50vh; pointer-events:none; -webkit-user-drag:none; user-select:none; }
+    .cover-crop-box { position:absolute; border:2px solid rgba(232,121,249,0.95); box-shadow:0 0 0 9999px rgba(0,0,0,0.6); cursor:move; touch-action:none; box-sizing:border-box; }
+    .cover-crop-box::before,.cover-crop-box::after { content:''; position:absolute; inset:0; pointer-events:none; }
+    /* rule-of-thirds grid */
+    .cover-crop-box::before { background:
+      linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px) 0 33.3% / 100% 33.3% no-repeat,
+      linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px) 0 66.6% / 100% 33.3% no-repeat; }
+    .cover-crop-box::after { background:
+      linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px) 33.3% 0 / 33.3% 100% no-repeat,
+      linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px) 66.6% 0 / 33.3% 100% no-repeat; }
+    .crop-handle { position:absolute; width:18px; height:18px; background:#e879f9; border-radius:3px; z-index:1; }
+    .crop-handle-tl { top:-2px; left:-2px; cursor:nwse-resize; }
+    .crop-handle-tr { top:-2px; right:-2px; cursor:nesw-resize; }
+    .crop-handle-bl { bottom:-2px; left:-2px; cursor:nesw-resize; }
+    .crop-handle-br { bottom:-2px; right:-2px; cursor:nwse-resize; }
+    .cover-crop-info { font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(255,255,255,0.3); margin-top:14px; letter-spacing:.06em; }
+    .cover-crop-actions { display:flex; gap:10px; margin-top:20px; padding:0 24px 32px; width:100%; max-width:380px; box-sizing:border-box; }
+    .cover-crop-btn { flex:1; padding:14px; border-radius:14px; border:none; font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:700; cursor:pointer; transition:opacity .15s; }
+    .cover-crop-btn:active { opacity:.7; }
+    .cover-crop-btn-cancel { background:rgba(255,255,255,0.07); color:rgba(255,255,255,0.5); border:1px solid rgba(255,255,255,0.12); }
+    .cover-crop-btn-apply { background:linear-gradient(135deg,rgba(167,139,250,0.9),rgba(232,121,249,0.85)); color:#fff; box-shadow:0 4px 20px rgba(167,139,250,0.3); }
     .admin-badge-off { background:#F3F3F3; color:#888; }
     .admin-header-btn { border:none; background:rgba(107,91,214,0.08); color:#6B5BD6; font-size:11px; font-weight:700; padding:6px 14px; border-radius:20px; cursor:pointer; transition:all 0.15s; font-family:'Noto Sans KR',sans-serif; white-space:nowrap; letter-spacing:-0.2px; }
     .admin-header-btn:hover { background:rgba(107,91,214,0.18); transform:scale(1.03); }
@@ -1070,52 +1099,57 @@
     /* AFFINITY PAGE                               */
     /* ============================================ */
 
-    .affinity-page-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; background:white; border-bottom:1px solid #f0f0f0; }
-    .affinity-page-title { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:20px; font-weight:600; color:#000; }
-    .affinity-sort-btn { font-size:12px; color:#6B5BD6; background:rgba(107,91,214,0.08); border:none; padding:6px 12px; border-radius:10px; font-weight:600; cursor:pointer; font-family:'Noto Sans KR',sans-serif; }
+    .affinity-page-header { display:flex; align-items:center; justify-content:space-between; padding:14px 18px; background:rgba(255,255,255,0.03); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,0.07); }
+    .affinity-page-title { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:19px; font-weight:600; color:#EDE9FF; letter-spacing:.02em; }
+    .affinity-page-eyebrow { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:rgba(232,121,249,0.55); margin-bottom:2px; }
+    .affinity-sort-btn { font-family:'JetBrains Mono',monospace; font-size:10px; color:#e879f9; background:rgba(232,121,249,0.10); border:1px solid rgba(232,121,249,0.22); padding:7px 13px; border-radius:10px; font-weight:600; cursor:pointer; letter-spacing:.06em; transition:background .15s; }
+    .affinity-sort-btn:active { background:rgba(232,121,249,0.2); }
 
-    .affinity-summary-card { margin:16px; padding:20px; background:linear-gradient(135deg,#f0eeff,#e8e0ff); border-radius:20px; display:flex; align-items:center; justify-content:space-between; animation:affinitySlideDown 0.3s ease-out; }
+    @keyframes affinitySlideDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes affinityCardIn { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+    .affinity-summary-card { margin:14px 16px; padding:20px 20px; background:rgba(232,121,249,0.07); border:1px solid rgba(232,121,249,0.16); border-radius:20px; backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); display:flex; align-items:center; justify-content:space-between; animation:affinitySlideDown 0.3s ease-out; position:relative; overflow:hidden; }
+    .affinity-summary-card::after { content:''; position:absolute; top:-40px; right:-30px; width:140px; height:140px; background:radial-gradient(circle,rgba(232,121,249,0.13) 0%,transparent 70%); pointer-events:none; }
     @keyframes affinitySlideDown { from{opacity:0;transform:translateY(-12px)} to{opacity:1;transform:translateY(0)} }
     .affinity-summary-left { }
-    .affinity-summary-total { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:32px; font-weight:700; color:#6B5BD6; }
-    .affinity-summary-label { font-size:12px; color:#888; margin-top:2px; }
+    .affinity-summary-total { font-family:'Black Han Sans','Noto Sans KR',sans-serif; font-size:30px; font-weight:700; color:#e879f9; text-shadow:0 0 18px rgba(232,121,249,0.35); }
+    .affinity-summary-label { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,121,249,0.55); margin-top:5px; }
     .affinity-summary-right { text-align:right; }
-    .affinity-summary-avg { font-size:16px; font-weight:600; color:#555; }
-    .affinity-summary-next { font-size:11px; color:#aaa; margin-top:4px; }
+    .affinity-summary-avg { font-size:15px; font-weight:700; color:#EDE9FF; }
+    .affinity-summary-next { font-family:'JetBrains Mono',monospace; font-size:9px; color:rgba(255,255,255,0.3); margin-top:5px; letter-spacing:.04em; }
 
-    .affinity-ranking { padding:0 16px; }
-    .affinity-rank-card { display:flex; align-items:center; gap:14px; padding:16px; background:white; border-radius:16px; margin-bottom:8px; box-shadow:0 1px 4px rgba(0,0,0,0.04); cursor:pointer; transition:transform 0.15s; animation:affinityCardIn 0.4s ease-out both; }
-    .affinity-rank-card:active { transform:scale(0.98); }
+    .affinity-ranking { padding:0 16px 8px; }
+    .affinity-rank-card { display:flex; align-items:center; gap:14px; padding:15px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.09); border-radius:18px; margin-bottom:8px; cursor:pointer; transition:transform 0.15s, background 0.15s; animation:affinityCardIn 0.4s ease-out both; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+    .affinity-rank-card:active { transform:scale(0.98); background:rgba(255,255,255,0.08); }
     @keyframes affinityCardIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
 
-    .affinity-rank-badge { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:white; flex-shrink:0; }
-    .affinity-rank-badge.rank-1 { background:#FFD700; }
-    .affinity-rank-badge.rank-2 { background:#C0C0C0; }
-    .affinity-rank-badge.rank-3 { background:#CD7F32; }
-    .affinity-rank-badge.rank-other { background:#E0E0E0; color:#888; }
+    .affinity-rank-badge { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; color:white; flex-shrink:0; }
+    .affinity-rank-badge.rank-1 { background:linear-gradient(135deg,#FFD700,#FFA040); box-shadow:0 0 10px rgba(255,215,0,0.45); }
+    .affinity-rank-badge.rank-2 { background:linear-gradient(135deg,#D0D0D0,#A0A0A0); box-shadow:0 0 8px rgba(200,200,200,0.25); }
+    .affinity-rank-badge.rank-3 { background:linear-gradient(135deg,#CD7F32,#A0522D); box-shadow:0 0 8px rgba(205,127,50,0.3); }
+    .affinity-rank-badge.rank-other { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); color:rgba(255,255,255,0.4); }
 
-    .affinity-rank-portrait { width:56px; height:56px; border-radius:50%; overflow:hidden; flex-shrink:0; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+    .affinity-rank-portrait { width:52px; height:52px; border-radius:50%; overflow:hidden; flex-shrink:0; }
     .affinity-rank-portrait img { width:100%; height:100%; object-fit:cover; }
-    .affinity-rank-portrait.unmet { opacity:0.5; filter:grayscale(0.5); }
+    .affinity-rank-portrait.unmet { opacity:0.35; filter:grayscale(1); }
 
     .affinity-rank-info { flex:1; min-width:0; }
-    .affinity-rank-name-row { display:flex; align-items:center; gap:8px; margin-bottom:2px; }
-    .affinity-rank-kr { font-size:16px; font-weight:700; color:#000; }
-    .affinity-rank-code { font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500; }
-    .affinity-rank-lv { display:inline-block; font-size:10px; font-weight:700; color:white; padding:3px 8px; border-radius:8px; margin-bottom:6px; }
+    .affinity-rank-name-row { display:flex; align-items:center; gap:8px; margin-bottom:3px; }
+    .affinity-rank-kr { font-size:15px; font-weight:700; color:#EDE9FF; }
+    .affinity-rank-code { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:500; opacity:.6; letter-spacing:.04em; }
+    .affinity-rank-lv { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.1em; font-weight:700; color:rgba(255,255,255,0.85); padding:3px 8px; border-radius:6px; margin-bottom:7px; text-transform:uppercase; }
 
-    .affinity-rank-bar-wrap { width:100%; height:4px; background:#F0F0F0; border-radius:2px; overflow:hidden; margin-bottom:4px; }
-    .affinity-rank-bar-fill { height:100%; border-radius:2px; transition:width 1s ease-out; width:0; }
-    .affinity-rank-pts { font-size:10px; color:#888; }
-    .affinity-rank-unmet { font-size:12px; color:#aaa; margin-top:4px; }
-    .affinity-rank-cta { display:inline-block; font-size:11px; color:white; padding:4px 10px; border-radius:8px; margin-top:6px; border:none; cursor:pointer; font-family:'Noto Sans KR',sans-serif; font-weight:600; }
-    .affinity-rank-cta:active { opacity:0.8; }
+    .affinity-rank-bar-wrap { width:100%; height:3px; background:rgba(255,255,255,0.08); border-radius:2px; overflow:hidden; margin-bottom:5px; }
+    .affinity-rank-bar-fill { height:100%; border-radius:2px; transition:width 1.1s cubic-bezier(0.25,0.46,0.45,0.94); width:0; }
+    .affinity-rank-pts { font-family:'JetBrains Mono',monospace; font-size:9px; color:rgba(255,255,255,0.28); letter-spacing:.04em; }
+    .affinity-rank-unmet { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,0.25); margin-top:4px; }
+    .affinity-rank-cta { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.06em; color:white; padding:5px 12px; border-radius:8px; margin-top:7px; border:none; cursor:pointer; font-weight:700; opacity:.9; transition:opacity .15s; }
+    .affinity-rank-cta:active { opacity:0.65; }
 
-    .affinity-rank-arrow { font-size:16px; color:#ccc; flex-shrink:0; }
+    .affinity-rank-arrow { flex-shrink:0; color:rgba(255,255,255,0.18); }
 
-    .affinity-achievement-mini { text-align:center; padding:16px; margin:8px 16px 16px; }
-    .affinity-achievement-pill { display:inline-block; background:rgba(107,91,214,0.08); color:#6B5BD6; font-size:13px; font-weight:600; padding:10px 20px; border-radius:14px; cursor:pointer; transition:background 0.15s; }
-    .affinity-achievement-pill:active { background:rgba(107,91,214,0.16); }
+    .affinity-achievement-mini { text-align:center; padding:10px 16px 24px; }
+    .affinity-achievement-pill { display:inline-flex; align-items:center; gap:7px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.10); color:rgba(255,255,255,0.5); font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.08em; font-weight:600; padding:11px 22px; border-radius:14px; cursor:pointer; transition:all .15s; }
+    .affinity-achievement-pill:active { background:rgba(232,121,249,0.1); border-color:rgba(232,121,249,0.28); color:#e879f9; }
 
     /* Achievements modal (moved from tab to modal) */
     .achievements-modal-overlay { position:fixed; inset:0; z-index:3500; background:rgba(0,0,0,0.5); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); display:flex; align-items:flex-end; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.3s; }
@@ -3733,6 +3767,25 @@
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
+<!-- ALBUM ART CROP TOOL -->
+<div class="cover-crop-overlay" id="coverCropOverlay">
+  <div class="cover-crop-header">앨범 커버 크롭 · 1:1</div>
+  <div class="cover-crop-img-wrap" id="coverCropImgWrap">
+    <img id="coverCropSrcImg" src="" alt="" draggable="false">
+    <div class="cover-crop-box" id="coverCropBox">
+      <div class="crop-handle crop-handle-tl" data-h="tl"></div>
+      <div class="crop-handle crop-handle-tr" data-h="tr"></div>
+      <div class="crop-handle crop-handle-bl" data-h="bl"></div>
+      <div class="crop-handle crop-handle-br" data-h="br"></div>
+    </div>
+  </div>
+  <div class="cover-crop-info" id="coverCropInfo">크롭 영역 선택</div>
+  <div class="cover-crop-actions">
+    <button class="cover-crop-btn cover-crop-btn-cancel" onclick="closeCropTool()">취소</button>
+    <button class="cover-crop-btn cover-crop-btn-apply" onclick="applyCrop()">적용 →</button>
+  </div>
+</div>
+
 <!-- ADMIN AUTH MODAL -->
 <div class="admin-overlay" id="adminOverlay" onclick="if(event.target===this)closeAdmin()">
   <div class="admin-card" style="position:relative">
@@ -3747,6 +3800,10 @@
     <div id="adminLoginForm">
       <input class="admin-input" id="adminLoginId" type="text" placeholder="아이디" autocomplete="username">
       <input class="admin-input" id="adminLoginPw" type="password" placeholder="비밀번호" autocomplete="current-password">
+      <label style="display:flex;align-items:center;gap:8px;margin-bottom:12px;cursor:pointer">
+        <input type="checkbox" id="adminSaveId" style="width:15px;height:15px;accent-color:#a78bfa;cursor:pointer">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:.06em">아이디 저장</span>
+      </label>
       <div class="admin-error" id="adminLoginError"></div>
       <button class="admin-btn admin-btn-primary" onclick="adminLogin()">로그인</button>
     </div>
@@ -3972,10 +4029,6 @@
   <div class="daily-status-bar" id="dailyStatusBar" style="display:none">
     <div class="daily-user-info">
       <span class="daily-nickname" id="dailyNickname"></span>
-      <div class="daily-meet-timer" id="dailyMeetTimer">
-        <span class="daily-meet-label">우리가 만난 시간</span>
-        <span class="daily-meet-count" id="dailyMeetCount"><span class="n">···</span></span>
-      </div>
       <span class="daily-mbti" id="dailyMBTI" style="display:none"></span>
     </div>
     <div class="daily-stats">
@@ -4562,7 +4615,10 @@ function vxCamShoot(){
 <div class="screen" id="screen-affinity">
   <div class="affinity-page-header">
     <button class="back-btn" onclick="goBack()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>뒤로</button>
-    <span class="affinity-page-title">💕 친밀도</span>
+    <div>
+      <div class="affinity-page-eyebrow">// 04 · BOND LEVEL</div>
+      <span class="affinity-page-title">친밀도</span>
+    </div>
     <button class="affinity-sort-btn" id="affinitySortBtn" onclick="toggleAffinitySort()">친밀도순</button>
   </div>
   <div id="affinitySummaryCard" class="affinity-summary-card"></div>
@@ -10503,56 +10559,169 @@ function handleCoverDrop(e) { processCoverFile(e.dataTransfer.files[0]); }
 function handleAudioSelect(e) { processAudioFile(e.target.files[0]); }
 function handleAudioDrop(e) { processAudioFile(e.dataTransfer.files[0]); }
 
-const COVER_RESIZE_PX = 300; // 앨범 커버 자동 리사이즈 크기
+const COVER_RESIZE_PX = 300;
+
+// ── Album Art Crop Tool state ──────────────────────────────
+let _cropOrigFile = null;
+let _cropNaturalImg = null;   // Image() element with full-res source
+let _cropBox = { x:0, y:0, size:0 }; // in display-px within coverCropImgWrap
+let _cropDrag = null;  // { type:'move'|'tl'|'tr'|'bl'|'br', startX, startY, startBox }
 
 function processCoverFile(file) {
   if (!file) return;
   if (!IMAGE_MIMES.includes(file.type)) { showToast('이미지 파일만 업로드 가능 (JPG, PNG, WEBP, GIF)'); return; }
   if (file.size > MAX_IMAGE_SIZE) { showToast('이미지 크기는 10MB 이하여야 합니다'); return; }
 
-  const preview = document.getElementById('coverPreview');
   const blobUrl = URL.createObjectURL(file);
-
-  // 이미지를 Canvas로 리사이즈 후 저장
   const img = new Image();
   img.onload = () => {
-    const size = COVER_RESIZE_PX;
-    const canvas = document.createElement('canvas');
-    canvas.width = size;
-    canvas.height = size;
-    const ctx = canvas.getContext('2d');
-
-    // 중앙 크롭 (정사각형)
-    const srcSize = Math.min(img.width, img.height);
-    const sx = (img.width - srcSize) / 2;
-    const sy = (img.height - srcSize) / 2;
-    ctx.drawImage(img, sx, sy, srcSize, srcSize, 0, 0, size, size);
-
-    canvas.toBlob((blob) => {
-      pendingCoverFile = new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), { type: 'image/jpeg' });
-      const resizedUrl = URL.createObjectURL(pendingCoverFile);
-      const origKB = formatFileSize(file.size);
-      const newKB = formatFileSize(blob.size);
-
-      preview.style.display = 'block';
-      preview.innerHTML = `<div class="upload-preview">
-        <img src="${resizedUrl}" class="upload-cover-preview" alt="">
-        <div class="upload-preview-info">
-          <div class="upload-preview-name">${file.name}</div>
-          <div class="upload-preview-size">${img.width}×${img.height} → ${size}×${size} · ${origKB} → ${newKB}</div>
-        </div>
-        <button class="upload-preview-remove" onclick="removeCoverFile()">삭제</button>
-      </div>`;
-      document.getElementById('coverUploadZone').style.display = 'none';
-      URL.revokeObjectURL(blobUrl);
-    }, 'image/jpeg', 0.85);
+    _cropOrigFile = file;
+    _cropNaturalImg = img;
+    // Open crop tool
+    const cropImg = document.getElementById('coverCropSrcImg');
+    cropImg.src = blobUrl;
+    cropImg.onload = () => {
+      const W = cropImg.offsetWidth, H = cropImg.offsetHeight;
+      const initSize = Math.round(Math.min(W, H) * 0.88);
+      _cropBox = {
+        x: Math.round((W - initSize) / 2),
+        y: Math.round((H - initSize) / 2),
+        size: initSize
+      };
+      _updateCropBox();
+      document.getElementById('coverCropOverlay').classList.add('show');
+    };
   };
-  img.onerror = () => {
-    showToast('이미지를 읽을 수 없습니다');
-    URL.revokeObjectURL(blobUrl);
-  };
+  img.onerror = () => { showToast('이미지를 읽을 수 없습니다'); URL.revokeObjectURL(blobUrl); };
   img.src = blobUrl;
 }
+
+function _updateCropBox() {
+  const box = document.getElementById('coverCropBox');
+  const b = _cropBox;
+  box.style.left = b.x + 'px';
+  box.style.top  = b.y + 'px';
+  box.style.width  = b.size + 'px';
+  box.style.height = b.size + 'px';
+  // info label
+  const cropImg = document.getElementById('coverCropSrcImg');
+  if (!cropImg || !_cropNaturalImg) return;
+  const scaleX = _cropNaturalImg.naturalWidth  / cropImg.offsetWidth;
+  const scaleY = _cropNaturalImg.naturalHeight / cropImg.offsetHeight;
+  const natSize = Math.round(b.size * Math.min(scaleX, scaleY));
+  document.getElementById('coverCropInfo').textContent =
+    `크롭 ${natSize}×${natSize}px → ${COVER_RESIZE_PX}×${COVER_RESIZE_PX} JPEG`;
+}
+
+function _cropClamp(x, y, size, W, H) {
+  const minS = 50;
+  size = Math.max(minS, Math.min(size, Math.min(W, H)));
+  x = Math.max(0, Math.min(x, W - size));
+  y = Math.max(0, Math.min(y, H - size));
+  return { x, y, size };
+}
+
+function _cropPt(e) {
+  const wrap = document.getElementById('coverCropImgWrap');
+  const rect = wrap.getBoundingClientRect();
+  const p = e.touches ? e.touches[0] : e;
+  return { x: p.clientX - rect.left, y: p.clientY - rect.top };
+}
+
+function _onCropDown(e) {
+  e.preventDefault();
+  const pos = _cropPt(e);
+  const b = _cropBox;
+  const hs = 22;
+  let type = null;
+  if      (pos.x<=b.x+hs     && pos.y<=b.y+hs)                         type='tl';
+  else if (pos.x>=b.x+b.size-hs && pos.y<=b.y+hs)                      type='tr';
+  else if (pos.x<=b.x+hs     && pos.y>=b.y+b.size-hs)                  type='bl';
+  else if (pos.x>=b.x+b.size-hs && pos.y>=b.y+b.size-hs)               type='br';
+  else if (pos.x>=b.x && pos.x<=b.x+b.size && pos.y>=b.y && pos.y<=b.y+b.size) type='move';
+  if (!type) return;
+  _cropDrag = { type, startX:pos.x, startY:pos.y, startBox:{...b} };
+}
+
+function _onCropMove(e) {
+  e.preventDefault();
+  if (!_cropDrag) return;
+  const pos = _cropPt(e);
+  const dx = pos.x - _cropDrag.startX;
+  const dy = pos.y - _cropDrag.startY;
+  const sb = _cropDrag.startBox;
+  const cropImg = document.getElementById('coverCropSrcImg');
+  const W = cropImg.offsetWidth, H = cropImg.offsetHeight;
+  let { x, y, size } = sb;
+
+  if (_cropDrag.type === 'move') {
+    x = sb.x + dx; y = sb.y + dy;
+  } else {
+    // use horizontal drag as the resize delta (square constraint)
+    const d = (_cropDrag.type==='tl'||_cropDrag.type==='bl') ? -dx : dx;
+    size = sb.size + d;
+    if (_cropDrag.type==='tl') { x=sb.x-d; y=sb.y-d; }
+    else if (_cropDrag.type==='tr') { x=sb.x; y=sb.y-d; }
+    else if (_cropDrag.type==='bl') { x=sb.x-d; y=sb.y; }
+    // br: x,y unchanged
+  }
+  _cropBox = _cropClamp(x, y, size, W, H);
+  _updateCropBox();
+}
+
+function _onCropUp(e) { _cropDrag = null; }
+
+function closeCropTool() {
+  document.getElementById('coverCropOverlay').classList.remove('show');
+  _cropDrag = null;
+}
+
+function applyCrop() {
+  const cropImg = document.getElementById('coverCropSrcImg');
+  if (!cropImg || !_cropNaturalImg) return;
+  const W = cropImg.offsetWidth, H = cropImg.offsetHeight;
+  const scaleX = _cropNaturalImg.naturalWidth  / W;
+  const scaleY = _cropNaturalImg.naturalHeight / H;
+  const natX    = Math.round(_cropBox.x    * scaleX);
+  const natY    = Math.round(_cropBox.y    * scaleY);
+  const natSize = Math.round(_cropBox.size * Math.min(scaleX, scaleY));
+
+  const canvas = document.createElement('canvas');
+  canvas.width = COVER_RESIZE_PX; canvas.height = COVER_RESIZE_PX;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(_cropNaturalImg, natX, natY, natSize, natSize, 0, 0, COVER_RESIZE_PX, COVER_RESIZE_PX);
+
+  canvas.toBlob((blob) => {
+    const origFile = _cropOrigFile;
+    pendingCoverFile = new File([blob], origFile.name.replace(/\.[^.]+$/, '.jpg'), { type:'image/jpeg' });
+    const resizedUrl = URL.createObjectURL(pendingCoverFile);
+    const preview = document.getElementById('coverPreview');
+    preview.style.display = 'block';
+    preview.innerHTML = `<div class="upload-preview">
+      <img src="${resizedUrl}" class="upload-cover-preview" alt="">
+      <div class="upload-preview-info">
+        <div class="upload-preview-name">${origFile.name}</div>
+        <div class="upload-preview-size">크롭 적용 → ${COVER_RESIZE_PX}×${COVER_RESIZE_PX} · ${formatFileSize(blob.size)}</div>
+      </div>
+      <button class="upload-preview-remove" onclick="removeCoverFile()">삭제</button>
+    </div>`;
+    document.getElementById('coverUploadZone').style.display = 'none';
+    closeCropTool();
+  }, 'image/jpeg', 0.88);
+}
+
+// bind crop tool events once DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  const wrap = document.getElementById('coverCropImgWrap');
+  if (!wrap) return;
+  wrap.addEventListener('mousedown',  _onCropDown, { passive:false });
+  wrap.addEventListener('touchstart', _onCropDown, { passive:false });
+  wrap.addEventListener('mousemove',  _onCropMove, { passive:false });
+  wrap.addEventListener('touchmove',  _onCropMove, { passive:false });
+  wrap.addEventListener('mouseup',    _onCropUp);
+  wrap.addEventListener('touchend',   _onCropUp);
+  window.addEventListener('mouseup',  _onCropUp);
+});
 
 function removeCoverFile() {
   pendingCoverFile = null;
@@ -11461,8 +11630,16 @@ function adminLogin() {
   const id = document.getElementById('adminLoginId').value.trim();
   const pw = document.getElementById('adminLoginPw').value;
   const errEl = document.getElementById('adminLoginError');
+  const saveId = document.getElementById('adminSaveId').checked;
 
   if (!id || !pw) { errEl.textContent = '아이디와 비밀번호를 입력하세요'; return; }
+
+  // 아이디 저장 처리
+  if (saveId) {
+    localStorage.setItem('venux_admin_saved_id', id);
+  } else {
+    localStorage.removeItem('venux_admin_saved_id');
+  }
 
   const users = getAdminUsers();
   const user = users.find(u => u.id === id);
@@ -11492,6 +11669,14 @@ function openAdmin() {
   document.getElementById('adminLoginError').textContent = '';
   document.getElementById('adminRegError').textContent = '';
   switchAdminTab('login');
+  // 저장된 아이디 복원
+  const savedId = localStorage.getItem('venux_admin_saved_id');
+  if (savedId) {
+    document.getElementById('adminLoginId').value = savedId;
+    document.getElementById('adminSaveId').checked = true;
+    // 비밀번호 필드로 포커스
+    setTimeout(() => document.getElementById('adminLoginPw').focus(), 120);
+  }
 }
 function closeAdmin() {
   document.getElementById('adminOverlay').classList.remove('show');
@@ -12013,6 +12198,8 @@ function renderAffinityPage() {
     const rankClass = rank <= 3 ? `rank-${rank}` : 'rank-other';
     const delay = idx * 80;
 
+    const arrowSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+
     if (isUnmet) {
       return `<div class="affinity-rank-card" style="animation-delay:${delay}ms" onclick="openChatRoom('${key}')">
         <div class="affinity-rank-badge ${rankClass}">${rank}</div>
@@ -12022,28 +12209,28 @@ function renderAffinityPage() {
             <span class="affinity-rank-kr">${m.name}</span>
             <span class="affinity-rank-code" style="color:${m.badgeColor}">${key}</span>
           </div>
-          <div class="affinity-rank-unmet">아직 만나지 못함</div>
-          <button class="affinity-rank-cta" style="background:${m.badgeColor}" onclick="event.stopPropagation();openChatRoom('${key}')">💬 첫 대화하기</button>
+          <div class="affinity-rank-unmet">NOT MET YET</div>
+          <button class="affinity-rank-cta" style="background:rgba(${hexToRgb(m.badgeColor)},0.2);border:1px solid ${m.badgeColor};color:${m.badgeColor}" onclick="event.stopPropagation();openChatRoom('${key}')">FIRST CONTACT</button>
         </div>
-        <div class="affinity-rank-arrow">→</div>
+        <div class="affinity-rank-arrow">${arrowSvg}</div>
       </div>`;
     }
 
     return `<div class="affinity-rank-card" style="animation-delay:${delay}ms" onclick="openChatRoom('${key}')">
       <div class="affinity-rank-badge ${rankClass}">${rank}</div>
-      <div class="affinity-rank-portrait" style="border:2px solid ${m.badgeColor}"><img src="${m.photo}" alt="${m.letter}"></div>
+      <div class="affinity-rank-portrait" style="border:2px solid ${m.badgeColor};box-shadow:0 0 12px ${m.badgeColor}44"><img src="${m.photo}" alt="${m.letter}"></div>
       <div class="affinity-rank-info">
         <div class="affinity-rank-name-row">
           <span class="affinity-rank-kr">${m.name}</span>
           <span class="affinity-rank-code" style="color:${m.badgeColor}">${key}</span>
         </div>
-        <div class="affinity-rank-lv" style="background:${m.badgeColor}">LV ${lv} ${lvData.name}</div>
+        <div class="affinity-rank-lv" style="background:rgba(${hexToRgb(m.badgeColor)},0.18);border:1px solid ${m.badgeColor}66;color:${m.badgeColor}">LV ${lv} · ${lvData.name}</div>
         <div class="affinity-rank-bar-wrap">
-          <div class="affinity-rank-bar-fill" style="background:linear-gradient(90deg,${m.badgeColor}88,${m.badgeColor});width:${progress*100}%"></div>
+          <div class="affinity-rank-bar-fill" style="background:linear-gradient(90deg,${m.badgeColor}99,${m.badgeColor});box-shadow:0 0 6px ${m.badgeColor}66;width:${progress*100}%"></div>
         </div>
-        <div class="affinity-rank-pts">${pts} / ${nextData.points} pt ${lv < 5 ? `(다음 LV까지 ${ptsToNext}pt)` : '✨ MAX'}</div>
+        <div class="affinity-rank-pts">${pts.toLocaleString()} pt${lv < AFFINITY_LEVELS.length ? ` · next +${ptsToNext}` : ' · MAX ✦'}</div>
       </div>
-      <div class="affinity-rank-arrow">→</div>
+      <div class="affinity-rank-arrow">${arrowSvg}</div>
     </div>`;
   }).join('');
 
@@ -12062,7 +12249,8 @@ function renderAffinityPage() {
   const unlocked = ACHIEVEMENTS_DEF.filter(a => a.check(db)).length;
   document.getElementById('affinityAchievementMini').innerHTML = `
     <div class="affinity-achievement-pill" onclick="openAchievementsModal()">
-      🏆 달성 도전과제 ${unlocked}/${ACHIEVEMENTS_DEF.length}
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 010-5H6"/><path d="M18 9h1.5a2.5 2.5 0 000-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0012 0V2z"/></svg>
+      ACHIEVEMENTS &nbsp;${unlocked} / ${ACHIEVEMENTS_DEF.length}
     </div>
   `;
 }
