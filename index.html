@@ -6017,10 +6017,10 @@ const PHOTOCARDS = {
     { id:'kin_c4',  rarity:'N',  title:'운동장',     subtitle:'해 질 무렵',          quote:'오늘 얼마나 뛰었더라.\n기록 같은 건 신경 안 써.',          filter:'sepia(0.08) brightness(1.02)',                 unlock:{type:'always'} },
     { id:'kin_c5',  rarity:'N',  title:'웃음',       subtitle:'뭔가 웃길 때',        quote:'하하. 웃기다.\n이 순간이 진짜야.',                  filter:'brightness(1.06) saturate(0.95)',              unlock:{type:'always'} },
     { id:'kin_c6',  rarity:'N',  title:'하늘',       subtitle:'누워서 올려다본',     quote:'이 구름 저 구름 다 달라.\n누워서 보는 게 제일 좋아.',       filter:'brightness(1.1) saturate(0.88)',               unlock:{type:'always'} },
-    { id:'kin_c7',  rarity:'N',  title:'바다',       subtitle:'파도 치는 날',        quote:'파도 타보고 싶어.\n바다도 결국 바람이야.',              filter:'saturate(1.12) hue-rotate(195deg)',            unlock:{type:'always'} },
+    { id:'kin_c7',  rarity:'N',  title:'바다',       subtitle:'파도 치는 날',        quote:'파도 타보고 싶어.\n바다도 결국 바람이야.',              filter:'saturate(1.12) brightness(1.04)',              unlock:{type:'always'} },
     { id:'kin_c8',  rarity:'N',  title:'스트레칭',   subtitle:'잠깐 쉬는 틈에',      quote:'몸이 먼저 알아.\n움직여야 살아있는 거야.',                filter:'brightness(0.97) saturate(0.92)',              unlock:{type:'level',value:1} },
     { id:'kin_c9',  rarity:'R',  title:'질주',       subtitle:'속도감 있게',         quote:'더 빠르게.\n이 속도감이 나야.',                     filter:'contrast(1.1) brightness(1.02)',               unlock:{type:'level',value:2} },
-    { id:'kin_c10', rarity:'R',  title:'서프',       subtitle:'파도 위에서',         quote:'파도가 날 데려가는 거야.\n방향은 파도한테 맡겨.',       filter:'saturate(1.15) hue-rotate(190deg)',            unlock:{type:'level',value:2} },
+    { id:'kin_c10', rarity:'R',  title:'서프',       subtitle:'파도 위에서',         quote:'파도가 날 데려가는 거야.\n방향은 파도한테 맡겨.',       filter:'saturate(1.15) brightness(1.03)',              unlock:{type:'level',value:2} },
     { id:'kin_c11', rarity:'R',  title:'산',         subtitle:'정상 직전',           quote:'다 왔어, 거의.\n정상도 결국 경치야.',                 filter:'brightness(0.92) saturate(1.05)',              unlock:{type:'chat',value:5} },
     { id:'kin_c12', rarity:'R',  title:'낮잠',       subtitle:'뻗어버린 날',         quote:'쉬는 것도 연습이야.\n일어나면 또 뛰어.',            filter:'brightness(0.9) saturate(0.82)',               unlock:{type:'chat',value:5} },
     { id:'kin_c13', rarity:'R',  title:'선글라스',   subtitle:'눈부신 날',           quote:'눈이 부셔도 갈 거야.\n햇빛이 강할수록 기분이 좋아.',           filter:'sepia(0.12) contrast(1.08)',                   unlock:{type:'chat',value:10} },
@@ -12157,8 +12157,14 @@ function getAdminUsers() {
 function saveAdminUsers(users) { localStorage.setItem('venux_admin_users', JSON.stringify(users)); }
 
 function getAdminSession() {
-  try { return JSON.parse(localStorage.getItem('venux_admin_session')) || null; }
-  catch { return null; }
+  try {
+    const s = JSON.parse(localStorage.getItem('venux_admin_session')) || null;
+    if (!s) return null;
+    // admin.html 형식: { expiry } — 만료 체크
+    if (s.expiry !== undefined) return s.expiry > Date.now() ? s : null;
+    // index.html 형식: { id, role, loginAt } — 항상 유효
+    return s;
+  } catch { return null; }
 }
 function saveAdminSession(session) {
   if (session) localStorage.setItem('venux_admin_session', JSON.stringify(session));
