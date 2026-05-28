@@ -1331,27 +1331,57 @@
     #chatImgLightbox .cil-close { position:absolute; top:16px; right:16px; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.12); border:none; color:#fff; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.15s; }
     #chatImgLightbox .cil-close:hover { background:rgba(255,255,255,0.22); }
 
-    /* ── BGM Player ── */
-    #bgmPlayer { position:fixed; bottom:72px; right:12px; z-index:1200; display:flex; flex-direction:column; align-items:flex-end; gap:6px; }
-    #bgmMini { display:flex; align-items:center; gap:8px; background:rgba(12,14,26,0.88); border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-radius:24px; padding:7px 12px 7px 8px; cursor:pointer; transition:box-shadow 0.2s; box-shadow:0 4px 20px rgba(0,0,0,0.4); min-width:0; max-width:220px; }
-    #bgmMini:hover { box-shadow:0 4px 28px rgba(199,125,255,0.22); }
-    #bgmMini .bgm-art { width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg,#c77dff,#7b2ff7); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:12px; animation:none; }
+    /* ── BGM Mini Player ── */
+    #bgmPlayer { position:fixed; bottom:72px; right:12px; z-index:1200; display:none; }
+    #bgmMini { display:flex; align-items:center; gap:8px; background:rgba(12,14,26,0.88); border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-radius:24px; padding:6px 10px 6px 7px; cursor:pointer; transition:box-shadow 0.2s, transform 0.15s; box-shadow:0 4px 20px rgba(0,0,0,0.4); min-width:0; max-width:200px; -webkit-tap-highlight-color:transparent; }
+    #bgmMini:active { transform:scale(0.96); }
+    #bgmMini:hover { box-shadow:0 4px 28px rgba(199,125,255,0.25); }
+    #bgmMini .bgm-art { width:26px; height:26px; border-radius:50%; background:linear-gradient(135deg,#c77dff,#7b2ff7); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:11px; }
     #bgmMini .bgm-art.spinning { animation:bgmSpin 4s linear infinite; }
     @keyframes bgmSpin { to { transform:rotate(360deg); } }
-    #bgmMini .bgm-track { font-size:11px; font-weight:600; color:#e0d4ff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100px; flex:1; }
-    #bgmMini .bgm-controls { display:flex; gap:2px; flex-shrink:0; }
-    #bgmMini .bgm-btn { width:24px; height:24px; border:none; background:none; color:rgba(255,255,255,0.6); cursor:pointer; display:flex; align-items:center; justify-content:center; border-radius:50%; transition:color 0.15s, background 0.15s; padding:0; }
-    #bgmMini .bgm-btn:hover { color:#fff; background:rgba(255,255,255,0.1); }
-    #bgmPlaylist { background:rgba(12,14,26,0.94); border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-radius:16px; padding:8px 6px; width:220px; max-height:240px; overflow-y:auto; display:none; box-shadow:0 8px 32px rgba(0,0,0,0.5); }
-    #bgmPlaylist.open { display:block; }
-    #bgmPlaylist::-webkit-scrollbar { width:3px; }
-    #bgmPlaylist::-webkit-scrollbar-thumb { background:rgba(199,125,255,0.3); border-radius:2px; }
-    .bgm-pl-item { display:flex; align-items:center; gap:8px; padding:7px 10px; border-radius:10px; cursor:pointer; transition:background 0.15s; }
-    .bgm-pl-item:hover { background:rgba(255,255,255,0.06); }
-    .bgm-pl-item.active { background:rgba(199,125,255,0.12); }
-    .bgm-pl-item .bgm-pl-num { font-size:10px; color:rgba(255,255,255,0.3); width:16px; text-align:center; flex-shrink:0; font-family:'JetBrains Mono',monospace; }
+    #bgmMini .bgm-track { font-size:11px; font-weight:600; color:#e0d4ff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:90px; flex:1; }
+    #bgmMini .bgm-mini-play { width:26px; height:26px; border:none; background:rgba(199,125,255,0.15); border-radius:50%; color:#c77dff; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; padding:0; transition:background 0.15s; }
+    #bgmMini .bgm-mini-play:hover { background:rgba(199,125,255,0.28); }
+
+    /* ── BGM Bottom Sheet ── */
+    #bgmSheetOverlay { position:fixed; inset:0; z-index:1290; background:rgba(0,0,0,0); pointer-events:none; transition:background 0.35s; }
+    #bgmSheetOverlay.open { background:rgba(0,0,0,0.55); pointer-events:auto; }
+    #bgmSheet { position:fixed; bottom:0; left:0; right:0; z-index:1295; background:linear-gradient(180deg,rgba(18,12,30,0.98) 0%,rgba(8,6,18,0.99) 100%); border-radius:24px 24px 0 0; border-top:1px solid rgba(199,125,255,0.15); transform:translateY(100%); transition:transform 0.4s cubic-bezier(0.32,0.72,0,1); padding-bottom:env(safe-area-inset-bottom,16px); }
+    #bgmSheet.open { transform:translateY(0); }
+    .bgm-handle { width:36px; height:4px; background:rgba(255,255,255,0.15); border-radius:2px; margin:12px auto 0; }
+    .bgm-sheet-head { display:flex; align-items:center; justify-content:space-between; padding:12px 20px 0; }
+    .bgm-sheet-label { font-size:11px; font-weight:700; letter-spacing:.1em; color:rgba(255,255,255,0.3); text-transform:uppercase; }
+    .bgm-sheet-close { width:28px; height:28px; border:none; background:rgba(255,255,255,0.06); border-radius:50%; color:rgba(255,255,255,0.5); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; }
+    /* Art */
+    .bgm-sheet-art-wrap { display:flex; justify-content:center; padding:20px 0 16px; }
+    #bgmSheetArt { width:140px; height:140px; border-radius:50%; background:linear-gradient(135deg,#c77dff 0%,#7b2ff7 50%,#3d0099 100%); display:flex; align-items:center; justify-content:center; font-size:48px; box-shadow:0 8px 40px rgba(199,125,255,0.35); flex-shrink:0; }
+    #bgmSheetArt.spinning { animation:bgmSpin 5s linear infinite; }
+    /* Info */
+    .bgm-sheet-info { text-align:center; padding:0 24px 4px; }
+    #bgmSheetTitle { font-size:17px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    /* Progress */
+    .bgm-progress-wrap { padding:16px 24px 4px; }
+    .bgm-seek { width:100%; -webkit-appearance:none; appearance:none; height:3px; border-radius:2px; background:rgba(255,255,255,0.12); outline:none; cursor:pointer; }
+    .bgm-seek::-webkit-slider-thumb { -webkit-appearance:none; width:14px; height:14px; border-radius:50%; background:#c77dff; box-shadow:0 0 8px rgba(199,125,255,0.6); cursor:pointer; }
+    .bgm-seek::-moz-range-thumb { width:14px; height:14px; border-radius:50%; background:#c77dff; border:none; cursor:pointer; }
+    .bgm-times { display:flex; justify-content:space-between; margin-top:6px; font-size:10px; font-family:'JetBrains Mono',monospace; color:rgba(255,255,255,0.3); }
+    /* Controls */
+    .bgm-sheet-controls { display:flex; align-items:center; justify-content:center; gap:16px; padding:12px 24px 4px; }
+    .bgm-ctrl { border:none; background:none; color:rgba(255,255,255,0.5); cursor:pointer; display:flex; align-items:center; justify-content:center; border-radius:50%; transition:color 0.15s, background 0.15s; padding:6px; -webkit-tap-highlight-color:transparent; }
+    .bgm-ctrl:hover, .bgm-ctrl.on { color:#c77dff; }
+    .bgm-ctrl-play { width:58px; height:58px; background:linear-gradient(135deg,#c77dff,#7b2ff7); border-radius:50%; color:#fff !important; box-shadow:0 4px 20px rgba(199,125,255,0.45); transition:transform 0.12s, box-shadow 0.15s; }
+    .bgm-ctrl-play:active { transform:scale(0.92); box-shadow:0 2px 10px rgba(199,125,255,0.3); }
+    /* Playlist in sheet */
+    .bgm-sheet-list-head { padding:16px 20px 8px; font-size:11px; font-weight:700; letter-spacing:.08em; color:rgba(255,255,255,0.25); text-transform:uppercase; border-top:1px solid rgba(255,255,255,0.06); }
+    #bgmSheetList { padding:0 12px 16px; max-height:200px; overflow-y:auto; }
+    #bgmSheetList::-webkit-scrollbar { width:2px; }
+    #bgmSheetList::-webkit-scrollbar-thumb { background:rgba(199,125,255,0.2); }
+    .bgm-pl-item { display:flex; align-items:center; gap:10px; padding:9px 8px; border-radius:10px; cursor:pointer; transition:background 0.15s; -webkit-tap-highlight-color:transparent; }
+    .bgm-pl-item:hover { background:rgba(255,255,255,0.05); }
+    .bgm-pl-item.active { background:rgba(199,125,255,0.1); }
+    .bgm-pl-item .bgm-pl-num { font-size:10px; color:rgba(255,255,255,0.25); width:18px; text-align:center; flex-shrink:0; font-family:'JetBrains Mono',monospace; }
     .bgm-pl-item.active .bgm-pl-num { color:#c77dff; }
-    .bgm-pl-item .bgm-pl-name { font-size:12px; color:rgba(255,255,255,0.75); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1; }
+    .bgm-pl-item .bgm-pl-name { font-size:13px; color:rgba(255,255,255,0.65); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1; }
     .bgm-pl-item.active .bgm-pl-name { color:#e0d4ff; font-weight:600; }
 
     /* Time label */
@@ -15683,129 +15713,213 @@ imgObserver.observe(document.body, { childList: true, subtree: true });
   <img id="chatImgLightboxImg" src="" alt="chat photo">
 </div>
 
-<!-- ── BGM 플레이어 ── -->
-<div id="bgmPlayer" style="display:none">
-  <div id="bgmPlaylist"></div>
-  <div id="bgmMini">
+<!-- ── BGM 미니 플레이어 ── -->
+<div id="bgmPlayer">
+  <div id="bgmMini" onclick="bgmOpenSheet()">
     <div class="bgm-art" id="bgmArt">♪</div>
-    <span class="bgm-track" id="bgmTrackName">재생 없음</span>
-    <div class="bgm-controls">
-      <button class="bgm-btn" onclick="bgmPrev(event)" title="이전">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
-      </button>
-      <button class="bgm-btn" id="bgmPlayBtn" onclick="bgmToggle(event)" title="재생/정지">
-        <svg id="bgmPlayIcon" viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M8 5v14l11-7z"/></svg>
-      </button>
-      <button class="bgm-btn" onclick="bgmNext(event)" title="다음">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M6 18l8.5-6L6 6v12zm2.5-6 8.5 6V6z" style="transform:none"/><path d="M16 6h2v12h-2z"/></svg>
-      </button>
-      <button class="bgm-btn" onclick="bgmToggleList(event)" title="목록">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
-    </div>
+    <span class="bgm-track" id="bgmTrackName">-</span>
+    <button class="bgm-mini-play" id="bgmMiniPlayBtn" onclick="bgmToggle(event)">
+      <svg id="bgmMiniIcon" viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg>
+    </button>
   </div>
 </div>
+
+<!-- ── BGM 바텀시트 ── -->
+<div id="bgmSheetOverlay" onclick="bgmCloseSheet()"></div>
+<div id="bgmSheet">
+  <div class="bgm-handle"></div>
+  <div class="bgm-sheet-head">
+    <span class="bgm-sheet-label">Now Playing</span>
+    <button class="bgm-sheet-close" onclick="bgmCloseSheet()">✕</button>
+  </div>
+  <div class="bgm-sheet-art-wrap">
+    <div id="bgmSheetArt">♪</div>
+  </div>
+  <div class="bgm-sheet-info">
+    <div id="bgmSheetTitle">-</div>
+  </div>
+  <div class="bgm-progress-wrap">
+    <input type="range" id="bgmSeek" class="bgm-seek" min="0" max="100" value="0" oninput="bgmSeekTo(this.value)">
+    <div class="bgm-times">
+      <span id="bgmCurrentTime">0:00</span>
+      <span id="bgmDuration">0:00</span>
+    </div>
+  </div>
+  <div class="bgm-sheet-controls">
+    <button class="bgm-ctrl" id="bgmShuffleBtn" onclick="bgmToggleShuffle()" title="셔플">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+    </button>
+    <button class="bgm-ctrl" onclick="bgmPrev()" title="이전">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+    </button>
+    <button class="bgm-ctrl bgm-ctrl-play" id="bgmSheetPlayBtn" onclick="bgmToggle(event)" title="재생/정지">
+      <svg id="bgmSheetIcon" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M8 5v14l11-7z"/></svg>
+    </button>
+    <button class="bgm-ctrl" onclick="bgmNext()" title="다음">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M6 18l8.5-6L6 6v12zm2.5-6 8.5 6V6z"/><path d="M16 6h2v12h-2z"/></svg>
+    </button>
+    <button class="bgm-ctrl" id="bgmRepeatBtn" onclick="bgmToggleRepeat()" title="반복">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+    </button>
+  </div>
+  <div class="bgm-sheet-list-head">Playlist</div>
+  <div id="bgmSheetList"></div>
+</div>
+
 <audio id="bgmAudio" preload="auto"></audio>
 
 <script>
 // ============================================================
-// BGM 플레이어
+// BGM 플레이어 — 바텀시트 버전
 // ============================================================
-// ▼ 파일을 assets/bgm/ 에 넣은 후 아래 배열에 추가
+// ▼ assets/bgm/ 에 파일 추가 후 아래 배열에 등록
 const BGM_PLAYLIST = [
-  // { title: '곡 제목', file: 'assets/bgm/filename.mp3' },
+  // { title: '곡 제목', file: 'assets/bgm/main/filename.mp3' },
 ];
 
-let _bgmIdx = parseInt(localStorage.getItem('venux_bgm_idx') || '0', 10);
+let _bgmIdx     = parseInt(localStorage.getItem('venux_bgm_idx') || '0', 10);
 let _bgmPlaying = false;
-let _bgmListOpen = false;
-let _bgmInited = false;
+let _bgmShuffle = false;
+let _bgmRepeat  = 0; // 0=off 1=all 2=one
+let _bgmSheetOpen = false;
 
 function bgmInit() {
   if (BGM_PLAYLIST.length === 0) return;
-  document.getElementById('bgmPlayer').style.display = 'flex';
+  document.getElementById('bgmPlayer').style.display = 'block';
   _bgmIdx = Math.min(_bgmIdx, BGM_PLAYLIST.length - 1);
-  bgmRenderList();
-  bgmLoadTrack(_bgmIdx, false);
   const audio = document.getElementById('bgmAudio');
-  audio.addEventListener('ended', bgmNext);
+  audio.addEventListener('ended', _bgmOnEnded);
+  audio.addEventListener('timeupdate', _bgmOnTimeUpdate);
+  audio.addEventListener('loadedmetadata', _bgmOnMeta);
   audio.volume = 0.45;
+  bgmLoadTrack(_bgmIdx, false);
 }
 
 function bgmLoadTrack(idx, autoplay) {
   if (BGM_PLAYLIST.length === 0) return;
-  _bgmIdx = (idx + BGM_PLAYLIST.length) % BGM_PLAYLIST.length;
+  _bgmIdx = ((idx % BGM_PLAYLIST.length) + BGM_PLAYLIST.length) % BGM_PLAYLIST.length;
   localStorage.setItem('venux_bgm_idx', _bgmIdx);
   const track = BGM_PLAYLIST[_bgmIdx];
   const audio = document.getElementById('bgmAudio');
   audio.src = track.file;
-  document.getElementById('bgmTrackName').textContent = track.title;
+  audio.load();
+  _bgmUpdateTitles(track.title);
   bgmRenderList();
-  if (autoplay) { audio.play().then(() => { _bgmPlaying = true; bgmUpdateUI(); }); }
+  if (autoplay) {
+    audio.play().then(() => { _bgmPlaying = true; bgmUpdateUI(); }).catch(() => {});
+  }
 }
 
 function bgmToggle(e) {
-  if (e) e.stopPropagation();
-  if (!_bgmInited) { _bgmInited = true; }
-  const audio = document.getElementById('bgmAudio');
+  if (e) { e.stopPropagation(); e.preventDefault(); }
   if (BGM_PLAYLIST.length === 0) return;
+  const audio = document.getElementById('bgmAudio');
   if (!audio.src || audio.src === window.location.href) bgmLoadTrack(_bgmIdx, false);
   if (_bgmPlaying) { audio.pause(); _bgmPlaying = false; }
-  else { audio.play().then(() => { _bgmPlaying = true; bgmUpdateUI(); }).catch(()=>{}); }
+  else { audio.play().then(() => { _bgmPlaying = true; bgmUpdateUI(); }).catch(() => {}); }
   bgmUpdateUI();
 }
 
-function bgmNext(e) {
-  if (e && e.stopPropagation) e.stopPropagation();
-  bgmLoadTrack(_bgmIdx + 1, _bgmPlaying);
+function bgmNext() {
+  const next = _bgmShuffle
+    ? Math.floor(Math.random() * BGM_PLAYLIST.length)
+    : _bgmIdx + 1;
+  bgmLoadTrack(next, _bgmPlaying);
 }
-function bgmPrev(e) {
-  if (e && e.stopPropagation) e.stopPropagation();
+function bgmPrev() {
   const audio = document.getElementById('bgmAudio');
   if (audio.currentTime > 3) { audio.currentTime = 0; return; }
   bgmLoadTrack(_bgmIdx - 1, _bgmPlaying);
 }
-
 function bgmPlayAt(idx) {
   bgmLoadTrack(idx, true);
-  bgmToggleList(null, false);
 }
 
-function bgmToggleList(e, force) {
-  if (e) e.stopPropagation();
-  _bgmListOpen = force !== undefined ? force : !_bgmListOpen;
-  const pl = document.getElementById('bgmPlaylist');
-  pl.classList.toggle('open', _bgmListOpen);
+function bgmSeekTo(val) {
+  const audio = document.getElementById('bgmAudio');
+  if (audio.duration) audio.currentTime = (val / 100) * audio.duration;
+}
+
+function bgmToggleShuffle() {
+  _bgmShuffle = !_bgmShuffle;
+  document.getElementById('bgmShuffleBtn').classList.toggle('on', _bgmShuffle);
+}
+function bgmToggleRepeat() {
+  _bgmRepeat = (_bgmRepeat + 1) % 3;
+  const btn = document.getElementById('bgmRepeatBtn');
+  btn.classList.toggle('on', _bgmRepeat > 0);
+  btn.style.opacity = _bgmRepeat === 0 ? '' : '1';
+}
+
+function _bgmOnEnded() {
+  if (_bgmRepeat === 2) { document.getElementById('bgmAudio').play(); return; }
+  if (_bgmRepeat === 1 || _bgmIdx < BGM_PLAYLIST.length - 1 || _bgmShuffle) bgmNext();
+  else { _bgmPlaying = false; bgmUpdateUI(); }
+}
+function _bgmOnTimeUpdate() {
+  const audio = document.getElementById('bgmAudio');
+  if (!audio.duration) return;
+  const pct = (audio.currentTime / audio.duration) * 100;
+  const seek = document.getElementById('bgmSeek');
+  if (seek) seek.value = pct;
+  const cur = document.getElementById('bgmCurrentTime');
+  if (cur) cur.textContent = _bgmFmt(audio.currentTime);
+}
+function _bgmOnMeta() {
+  const audio = document.getElementById('bgmAudio');
+  const dur = document.getElementById('bgmDuration');
+  if (dur) dur.textContent = _bgmFmt(audio.duration);
+}
+function _bgmFmt(s) {
+  if (!s || isNaN(s)) return '0:00';
+  const m = Math.floor(s / 60), ss = Math.floor(s % 60);
+  return `${m}:${String(ss).padStart(2,'0')}`;
+}
+function _bgmUpdateTitles(title) {
+  const t1 = document.getElementById('bgmTrackName');
+  const t2 = document.getElementById('bgmSheetTitle');
+  if (t1) t1.textContent = title;
+  if (t2) t2.textContent = title;
 }
 
 function bgmUpdateUI() {
+  const playing = _bgmPlaying;
+  const PAUSE_SVG = '<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>';
+  const PLAY_SVG  = '<path d="M8 5v14l11-7z"/>';
+  // Mini
   const art = document.getElementById('bgmArt');
-  const icon = document.getElementById('bgmPlayIcon');
-  if (_bgmPlaying) {
-    art.classList.add('spinning');
-    icon.innerHTML = '<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>';
-  } else {
-    art.classList.remove('spinning');
-    icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
-  }
+  const miniIcon = document.getElementById('bgmMiniIcon');
+  if (art) art.classList.toggle('spinning', playing);
+  if (miniIcon) miniIcon.innerHTML = playing ? PAUSE_SVG : PLAY_SVG;
+  // Sheet
+  const sheetArt = document.getElementById('bgmSheetArt');
+  const sheetIcon = document.getElementById('bgmSheetIcon');
+  if (sheetArt) sheetArt.classList.toggle('spinning', playing);
+  if (sheetIcon) sheetIcon.innerHTML = playing ? PAUSE_SVG : PLAY_SVG;
   bgmRenderList();
 }
 
 function bgmRenderList() {
-  const pl = document.getElementById('bgmPlaylist');
-  pl.innerHTML = BGM_PLAYLIST.map((t, i) => `
+  const list = document.getElementById('bgmSheetList');
+  if (!list) return;
+  list.innerHTML = BGM_PLAYLIST.map((t, i) => `
     <div class="bgm-pl-item${i === _bgmIdx ? ' active' : ''}" onclick="bgmPlayAt(${i})">
       <span class="bgm-pl-num">${i === _bgmIdx && _bgmPlaying ? '▶' : String(i+1).padStart(2,'0')}</span>
       <span class="bgm-pl-name">${t.title}</span>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
-// 첫 탭/클릭 시 자동 시작 (선택 — 원하면 활성화)
-// document.addEventListener('click', function _bgmAutoStart() {
-//   if (BGM_PLAYLIST.length > 0 && !_bgmPlaying) bgmToggle(null);
-//   document.removeEventListener('click', _bgmAutoStart);
-// }, { once: true });
+function bgmOpenSheet() {
+  bgmRenderList();
+  _bgmSheetOpen = true;
+  document.getElementById('bgmSheetOverlay').classList.add('open');
+  requestAnimationFrame(() => document.getElementById('bgmSheet').classList.add('open'));
+}
+function bgmCloseSheet() {
+  _bgmSheetOpen = false;
+  document.getElementById('bgmSheetOverlay').classList.remove('open');
+  document.getElementById('bgmSheet').classList.remove('open');
+}
 
 document.addEventListener('DOMContentLoaded', () => { bgmInit(); });
 </script>
