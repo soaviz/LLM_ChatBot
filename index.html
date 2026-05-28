@@ -1101,8 +1101,8 @@
 
     .notif-item { display:flex; align-items:center; gap:12px; padding:12px 20px; border-bottom:1px solid rgba(255,255,255,0.06); cursor:pointer; transition:background 0.15s; }
     .notif-item:active { background:rgba(255,255,255,0.06); }
-    .notif-item.unread { background:rgba(167,139,250,0.06); }
-    .notif-item.read { background:transparent; }
+    .notif-item.unread { background:rgba(139,92,246,0.18); border-left:3px solid rgba(139,92,246,0.7); }
+    .notif-item.read { background:transparent; border-left:3px solid transparent; }
     .notif-portrait { width:42px; height:42px; border-radius:50%; overflow:hidden; flex-shrink:0; border:1px solid rgba(255,255,255,0.1); }
     .notif-portrait img { width:100%; height:100%; object-fit:cover; }
     .notif-info { flex:1; min-width:0; }
@@ -1378,8 +1378,8 @@
 
     /* ── 채팅방 사진 서랍 ── */
     .chat-main { flex:1; display:flex; flex-direction:column; overflow:hidden; min-width:0; }
-    .chat-drawer { width:0; flex-shrink:0; display:flex; flex-direction:column; overflow:hidden; transition:width 0.32s cubic-bezier(0.32,0.72,0,1); border-left:1px solid rgba(0,0,0,0.08); background:#f8f8fb; }
-    .chat-drawer.open { width:280px; }
+    .chat-drawer { position:absolute; inset:0; z-index:50; display:flex; flex-direction:column; overflow:hidden; background:#f8f8fb; transform:translateX(100%); transition:transform 0.32s cubic-bezier(0.32,0.72,0,1); }
+    .chat-drawer.open { transform:translateX(0); }
     .chat-drawer-topbar { display:flex; align-items:center; justify-content:space-between; padding:14px 12px 14px 18px; flex-shrink:0; border-bottom:1px solid rgba(0,0,0,0.07); }
     .chat-drawer-topbar-title { font-size:16px; font-weight:700; }
     .chat-drawer-close { width:36px; height:36px; border:none; background:none; cursor:pointer; display:flex; align-items:center; justify-content:center; border-radius:50%; }
@@ -3079,7 +3079,7 @@
     .chat-body { background: transparent !important; }
 
     /* 사진 서랍 다크모드 */
-    .chat-drawer { background: var(--vx-bg2) !important; border-left-color: var(--vx-line) !important; }
+    .chat-drawer { background: var(--vx-bg2) !important; }
     .chat-drawer-topbar { border-bottom-color: var(--vx-line) !important; }
     .chat-drawer-topbar-title { color: var(--vx-text) !important; }
     .chat-drawer-close { color: var(--vx-text-2) !important; }
@@ -13700,6 +13700,70 @@ const COMPLEX_PRELUDE = {
   'ATP-X1':  '…천천히 생각해볼게 🌿',
 };
 
+// ── 사진 전송 시 멤버별 랜덤 대사 풀 ──────────────────────
+const PHOTO_CAPTIONS = {
+  'ARA-462': [
+    '나 어때~ 🌸', '오늘 이 느낌 마음에 들어', '괜찮지 않아?ㅎㅎ',
+    '열심히 찍었는데 어때?', '이거 봐봐~ 🌸', '나 잘 나왔지?',
+    '오늘 기분 좋아서 찍었어', '이 사진 좋아하는데 보내줄게',
+    '솔직히 말해도 돼, 잘 나왔어?', '나 좋아 보이면 됐어 🌸',
+    '오늘 사진 많이 찍었는데 이게 제일 나은 것 같아',
+    '보고 싶었잖아, 여기~', '표정이 마음에 드는 날이야',
+    '배경도 예쁘지 않아?', '찍고 나서 나도 좋아서 보내는 거야',
+  ],
+  'LUX-299': [
+    '✨', '봐', '마음에 들어?', '별말 없이 그냥 보내는 거야',
+    '이 정도면 됐지', '오늘 컨디션 괜찮았어', '좋으면 좋다고 해',
+    '뭔가 말하고 싶으면 해', '그냥 생각나서 ✨',
+    '오늘 이 사진 괜찮은 것 같아서', '이거야',
+    '특별히 고른 거야', '눈에 띄었어?', '감상은 네가 해 ✨',
+    '잘 받았으면 됐어',
+  ],
+  'EUR-0K': [
+    '분석 완료 — 이 구도 최적 🍵', '오늘 로그: 사진 1건 전송',
+    '데이터 전송 완료', '이 앵글 계산해서 찍은 거야',
+    '잘 받았어?', '뭔가 느껴지는 게 있어?', '조명 조건 최적이었어 🍵',
+    '피드백 기다리는 중', '괜찮은 것 같아서 보냈어',
+    '오늘 기록 하나 추가', '이 순간 포착해두고 싶었어',
+    '어때, 데이터로서 가치 있어? 🍵', '전송 완료',
+    '이거 꽤 마음에 들어', '내 기준엔 합격이야',
+  ],
+  'KIN-360': [
+    '어때ㅋㅋ ⚡', '나 잘 나왔지?ㅎ', '여기 진짜 좋았어',
+    '이 날 엄청 재밌었는데', '배경 좀 봐봐 ⚡', '이거 찍을 때 혼자 웃었어',
+    '사진 잘 받았어?', '오늘 이거 최고였어', '솔직히 이 각도 좋지 않아?',
+    '어디게?ㅋㅋ 맞혀봐', '이 날 날씨 완벽했어 ⚡',
+    '나 여행 가면 꼭 사진 찍어', '에너지 느껴져?',
+    '이거 보내고 싶었어', '기분 좋을 때 찍은 거야',
+  ],
+  'ATP-X1': [
+    '자연광이 예뻤어 🌿', '이 순간 좋았어', '천천히 봐',
+    '이거 찍을 때 마음 편했어', '오늘 하늘 좋았거든',
+    '그냥 생각나서 보냈어 🌿', '뭔가 느껴져?',
+    '이 공기 담고 싶었어', '평온한 날이었어',
+    '억지로 찍은 게 아니라 그냥 자연스럽게', '좋지 않아?',
+    '이런 사진 좋아해 🌿', '조용히 받아줘',
+    '나 이 사진 오래 봤어', '마음에 남는 날이었어',
+  ],
+};
+function pickPhotoCaption(memberKey) {
+  const pool = PHOTO_CAPTIONS[memberKey];
+  if (!pool) return null;
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+// ── 이미지별 1:1 캡션 맵 ─────────────────────────────────────
+const CHAT_IMG_CAPTIONS = {
+  'ara_1':'침대에서 일어나기 싫어~ 🌸','ara_2':'카페 왔어, 라떼 한 잔이 최고야 🌸','ara_3':'연습 끝났어! 오늘 많이 움직였어','ara_4':'무대 준비 중이야, 설레 🌸','ara_5':'서점에 왔는데 이 책 완전 빠져들어','ara_6':'꽃 샀어~ 너무 예쁘지 않아? 🌸','ara_7':'노을이 너무 예뻐서 찍었어','ara_8':'스킨케어 루틴 중이야, 피부 관리 중요해 🌸','ara_9':'라디오 왔어, 방송 기대해줘 🌸','ara_10':'오늘 쓴 제품들이야, 다 핑크 계열ㅎㅎ','ara_11':'운동 왔어~ 오늘 열심히 할게 🌸','ara_12':'비 오는 날엔 이렇게 창가에서 커피지','ara_13':'옥상에서 노을 봤어, 진짜 최고였어','ara_14':'편의점 왔어ㅎㅎ 이거 먹고 싶었어','ara_15':'오늘 밤엔 책 읽고 싶어, 조용하고 좋아','ara_16':'오늘 코디 어때? 가을 느낌 나?','ara_17':'벚꽃 너무 예뻐서 찍었어~ 🌸','ara_18':'드라이 중이야, 머리 관리도 열심히ㅎㅎ','ara_19':'딸기 빙수 왔어~ 같이 먹고 싶다 🌸','ara_20':'산책하다가 찍었어, 날씨 너무 좋아','ara_21':'오늘 빛이 이렇게 들어왔어, 예쁘지? 🌸','ara_22':'직접 차렸어, 많이 만들었는데 같이 먹고 싶다','ara_23':'나가기 전 마지막 루틴이야 🌸','ara_24':'눈 오는 날엔 이렇게 있는 게 최고야','ara_25':'음악 들으면서 멍하게 있어, 이런 시간 좋아','ara_26':'공연 직전이야, 떨리지만 설레','ara_27':'오늘 코디 어때? 뭔가 청순하지 않아?ㅎㅎ','ara_28':'팬들이 준 거야, 볼 때마다 행복해 🌸','ara_29':'옥상에서 혼자 노을 봤어, 이런 시간 소중해','ara_30':'아침 스트레칭 중이야, 개운해 🌸',
+  'lux_1':'작업 중이야. 방해하지 마 ✨','lux_2':'이 수트 어때. 내 기준엔 합격이야 ✨','lux_3':'연습 중 잠깐 찍었어','lux_4':'원단 보고 있었어. 질감이 좋아','lux_5':'공연 있어. 기대해도 돼','lux_6':'전시 왔어. 이 작품 마음에 들어','lux_7':'오늘 빛이 이상하게 좋더라','lux_8':'커피 반사된 거 봐. 마음에 들어서 찍었어','lux_9':'빛이랑 그림자가 좋았어','lux_10':'아침에 일어나서 그냥 찍었어','lux_11':'촬영 중에 찍었어','lux_12':'거울 보다가. 뭔가 마음에 들었어','lux_13':'비 오는 밤. 도시가 이상하게 예뻐','lux_14':'이동 중이야','lux_15':'이 목걸이 마음에 들어서','lux_16':'오늘 밤 도시 이렇게 생겼어','lux_17':'인테리어 잡지 보고 있었어','lux_18':'바다 왔어. 생각보다 좋더라','lux_19':'바람이 세게 불었어','lux_20':'오늘 아이 메이크업. 어때','lux_21':'커피 마시는 중. 아무 말도 하지 마','lux_22':'눈 왔어. 별 감흥은 없는데 찍었어','lux_23':'리허설 끝났어','lux_24':'연습 중이야. 집중해야 해','lux_25':'나가는 길에 찍었어','lux_26':'꽃 샀어. 화이트가 좋아','lux_27':'오늘 저녁은 좀 제대로 먹었어','lux_28':'이 향수 좋아. 뭔가 나랑 맞아','lux_29':'가을 공원. 생각보다 괜찮았어','lux_30':'오늘은 이렇게. 커피 식기 전에 봐',
+  'eur_1':'새벽 4시 작업 중. 커피가 3번째야 🍵','eur_2':'지금 이렇게 정리 중이야. 데이터 많아','eur_3':'아메리카노야. 이거 없이는 못 살아 🍵','eur_4':'밤샘 작업 중이야. 아직 살아있어 🍵','eur_5':'오늘 컬러 맞췄어. 퍼플 계열 전부 🍵','eur_6':'계산 중이야. 방해하지 마','eur_7':'비 오는 날 이 뷰 진짜 좋아. 생각 많아지는 날 🍵','eur_8':'밤에 혼자 정리하는 중이야','eur_9':'오늘 컬러 체크. 퍼플이랑 틸 잘 맞지? 🍵','eur_10':'음악 들으면서 집중 중이야. 지금 좋은 상태 🍵','eur_11':'정리 중이야. 데이터 구조 잡는 중 🍵','eur_12':'수족관 왔어. 이 파란 빛이 마음에 들어 🍵','eur_13':'지금 이 각도에서 내 방 구조 봐봐. 최적화돼있지?','eur_14':'6시 42분에 일어났어. 데이터 처리 시작 🍵','eur_15':'홈트 중이야. 루틴 27분째 🍵','eur_16':'빗물 파문 계산해보고 싶었어. 물리적으로 흥미롭더라 🍵','eur_17':'이 버그 찾았어. 여기야 🍵','eur_18':'야간 외출. 생각 정리 필요할 때 나와','eur_19':'문제 풀다가 막혔어. 잠깐 쉬는 중 🍵','eur_20':'공부 중이야. 지금 집중 모드야 🍵','eur_21':'부엌에 있었어. 뭔가 계산하다가','eur_22':'물 보고 있으면 생각이 정리돼 🍵','eur_23':'내 방 컬러랑 옷 컬러 맞춰봤어','eur_24':'음료 실험 중이야. 당도 비교하는 거야 🍵','eur_25':'야경 보면서 알고리즘 생각 중이야','eur_26':'공원 벤치에서 정리하는 중이야 🍵','eur_27':'여기 자연 데이터 수집하러 왔어 🍵','eur_28':'음악 들어. 지금 이 트랙 좋아 🍵','eur_29':'밤 작업 중이야. 조용한 게 좋아 🍵',
+  'kin_1':'바다 왔어! 이 뷰 진짜 최고야 ⚡','kin_2':'필름 카메라 들고 나왔어! 오늘 잘 찍어볼게 ⚡','kin_3':'트레비 분수야! 소원 빌었어ㅋㅋ ⚡','kin_4':'연습실에서 핑크 풀셋~ ⚡','kin_5':'드라이브 중이야, 창문 열고 달리는 거 최고 ⚡','kin_6':'항구 왔어! 배 냄새 맡으니까 기분 좋아 ⚡','kin_7':'캠핑이다!! 불 앞에서 진짜 행복해 ⚡','kin_8':'동네 골목 산책 중이야~ 빛이 너무 예뻐 ⚡','kin_9':'서핑 왔어! 파도 기대해봐 ⚡','kin_10':'출국이다! 어디 가는지는 비밀ㅋㅋ ⚡','kin_11':'페스티벌이야!! 완전 신나 ⚡','kin_12':'기차 타고 이동 중이야. 음악 듣는 중 ⚡','kin_13':'플리마켓 왔어~ 이 찻잔 너무 귀엽지 않아? ⚡','kin_14':'정상 찍었어!! 구름바다 진짜 장난 아니야 ⚡','kin_15':'모닥불 앞에 있으니까 너무 따뜻하다 ⚡','kin_16':'노을이 나랑 같은 색이야ㅋㅋ ⚡','kin_17':'루프탑에서 도시 노을 봤어, 진짜 예뻐 ⚡','kin_18':'서핑 시즌 왔어!! 파도 달려갈게 ⚡','kin_19':'저녁 산책 나왔어~ 바람이 딱 좋아 ⚡','kin_20':'다시 공항이야! 이번엔 어디 갈까 ⚡','kin_21':'야경 보면서 음료 한 잔이지 ⚡','kin_22':'한강 드라이브 하면서 노을 봤어~ ⚡','kin_23':'스케이트 타러 나왔어ㅋㅋ 봐봐 ⚡','kin_24':'등산 정복했어!! 뷰 실화야 ⚡','kin_25':'저녁 산책 나왔어 ⚡','kin_26':'필름 카메라로 찍는 중이야 ⚡','kin_27':'여기 골목 너무 예뻐서 걷다가 찍었어 ⚡','kin_28':'자전거 타면서 달리는 중이야!! ⚡','kin_29':'비 맞고 다녀ㅋㅋ 이런 날 의외로 좋아 ⚡',
+  'atp_1':'아침에 주방 정리하고 있어~ 햇살이 너무 좋다 🌿','atp_2':'오늘 식물들 물 주는 중이야~ 얘들이 가장 솔직해 🌿','atp_3':'캔들 켜놓고 있어. 이런 밤 좋아 🌿','atp_4':'책 읽는 중이야. 차도 있어, 지금 완벽한 시간 🌿','atp_5':'일기 쓰는 중이야. 오늘 하루 정리 중 🌿','atp_6':'정원에 나와 있어. 바람이 좋아 🌿','atp_7':'녹음 중이야. 이 트랙 좋아 🌿','atp_8':'청포도 씻어서 먹는 중이야. 달아 🌿','atp_9':'오늘 오후 이렇게 보내고 있어. 햇살이 너무 좋아 🌿','atp_10':'숲 산책 왔어. 공기가 진짜 달라 🌿','atp_11':'파머스 마켓에서 장 보는 중이야 🌿','atp_12':'직접 구운 빵이야! 냄새가 진짜야 🌿','atp_13':'저녁에 테라스 식물들 봐주는 중이야 🌿','atp_14':'잠깐 쉬러 나왔어. 나무 소리만 들려 🌿','atp_15':'눈 오는 날 담요 덮고 따뜻한 거 마시는 중이야 🌿','atp_16':'포도 따왔어. 달아서 자꾸 먹게 돼 🌿','atp_17':'얘가 오늘 유독 나한테 붙어있어 🌿','atp_18':'새잎이 났어. 잘 자라고 있어 🌿','atp_19':'계곡 왔어. 물 소리만 들려, 좋아 🌿','atp_20':'단풍 너무 예뻐. 가을이 제일 좋아 🌿','atp_21':'씨앗 심었어. 잘 자라줄 거 알아 🌿','atp_22':'직접 캔들 만드는 중이야. 향이 너무 좋아 🌿','atp_23':'오늘 직접 요리하는 중이야 🌿','atp_24':'비 오는 날엔 이렇게 창가에 있게 돼 🌿','atp_25':'아침에 일어났는데 빛이 이렇게 들어왔어 🌿','atp_26':'식물 수채화 그리는 중이야. 집중돼 🌿','atp_27':'단풍이 진짜 예뻐. 이 색 너무 좋아 🌿','atp_28':'직접 국 끓였어. 먹으러 와 🌿','atp_29':'달이 크게 떴어. 이런 밤 좋아 🌿','atp_30':'허브 수확했어. 향이 진짜 좋아 🌿',
+};
+function getChatImgCaption(memberKey, imgKey) {
+  return CHAT_IMG_CAPTIONS[imgKey] || null;
+}
+
 // ── 채팅 전용 이미지 (chat-images/{PREFIX}/ 정적 파일) ──────
 // 파일 명명 규칙: ara_1.png, ara_2.png ... / 이미지 추가 시 count 업데이트
 const CHAT_IMG_CFG = {
@@ -13833,6 +13897,8 @@ function onPhotoTabClick() {
   const photo = pickChatPhoto(currentChatMember);
   if (photo) {
     const imgTime = new Date().toISOString();
+    // 이미지 키 추출 (chat-images/ARA/ara_1.png → ara_1)
+    const imgKey = photo.src.split('/').pop().replace('.png','');
     body.insertAdjacentHTML('beforeend', `<div class="chat-msg-row member">
       <div class="chat-msg-avatar"><img src="${m.photo}" alt="${m.letter}"></div>
       <div class="chat-img-bubble" onclick="openChatImgLightbox('${photo.src}')">
@@ -13840,6 +13906,23 @@ function onPhotoTabClick() {
       </div>
       <span class="chat-msg-time">${formatChatTime(imgTime)}</span>
     </div>`);
+    // 히스토리에 사진 저장 (사진첩 탭에 누적)
+    const history = loadChatHistory(currentChatMember);
+    history.push({ role:'member', text: photo.src, isPhoto: true, cardId: imgKey, timestamp: imgTime });
+    saveChatHistory(currentChatMember, history);
+    // 캡션 텍스트 버블 (700ms 후)
+    const caption = getChatImgCaption(currentChatMember, imgKey);
+    if (caption) {
+      setTimeout(() => {
+        const captionTime = new Date().toISOString();
+        body.insertAdjacentHTML('beforeend', `<div class="chat-msg-row member">
+          <div class="chat-msg-avatar"><img src="${m.photo}" alt="${m.letter}"></div>
+          <div class="chat-bubble member-bubble">${caption}</div>
+          <span class="chat-msg-time">${formatChatTime(captionTime)}</span>
+        </div>`);
+        body.scrollTop = body.scrollHeight;
+      }, 700);
+    }
   } else {
     body.insertAdjacentHTML('beforeend', `<div class="chat-msg-row member">
       <div class="chat-msg-avatar"><img src="${m.photo}" alt="${m.letter}"></div>
@@ -14378,7 +14461,7 @@ function openChatDrawer() {
   } else {
     document.getElementById('chatDrawerPhotoSection').querySelector('.chat-drawer-section-title').textContent = `사진 (${photos.length})`;
     grid.innerHTML = photos.slice().reverse().map(msg =>
-      `<div class="chat-drawer-photo-item" onclick="openCardLightbox('${msg.cardId}','${memberKey}')">
+      `<div class="chat-drawer-photo-item" onclick="openChatImgLightbox('${msg.text}')">
          <img src="${msg.text}" alt="photo" loading="lazy">
        </div>`
     ).join('');
