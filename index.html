@@ -1184,6 +1184,9 @@
     /* Chat screen — fullscreen overlay, above tab bar */
     .chat-screen { position:fixed; inset:0; z-index:2000; display:flex; flex-direction:row; background:#F5F3FF; transform:translateX(100%); transition:transform 0.3s cubic-bezier(0.32,0.72,0,1); overflow:hidden; }
     .chat-screen.open { transform:translateX(0); }
+    /* 채팅창 배경 블러 백드롭 */
+    #chatBackdrop { position:fixed; inset:0; z-index:1999; background:rgba(0,0,0,0); backdrop-filter:blur(0px); -webkit-backdrop-filter:blur(0px); pointer-events:none; transition:background 0.3s cubic-bezier(0.32,0.72,0,1), backdrop-filter 0.3s cubic-bezier(0.32,0.72,0,1); }
+    #chatBackdrop.active { background:rgba(0,0,0,0.28); backdrop-filter:blur(14px) saturate(1.2); -webkit-backdrop-filter:blur(14px) saturate(1.2); pointer-events:auto; }
 
     /* Chat header — KakaoTalk style */
     .chat-header { display:flex; align-items:center; height:56px; padding:0 12px; background:white; border-bottom:1px solid #E5E5E5; flex-shrink:0; position:relative; z-index:10; }
@@ -5164,6 +5167,7 @@ function vxCamShoot(){
 </div>
 
 <!-- 1:1 CHAT SCREEN -->
+<div id="chatBackdrop" onclick="closeChatRoom()"></div>
 <div class="chat-screen" id="chatScreen">
   <div class="chat-main">
   <div class="chat-header">
@@ -13939,6 +13943,12 @@ function _restoreInput() {
   if (!ci) return;
   ci.disabled = false;
   ci.readOnly = false;
+  ci.style.pointerEvents = 'auto';
+  ci.style.userSelect = 'text';
+  ci.removeAttribute('disabled');
+  ci.removeAttribute('readonly');
+  const bar = document.querySelector('.chat-input-bar');
+  if (bar) bar.style.pointerEvents = 'auto';
   _photoTabBusy = false;
 }
 
@@ -14529,6 +14539,8 @@ function openChatRoom(memberKey) {
   // Open
   document.getElementById('chatScreen').classList.add('open');
   document.getElementById('tabBar').style.display = 'none';
+  // 배경 블러
+  requestAnimationFrame(() => document.getElementById('chatBackdrop').classList.add('active'));
 
   // Scroll to bottom
   setTimeout(() => {
@@ -14606,6 +14618,7 @@ function closeChatRoom() {
   closeChatDrawer();
   stopChipRotation();
   document.getElementById('chatScreen').classList.remove('open');
+  document.getElementById('chatBackdrop').classList.remove('active');
   document.getElementById('tabBar').style.display = 'flex';
   currentChatMember = null;
   // Resume rotation if landing is active
@@ -14828,11 +14841,11 @@ async function sendChatMessage() {
 
   // Render user bubble
   const body = document.getElementById('chatBody');
-  body.innerHTML += `<div class="chat-msg-row user">
+  body.insertAdjacentHTML('beforeend', `<div class="chat-msg-row user">
     <span class="chat-msg-time">${formatChatTime(now)}</span>
     <div class="chat-bubble user-bubble" style="background:${colors.userBubble}">${text}</div>
-  </div>`;
-  body.scrollTop = body.scrollHeight;
+  </div>`);
+  _scrollBottom(body);
 
   // Clear input
   ta.value = '';
@@ -14843,11 +14856,11 @@ async function sendChatMessage() {
   document.getElementById('chatChips').style.display = 'none';
 
   // Show typing indicator
-  body.innerHTML += `<div class="chat-typing" id="chatTyping">
+  body.insertAdjacentHTML('beforeend', `<div class="chat-typing" id="chatTyping">
     <div class="chat-msg-avatar"><img src="${m.photo}" alt="${m.letter}"></div>
     <div class="chat-typing-dots"><div class="chat-typing-dot"></div><div class="chat-typing-dot"></div><div class="chat-typing-dot"></div></div>
-  </div>`;
-  body.scrollTop = body.scrollHeight;
+  </div>`);
+  _scrollBottom(body);
 
   // Add affinity
   const db = getOrCreateDB();
@@ -14870,21 +14883,21 @@ async function sendChatMessage() {
 
     const prelude = COMPLEX_PRELUDE[memberKey] || '…잠깐만.';
     const preludeTime = new Date().toISOString();
-    body.innerHTML += `<div class="chat-msg-row member" id="chatPreludeBubble">
+    body.insertAdjacentHTML('beforeend', `<div class="chat-msg-row member" id="chatPreludeBubble">
       <div class="chat-msg-avatar"><img src="${m.photo}" alt="${m.letter}"></div>
       <div style="display:flex;flex-direction:column;gap:4px">
         <div class="chat-bubble member-bubble deep-bubble">${prelude}</div>
         <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.28);letter-spacing:.05em;padding-left:4px">🔑 AI 응답 중…</span>
       </div>
-    </div>`;
-    body.scrollTop = body.scrollHeight;
+    </div>`);
+    _scrollBottom(body);
 
     // 타이핑 인디케이터 다시 추가
-    body.innerHTML += `<div class="chat-typing" id="chatTyping">
+    body.insertAdjacentHTML('beforeend', `<div class="chat-typing" id="chatTyping">
       <div class="chat-msg-avatar"><img src="${m.photo}" alt="${m.letter}"></div>
       <div class="chat-typing-dots"><div class="chat-typing-dot"></div><div class="chat-typing-dot"></div><div class="chat-typing-dot"></div></div>
-    </div>`;
-    body.scrollTop = body.scrollHeight;
+    </div>`);
+    _scrollBottom(body);
 
     try {
       // Build context: Supabase 기억(서버) 우선, 없으면 localStorage fallback
@@ -14958,7 +14971,7 @@ async function sendChatMessage() {
         </div>
         <span class="chat-msg-time">${formatChatTime(imgTime)}</span>
       </div>`);
-      body.scrollTop = body.scrollHeight;
+      _scrollBottom(body);
       // 사진 히스토리 저장 + 요청 카운트 차감
       history.push({ role:'member', text: photo.src, isPhoto: true, cardId: photo.cardId, timestamp: imgTime });
       saveChatHistory(memberKey, history);
@@ -14973,7 +14986,7 @@ async function sendChatMessage() {
           <div class="chat-bubble member-bubble">${repeatMsg}</div>
           <span class="chat-msg-time">${formatChatTime(rTime)}</span>
         </div>`);
-        body.scrollTop = body.scrollHeight;
+        _scrollBottom(body);
       }
       // 이미지 → 텍스트 사이 자연스러운 텀
       await new Promise(r => setTimeout(r, 700 + Math.random() * 500));
@@ -14997,25 +15010,25 @@ async function sendChatMessage() {
   // Add main reply
   history.push({ role:'member', text:mainReply, timestamp:replyTime });
 
-  body.innerHTML += `<div class="chat-msg-row member">
+  body.insertAdjacentHTML('beforeend', `<div class="chat-msg-row member">
     <div class="chat-msg-avatar"><img src="${m.photo}" alt="${m.letter}"></div>
     <div class="chat-bubble member-bubble">${mainReply}</div>
     ${sigLine ? '' : `<span class="chat-msg-time">${formatChatTime(replyTime)}</span>`}
-  </div>`;
+  </div>`);
 
   // Add signature bubble if present
   if (sigLine) {
     history.push({ role:'member', text:sigLine, timestamp:replyTime, isSig:true });
-    body.innerHTML += `<div class="chat-msg-row member">
+    body.insertAdjacentHTML('beforeend', `<div class="chat-msg-row member">
       <div class="chat-msg-avatar" style="visibility:hidden"><img src="${m.photo}" alt=""></div>
       <div class="chat-bubble member-bubble sig-bubble" style="color:${m.badgeColor}">${sigLine}</div>
       <span class="chat-msg-time">${formatChatTime(replyTime)}</span>
-    </div>`;
+    </div>`);
   }
 
   saveChatHistory(memberKey, history);
   sbSaveMessage(memberKey, 'assistant', mainReply); // Supabase 서버 저장 (동의 시)
-  body.scrollTop = body.scrollHeight;
+  _scrollBottom(body);
 
   // Collect message
   if (db.collections.messages.length < 300) {
@@ -15045,11 +15058,11 @@ async function sendChatMessage() {
       const _m = memberData[_mk];
       const _bank = responseBank[_mk];
       const _fallback = _bank ? _bank[Math.floor(Math.random() * _bank.length)].answer : '…';
-      _body.innerHTML += `<div class="chat-msg-row member">
+      _body.insertAdjacentHTML('beforeend', `<div class="chat-msg-row member">
         <div class="chat-msg-avatar"><img src="${_m.photo}" alt="${_m.letter}"></div>
         <div class="chat-bubble member-bubble">${_fallback}</div>
-      </div>`;
-      _body.scrollTop = _body.scrollHeight;
+      </div>`);
+      _scrollBottom(_body);
     }
   }
 }
