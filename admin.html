@@ -1578,7 +1578,7 @@ a { color:var(--purple2); text-decoration:none; }
 // ─── AUTH ─── (FIXED HASH · 관리자 본인만)
 // 보안: 비밀번호 해시를 코드에 고정. 누구나 URL 와도 비번 모르면 못 들어옴.
 // JS 소스에 해시는 노출되지만 해시는 단방향 → 평문 추출 불가 (강한 비번이면 무차별 대입도 사실상 불가능)
-const ADMIN_PW_HASH = "fb3f48939aa4dd5b162f7640d0d8674baa84bec0d00a031047840b9ed7b40c5f";
+const ADMIN_PW_HASH = "b1e069aebd3aaf7471ea4eb82c183e1c3a3579049a34c783ab7c2ef4f349b4e7";
 const SESSION_KEY = 'venux_admin_session';
 
 async function sha256(str) {
