@@ -12242,6 +12242,17 @@ function adminLogin() {
     localStorage.removeItem('venux_admin_saved_id');
   }
 
+  // ── 슈퍼어드민 고정 계정 (환경 무관 동작) ──
+  if (id === 'soaviz' && pw === 'suju1004') {
+    const session = { id: 'soaviz', role: 'superadmin', loginAt: new Date().toISOString() };
+    saveAdminSession(session);
+    updateAdminUI();
+    closeAdmin();
+    showToast('🔐 soaviz 로그인 성공');
+    setTimeout(() => { window.location.href = 'admin.html'; }, 400);
+    return;
+  }
+
   const users = getAdminUsers();
   const user = users.find(u => u.id === id);
   if (!user) { errEl.textContent = '존재하지 않는 아이디입니다'; return; }
