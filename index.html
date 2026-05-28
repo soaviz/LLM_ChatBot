@@ -13788,11 +13788,11 @@ function onPhotoTabClick() {
 
   // 1) 하루 3회 초과 체크
   if (!canRequestPhoto(currentChatMember)) {
-    body.innerHTML += `<div class="chat-msg-row member">
+    body.insertAdjacentHTML('beforeend', `<div class="chat-msg-row member">
       <div class="chat-msg-avatar"><img src="${m.photo}" alt=""></div>
       <div class="chat-bubble member-bubble" style="font-size:13px;opacity:0.8">오늘 사진은 이미 다 보냈어. 내일 또 보여줄게 🙈</div>
       <span class="chat-msg-time">${formatChatTime(now)}</span>
-    </div>`;
+    </div>`);
     body.scrollTop = body.scrollHeight;
     return;
   }
@@ -13805,35 +13805,39 @@ function onPhotoTabClick() {
 
   // 3) 사용자 메시지 버블 추가
   const userTime = new Date().toISOString();
-  body.innerHTML += `<div class="chat-msg-row user">
+  body.insertAdjacentHTML('beforeend', `<div class="chat-msg-row user">
     <div class="chat-bubble user-bubble">사진 보내줘</div>
     <span class="chat-msg-time">${formatChatTime(userTime)}</span>
-  </div>`;
+  </div>`);
   body.scrollTop = body.scrollHeight;
 
   // 4) 기존 이미지 풀에서 바로 선택해 전송
   const photo = pickChatPhoto(currentChatMember);
   if (photo) {
     const imgTime = new Date().toISOString();
-    body.innerHTML += `<div class="chat-msg-row member">
+    body.insertAdjacentHTML('beforeend', `<div class="chat-msg-row member">
       <div class="chat-msg-avatar"><img src="${m.photo}" alt="${m.letter}"></div>
       <div class="chat-img-bubble" onclick="openCardLightbox('${photo.cardId}','${currentChatMember}')">
         <img src="${photo.src}" alt="photo">
       </div>
       <span class="chat-msg-time">${formatChatTime(imgTime)}</span>
-    </div>`;
+    </div>`);
   } else {
-    body.innerHTML += `<div class="chat-msg-row member">
+    body.insertAdjacentHTML('beforeend', `<div class="chat-msg-row member">
       <div class="chat-msg-avatar"><img src="${m.photo}" alt="${m.letter}"></div>
       <div class="chat-bubble member-bubble" style="font-size:13px;opacity:0.8">지금은 사진이 없어 😅</div>
       <span class="chat-msg-time">${formatChatTime(new Date().toISOString())}</span>
-    </div>`;
+    </div>`);
   }
 
   // 5) 횟수 차감 + UI 갱신
   incPhotoReqCount(currentChatMember);
   updatePhotoTabUI(currentChatMember);
   body.scrollTop = body.scrollHeight;
+
+  // 6) 입력창 포커스 복원 (innerHTML 조작 후 포커스 소실 방지)
+  const chatInput = document.getElementById('chatInput');
+  if (chatInput) chatInput.focus();
 }
 
 
