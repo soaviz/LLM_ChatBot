@@ -385,8 +385,8 @@
     .insta-album-divider { height:1px;background:rgba(0,0,0,0.07);margin:20px 0 0; }
     .insta-album-header { display:flex;align-items:center;gap:8px;padding:14px 16px 10px; }
     /* 포스트 상세 오버레이 */
-    .post-detail-overlay { position:fixed;inset:0;z-index:9999;background:#fff;display:none;flex-direction:column;overflow-y:auto; }
-    .post-detail-overlay.show { display:flex; }
+    .post-detail-overlay { position:fixed;bottom:0;left:0;right:0;height:85vh;border-radius:24px 24px 0 0;z-index:9999;background:#fff;display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;transform:translateY(100%);transition:transform 0.32s cubic-bezier(0.32,0.72,0,1); }
+    .post-detail-overlay.show { transform:translateY(0); }
     .post-detail-header { display:flex;align-items:center;padding:12px 10px 11px;gap:8px;flex-shrink:0;background:#fff;border-bottom:1px solid rgba(0,0,0,0.07);position:relative;z-index:10; }
     .post-detail-back { width:36px;height:36px;border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-right:0;flex-shrink:0;padding:0;color:#262626;-webkit-tap-highlight-color:transparent; }
     .post-detail-avatar { width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid rgba(107,91,214,0.35);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity 0.15s; }
@@ -1239,11 +1239,17 @@
 
       /* ── 포스트 상세: 동일 컬럼 안에서 ── */
       .post-detail-overlay {
+        top:0; bottom:auto;
         left:50%; right:auto;
-        transform:translateX(-50%);
         width:480px;
+        height:100vh;
+        border-radius:0;
+        transform:translateX(-50%) translateX(480px);
         border-left:1px solid #e5e5e5;
         border-right:1px solid #e5e5e5;
+      }
+      .post-detail-overlay.show {
+        transform:translateX(-50%);
       }
 
       /* ── About 모달: 동일 컬럼 안에서 ── */
@@ -3012,6 +3018,7 @@
       transform: translateX(100%);
       transition: transform 0.28s cubic-bezier(0.22,1,0.36,1);
       overflow: hidden;
+      overflow-x: hidden;
     }
     #diaryDetailOverlay.show { transform: translateX(0); }
     @media (min-width: 769px) {
