@@ -369,12 +369,11 @@
     margin: 8px 0 0;
   }
   .tp3-rcard-back {
+    /* position: absolute; inset: 0 은 .tp3-rcard-face 에서 이미 설정 — override 금지 */
     display: flex; flex-direction: column;
     align-items: center; justify-content: flex-end;
-    padding: 7px 6px 10px; text-align: center;
     border: 1px solid rgba(212,175,55,0.38);
     background: linear-gradient(150deg, #180638 0%, #0c0420 50%, #090316 100%);
-    position: relative;
   }
   .tp3-rcard-back-glow {
     position: absolute; inset: 0; pointer-events: none;
