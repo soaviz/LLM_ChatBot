@@ -8,11 +8,13 @@
   const SLOT_LABELS = ['애정운', '재물운', '학업&취업운'];
 
   const CAT_SLOT_LABELS = {
+    daily:  ['과거 · 최근', '현재 에너지', '앞으로의 흐름'],
     love:   ['현재 감정', '상대의 마음', '관계의 흐름'],
     wealth: ['현재 재정', '기회 흐름',   '앞으로의 방향'],
     biz:    ['현재 사업', '기회/위기',   '앞으로의 방향'],
   };
   const CAT_GUIDE = {
+    daily:  '✨ 오늘 하루의 흐름을 카드 3장으로 살펴봐',
     love:   '💜 사랑과 감정의 흐름을 카드 3장으로 살펴봐',
     wealth: '💛 돈과 기회의 흐름을 카드 3장으로 살펴봐',
     biz:    '🔶 사업과 커리어의 흐름을 카드 3장으로 살펴봐',
@@ -639,7 +641,7 @@
 
   function generateTarotReading(selectedCards, category) {
     const slotLabels = CAT_SLOT_LABELS[category] || SLOT_LABELS;
-    const meaningKey = { love: 'loveMeaning', wealth: 'moneyMeaning', biz: 'careerMeaning' }[category] || 'loveMeaning';
+    const meaningKey = { daily: 'loveMeaning', love: 'loveMeaning', wealth: 'moneyMeaning', biz: 'careerMeaning' }[category] || 'loveMeaning';
 
     const keywords = selectedCards.flatMap(c => c.keywords);
     const unique = [...new Set(keywords)];

@@ -95,12 +95,12 @@
     background: rgba(255,255,255,0.035);
   }
   .fc-top-menu {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px;
   }
   .fc-menu-btn {
     height: 36px; border: 0; border-radius: 14px;
     background: transparent; color: rgba(255,255,255,0.36);
-    font-size: 12px; font-weight: 700; letter-spacing: -.01em;
+    font-size: 11px; font-weight: 700; letter-spacing: -.01em;
     cursor: pointer; transition: background .16s, color .16s;
     -webkit-tap-highlight-color: transparent;
   }
@@ -1420,6 +1420,7 @@
       <button class="fc-menu-btn ${active === id ? 'active' : ''}" onclick="_fcShowView('${id}')">${label}</button>`;
     return `<div class="fc-menu-wrap ${_qaOpen ? 'qa-open' : ''}">
       <div class="fc-top-menu" role="tablist" aria-label="타로 메뉴">
+        ${item('daily',  '오늘운세')}
         ${item('love',   '애정운')}
         ${item('wealth', '재물운')}
         ${item('biz',    '사업운')}
@@ -1446,7 +1447,7 @@
     </div>`;
   }
 
-  const _CAT_LABELS = { love: '애정운', wealth: '재물운', biz: '사업운' };
+  const _CAT_LABELS = { daily: '오늘운세', love: '애정운', wealth: '재물운', biz: '사업운' };
 
   global._fcShowView = function(view) {
     _qaOpen = false; // 카테고리 전환 시 Q&A 패널 닫기
