@@ -320,17 +320,20 @@
     color: rgba(212,175,55,0.85);
     font-family: var(--vx-font-mono,monospace);
   }
-  /* 카드 이미지 영역 */
+  /* 카드 이미지 영역 — padding-bottom 트릭으로 2:3 비율 보장 */
   .tp3-rcard-wrap {
-    width: min(200px, 58vw);
-    height: calc(min(200px, 58vw) * 3 / 2);
+    width: min(190px, 54vw);
+    position: relative;
     perspective: 700px; cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    margin-bottom: 18px; flex-shrink: 0;
-    position: relative;
+    margin-bottom: 18px; flex-shrink: 0; align-self: center;
+  }
+  .tp3-rcard-sizer {
+    /* 2:3 비율 생성기 — height: 150% of width */
+    padding-bottom: 150%; display: block; width: 100%;
   }
   .tp3-rcard-inner {
-    position: absolute; inset: 0;
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
     transform-style: preserve-3d; -webkit-transform-style: preserve-3d;
     transition: transform 0.52s cubic-bezier(0.23,1,0.32,1);
     border-radius: 13px; will-change: transform;
@@ -911,6 +914,7 @@
           <div class="tp3-rstack-name-en">${card.nameEn}</div>
         </div>
         <div class="tp3-rcard-wrap" onclick="this.classList.toggle('is-flipped')">
+          <div class="tp3-rcard-sizer"></div>
           <div class="tp3-rcard-inner">
             <div class="tp3-rcard-face tp3-rcard-back"
                  style="background:${bg};--tp3-rc-color:${card.color}">
