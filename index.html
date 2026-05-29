@@ -3002,7 +3002,11 @@
 
     /* ── 다이어리 세부 페이지 오버레이 ── */
     #diaryDetailOverlay {
-      position: fixed; inset: 0; z-index: 9999;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 85vh;
+      border-radius: 24px 24px 0 0;
+      z-index: 9999;
       background: #0b0d16;
       display: flex; flex-direction: column;
       transform: translateX(100%);
@@ -3010,6 +3014,19 @@
       overflow: hidden;
     }
     #diaryDetailOverlay.show { transform: translateX(0); }
+    @media (min-width: 769px) {
+      #diaryDetailOverlay {
+        top: 0; bottom: auto;
+        left: 50%; right: auto;
+        width: 480px;
+        height: 100vh;
+        border-radius: 0;
+        transform: translateX(-50%) translateX(480px);
+      }
+      #diaryDetailOverlay.show {
+        transform: translateX(-50%);
+      }
+    }
     .dd-header {
       display: flex; align-items: center; gap: 10px;
       padding: 14px 16px 10px;
