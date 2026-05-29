@@ -373,33 +373,6 @@
     border: 1px solid rgba(212,175,55,0.38);
     background: linear-gradient(150deg, #180638 0%, #0c0420 50%, #090316 100%);
   }
-  /* 결과창 카드 뒷면 — 앞면 이미지 블러로 카드 유추 가능하게 */
-  .tp3-rback-blur-img {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    object-fit: cover; object-position: center; z-index: 0;
-    filter: blur(7px) brightness(0.42) saturate(1.3);
-    transform: scale(1.12); /* 블러 엣지 가리기 */
-  }
-  .tp3-rback-overlay {
-    position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background:
-      radial-gradient(circle at 50% 38%, rgba(199,125,255,0.14) 0%, transparent 58%),
-      linear-gradient(180deg, rgba(0,0,0,0.22) 0%, transparent 42%, rgba(0,0,0,0.52) 100%);
-  }
-  .tp3-rback-num {
-    position: absolute; top: 14px; left: 0; right: 0; z-index: 2;
-    text-align: center;
-    font-family: var(--vx-font-mono, monospace);
-    font-size: 11px; font-weight: 700; letter-spacing: .20em;
-    color: rgba(255,255,255,0.52); text-transform: uppercase;
-  }
-  .tp3-rback-name {
-    position: absolute; top: 50%; left: 8px; right: 8px; z-index: 2;
-    transform: translateY(-50%); text-align: center;
-    font-size: 20px; font-weight: 900; letter-spacing: -.01em;
-    color: rgba(255,255,255,0.16);
-    text-shadow: 0 2px 24px rgba(0,0,0,0.9);
-  }
   .tp3-rcard-back-glow {
     position: absolute; inset: 0; pointer-events: none;
     background: radial-gradient(circle at 50% 35%, var(--tp3-rc-color, #c77dff) 0, transparent 58%);
@@ -942,10 +915,7 @@
           <div class="tp3-rcard-inner">
             <div class="tp3-rcard-face tp3-rcard-back"
                  style="background:${bg};--tp3-rc-color:${card.color}">
-              <img class="tp3-rback-blur-img" src="${cardImageSrc(card)}" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'">
-              <div class="tp3-rback-overlay"></div>
-              <div class="tp3-rback-num">${card.number}</div>
-              <div class="tp3-rback-name">${card.nameKo}</div>
+              <img class="tp3-card-img" src="${realCardBackSrc(card)}" alt="${card.nameKo} 카드 뒷면" loading="lazy" decoding="async" onerror="this.style.display='none'">
               <div class="tp3-rcard-tap-hint">탭해서 확인 ✦</div>
             </div>
             <div class="tp3-rcard-face tp3-rcard-front"
