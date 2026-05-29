@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VENUX BGM 폴더 가이드</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #07060f;
+    color: #e0d0ff;
+    font-family: 'SF Pro Display', -apple-system, 'Segoe UI', sans-serif;
+    padding: 32px 24px 60px;
+    min-height: 100vh;
+  }
+  .header {
+    margin-bottom: 36px;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 9px; font-weight: 700; letter-spacing: .18em;
+    color: rgba(199,125,255,0.6);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-size: 22px; font-weight: 800;
+    color: #fff;
+    letter-spacing: -.02em;
+    line-height: 1.25;
+  }
+  h1 span { color: #c77dff; }
+  .sub {
+    margin-top: 8px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.6;
+  }
+
+  /* ─ 폴더 카드 ─ */
+  .folder-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; }
+  .folder-card {
+    border-radius: 16px;
+    padding: 18px 20px;
+    border: 1px solid;
+  }
+  .folder-card.purple {
+    background: rgba(199,125,255,0.07);
+    border-color: rgba(199,125,255,0.2);
+  }
+  .folder-card.orange {
+    background: rgba(255,180,100,0.07);
+    border-color: rgba(255,180,100,0.2);
+  }
+  .folder-card.blue {
+    background: rgba(100,200,255,0.07);
+    border-color: rgba(100,200,255,0.18);
+  }
+  .folder-top {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 8px;
+  }
+  .folder-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .folder-icon.purple { background: rgba(199,125,255,0.18); }
+  .folder-icon.orange { background: rgba(255,180,100,0.18); }
+  .folder-icon.blue   { background: rgba(100,200,255,0.15); }
+  .folder-path {
+    font-size: 14px; font-weight: 700;
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    color: #fff;
+  }
+  .folder-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.38);
+    line-height: 1.6;
+    padding-left: 42px;
+  }
+  .folder-formats {
+    margin-top: 6px;
+    padding-left: 42px;
+    display: flex; gap: 6px; flex-wrap: wrap;
+  }
+  .tag {
+    display: inline-block;
+    font-size: 10px; font-weight: 600;
+    padding: 2px 8px; border-radius: 20px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .tag.purple { background: rgba(199,125,255,0.12); color: #c77dff; }
+  .tag.orange { background: rgba(255,180,100,0.12); color: #ffb84a; }
+  .tag.blue   { background: rgba(100,200,255,0.12); color: #64c8ff; }
+
+  /* members sub */
+  .member-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+    padding-left: 42px; margin-top: 10px;
+  }
+  .member-chip {
+    background: rgba(100,200,255,0.08);
+    border: 1px solid rgba(100,200,255,0.15);
+    border-radius: 8px;
+    padding: 6px 0;
+    text-align: center;
+    font-size: 11px; font-weight: 600;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ─ 코드 블록 ─ */
+  .section-title {
+    font-size: 9px; font-weight: 700; letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.22);
+    margin-bottom: 12px;
+  }
+  .code-block {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 14px;
+    overflow-x: auto;
+  }
+  pre {
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-size: 12px;
+    line-height: 1.9;
+    color: rgba(255,255,255,0.7);
+    white-space: pre;
+  }
+  .kw  { color: #c77dff; }
+  .str { color: #98e4a0; }
+  .cm  { color: rgba(255,255,255,0.28); font-style: italic; }
+  .num { color: #ffb84a; }
+
+  /* ─ 체크리스트 ─ */
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .checklist li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 13px; color: rgba(255,255,255,0.55);
+    line-height: 1.5;
+  }
+  .checklist li .num-badge {
+    min-width: 22px; height: 22px;
+    background: rgba(199,125,255,0.12);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; color: #c77dff;
+    flex-shrink: 0; margin-top: 1px;
+  }
+
+  .divider {
+    height: 1px; background: rgba(255,255,255,0.06);
+    margin: 32px 0;
+  }
+
+  .note {
+    background: rgba(199,125,255,0.06);
+    border: 1px solid rgba(199,125,255,0.14);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.7;
+    margin-top: 16px;
+  }
+  .note strong { color: rgba(199,125,255,0.7); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="badge">VENUX Studio — BGM 파일 가이드</div>
+  <h1>음악 파일 <span>넣는 법</span></h1>
+  <p class="sub">파일 위치 확인 후 index.html 의 BGM_PLAYLIST 배열에 등록하면 재생됩니다.</p>
+</div>
+
+<!-- 폴더 구조 -->
+<div class="section-title">폴더 구조</div>
+<div class="folder-list">
+
+  <!-- main -->
+  <div class="folder-card purple">
+    <div class="folder-top">
+      <div class="folder-icon purple">♪</div>
+      <div class="folder-path">assets/bgm/main/</div>
+    </div>
+    <div class="folder-desc">메인 플레이리스트 음악 파일. 앱 실행 시 자동 재생되는 BGM.</div>
+    <div class="folder-formats">
+      <span class="tag purple">.mp3</span>
+      <span class="tag purple">.m4a</span>
+      <span class="tag purple">.ogg</span>
+    </div>
+  </div>
+
+  <!-- covers -->
+  <div class="folder-card orange">
+    <div class="folder-top">
+      <div class="folder-icon orange">🖼</div>
+      <div class="folder-path">assets/bgm/covers/</div>
+    </div>
+    <div class="folder-desc">앨범 자켓 이미지. BGM_PLAYLIST 의 cover 필드에 경로 연결.</div>
+    <div class="folder-formats">
+      <span class="tag orange">.jpg</span>
+      <span class="tag orange">.png</span>
+      <span class="tag orange">.webp</span>
+    </div>
+  </div>
+
+  <!-- members -->
+  <div class="folder-card blue">
+    <div class="folder-top">
+      <div class="folder-icon blue">👤</div>
+      <div class="folder-path">assets/bgm/members/</div>
+    </div>
+    <div class="folder-desc">맴버별 테마 BGM. 각 멤버의 채팅방 진입 시 자동 재생 예정.</div>
+    <div class="member-grid">
+      <div class="member-chip">rae/</div>
+      <div class="member-chip">sol/</div>
+      <div class="member-chip">kei/</div>
+      <div class="member-chip">nova/</div>
+      <div class="member-chip">zion/</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="divider"></div>
+
+<!-- 등록 방법 -->
+<div class="section-title">index.html BGM_PLAYLIST 등록 방법</div>
+
+<div class="code-block">
+<pre><span class="kw">const</span> BGM_PLAYLIST = [
+  <span class="cm">// 기본 — 음악 파일만</span>
+  { <span class="str">title</span>: <span class="str">'곡 이름'</span>,  <span class="str">file</span>: <span class="str">'assets/bgm/main/song01.mp3'</span> },
+
+  <span class="cm">// 앨범 자켓 있을 때 — cover 필드 추가</span>
+  { <span class="str">title</span>: <span class="str">'곡 이름'</span>,  <span class="str">file</span>: <span class="str">'assets/bgm/main/song02.mp3'</span>,
+    <span class="str">cover</span>: <span class="str">'assets/bgm/covers/cover02.jpg'</span> },
+];</pre>
+</div>
+
+<div class="note">
+  <strong>cover 필드</strong>를 추가하면 플레이어 앨범아트에 자동으로 이미지가 표시됩니다.<br>
+  없으면 기본 그라데이션 아트로 표시됩니다.
+</div>
+
+<div class="divider"></div>
+
+<!-- 순서 -->
+<div class="section-title">파일 추가 순서</div>
+<ul class="checklist">
+  <li><div class="num-badge">1</div> mp3 파일을 <code style="color:#c77dff;font-size:12px">assets/bgm/main/</code> 에 넣기</li>
+  <li><div class="num-badge">2</div> 앨범 이미지를 <code style="color:#ffb84a;font-size:12px">assets/bgm/covers/</code> 에 넣기 (선택)</li>
+  <li><div class="num-badge">3</div> index.html 열고 <code style="color:rgba(255,255,255,0.6);font-size:12px">BGM_PLAYLIST</code> 배열에 위 형식으로 등록</li>
+  <li><div class="num-badge">4</div> 저장 후 git push — 앱에서 바로 재생 확인</li>
+</ul>
+
+</body>
+</html>
