@@ -89,6 +89,45 @@
     color: rgba(255,255,255,0.22); text-align: center;
     font-family: var(--vx-font-mono, monospace); letter-spacing: .04em;
   }
+  .fc-menu-wrap {
+    width: min(100%, 340px); margin: 0 auto 18px; padding: 4px;
+    border-radius: 18px; border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.035);
+  }
+  .fc-top-menu {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
+  }
+  .fc-menu-btn {
+    height: 36px; border: 0; border-radius: 14px;
+    background: transparent; color: rgba(255,255,255,0.36);
+    font-size: 12px; font-weight: 700; letter-spacing: -.01em;
+    cursor: pointer; transition: background .16s, color .16s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .fc-menu-btn.active {
+    background: rgba(199,125,255,0.16);
+    color: #d8a7ff; box-shadow: inset 0 0 0 1px rgba(199,125,255,0.22);
+  }
+  .fc-menu-btn.qa-open {
+    color: rgba(255,255,255,0.82);
+    background: rgba(212,175,55,0.12);
+    box-shadow: inset 0 0 0 1px rgba(212,175,55,0.22);
+  }
+  .fc-menu-btn:active { transform: scale(.97); }
+  .fc-qa-panel {
+    margin-top: 8px; padding: 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(212,175,55,0.16);
+    background: rgba(7,4,14,0.58);
+  }
+  .fc-qa-item + .fc-qa-item { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.07); }
+  .fc-qa-q {
+    font-size: 12px; font-weight: 800; color: rgba(255,255,255,0.86);
+    line-height: 1.45; margin-bottom: 4px;
+  }
+  .fc-qa-a {
+    font-size: 11px; line-height: 1.65; color: rgba(255,255,255,0.55);
+  }
 
   /* ── Reveal Zone ── */
   .fc-reveal-zone {
@@ -102,7 +141,7 @@
     -webkit-tap-highlight-color: transparent;
   }
   .fc-flip-inner {
-    position: relative; width: 120px; height: 188px;
+    position: relative; width: 120px; height: 180px;
     transform-style: preserve-3d;
     transition: transform 0.65s cubic-bezier(0.23,1,0.32,1);
   }
@@ -135,6 +174,35 @@
   .fc-front-glow {
     position: absolute; inset: 0; pointer-events: none; border-radius: 12px;
   }
+  .fc-card-image {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: center; z-index: 0;
+  }
+  .fc-card-image-shade {
+    position: absolute; inset: 0; z-index: 1;
+    background:
+      linear-gradient(180deg, rgba(4,2,12,0.02) 0%, rgba(4,2,12,0.18) 48%, rgba(4,2,12,0.84) 100%),
+      radial-gradient(circle at 50% 22%, rgba(255,255,255,0.12), transparent 38%);
+    pointer-events: none;
+  }
+  .fc-card-front.has-image,
+  .fc-result-card.has-image {
+    padding: 0;
+    justify-content: flex-end;
+    background: #070511;
+  }
+  .fc-card-front.has-image .fc-front-name,
+  .fc-result-card.has-image .fc-front-name {
+    width: calc(100% - 18px);
+    margin: 0 9px 2px;
+    text-shadow: 0 1px 12px rgba(0,0,0,0.9);
+  }
+  .fc-card-front.has-image .fc-front-kw,
+  .fc-result-card.has-image .fc-front-kw {
+    width: calc(100% - 18px);
+    margin: 0 9px 12px;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.9);
+  }
   .fc-front-sym { position: relative; z-index: 1; margin-bottom: 8px; }
   .fc-front-name {
     position: relative; z-index: 1;
@@ -166,7 +234,7 @@
   }
   .fc-result-card-wrap { margin-bottom: 18px; }
   .fc-result-card {
-    width: 130px; height: 204px; border-radius: 14px;
+    width: 130px; height: 195px; border-radius: 14px;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
     padding: 12px 8px 16px;
@@ -217,6 +285,19 @@
     -webkit-tap-highlight-color: transparent;
   }
   .fc-chat-btn:active { opacity: .82; }
+  .fc-reroll-btn {
+    width: 100%; min-height: 42px; border-radius: 14px;
+    border: 1px solid rgba(199,125,255,0.24);
+    background: rgba(199,125,255,0.08);
+    color: rgba(244,230,255,0.86);
+    font-size: 12px; font-weight: 800; cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .fc-reroll-btn:active { background: rgba(199,125,255,0.16); }
+  .fc-reroll-btn:disabled {
+    opacity: .42; cursor: not-allowed; background: rgba(255,255,255,0.035);
+    color: rgba(255,255,255,0.34); border-color: rgba(255,255,255,0.08);
+  }
   .fc-cta-hint {
     font-size: 11px; color: rgba(255,255,255,0.22);
     margin-bottom: 14px;
@@ -225,12 +306,200 @@
   .fc-tomorrow {
     font-size: 12px; color: rgba(255,255,255,0.18);
   }
+  .fc-routine-panel {
+    width: 100%; max-width: 320px; margin: 0 auto 12px;
+    border: 1px solid rgba(199,125,255,0.18);
+    background: rgba(199,125,255,0.055);
+    border-radius: 16px; padding: 12px 13px; text-align: left;
+  }
+  .fc-routine-title {
+    color: rgba(244,230,255,0.88); font-size: 12px; font-weight: 850;
+    margin-bottom: 5px;
+  }
+  .fc-routine-copy {
+    color: rgba(255,255,255,0.45); font-size: 11px; line-height: 1.55;
+  }
+  .fc-routine-reward {
+    margin-top: 8px; color: #f0d4ff; font-size: 11px; font-weight: 800;
+  }
+  .fc-content-panel {
+    width: 100%; max-width: 340px; margin: 14px auto 0;
+    border: 1px solid rgba(255,255,255,0.09);
+    background: rgba(7,4,15,0.72); border-radius: 18px;
+    padding: 14px; text-align: left;
+  }
+  .fc-content-head {
+    color: #fff; font-size: 14px; font-weight: 900; margin-bottom: 3px;
+  }
+  .fc-content-sub {
+    color: rgba(255,255,255,0.35); font-size: 11px; line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .fc-content-block {
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding-top: 10px; margin-top: 10px;
+  }
+  .fc-content-label {
+    font-family: var(--vx-font-mono, monospace); font-size: 9px;
+    letter-spacing: .14em; color: rgba(199,125,255,0.62);
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  .fc-content-text {
+    color: rgba(255,255,255,0.68); font-size: 12px; line-height: 1.65;
+    white-space: pre-wrap;
+  }
 
   /* ── Already drawn today view ── */
   .fc-already-badge {
     font-size: 11px; color: rgba(199,125,255,0.5);
     font-family: var(--vx-font-mono, monospace); letter-spacing: .1em;
     margin-bottom: 12px; text-align: center;
+  }
+  .fc-result-actions {
+    display: grid; grid-template-columns: 1fr; gap: 8px;
+    width: 100%; margin-top: 10px;
+  }
+  .fc-ghost-btn {
+    min-height: 42px; border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.09);
+    background: rgba(255,255,255,0.04);
+    color: rgba(255,255,255,0.52); font-size: 12px; font-weight: 700;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  .fc-ghost-btn:active { background: rgba(199,125,255,0.12); color: #d8a7ff; }
+  .fc-library-view,
+  .fc-guide-view {
+    padding: 28px 18px 42px; min-height: 100%;
+  }
+  .fc-section-head { text-align: center; margin-bottom: 18px; }
+  .fc-section-title {
+    font-size: 24px; font-weight: 800; color: #fff;
+    letter-spacing: -.02em; margin-bottom: 4px;
+  }
+  .fc-section-sub {
+    font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.6;
+  }
+  /* ── Library flip grid ── */
+  .fc-library-grid {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px; max-width: 340px; margin: 0 auto;
+  }
+  .fc-lib-flip-wrap {
+    perspective: 560px; cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .fc-lib-flip-inner {
+    position: relative; width: 100%; aspect-ratio: 2/3;
+    transform-style: preserve-3d;
+    transition: transform 0.52s cubic-bezier(0.23,1,0.32,1);
+  }
+  .fc-lib-flip-wrap.flipped .fc-lib-flip-inner { transform: rotateY(180deg); }
+  .fc-lib-card-face {
+    position: absolute; inset: 0; border-radius: 13px;
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    overflow: hidden;
+  }
+  /* 뒷면 */
+  .fc-lib-back {
+    background: linear-gradient(150deg, #1c0a38, #0c0419);
+    border: 1px solid rgba(199,125,255,0.22);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 5px;
+  }
+  .fc-lib-back::after {
+    content: ''; position: absolute; inset: 6px;
+    border: 1px solid rgba(199,125,255,0.10); border-radius: 8px;
+  }
+  .fc-lib-back-glyph {
+    position: relative; z-index: 1;
+    font-size: 18px; color: rgba(199,125,255,0.22);
+  }
+  .fc-lib-back-num {
+    position: relative; z-index: 1;
+    font-family: var(--vx-font-mono, monospace);
+    font-size: 8px; letter-spacing: .14em; color: rgba(199,125,255,0.30);
+  }
+  /* 앞면 */
+  .fc-lib-front {
+    transform: rotateY(180deg);
+    border: 1px solid rgba(255,255,255,0.10);
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 8px 7px 10px;
+  }
+  .fc-lib-front-glow {
+    position: absolute; inset: 0; pointer-events: none;
+    border-radius: 13px;
+    background: radial-gradient(circle at 65% 18%, var(--fc-card-color, #c77dff) 0, transparent 52%);
+    opacity: .26;
+  }
+  .fc-lib-front-num {
+    position: relative; z-index: 1;
+    font-family: var(--vx-font-mono, monospace);
+    font-size: 8px; letter-spacing: .10em;
+    color: rgba(255,255,255,0.28); margin-bottom: auto;
+  }
+  .fc-lib-front-name {
+    position: relative; z-index: 1;
+    color: #fff; font-size: 11px; font-weight: 800;
+    line-height: 1.25; margin-bottom: 3px;
+  }
+  .fc-lib-front-kw {
+    position: relative; z-index: 1;
+    font-size: 9px; font-weight: 700; line-height: 1.35;
+  }
+  .fc-lib-front-detail {
+    position: relative; z-index: 1;
+    display: block; margin-top: 7px;
+    font-size: 9px; font-weight: 700;
+    color: rgba(255,255,255,0.36); text-align: right;
+    background: none; border: none; cursor: pointer; padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .fc-card-detail {
+    max-width: 340px; margin: 0 auto;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.035); border-radius: 18px;
+    padding: 16px;
+  }
+  .fc-detail-top { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .fc-detail-mini {
+    width: 74px; height: 111px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; position: relative; overflow: hidden;
+  }
+  .fc-detail-mini.has-image { background: #070511; }
+  .fc-detail-text { min-width: 0; }
+  .fc-detail-kicker {
+    font-family: var(--vx-font-mono, monospace); font-size: 9px;
+    letter-spacing: .14em; color: rgba(255,255,255,0.28); margin-bottom: 4px;
+  }
+  .fc-detail-name { color: #fff; font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+  .fc-detail-keyword { font-size: 12px; font-weight: 700; }
+  .fc-detail-block {
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding-top: 12px; margin-top: 12px;
+  }
+  .fc-detail-label {
+    font-family: var(--vx-font-mono, monospace);
+    font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.26); margin-bottom: 6px;
+  }
+  .fc-detail-body {
+    color: rgba(255,255,255,0.62); font-size: 13px; line-height: 1.72;
+  }
+  .fc-guide-list { display: grid; gap: 10px; max-width: 340px; margin: 0 auto; }
+  .fc-guide-item {
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.035); border-radius: 16px;
+    padding: 14px 15px;
+  }
+  .fc-guide-label {
+    color: rgba(199,125,255,0.84); font-size: 12px; font-weight: 800;
+    margin-bottom: 5px;
+  }
+  .fc-guide-copy {
+    color: rgba(255,255,255,0.56); font-size: 13px; line-height: 1.65;
   }
 
   /* ════════════════════════════════════════════════
@@ -698,9 +967,44 @@
   //  2. Daily State 관리 (localStorage)
   // ════════════════════════════════════════════════════════
   const DAILY_KEY = 'venux_tarot_daily';
+  const DAILY_REROLL_LIMIT = 3;
 
   function _todayStr() {
-    return new Date().toISOString().slice(0, 10); // "2026-05-29"
+    return _kstDateStr(new Date());
+  }
+
+  function _kstDateStr(date) {
+    const parts = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Asia/Seoul',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).formatToParts(date);
+    const map = Object.fromEntries(parts.map(part => [part.type, part.value]));
+    return `${map.year}-${map.month}-${map.day}`;
+  }
+
+  function _daysBetweenKst(fromDate, toDate) {
+    const [fy, fm, fd] = fromDate.split('-').map(Number);
+    const [ty, tm, td] = toDate.split('-').map(Number);
+    const from = Date.UTC(fy, fm - 1, fd);
+    const to = Date.UTC(ty, tm - 1, td);
+    return Math.round((to - from) / 86400000);
+  }
+
+  function _msUntilNextKstMidnight() {
+    const now = new Date();
+    const kstNow = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+    const next = new Date(kstNow);
+    next.setHours(24, 0, 0, 0);
+    return Math.max(0, next.getTime() - kstNow.getTime());
+  }
+
+  function _countdownToTomorrowKst() {
+    const ms = _msUntilNextKstMidnight();
+    const hours = Math.floor(ms / 3600000);
+    const minutes = Math.floor((ms % 3600000) / 60000);
+    return `${hours}시간 ${minutes.toString().padStart(2, '0')}분`;
   }
 
   function getDailyState() {
@@ -712,8 +1016,15 @@
     } catch { return null; }
   }
 
-  function setDailyState(cardId, cat) {
-    const s = { date: _todayStr(), cardId, cat, chatFreeUsed: false };
+  function setDailyState(cardId, cat, options = {}) {
+    const previous = getDailyState();
+    const s = {
+      date: _todayStr(),
+      cardId,
+      cat,
+      chatFreeUsed: options.chatFreeUsed ?? previous?.chatFreeUsed ?? false,
+      rerollCount: Math.max(0, options.rerollCount ?? previous?.rerollCount ?? 0),
+    };
     localStorage.setItem(DAILY_KEY, JSON.stringify(s));
     return s;
   }
@@ -723,32 +1034,67 @@
     if (s) { s.chatFreeUsed = true; localStorage.setItem(DAILY_KEY, JSON.stringify(s)); }
   }
 
-  function getStreak() {
-    // 연속 방문 수 계산
+  function getRerollCount() {
+    return Math.max(0, getDailyState()?.rerollCount || 0);
+  }
+
+  function getRemainingRerolls() {
+    return Math.max(0, DAILY_REROLL_LIMIT - getRerollCount());
+  }
+
+  function getStreakState() {
     try {
       const raw = localStorage.getItem('venux_tarot_streak');
-      if (!raw) return 0;
-      const { date, count } = JSON.parse(raw);
-      const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
-      if (date === _todayStr() || date === yesterday) return count;
-      return 0;
-    } catch { return 0; }
+      if (!raw) return null;
+      return JSON.parse(raw);
+    } catch { return null; }
   }
 
   function updateStreak() {
     try {
-      const raw = localStorage.getItem('venux_tarot_streak');
+      const previous = getStreakState();
       const today = _todayStr();
-      const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
       let count = 1;
-      if (raw) {
-        const s = JSON.parse(raw);
-        if (s.date === yesterday) count = (s.count || 0) + 1;
-        else if (s.date === today) count = s.count || 1;
+      if (previous?.date === today) {
+        count = previous.count || 1;
+      } else if (previous?.date && _daysBetweenKst(previous.date, today) === 1) {
+        count = (previous.count || 0) + 1;
       }
-      localStorage.setItem('venux_tarot_streak', JSON.stringify({ date: today, count }));
+
+      let rewardMessage = '';
+      let bonusCreditClaimedDate = previous?.bonusCreditClaimedDate || null;
+      let monthlyInsightUnlocked = Boolean(previous?.monthlyInsightUnlocked);
+
+      if (count === 3 && bonusCreditClaimedDate !== today) {
+        _addTarotCredits(1);
+        bonusCreditClaimedDate = today;
+        rewardMessage = '3일 연속 리딩 달성 · 보너스 질문권 1개 지급';
+      }
+      if (count >= 7 && !monthlyInsightUnlocked) {
+        monthlyInsightUnlocked = true;
+        rewardMessage = rewardMessage
+          ? `${rewardMessage}<br>7일 연속 리딩 달성 · 월간 인사이트 해금`
+          : '7일 연속 리딩 달성 · 월간 인사이트 해금';
+      }
+
+      localStorage.setItem(
+        'venux_tarot_streak',
+        JSON.stringify({ date: today, count, bonusCreditClaimedDate, monthlyInsightUnlocked }),
+      );
       const el = document.getElementById('fcStreak');
       if (el && count > 1) el.textContent = `🔥 ${count}일 연속 타로`;
+      return { count, rewardMessage, monthlyInsightUnlocked };
+    } catch {
+      return { count: 1, rewardMessage: '', monthlyInsightUnlocked: false };
+    }
+  }
+
+  function _addTarotCredits(amount) {
+    try {
+      const db = JSON.parse(localStorage.getItem('venux_daily_db') || '{}');
+      if (!db.coins) db.coins = {};
+      db.coins.tarot = (db.coins.tarot || 0) + amount;
+      localStorage.setItem('venux_daily_db', JSON.stringify(db));
     } catch {}
   }
 
@@ -760,6 +1106,9 @@
   let _currentCat  = 'daily';
   let _chatHistory = []; // 세션 내 채팅 히스토리 (저장 안 함)
   let _chatMsgCount = 0; // 이번 채팅에서 주고받은 메시지 수
+  let _activeView = 'draw';
+  let _selectedCardId = null;
+  let _qaOpen = false;
 
 
   // ════════════════════════════════════════════════════════
@@ -785,6 +1134,42 @@
     return `<div class="fc-front-sym">${fn(card.color, size || 42)}</div>`;
   }
 
+  const TAROT_MAJOR_IMAGES = {
+    fool: 'assets/tarot/major_00_the_fool_park_lyra.png',
+    magician: 'assets/tarot/major_01_the_magician_park_lyra.png',
+    high_priestess: 'assets/tarot/major_02_the_high_priestess_park_lyra.png',
+    empress: 'assets/tarot/major_03_the_empress_park_lyra.png',
+    emperor: 'assets/tarot/major_04_the_emperor_park_lyra.png',
+    hierophant: 'assets/tarot/major_05_the_hierophant_park_lyra.png',
+    lovers: 'assets/tarot/major_06_the_lovers_park_lyra.png',
+    chariot: 'assets/tarot/major_07_the_chariot_park_lyra.png',
+    strength: 'assets/tarot/major_08_strength_park_lyra.png',
+    hermit: 'assets/tarot/major_09_the_hermit_park_lyra.png',
+    wheel: 'assets/tarot/major_10_wheel_of_fortune_park_lyra.png',
+    justice: 'assets/tarot/major_11_justice_park_lyra.png',
+    hanged_man: 'assets/tarot/major_12_the_hanged_man_park_lyra.png',
+    death: 'assets/tarot/major_13_death_park_lyra.png',
+    temperance: 'assets/tarot/major_14_temperance_park_lyra.png',
+    devil: 'assets/tarot/major_15_the_devil_park_lyra.png',
+    tower: 'assets/tarot/major_16_the_tower_park_lyra.png',
+    star: 'assets/tarot/major_17_the_star_park_lyra.png',
+    moon: 'assets/tarot/major_18_the_moon_park_lyra.png',
+    sun: 'assets/tarot/major_19_the_sun_park_lyra.png',
+    judgement: 'assets/tarot/major_20_judgement_park_lyra.png',
+    world: 'assets/tarot/major_21_the_world_park_lyra.png',
+  };
+
+  function _cardImage(card) {
+    return TAROT_MAJOR_IMAGES[card.id] || '';
+  }
+
+  function _cardImageLayer(card) {
+    const src = _cardImage(card);
+    if (!src) return '';
+    return `<img class="fc-card-image" src="${src}" alt="${card.name} 타로 카드" loading="lazy" decoding="async">
+      <div class="fc-card-image-shade"></div>`;
+  }
+
   function _cardBg(card) {
     const r = parseInt(card.color.slice(1,3), 16);
     const g = parseInt(card.color.slice(3,5), 16);
@@ -798,6 +1183,25 @@
   // ════════════════════════════════════════════════════════
 
   function _renderScreen() {
+    if (_activeView === 'library') { _showLibrary(); return; }
+    if (_activeView === 'guide')   { _showGuide();   return; }
+    _showPick3Deck();
+  }
+
+  // ── 3장 선택 리딩 (22장 · 셔플 · 플립) ──
+  function _showPick3Deck() {
+    const ct = document.getElementById('fcContainer');
+    if (!ct) return;
+    const cat = _activeView || 'love';
+    if (typeof global.TarotPick3 !== 'undefined') {
+      global.TarotPick3.mount(ct, { menuHtml: _menuHtml(cat), category: cat });
+      return;
+    }
+    _showDeckLegacy();
+  }
+
+  // ── 레거시: 하루 1장 뽑기 ──
+  function _showDeckLegacy() {
     const daily = getDailyState();
     if (daily) {
       const card = TAROT_MAJOR.find(c => c.id === daily.cardId);
@@ -808,15 +1212,11 @@
         return;
       }
     }
-    _showDeck();
-  }
-
-  // ── 덱 화면 ──
-  function _showDeck() {
     const ct = document.getElementById('fcContainer');
     if (!ct) return;
     ct.innerHTML = `
       <div class="fc-deck-view">
+        ${_menuHtml('draw')}
         <div class="fc-eyebrow">// TODAY'S FORTUNE</div>
         <div class="fc-title">오늘의 타로</div>
         <div class="fc-sub">하루 한 장, 오늘의 에너지를 확인해봐</div>
@@ -850,6 +1250,11 @@
 
   // ── 뽑기 ──
   global._fcDraw = function() {
+    localStorage.removeItem(DAILY_KEY);
+    _fcStartDraw();
+  };
+
+  function _fcStartDraw(excludeCardId = null) {
     const ct = document.getElementById('fcContainer');
     if (!ct) return;
 
@@ -860,9 +1265,13 @@
     if (hint) hint.style.opacity = '0';
 
     // 랜덤 카드 선택
-    const card = TAROT_MAJOR[Math.floor(Math.random() * TAROT_MAJOR.length)];
+    const deck = excludeCardId
+      ? TAROT_MAJOR.filter(item => item.id !== excludeCardId)
+      : TAROT_MAJOR;
+    const card = deck[Math.floor(Math.random() * deck.length)] || TAROT_MAJOR[0];
 
     // 뒤집힌 카드 등장
+    const image = _cardImage(card);
     const zone = document.createElement('div');
     zone.className = 'fc-reveal-zone';
     zone.id = 'fcRevealZone';
@@ -873,11 +1282,13 @@
             <div class="fc-back-glyph">✦</div>
             <div class="fc-back-label">VENUX</div>
           </div>
-          <div class="fc-card-face fc-card-front"
-               style="background:${_cardBg(card)};border:1px solid ${card.color}44">
-            <div class="fc-front-glow"
-                 style="background:radial-gradient(circle at 35% 30%,${card.color}28,transparent 60%)"></div>
-            ${_sym(card, 44)}
+          <div class="fc-card-face fc-card-front ${image ? 'has-image' : ''}"
+               style="${image ? '' : `background:${_cardBg(card)};`}border:1px solid ${card.color}55">
+            ${image ? _cardImageLayer(card) : `
+              <div class="fc-front-glow"
+                   style="background:radial-gradient(circle at 35% 30%,${card.color}28,transparent 60%)"></div>
+              ${_sym(card, 44)}
+            `}
             <div class="fc-front-name">${card.name}</div>
             <div class="fc-front-kw" style="color:${card.color}">${card.keyword}</div>
           </div>
@@ -887,7 +1298,7 @@
     ct.querySelector('.fc-deck-view').appendChild(zone);
 
     setTimeout(() => zone.classList.add('visible'), 80);
-  };
+  }
 
   // ── 플립 공개 ──
   global._fcReveal = function(cardId) {
@@ -905,6 +1316,24 @@
     setTimeout(() => _showResult(card, false), 700);
   };
 
+  global._fcReroll = function() {
+    const daily = getDailyState();
+    const remaining = getRemainingRerolls();
+    if (!daily || remaining <= 0) return;
+
+    const nextCount = getRerollCount() + 1;
+    const nextDeck = TAROT_MAJOR.filter(item => item.id !== daily.cardId);
+    const nextCard = nextDeck[Math.floor(Math.random() * nextDeck.length)] || TAROT_MAJOR[0];
+
+    _currentCard = nextCard;
+    _currentCat = daily.cat || _currentCat || 'daily';
+    setDailyState(nextCard.id, _currentCat, {
+      rerollCount: nextCount,
+      chatFreeUsed: daily.chatFreeUsed || false,
+    });
+    _showResult(nextCard, true);
+  };
+
   // ── 결과 화면 ──
   function _showResult(card, isAlreadyDrawn) {
     const ct = document.getElementById('fcContainer');
@@ -912,19 +1341,34 @@
 
     const catLabel = { daily:'오늘의 운세', love:'연애운', work:'직업운', advice:'조언' }[_currentCat] || '오늘의 운세';
     const msg = card.msgs[_currentCat] || card.upright;
+    const streak = updateStreak();
+    const remainingRerolls = getRemainingRerolls();
+    const rerollUsed = getRerollCount();
+    const rerollDisabled = remainingRerolls <= 0;
+    const nextCountdown = _countdownToTomorrowKst();
+    const image = _cardImage(card);
 
     ct.innerHTML = `
       <div class="fc-result-view">
-        ${isAlreadyDrawn ? `<div class="fc-already-badge">// 오늘의 카드 · ${catLabel}</div>` : ''}
+        ${_menuHtml('draw')}
+        ${isAlreadyDrawn ? `<div class="fc-already-badge">// 오늘의 포춘쿠키 열림 · ${catLabel}</div>` : ''}
+        <div class="fc-routine-panel">
+          <div class="fc-routine-title">${isAlreadyDrawn ? '오늘의 카드는 이미 열렸어요' : '오늘의 포춘쿠키 열림'}</div>
+          <div class="fc-routine-copy">내일 다시 새로운 카드가 도착해요 · KST 자정까지 ${nextCountdown}</div>
+          <div class="fc-routine-copy">연속 리딩 ${streak.count}일 · 3일 보너스 질문권 · 7일 월간 인사이트</div>
+          ${streak.rewardMessage ? `<div class="fc-routine-reward">${streak.rewardMessage}</div>` : ''}
+        </div>
         <div class="fc-result-badge" style="color:${card.color};border-color:${card.color}55">
           ${card.num} · ${catLabel}
         </div>
         <div class="fc-result-card-wrap">
-          <div class="fc-result-card"
-               style="background:${_cardBg(card)};border:1px solid ${card.color}44">
-            <div class="fc-front-glow"
-                 style="background:radial-gradient(circle at 35% 30%,${card.color}28,transparent 60%)"></div>
-            ${_sym(card, 52)}
+          <div class="fc-result-card ${image ? 'has-image' : ''}"
+               style="${image ? '' : `background:${_cardBg(card)};`}border:1px solid ${card.color}55">
+            ${image ? _cardImageLayer(card) : `
+              <div class="fc-front-glow"
+                   style="background:radial-gradient(circle at 35% 30%,${card.color}28,transparent 60%)"></div>
+              ${_sym(card, 52)}
+            `}
             <div class="fc-front-name" style="font-size:13px">${card.name}</div>
             <div class="fc-front-kw" style="color:${card.color};font-size:9px">${card.keyword}</div>
           </div>
@@ -939,7 +1383,257 @@
             ✨ 이 카드에 대해 더 물어보기
           </button>
           <div class="fc-cta-hint">첫 3번은 무료 · 이후 코인 필요</div>
-          <div class="fc-tomorrow">🌙 내일 새로운 카드가 기다리고 있어</div>
+          <div class="fc-result-actions">
+            <button class="fc-reroll-btn" onclick="_fcReroll()" ${rerollDisabled ? 'disabled' : ''}>
+              다시 뽑기 ${rerollDisabled ? '(오늘 완료)' : `(${remainingRerolls}/3 남음)`}
+            </button>
+            <button class="fc-ghost-btn" onclick="_fcCreateContent('${card.id}')">이 감정으로 콘텐츠 만들기</button>
+            <button class="fc-ghost-btn" onclick="_fcShowView('library')">카드덱 보기</button>
+            <button class="fc-ghost-btn" onclick="_fcOpenCard('${card.id}')">카드 해석</button>
+          </div>
+          <div class="fc-tomorrow">${rerollDisabled ? '🌙 오늘 다시 뽑기는 모두 사용했어' : `오늘 다시 뽑기 ${rerollUsed}/3회 사용`}</div>
+          <div id="fcContentOutput"></div>
+        </div>
+      </div>`;
+  }
+
+  function _menuHtml(active) {
+    const item = (id, label) => `
+      <button class="fc-menu-btn ${active === id ? 'active' : ''}" onclick="_fcShowView('${id}')">${label}</button>`;
+    return `<div class="fc-menu-wrap">
+      <div class="fc-top-menu" role="tablist" aria-label="타로 메뉴">
+        ${item('love',   '애정운')}
+        ${item('wealth', '재물운')}
+        ${item('biz',    '사업운')}
+        <button class="fc-menu-btn ${_qaOpen ? 'qa-open' : ''}" type="button" aria-expanded="${_qaOpen ? 'true' : 'false'}" onclick="_fcToggleQa()">Q&A</button>
+      </div>
+      ${_qaOpen ? `<div class="fc-qa-panel" id="fcQaPanel">
+        <div class="fc-qa-item">
+          <div class="fc-qa-q">Q. 어떻게 사용해?</div>
+          <div class="fc-qa-a">애정운, 재물운, 사업운 중 보고 싶은 주제를 고른 뒤 카드 3장을 선택해. 선택한 순서대로 현재 흐름, 기회/주의점, 앞으로의 방향을 읽어줘.</div>
+        </div>
+        <div class="fc-qa-item">
+          <div class="fc-qa-q">Q. 카드는 다시 고를 수 있어?</div>
+          <div class="fc-qa-a">선택한 카드를 한 번 더 누르면 취소할 수 있어. 이미 3장을 골랐다면 셔플로 처음부터 다시 섞을 수도 있어.</div>
+        </div>
+        <div class="fc-qa-item">
+          <div class="fc-qa-q">Q. 결과는 확정된 미래야?</div>
+          <div class="fc-qa-a">아니야. VenuX 타로는 미래를 단정하지 않고, 지금의 감정과 선택지를 정리하는 상징적 리딩이야.</div>
+        </div>
+        <div class="fc-qa-item">
+          <div class="fc-qa-q">Q. 결과를 어떻게 활용하면 좋아?</div>
+          <div class="fc-qa-a">마음에 남는 키워드 하나를 고르고, 오늘 바로 할 수 있는 작은 행동으로 바꿔봐. 필요하면 결과에서 콘텐츠 생성으로 이어갈 수 있어.</div>
+        </div>
+      </div>` : ''}
+    </div>`;
+  }
+
+  const _CAT_LABELS = { love: '애정운', wealth: '재물운', biz: '사업운' };
+
+  global._fcShowView = function(view) {
+    _activeView = view || 'love';
+    _renderScreen();
+  };
+
+  global._fcToggleQa = function() {
+    _qaOpen = !_qaOpen;
+    _renderScreen();
+  };
+
+  global._fcLibFlip = function(el) {
+    const isFlipped = el.classList.contains('flipped');
+    // 다른 카드 전부 닫기
+    document.querySelectorAll('.fc-lib-flip-wrap').forEach(c => c.classList.remove('flipped'));
+    // 선택한 카드: 이미 열려 있으면 닫기, 아니면 열기
+    if (!isFlipped) el.classList.add('flipped');
+  };
+
+  global._fcOpenCard = function(cardId) {
+    _activeView = 'library';
+    _selectedCardId = cardId;
+    _showLibrary();
+  };
+
+  function _showLibrary() {
+    const ct = document.getElementById('fcContainer');
+    if (!ct) return;
+    const selected = TAROT_MAJOR.find(c => c.id === _selectedCardId);
+    ct.innerHTML = `
+      <div class="fc-library-view">
+        ${_menuHtml('library')}
+        <div class="fc-section-head">
+          <div class="fc-eyebrow">// MAJOR ARCANA</div>
+          <div class="fc-section-title">카드덱</div>
+          <div class="fc-section-sub">22장의 메이저 아르카나 의미를 먼저 확인해봐</div>
+        </div>
+        ${selected ? _cardDetailHtml(selected) : _libraryGridHtml()}
+      </div>`;
+  }
+
+  function _libraryGridHtml() {
+    return `<div class="fc-library-grid">
+      ${TAROT_MAJOR.map(card => `
+        <div class="fc-lib-flip-wrap" onclick="_fcLibFlip(this)">
+          <div class="fc-lib-flip-inner">
+            <div class="fc-lib-card-face fc-lib-back" style="background:${_cardBg(card)}">
+              <div class="fc-lib-back-glyph">✦</div>
+              <div class="fc-lib-back-num">${card.num}</div>
+            </div>
+            <div class="fc-lib-card-face fc-lib-front" style="background:${_cardBg(card)};--fc-card-color:${card.color}">
+              <div class="fc-lib-front-glow"></div>
+              <div class="fc-lib-front-num">${card.num}</div>
+              <div class="fc-lib-front-name">${card.name}</div>
+              <div class="fc-lib-front-kw" style="color:${card.color}">${card.keyword}</div>
+              <button class="fc-lib-front-detail" onclick="event.stopPropagation();_fcOpenCard('${card.id}')">자세히 →</button>
+            </div>
+          </div>
+        </div>`).join('')}
+    </div>`;
+  }
+
+  function _cardDetailHtml(card) {
+    const image = _cardImage(card);
+    return `<div class="fc-card-detail">
+      <div class="fc-detail-top">
+        <div class="fc-detail-mini ${image ? 'has-image' : ''}" style="${image ? '' : `background:${_cardBg(card)};`}border:1px solid ${card.color}44">
+          ${image ? _cardImageLayer(card) : `
+            <div class="fc-front-glow" style="background:radial-gradient(circle at 35% 30%,${card.color}28,transparent 60%)"></div>
+            ${_sym(card, 34)}
+          `}
+        </div>
+        <div class="fc-detail-text">
+          <div class="fc-detail-kicker">${card.num} · MAJOR ARCANA</div>
+          <div class="fc-detail-name">${card.name}</div>
+          <div class="fc-detail-keyword" style="color:${card.color}">${card.keyword}</div>
+        </div>
+      </div>
+      <div class="fc-detail-block">
+        <div class="fc-detail-label">정방향</div>
+        <div class="fc-detail-body">${card.upright}</div>
+      </div>
+      <div class="fc-detail-block">
+        <div class="fc-detail-label">역방향</div>
+        <div class="fc-detail-body">${card.reversed}</div>
+      </div>
+      <div class="fc-detail-block">
+        <div class="fc-detail-label">오늘의 조언</div>
+        <div class="fc-detail-body">${card.msgs.advice || card.upright}</div>
+      </div>
+      <div class="fc-result-actions">
+        <button class="fc-ghost-btn" onclick="_fcOpenCard(null)">전체 보기</button>
+        <button class="fc-ghost-btn" onclick="_fcShowView('draw')">오늘 뽑기</button>
+      </div>
+    </div>`;
+  }
+
+  global._fcCreateContent = function(cardId) {
+    const card = TAROT_MAJOR.find(c => c.id === cardId) || _currentCard;
+    if (!card) return;
+    const out = document.getElementById('fcContentOutput');
+    if (!out) return;
+
+    const kit = _buildTarotContentKit(card, _currentCat);
+    out.innerHTML = `
+      <div class="fc-content-panel">
+        <div class="fc-content-head">오늘의 감정 콘텐츠 시드</div>
+        <div class="fc-content-sub">${card.name} · ${card.keyword} 흐름을 바로 제작 가능한 형태로 정리했어.</div>
+        <div class="fc-content-block">
+          <div class="fc-content-label">Shortform Ideas</div>
+          <div class="fc-content-text">${kit.shortformIdeas.map((idea, i) => `${i + 1}. ${idea}`).join('\n')}</div>
+        </div>
+        <div class="fc-content-block">
+          <div class="fc-content-label">Image Prompt</div>
+          <div class="fc-content-text">${kit.imagePrompt}</div>
+        </div>
+        <div class="fc-content-block">
+          <div class="fc-content-label">Video Prompt</div>
+          <div class="fc-content-text">${kit.videoPrompt}</div>
+        </div>
+        <div class="fc-content-block">
+          <div class="fc-content-label">Threads / X</div>
+          <div class="fc-content-text">${kit.socialPost}</div>
+        </div>
+        <div class="fc-content-block">
+          <div class="fc-content-label">Moodboard Seed</div>
+          <div class="fc-content-text">${kit.moodboardKeywords.join(' · ')}</div>
+        </div>
+      </div>`;
+  };
+
+  function _buildTarotContentKit(card, cat) {
+    const catLabel = { daily:'오늘의 운세', love:'관계', work:'일', advice:'조언' }[cat] || '오늘';
+    const mood = card.keyword.split('·').map(v => v.trim()).filter(Boolean);
+    const message = card.msgs?.[cat] || card.upright;
+
+    return {
+      shortformIdeas: [
+        `${card.name} 카드로 여는 15초 루틴: "${mood[0] || card.keyword}"을 오늘 한 장면으로 보여주기`,
+        `${catLabel} POV 숏폼: ${message}를 대사 1줄, 손동작 1개, 클로즈업 1컷으로 구성`,
+        `Mystic pixel 브이로그: 오늘의 감정을 카드 색(${card.color}) 조명과 자막 키워드로 전환`,
+      ],
+      imagePrompt: `Mystic pixel AI creator moodboard, tarot card "${card.name}", ${card.keyword}, deep violet night, neon pixel stars, emotional but practical, soft cinematic glow, vertical composition, no scary mood`,
+      videoPrompt: `9:16 short-form video, VenuX mystic pixel style. Start with a close-up of a glowing tarot card named ${card.name}, transition into a creator desk scene, overlay keywords "${card.keyword}", end with one practical action inspired by: ${message}`,
+      socialPost: `오늘의 카드는 ${card.name}. ${message} 확정된 예언보다, 지금 내 선택을 정리하는 작은 신호로 받아두기.`,
+      moodboardKeywords: [
+        'mystic pixel',
+        'deep violet',
+        card.name,
+        ...mood,
+        'AI creator desk',
+        'soft neon',
+        'fortune cookie ritual',
+      ],
+    };
+  }
+
+  function _showGuide() {
+    const ct = document.getElementById('fcContainer');
+    if (!ct) return;
+    ct.innerHTML = `
+      <div class="fc-guide-view">
+        ${_menuHtml('guide')}
+        <div class="fc-section-head">
+          <div class="fc-eyebrow">// TAROT GUIDE</div>
+          <div class="fc-section-title">이용 안내</div>
+          <div class="fc-section-sub">카드 뽑기, AI 채팅, 크레딧 규칙을 확인해봐</div>
+        </div>
+        <div class="fc-guide-list">
+
+          <div class="fc-guide-item">
+            <div class="fc-guide-label">🃏 하루 한 장</div>
+            <div class="fc-guide-copy">카드는 하루 1장. 자정(KST) 이후 새 카드가 열려. 카테고리(오늘의 운세·연애운·직업운·조언)는 뽑기 전에만 바꿀 수 있어.</div>
+          </div>
+
+          <div class="fc-guide-item">
+            <div class="fc-guide-label">🔄 다시 뽑기</div>
+            <div class="fc-guide-copy">뽑은 카드가 마음에 들지 않으면 다시 뽑기를 쓸 수 있어. 하루 최대 3회까지 가능하고, 자정이 지나면 초기화돼.</div>
+          </div>
+
+          <div class="fc-guide-item">
+            <div class="fc-guide-label">✦ AI 타로 채팅</div>
+            <div class="fc-guide-copy">카드를 열면 AI와 1:1 채팅을 시작할 수 있어. 타로 카드 데이터와 리딩 텍스트를 바탕으로 답해줘. 첫 3회 질문은 무료야.</div>
+          </div>
+
+          <div class="fc-guide-item">
+            <div class="fc-guide-label">🪙 코인 & 크레딧</div>
+            <div class="fc-guide-copy">무료 질문 3회 이후부터는 코인이 1개씩 차감돼. 코인이 부족하면 결제 페이지로 이동해. 연속 리딩 보상으로도 코인을 받을 수 있어.</div>
+          </div>
+
+          <div class="fc-guide-item">
+            <div class="fc-guide-label">🔥 연속 리딩 보상</div>
+            <div class="fc-guide-copy">매일 카드를 뽑으면 연속 일수가 쌓여. 3일 연속 → 보너스 질문권 1개 자동 지급. 7일 연속 → 월간 인사이트 기능이 해금돼.</div>
+          </div>
+
+          <div class="fc-guide-item">
+            <div class="fc-guide-label">🎨 콘텐츠 시드</div>
+            <div class="fc-guide-copy">카드를 열면 "이 감정으로 콘텐츠 만들기" 버튼이 생겨. Shortform 아이디어, 이미지/영상 프롬프트, SNS 문구를 한 번에 뽑아줄게.</div>
+          </div>
+
+          <div class="fc-guide-item">
+            <div class="fc-guide-label">📚 카드덱</div>
+            <div class="fc-guide-copy">상단 '카드덱' 탭에서 메이저 아르카나 22장의 의미를 미리 볼 수 있어. 뽑기 전에 카드를 공부하고 싶을 때 참고해.</div>
+          </div>
+
         </div>
       </div>`;
   }
@@ -1065,34 +1759,10 @@
       </div>`);
     _scrollTccBottom();
 
-    // AI 응답
-    const apiKey = localStorage.getItem('venux_openai_key');
-    let reply = '';
-    try {
-      if (apiKey) {
-        _chatHistory.push({ role: 'user', content: text });
-        const systemPrompt = _buildTarotSystemPrompt(_currentCard, _currentCat);
-        const res = await fetch('https://api.openai.com/v1/chat/completions', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-          body: JSON.stringify({
-            model: localStorage.getItem('venux_ai_model') || 'gpt-4o',
-            messages: [{ role: 'system', content: systemPrompt }, ..._chatHistory],
-            max_tokens: 250,
-            temperature: 0.85,
-          })
-        });
-        if (!res.ok) throw new Error(`API ${res.status}`);
-        const data = await res.json();
-        reply = data.choices?.[0]?.message?.content?.trim() || '';
-        if (reply) _chatHistory.push({ role: 'assistant', content: reply });
-      }
-    } catch (e) { console.warn('Tarot AI error:', e); }
-
-    // 폴백
-    if (!reply) {
-      reply = _tarotFallbackReply(_currentCard, text);
-    }
+    // 카드 데이터 기반 응답. 브라우저 localStorage의 OpenAI 키는 사용하지 않는다.
+    _chatHistory.push({ role: 'user', content: text });
+    const reply = _tarotFallbackReply(_currentCard, text);
+    _chatHistory.push({ role: 'assistant', content: reply });
 
     // 타이핑 제거 + 응답 표시
     document.getElementById(typId)?.remove();
@@ -1168,8 +1838,6 @@
   }
 
   function _deductTarotCoin() {
-    // BYOK 있으면 무조건 허용
-    if (localStorage.getItem('venux_openai_key')) return true;
     // 기존 vxDeductCoin 사용 (있으면)
     if (typeof global.vxDeductCoin === 'function') return global.vxDeductCoin('tarot');
     // 직접 처리 (fallback)

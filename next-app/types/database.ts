@@ -271,6 +271,177 @@ export interface Database {
         }
         Relationships: []
       }
+      tarot_daily_fortunes: {
+        Row: {
+          id: string
+          user_id: string
+          reading_date: string
+          category: string
+          card_id: string
+          orientation: string
+          short_message: string | null
+          action_message: string | null
+          content_seed: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          reading_date: string
+          category?: string
+          card_id: string
+          orientation: string
+          short_message?: string | null
+          action_message?: string | null
+          content_seed?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          reading_date?: string
+          category?: string
+          card_id?: string
+          orientation?: string
+          short_message?: string | null
+          action_message?: string | null
+          content_seed?: string | null
+          created_at?: string
+        }
+        Relationships: []
+      }
+      tarot_chat_sessions: {
+        Row: {
+          id: string
+          user_id: string
+          daily_fortune_id: string | null
+          category: string
+          title: string | null
+          initial_question: string | null
+          is_premium: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          daily_fortune_id?: string | null
+          category?: string
+          title?: string | null
+          initial_question?: string | null
+          is_premium?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          daily_fortune_id?: string | null
+          category?: string
+          title?: string | null
+          initial_question?: string | null
+          is_premium?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      tarot_chat_messages: {
+        Row: {
+          id: string
+          session_id: string
+          user_id: string
+          role: string
+          content: string
+          token_count: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          session_id: string
+          user_id: string
+          role: string
+          content: string
+          token_count?: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          session_id?: string
+          user_id?: string
+          role?: string
+          content?: string
+          token_count?: number
+          created_at?: string
+        }
+        Relationships: []
+      }
+      tarot_usage_limits: {
+        Row: {
+          user_id: string
+          last_free_date: string | null
+          daily_free_used: boolean
+          free_chat_count: number
+          credit_balance: number
+          subscription_tier: string
+          streak_count: number
+          last_opened_date: string | null
+          bonus_credit_claimed_date: string | null
+          monthly_insight_unlocked: boolean
+          updated_at: string
+        }
+        Insert: {
+          user_id: string
+          last_free_date?: string | null
+          daily_free_used?: boolean
+          free_chat_count?: number
+          credit_balance?: number
+          subscription_tier?: string
+          streak_count?: number
+          last_opened_date?: string | null
+          bonus_credit_claimed_date?: string | null
+          monthly_insight_unlocked?: boolean
+          updated_at?: string
+        }
+        Update: {
+          user_id?: string
+          last_free_date?: string | null
+          daily_free_used?: boolean
+          free_chat_count?: number
+          credit_balance?: number
+          subscription_tier?: string
+          streak_count?: number
+          last_opened_date?: string | null
+          bonus_credit_claimed_date?: string | null
+          monthly_insight_unlocked?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      tarot_reading_analytics: {
+        Row: {
+          id: string
+          user_id: string | null
+          event_name: string
+          event_payload: Json | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id?: string | null
+          event_name: string
+          event_payload?: Json | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string | null
+          event_name?: string
+          event_payload?: Json | null
+          created_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
