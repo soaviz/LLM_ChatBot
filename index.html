@@ -2082,6 +2082,63 @@
 
     /* ── RESULTS SCREEN ──────────────────────────── */
     #screen-results { background: var(--vx-bg) !important; }
+
+    /* ── 채팅 목록 (카카오톡 스타일) ── */
+    .chatlist-wrap { display: flex; flex-direction: column; }
+    .chatlist-item {
+      display: flex; align-items: center; gap: 13px;
+      padding: 11px 18px; cursor: pointer;
+      transition: background .12s; -webkit-tap-highlight-color: transparent;
+    }
+    .chatlist-item:active { background: rgba(255,255,255,0.05); }
+    .chatlist-avatar {
+      width: 52px; height: 52px; border-radius: 50%;
+      overflow: hidden; flex-shrink: 0; position: relative;
+    }
+    .chatlist-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .chatlist-group-avatar {
+      width: 52px; height: 52px; border-radius: 16px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px;
+      overflow: hidden; flex-shrink: 0;
+      background: rgba(255,255,255,0.08);
+    }
+    .chatlist-group-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .chatlist-info { flex: 1; min-width: 0; }
+    .chatlist-name {
+      font-size: 14px; font-weight: 700; color: var(--vx-text);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .chatlist-member-count {
+      font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.35);
+      margin-left: 3px;
+    }
+    .chatlist-last {
+      font-size: 12px; color: var(--vx-text-3);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      margin-top: 3px;
+    }
+    .chatlist-meta {
+      display: flex; flex-direction: column; align-items: flex-end;
+      gap: 5px; flex-shrink: 0;
+    }
+    .chatlist-time { font-size: 11px; color: rgba(255,255,255,0.28); }
+    .chatlist-unread {
+      min-width: 18px; height: 18px; border-radius: 9px;
+      background: #c77dff; color: #fff;
+      font-size: 10px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 5px;
+    }
+    .chatlist-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 0 18px; }
+    .chatlist-section-label {
+      font-size: 10px; font-weight: 700; letter-spacing: .14em;
+      color: rgba(255,255,255,0.22); text-transform: uppercase;
+      padding: 14px 18px 6px; font-family: var(--vx-font-mono);
+    }
+    /* 단체톡 말풍선 — 멤버 이름 표시 */
+    .chat-group-sender-name {
+      font-size: 11px; font-weight: 700; margin-bottom: 3px; padding-left: 2px;
+    }
     .results-header {
       background: rgba(6,4,15,.92) !important;
       border-bottom: 1px solid var(--vx-border) !important;
@@ -5025,13 +5082,20 @@ function vxCamShoot(){
 
 <!-- SCREEN 3: RESULTS -->
 <div class="screen" id="screen-results">
-  <div class="results-header" style="display:flex;align-items:center;gap:10px">
-    <button class="back-btn" onclick="goBack()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>뒤로</button>
-    <div class="results-question" id="resultsQuestion" style="flex:1"></div>
+  <!-- ── 채팅 목록 헤더 ── -->
+  <div class="results-header" style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px 12px">
+    <div style="font-size:20px;font-weight:800;color:var(--vx-text);letter-spacing:-.02em">메세지</div>
+    <div id="resultsQuestion" style="display:none"></div>
   </div>
-  <div class="results-cards" id="resultsCards"></div>
 
-  <div class="verdict-section" id="verdictSection"></div>
+  <!-- ── 채팅 목록 뷰 ── -->
+  <div class="chatlist-wrap" id="chatListView"></div>
+
+  <!-- ── Q&A 결과 (handleAsk 후 표시) ── -->
+  <div id="resultsQASection" style="display:none">
+    <div class="results-cards" id="resultsCards"></div>
+    <div class="verdict-section" id="verdictSection"></div>
+  </div>
 
   <div class="photo-section" id="photoSection" style="display:none;">
     <div class="photo-section-title" data-i18n="photo_section_title">📸 최애 멤버와 함께 셀카찍기</div>
@@ -8171,6 +8235,8 @@ function markPillDone(index) {
 // RESULTS
 // ============================================================
 function buildResults() {
+  document.getElementById('resultsQASection').style.display = 'block';
+  document.getElementById('resultsQuestion').style.display = 'block';
   document.getElementById('resultsQuestion').textContent = `"${currentQuestion}"`;
   const cardsContainer = document.getElementById('resultsCards');
   // If a solo member was selected, show them first
@@ -10301,16 +10367,12 @@ handleAsk = async function() {
 // ============================================================
 function switchTab(tabEl) {
   const targetId = tabEl.dataset.tab;
-  // Don't switch to results if no results yet
-  if (targetId === 'screen-results' && !Object.keys(memberResponses||{}).length) {
-    showToast('먼저 질문을 해보세요 💬');
-    return;
-  }
   document.querySelectorAll('.tab-bar-item').forEach(t => t.classList.remove('active'));
   tabEl.classList.add('active');
   _navStack = targetId === 'screen-landing' ? ['screen-landing'] : ['screen-landing', targetId];
   showScreen(targetId, false);
   // Render tab-specific content
+  if (targetId === 'screen-results') renderChatList();
   if (targetId === 'screen-affinity') renderAffinityPage();
   if (targetId === 'screen-tarot') tarotReset();
   if (targetId === 'screen-collection') renderCollection();
@@ -15143,8 +15205,144 @@ function formatChatDate(ts) {
   return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일 ${days[d.getDay()]}요일`;
 }
 
+// ══════════════════════════════════════════════
+// 채팅 목록 (카카오톡 스타일)
+// ══════════════════════════════════════════════
+
+function formatChatListTime(isoStr) {
+  if (!isoStr) return '';
+  const d = new Date(isoStr), now = new Date();
+  const diff = now - d;
+  if (diff < 60000) return '방금';
+  if (diff < 3600000) return Math.floor(diff / 60000) + '분 전';
+  if (diff < 86400000) {
+    const h = d.getHours(), mi = String(d.getMinutes()).padStart(2, '0');
+    const ampm = h < 12 ? '오전' : '오후';
+    return `${ampm} ${h % 12 || 12}:${mi}`;
+  }
+  if (diff < 604800000) {
+    const days = ['일','월','화','수','목','금','토'];
+    return days[d.getDay()] + '요일';
+  }
+  return `${d.getMonth()+1}/${d.getDate()}`;
+}
+
+function markRead(key) {
+  localStorage.setItem(`venux_unread_${key}`, '0');
+}
+
+function addUnread(key) {
+  const cur = parseInt(localStorage.getItem(`venux_unread_${key}`) || '0', 10);
+  localStorage.setItem(`venux_unread_${key}`, String(cur + 1));
+}
+
+function renderChatList() {
+  const container = document.getElementById('chatListView');
+  if (!container) return;
+
+  // ── 단체톡 ──
+  const groupHist = loadChatHistory('GROUP');
+  const gLast = groupHist.length ? groupHist[groupHist.length - 1] : null;
+  let gLastText = '단체 채팅방에 오신 걸 환영해요 👋';
+  if (gLast) {
+    if (gLast.isPhoto) gLastText = '📷 사진';
+    else if (gLast.role === 'user') gLastText = gLast.text;
+    else {
+      const senderName = gLast.member ? (memberData[gLast.member]?.name || '') : '';
+      gLastText = senderName ? `${senderName}: ${gLast.text}` : gLast.text;
+    }
+  }
+  const gTime = gLast ? formatChatListTime(gLast.timestamp) : '';
+  const gUnread = parseInt(localStorage.getItem('venux_unread_GROUP') || '0', 10);
+
+  const groupRow = `
+    <div class="chatlist-item" onclick="markRead('GROUP');openChatRoom('GROUP')">
+      <div class="chatlist-group-avatar">
+        ${memberOrder.slice(0, 4).map(k => `<img src="${memberData[k].photo}" alt="${memberData[k].name}">`).join('')}
+      </div>
+      <div class="chatlist-info">
+        <div class="chatlist-name">VENUX 단체톡 <span class="chatlist-member-count">5</span></div>
+        <div class="chatlist-last">${gLastText}</div>
+      </div>
+      <div class="chatlist-meta">
+        ${gTime ? `<span class="chatlist-time">${gTime}</span>` : ''}
+        ${gUnread > 0 ? `<span class="chatlist-unread">${gUnread > 99 ? '99+' : gUnread}</span>` : ''}
+      </div>
+    </div>
+    <div class="chatlist-divider"></div>`;
+
+  // ── 개인 채팅 ──
+  const memberRows = memberOrder.map(key => {
+    const m = memberData[key];
+    const hist = loadChatHistory(key);
+    const last = hist.length ? hist[hist.length - 1] : null;
+    let lastText = '대화를 시작해보세요';
+    if (last) lastText = last.isPhoto ? '📷 사진' : last.text;
+    const time = last ? formatChatListTime(last.timestamp) : '';
+    const unread = parseInt(localStorage.getItem(`venux_unread_${key}`) || '0', 10);
+
+    return `
+      <div class="chatlist-item" onclick="markRead('${key}');openChatRoom('${key}')">
+        <div class="chatlist-avatar" style="border:2px solid ${m.badgeColor}55">
+          <img src="${m.photo}" alt="${m.name}">
+        </div>
+        <div class="chatlist-info">
+          <div class="chatlist-name">${m.name}</div>
+          <div class="chatlist-last">${lastText}</div>
+        </div>
+        <div class="chatlist-meta">
+          ${time ? `<span class="chatlist-time">${time}</span>` : ''}
+          ${unread > 0 ? `<span class="chatlist-unread">${unread > 99 ? '99+' : unread}</span>` : ''}
+        </div>
+      </div>
+      <div class="chatlist-divider"></div>`;
+  }).join('');
+
+  container.innerHTML = `
+    <div class="chatlist-section-label">단체 채팅</div>
+    ${groupRow}
+    <div class="chatlist-section-label">개인 채팅</div>
+    ${memberRows}`;
+}
+
+// ══════════════════════════════════════════════
+// 단체톡 상수
+// ══════════════════════════════════════════════
+const GROUP_GREETINGS = [
+  { member: 'ARA-462', text: '오 다들 여기 있어? 안녕!' },
+  { member: 'LUX-299', text: '어머, 우리 팬 왔다 🌟' },
+  { member: 'EUR-0K',  text: '어서 와요 :)' },
+  { member: 'KIN-360', text: '같이 있으니까 더 좋은데' },
+  { member: 'ATP-X1',  text: '우리 다같이 얘기해요!' },
+];
+
+const GROUP_COLORS = { bg: '#0e0b1a', userBubble: 'rgba(199,125,255,0.22)', send: '#c77dff' };
+
 function openChatRoom(memberKey) {
   currentChatMember = memberKey;
+  markRead(memberKey);
+
+  // ── 단체톡 ──
+  if (memberKey === 'GROUP') {
+    document.getElementById('chatPortrait').innerHTML = `
+      <div style="width:38px;height:38px;border-radius:10px;display:grid;grid-template-columns:1fr 1fr;gap:1px;overflow:hidden;background:rgba(255,255,255,0.1)">
+        ${memberOrder.slice(0,4).map(k=>`<img src="${memberData[k].photo}" style="width:100%;height:100%;object-fit:cover">`).join('')}
+      </div>`;
+    document.getElementById('chatName').textContent = 'VENUX 단체톡';
+    document.getElementById('chatCode').textContent = '멤버 5명';
+    document.getElementById('chatCode').style.color = '#c77dff';
+    document.getElementById('chatBody').style.background = GROUP_COLORS.bg;
+    document.getElementById('chatSendBtn').style.background = GROUP_COLORS.send;
+    document.getElementById('chatInput').placeholder = '메세지를 입력하세요...';
+    document.getElementById('chatChips').style.display = 'none';
+    renderChatMessages('GROUP');
+    document.getElementById('chatScreen').classList.add('open');
+    document.getElementById('tabBar').style.display = 'none';
+    requestAnimationFrame(() => document.getElementById('chatBackdrop').classList.add('active'));
+    setTimeout(() => { const b = document.getElementById('chatBody'); b.scrollTop = b.scrollHeight; }, 100);
+    return;
+  }
+
   const m = memberData[memberKey];
   const colors = CHAT_COLORS[memberKey];
 
@@ -15263,6 +15461,10 @@ function closeChatRoom() {
   document.getElementById('chatBackdrop').classList.remove('active');
   document.getElementById('tabBar').style.display = 'flex';
   currentChatMember = null;
+  // 채팅 목록이 열려있으면 갱신
+  if (document.querySelector('.tab-bar-item.active')?.dataset?.tab === 'screen-results') {
+    renderChatList();
+  }
   // Resume rotation if landing is active
   const activeLanding = document.querySelector('.tab-bar-item.active')?.dataset?.tab === 'screen-landing';
   if (activeLanding && document.getElementById('todayMemberCard')?.style.display === 'flex') {
@@ -15351,6 +15553,58 @@ function rotateChips(memberKey, colors) {
 function renderChatMessages(memberKey) {
   let history = loadChatHistory(memberKey);
   const body = document.getElementById('chatBody');
+
+  // ── 단체톡 첫 인사 ──
+  if (memberKey === 'GROUP' && history.length === 0) {
+    const base = Date.now() - GROUP_GREETINGS.length * 1200;
+    GROUP_GREETINGS.forEach((g, i) => {
+      history.push({ role:'member', member: g.member, text: g.text,
+        timestamp: new Date(base + i * 1200).toISOString() });
+    });
+    saveChatHistory('GROUP', history);
+  }
+
+  // ── 단체톡 메세지 렌더링 ──
+  if (memberKey === 'GROUP') {
+    let html = '', lastDate = '', lastSender = '';
+    history.forEach((msg, i) => {
+      const msgDate = msg.timestamp.slice(0, 10);
+      if (msgDate !== lastDate) {
+        html += `<div class="chat-date-divider"><span class="chat-date-pill">${formatChatDate(msg.timestamp)}</span></div>`;
+        lastDate = msgDate; lastSender = '';
+      }
+      const isLast = (i === history.length - 1) ||
+        history[i+1]?.role !== msg.role ||
+        history[i+1]?.member !== msg.member ||
+        history[i+1]?.timestamp.slice(0,16) !== msg.timestamp.slice(0,16);
+      const timeStr = isLast ? `<span class="chat-msg-time">${formatChatTime(msg.timestamp)}</span>` : '';
+
+      if (msg.role === 'member') {
+        const mk = msg.member || memberOrder[0];
+        const mm = memberData[mk] || memberData[memberOrder[0]];
+        const showName = lastSender !== mk;
+        html += `<div class="chat-msg-row member">
+          <div class="chat-msg-avatar" style="${showName?'':'visibility:hidden'}"><img src="${mm.photo}" alt="${mm.name}"></div>
+          <div style="display:flex;flex-direction:column;gap:2px">
+            ${showName ? `<div class="chat-group-sender-name" style="color:${mm.badgeColor}">${mm.name}</div>` : ''}
+            <div style="display:flex;align-items:flex-end;gap:4px">
+              <div class="chat-bubble member-bubble">${msg.text}</div>
+              ${timeStr}
+            </div>
+          </div>
+        </div>`;
+        lastSender = mk;
+      } else {
+        lastSender = 'user';
+        html += `<div class="chat-msg-row user">
+          ${timeStr}
+          <div class="chat-bubble user-bubble" style="background:${GROUP_COLORS.userBubble}">${msg.text}</div>
+        </div>`;
+      }
+    });
+    body.innerHTML = html;
+    return;
+  }
 
   // If empty, add greetings
   if (history.length === 0) {
@@ -15471,6 +15725,69 @@ async function sendChatMessage() {
   if (!text || !currentChatMember) return;
 
   const memberKey = currentChatMember;
+
+  // ── 단체톡 전송 ──
+  if (memberKey === 'GROUP') {
+    const now = new Date().toISOString();
+    const history = loadChatHistory('GROUP');
+    history.push({ role:'user', text, timestamp:now });
+    saveChatHistory('GROUP', history);
+
+    const body = document.getElementById('chatBody');
+    ta.value = '';
+    ta.style.height = '0';
+    document.getElementById('chatSendBtn').disabled = true;
+
+    body.insertAdjacentHTML('beforeend', `<div class="chat-msg-row user">
+      <span class="chat-msg-time">${formatChatTime(now)}</span>
+      <div class="chat-bubble user-bubble" style="background:${GROUP_COLORS.userBubble}">${text}</div>
+    </div>`);
+    _scrollBottom(body);
+
+    // 랜덤 맴버 1~2명 순차 응답
+    const respondersCount = Math.random() < 0.4 ? 2 : 1;
+    const shuffled = [...memberOrder].sort(() => Math.random() - 0.5);
+    const responders = shuffled.slice(0, respondersCount);
+
+    for (const rKey of responders) {
+      const rm = memberData[rKey];
+      await new Promise(r => setTimeout(r, 1600 + Math.random() * 1000));
+
+      // 타이핑 인디케이터
+      const typId = 'groupTyp_' + Date.now();
+      body.insertAdjacentHTML('beforeend', `<div class="chat-typing" id="${typId}">
+        <div class="chat-msg-avatar"><img src="${rm.photo}" alt="${rm.name}"></div>
+        <div class="chat-typing-dots"><div class="chat-typing-dot"></div><div class="chat-typing-dot"></div><div class="chat-typing-dot"></div></div>
+      </div>`);
+      _scrollBottom(body);
+      await new Promise(r => setTimeout(r, 1200 + Math.random() * 800));
+      document.getElementById(typId)?.remove();
+
+      // 응답 선택
+      const bank = responseBank[rKey];
+      const rplyText = bank[Math.floor(Math.random() * bank.length)].answer;
+      const rTime = new Date().toISOString();
+
+      history.push({ role:'member', member: rKey, text: rplyText, timestamp: rTime });
+      saveChatHistory('GROUP', history);
+      addUnread('GROUP');
+
+      body.insertAdjacentHTML('beforeend', `<div class="chat-msg-row member">
+        <div class="chat-msg-avatar"><img src="${rm.photo}" alt="${rm.name}"></div>
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <div class="chat-group-sender-name" style="color:${rm.badgeColor}">${rm.name}</div>
+          <div style="display:flex;align-items:flex-end;gap:4px">
+            <div class="chat-bubble member-bubble">${rplyText}</div>
+            <span class="chat-msg-time">${formatChatTime(rTime)}</span>
+          </div>
+        </div>
+      </div>`);
+      _scrollBottom(body);
+    }
+    document.getElementById('chatSendBtn').disabled = false;
+    return;
+  }
+
   const now = new Date().toISOString();
   const history = loadChatHistory(memberKey);
   const m = memberData[memberKey];
