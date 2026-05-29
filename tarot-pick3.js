@@ -320,12 +320,12 @@
   }
   /* 카드 이미지 영역 */
   .tp3-rcard-wrap {
-    width: min(200px, 58vw); aspect-ratio: 2/3;
+    width: min(200px, 58vw);
+    height: calc(min(200px, 58vw) * 3 / 2);
     perspective: 700px; cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     margin-bottom: 18px; flex-shrink: 0;
-    contain: layout; isolation: isolate;
-    position: relative; overflow: visible;
+    position: relative;
   }
   .tp3-rcard-inner {
     position: absolute; inset: 0;
@@ -368,6 +368,7 @@
     align-items: center; justify-content: flex-end;
     padding: 7px 6px 10px; text-align: center;
     border: 1px solid rgba(212,175,55,0.38);
+    background: linear-gradient(150deg, #180638 0%, #0c0420 50%, #090316 100%);
     position: relative;
   }
   .tp3-rcard-back-glow {
