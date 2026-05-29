@@ -1183,6 +1183,33 @@
 
     /* Chat screen — fullscreen overlay, above tab bar */
     .chat-screen { position:fixed; inset:0; z-index:2000; display:flex; flex-direction:row; background:#F5F3FF; transform:translateX(100%); transition:transform 0.3s cubic-bezier(0.32,0.72,0,1); overflow:hidden; }
+
+    /* ── 채팅 포토 오버레이 (셀카/네컷) ── */
+    #chatPhotoOverlay {
+      position:fixed; inset:0; z-index:2100;
+      background:var(--vx-bg,#07090f);
+      display:flex; flex-direction:column;
+      transform:translateX(100%);
+      transition:transform 0.32s cubic-bezier(0.32,0.72,0,1);
+      pointer-events:none;
+    }
+    #chatPhotoOverlay.open { transform:translateX(0); pointer-events:auto; }
+    .cpo-header {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 16px 12px;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+      flex-shrink:0; background:var(--vx-bg,#07090f);
+    }
+    .cpo-back-btn {
+      width:36px; height:36px; border:none;
+      background:rgba(255,255,255,0.08); border-radius:50%;
+      color:#fff; display:flex; align-items:center; justify-content:center;
+      cursor:pointer; transition:background .15s; flex-shrink:0;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .cpo-back-btn:active { background:rgba(255,255,255,0.15); }
+    .cpo-title { font-size:15px; font-weight:700; color:#fff; letter-spacing:-.01em; }
+    .cpo-content { flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; }
     .chat-screen.open { transform:translateX(0); }
     /* 채팅창 배경 블러 백드롭 */
     #chatBackdrop { position:fixed; inset:0; z-index:1999; background:rgba(0,0,0,0); backdrop-filter:blur(0px); -webkit-backdrop-filter:blur(0px); pointer-events:none; transition:background 0.3s cubic-bezier(0.32,0.72,0,1), backdrop-filter 0.3s cubic-bezier(0.32,0.72,0,1); }
@@ -1210,6 +1237,8 @@
       /* ── 채팅창: 480px 중앙 고정 ── */
       .chat-screen { left:50%; right:auto; width:480px; transform:translateX(100vw); border-left:1px solid #e5e5e5; border-right:1px solid #e5e5e5; }
       .chat-screen.open { transform:translateX(-50%); }
+      #chatPhotoOverlay { top:0; bottom:0; left:50%; right:auto; width:480px; transform:translateX(-50%) translateX(480px); visibility:hidden; border-left:1px solid rgba(255,255,255,0.08); border-right:1px solid rgba(255,255,255,0.08); transition:transform 0.32s cubic-bezier(0.32,0.72,0,1), visibility 0s linear 0.32s; }
+      #chatPhotoOverlay.open { transform:translateX(-50%); visibility:visible; transition:transform 0.32s cubic-bezier(0.32,0.72,0,1), visibility 0s linear 0s; }
 
       /* ── 프로필 모달: 채팅창과 동일한 480px 중앙 고정 ── */
       .profile-overlay {
@@ -5658,6 +5687,20 @@ function vxCamShoot(){
 
 <!-- 1:1 CHAT SCREEN -->
 <div id="chatBackdrop" onclick="closeChatRoom()"></div>
+
+<!-- ── 채팅 포토 오버레이 (셀카/네컷) ── -->
+<div id="chatPhotoOverlay">
+  <div class="cpo-header">
+    <button class="cpo-back-btn" onclick="closeChatPhotoOverlay()" aria-label="뒤로">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+    <span class="cpo-title" id="cpoTitle">셀카 모드</span>
+    <div style="width:36px"></div>
+  </div>
+  <div class="cpo-content" id="cpoContent"></div>
+</div>
 <div class="chat-screen" id="chatScreen">
   <div class="chat-main">
   <div class="chat-header">
@@ -15759,34 +15802,65 @@ function toggleChatActions() {
   overlay.classList.toggle('open', !isOpen);
 }
 
+let _cpoOrigParent = null;
+
+function openChatPhotoOverlay(mode) {
+  const ps = document.getElementById('photoSection');
+  const content = document.getElementById('cpoContent');
+  if (!ps || !content) return;
+
+  // photoSection을 오버레이로 이동
+  if (ps.parentElement !== content) {
+    _cpoOrigParent = ps.parentElement;
+    ps.style.display = 'block';
+    ps.style.margin = '0';
+    ps.style.borderRadius = '0';
+    ps.style.boxShadow = 'none';
+    content.appendChild(ps);
+  }
+
+  // 제목 + 모드 설정
+  const titleEl = document.getElementById('cpoTitle');
+  if (titleEl) titleEl.textContent = mode === 'selfie' ? '셀카 모드' : '인생네컷 모드';
+
+  switchPhotoMode(mode);
+  if (currentChatMember) {
+    if (mode === 'selfie') { try { selectPhotoMember(currentChatMember); } catch(e){} }
+    else { try { selectFourcutMember(currentChatMember); } catch(e){} }
+  }
+
+  // 오버레이 열기
+  requestAnimationFrame(() => {
+    document.getElementById('chatPhotoOverlay').classList.add('open');
+  });
+}
+
+function closeChatPhotoOverlay() {
+  const overlay = document.getElementById('chatPhotoOverlay');
+  overlay.classList.remove('open');
+
+  // photoSection 원위치 복원
+  setTimeout(() => {
+    const ps = document.getElementById('photoSection');
+    if (ps && _cpoOrigParent) {
+      ps.style.display = 'none';
+      ps.style.margin = '';
+      ps.style.borderRadius = '';
+      ps.style.boxShadow = '';
+      _cpoOrigParent.appendChild(ps);
+      _cpoOrigParent = null;
+    }
+  }, 350);
+}
+
 function chatActionPhoto() {
   toggleChatActions();
-  const targetMember = currentChatMember;
-  closeChatRoom();
-  if (targetMember) {
-    showScreen('screen-results');
-    document.getElementById('photoSection').style.display = 'block';
-    switchPhotoMode('selfie');
-    selectPhotoMember(targetMember);
-    setTimeout(() => {
-      document.getElementById('photoSection').scrollIntoView({ behavior:'smooth' });
-    }, 80);
-  }
+  openChatPhotoOverlay('selfie');
 }
 
 function chatActionFourcut() {
   toggleChatActions();
-  const targetMember = currentChatMember;
-  closeChatRoom();
-  if (targetMember) {
-    showScreen('screen-results');
-    document.getElementById('photoSection').style.display = 'block';
-    switchPhotoMode('fourcut');
-    selectFourcutMember(targetMember);
-    setTimeout(() => {
-      document.getElementById('photoSection').scrollIntoView({ behavior:'smooth' });
-    }, 80);
-  }
+  openChatPhotoOverlay('fourcut');
 }
 
 function chatActionGift() {
