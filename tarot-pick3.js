@@ -69,12 +69,27 @@
     width: 100%; height: 100%; border-radius: 11px;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     padding: 6px 4px; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .tp3-slot-mini-img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: center; z-index: 0;
+  }
+  .tp3-slot-mini-shade {
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(180deg, transparent 34%, rgba(0,0,0,0.58) 100%);
+    pointer-events: none;
   }
   .tp3-slot-mini-num {
+    position: relative; z-index: 2;
     font-family: var(--vx-font-mono, monospace); font-size: 8px;
     color: rgba(255,255,255,0.35); margin-bottom: 4px;
   }
-  .tp3-slot-mini-name { font-size: 11px; font-weight: 800; line-height: 1.25; }
+  .tp3-slot-mini-name {
+    position: relative; z-index: 2;
+    font-size: 11px; font-weight: 800; line-height: 1.25;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.9);
+  }
   .tp3-grid-wrap { flex: 1; min-height: 0; }
   .tp3-grid {
     display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -132,6 +147,15 @@
     box-shadow:
       inset 0 0 36px rgba(120,50,200,0.16),
       inset 0 0 10px rgba(212,175,55,0.07);
+  }
+  .tp3-card-back-img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: center; z-index: 0;
+  }
+  .tp3-card-back-img ~ .tp3-back-stars,
+  .tp3-card-back-img ~ .tp3-back-mandala,
+  .tp3-card-back-img ~ .tp3-back-label {
+    display: none;
   }
   .tp3-face-back::before {
     content: ''; position: absolute; inset: 4px; border-radius: 7px;
@@ -537,6 +561,20 @@
     return CARD_IMAGE_PATHS[card.id] || `/assets/tarot/${card.id}.png`;
   }
 
+  const CARD_BACK_PATHS = {
+    major: '/assets/tarot/back_park_lyra.png',
+    cups: '/assets/tarot/back_lee_luna.png',
+    swords: '/assets/tarot/back_shin_jiu.png',
+    wands: '/assets/tarot/back_choi_noa.png',
+    pentacles: '/assets/tarot/back_jung_aon.png',
+  };
+
+  function cardBackSrc(card) {
+    if (card.imageBack && card.imageBack.includes('/')) return card.imageBack;
+    if (card.suit && CARD_BACK_PATHS[card.suit]) return CARD_BACK_PATHS[card.suit];
+    return CARD_BACK_PATHS.major; // 메이저 아르카나 → Park Lyra 고정
+  }
+
   function getSourceDeck() {
     if (global.MAJOR_PICK3_DECK && global.MAJOR_PICK3_DECK.length === 22) {
       return global.MAJOR_PICK3_DECK.map(c => ({ ...c }));
@@ -553,7 +591,10 @@
     return shuffled;
   }
 
-  function generateTarotReading(selectedCards) {
+  function generateTarotReading(selectedCards, category) {
+    const slotLabels = CAT_SLOT_LABELS[category] || SLOT_LABELS;
+    const meaningKey = { love: 'loveMeaning', wealth: 'moneyMeaning', biz: 'careerMeaning' }[category] || 'loveMeaning';
+
     const keywords = selectedCards.flatMap(c => c.keywords);
     const unique = [...new Set(keywords)];
     const names = selectedCards.map(c => c.nameKo).join(', ');
@@ -568,13 +609,13 @@
       `${selectedCards[2].keywords[0]}의 기운을 믿되, ` +
       `${selectedCards[0].nameKo}이 전하는 따뜻함도 잊지 마세요.`;
 
-    return {
-      summary,
-      love: { card: selectedCards[0], title: '애정운', message: selectedCards[0].loveMeaning },
-      money: { card: selectedCards[1], title: '재물운', message: selectedCards[1].moneyMeaning },
-      career: { card: selectedCards[2], title: '학업&취업운', message: selectedCards[2].careerMeaning },
-      advice,
-    };
+    const slots = selectedCards.map((card, i) => ({
+      card,
+      title: slotLabels[i] || `슬롯 ${i + 1}`,
+      message: card[meaningKey] || card.loveMeaning || card.moneyMeaning || card.careerMeaning || card.upright || '',
+    }));
+
+    return { summary, slots, advice };
   }
 
   const state = {
@@ -696,7 +737,7 @@
 
   function handleShowReading() {
     if (!isReadingReady()) return;
-    state.result = generateTarotReading(state.selectedCards);
+    state.result = generateTarotReading(state.selectedCards, state.category);
     render();
     const resultEl = document.getElementById('tp3Result');
     if (resultEl) resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -722,8 +763,8 @@
       <div class="tp3-slot">
         <div class="tp3-slot-card filled">
           <div class="tp3-slot-mini" style="background:${cardBg(card)}">
-            <div class="tp3-slot-mini-num">${card.number}</div>
-            <div class="tp3-slot-mini-name">${card.nameKo}</div>
+            <img class="tp3-slot-mini-img" src="${cardImageSrc(card)}" alt="${card.nameKo} 타로 카드" loading="lazy" decoding="async">
+            <div class="tp3-slot-mini-shade"></div>
           </div>
         </div>
       </div>`;
@@ -747,6 +788,7 @@
       >
         <div class="tp3-card-inner">
           <div class="tp3-face tp3-face-back${peeked ? ' is-peeked' : ''}">
+            <img class="tp3-card-back-img" src="${cardBackSrc(card)}" alt="${card.nameKo} 카드 뒷면" loading="lazy" decoding="async">
             <div class="tp3-back-stars"></div>
             <svg class="tp3-back-mandala" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
               <!-- 교차선 -->
@@ -823,9 +865,9 @@
           <div class="tp3-rcard-inner">
             <div class="tp3-rcard-face tp3-rcard-back"
                  style="background:${bg};--tp3-rc-color:${card.color}">
+              <img class="tp3-card-img" src="${cardBackSrc(card)}" alt="${card.nameKo} 카드 뒷면" loading="lazy" decoding="async" onerror="this.style.display='none'">
               <div class="tp3-rcard-back-glow"></div>
-              <div class="tp3-rcard-sym">${symHtmlLarge(card)}</div>
-              <div class="tp3-rcard-hint">탭해서 확인</div>
+              <div class="tp3-rcard-hint" style="position:relative;z-index:2">탭해서 확인</div>
             </div>
             <div class="tp3-rcard-face tp3-rcard-front"
                  style="background:${bg};--tp3-rc-color:${card.color}">
@@ -857,15 +899,13 @@
         <div class="tp3-result-header">
           <button type="button" class="tp3-result-back" id="tp3BackPick" aria-label="뒤로"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 12H5" stroke="white" stroke-width="1.6" stroke-linecap="round"/><path d="M11 6l-6 6 6 6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
           <div>
-            <div class="tp3-result-title">오늘의 점괘</div>
+            <div class="tp3-result-title">오늘의 힐링타로</div>
             <div class="tp3-result-sub">${names}</div>
           </div>
         </div>
         <p class="tp3-result-summary">${r.summary}</p>
         <div class="tp3-result-stack">
-          ${rcardHtml(r.love,   0)}
-          ${rcardHtml(r.money,  1)}
-          ${rcardHtml(r.career, 2)}
+          ${r.slots.map((block, i) => rcardHtml(block, i)).join('')}
         </div>
         <div class="tp3-result-advice">${r.advice}</div>
         <button type="button" class="tp3-back-link" id="tp3BackPick2">카드 다시 고르기</button>
@@ -877,7 +917,7 @@
     if (!container) return;
 
     const ready = isReadingReady();
-    const readLabel = ready ? '오늘의 점괘 보기' : '카드를 3장 선택해 주세요';
+    const readLabel = ready ? '오늘의 힐링타로 보기' : '카드를 3장 선택해 주세요';
     const shuffleLabel = state.isShuffling ? '섞는 중...' : '셔플';
 
     // ── 결과 페이지 ──
@@ -937,6 +977,10 @@
     state.category  = (options && options.category)  || 'love';
     if (!state.deck.length) {
       const source = getSourceDeck();
+      if (!source.length) {
+        container.innerHTML = '<div class="tp3-root" style="text-align:center;padding:40px;color:rgba(255,255,255,0.4);font-size:13px">카드 데이터를 불러오는 중...</div>';
+        return;
+      }
       state.deck = shuffleDeck(source);
     }
     state.selectedCards = [];

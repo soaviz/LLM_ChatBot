@@ -114,6 +114,12 @@
     box-shadow: inset 0 0 0 1px rgba(212,175,55,0.22);
   }
   .fc-menu-btn:active { transform: scale(.97); }
+  .fc-menu-wrap.qa-open ~ .tp3-guide,
+  .fc-menu-wrap.qa-open ~ .tp3-slots,
+  .fc-menu-wrap.qa-open ~ .tp3-grid-wrap,
+  .fc-menu-wrap.qa-open ~ .tp3-actions {
+    display: none;
+  }
   .fc-qa-panel {
     margin-top: 8px; padding: 12px;
     border-radius: 14px;
@@ -156,6 +162,10 @@
     border: 1px solid rgba(199,125,255,0.28);
     box-shadow: 0 12px 40px rgba(0,0,0,0.45);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .fc-card-back-img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: center; z-index: 0;
   }
   .fc-back-glyph { font-size: 36px; color: rgba(199,125,255,0.22); }
   .fc-back-label {
@@ -1170,6 +1180,15 @@
       <div class="fc-card-image-shade"></div>`;
   }
 
+  function _cardBackImage(card) {
+    // 캐릭터(아티스트)별 뒷면 고정 매칭
+    if (card && card.suit === 'cups')      return 'assets/tarot/back_lee_luna.png';
+    if (card && card.suit === 'swords')    return 'assets/tarot/back_shin_jiu.png';
+    if (card && card.suit === 'wands')     return 'assets/tarot/back_choi_noa.png';
+    if (card && card.suit === 'pentacles') return 'assets/tarot/back_jung_aon.png';
+    return 'assets/tarot/back_park_lyra.png'; // 메이저 아르카나 → Park Lyra 고정
+  }
+
   function _cardBg(card) {
     const r = parseInt(card.color.slice(1,3), 16);
     const g = parseInt(card.color.slice(3,5), 16);
@@ -1279,8 +1298,7 @@
       <div class="fc-flip-wrap" id="fcFlipWrap" onclick="_fcReveal('${card.id}')">
         <div class="fc-flip-inner">
           <div class="fc-card-face fc-card-back-lg">
-            <div class="fc-back-glyph">✦</div>
-            <div class="fc-back-label">VENUX</div>
+            <img class="fc-card-back-img" src="${_cardBackImage(card)}" alt="${card.name} 카드 뒷면" loading="lazy" decoding="async">
           </div>
           <div class="fc-card-face fc-card-front ${image ? 'has-image' : ''}"
                style="${image ? '' : `background:${_cardBg(card)};`}border:1px solid ${card.color}55">
@@ -1400,7 +1418,7 @@
   function _menuHtml(active) {
     const item = (id, label) => `
       <button class="fc-menu-btn ${active === id ? 'active' : ''}" onclick="_fcShowView('${id}')">${label}</button>`;
-    return `<div class="fc-menu-wrap">
+    return `<div class="fc-menu-wrap ${_qaOpen ? 'qa-open' : ''}">
       <div class="fc-top-menu" role="tablist" aria-label="타로 메뉴">
         ${item('love',   '애정운')}
         ${item('wealth', '재물운')}
@@ -1725,9 +1743,6 @@
     // 코인 확인
     const daily = getDailyState();
     const freeCount = 3;
-    const usedFree = _chatMsgCount >= freeCount;
-    const chatFreeExhausted = usedFree && !(daily && !daily.chatFreeUsed);
-
     if (_chatMsgCount >= freeCount) {
       // 코인 차감 시도
       if (!_deductTarotCoin()) {
